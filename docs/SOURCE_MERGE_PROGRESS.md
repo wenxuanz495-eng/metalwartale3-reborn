@@ -43,3 +43,18 @@
 ## 后续增量
 
 - 2026-07-21：定制武器商城价统一 20000 MB，并允许购买（不再仅展示）。
+
+
+## 修改器章节进度（已合并）
+
+
+untime/modifier.html 已包含海豹 1.2 的「剧情进度测试（自由之心）」完整实现，无需再从外部拷贝：
+
+- 171 关精确下拉（reeHeartLevels）
+- pplyStoryProgressToLevel / saveChapterProgress
+- 只改进度字段 
+ewLevelData.p1.lockNum 与 scoreObj
+- 下一关解锁、后续锁定
+- 与特殊功能分离的「保存剧情进度」按钮
+
+启动修改器时优先打开 /modifier.html（完整版），/editor 为服务端内置基础页，不含章节进度。
