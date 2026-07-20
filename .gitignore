@@ -62,3 +62,17 @@ Desktop.ini
 /1.2文件备份/
 /vip_*/
 /video_review_frames/
+
+# Runtime build artifacts and player binaries (rebuild locally)
+/runtime/server.exe
+/runtime/FlashPlayer.exe
+/runtime/flashplayer_sa_debug.exe
+/runtime/game.swf
+/runtime/game.base.swf
+/runtime/game.build.swf
+/runtime/gamefile.repo.swf
+/runtime/*.tmp
+/runtime/*.out
+/runtime/*.log
+/runtime/*.err
+/runtime/saves/
