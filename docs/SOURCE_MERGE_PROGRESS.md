@@ -38,3 +38,8 @@
 
 - 覆盖前脚本备份：`D:\superalloy\1.2文件备份\repo-scripts-before-seal-merge-20260721`
 - 1.2 导出：`D:\superalloy\1.2文件备份\seal12_export_scripts_20260721`
+
+
+## 后续增量
+
+- 2026-07-21：定制武器商城价统一 20000 MB，并允许购买（不再仅展示）。

@@ -1,4 +1,4 @@
-package UI.shop
+﻿package UI.shop
 {
    import UI.ClickEvent;
    import UI.label.LabelCtrl;
@@ -213,11 +213,7 @@ package UI.shop
                return;
             }
          }
-         if(d0.discount == -1000)
-         {
-            Game.uiGroup.checkTip.showCheck2("这是玩家定制的商品，只提供展示，不能购买。",3);
-            return;
-         }
+         // custom goods (discount -1000) are purchasable offline at fixed MB price
          if(d0.id == this.GD.subCarLabel)
          {
             Game.uiGroup.checkTip.showCheck2("你已经拥有了此浮游战机机体，不能购买。",3);

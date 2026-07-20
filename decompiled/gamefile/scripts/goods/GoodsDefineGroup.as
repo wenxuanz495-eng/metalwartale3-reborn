@@ -1,4 +1,4 @@
-package goods
+﻿package goods
 {
    import body.define.DefineGroup;
    import body.define.OneArmsDefine;
@@ -240,13 +240,13 @@ package goods
                      if(d0.father == "arms" && this.findGoods_inArr(this.arms,d0.getLabel()) == null)
                      {
                         goods0 = this.switchArms([d0],"arms","Mprice")[0];
-                        goods0.Mprice = 1200;
+                        goods0.Mprice = 20000;
                         this.arms.push(goods0);
                      }
                      else if(d0.father == "sub" && this.findGoods_inArr(this.sub,d0.getLabel()) == null)
                      {
                         goods0 = this.switchArms([d0],"sub","Mprice")[0];
-                        goods0.Mprice = 1200;
+                        goods0.Mprice = 20000;
                         this.sub.push(goods0);
                      }
                      break;
@@ -946,4 +946,5 @@ package goods
       }
    }
 }
+
 
