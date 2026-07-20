@@ -76,3 +76,7 @@ Desktop.ini
 /runtime/*.log
 /runtime/*.err
 /runtime/saves/
+
+# Runtime copied resources (use repo /swf or prepare script)
+/runtime/swf/
+
