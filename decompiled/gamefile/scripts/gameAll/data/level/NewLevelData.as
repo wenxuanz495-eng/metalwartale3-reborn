@@ -183,6 +183,10 @@ package gameAll.data.level
       
       public function getScore(level0:int, diff0:int, packName:String = "") : int
       {
+         if(Game.gameData != null && Game.gameData.modAllLevelsPassed)
+         {
+            return 10000;
+         }
          if(packName == "")
          {
             packName = this.levelPack;
@@ -209,6 +213,10 @@ package gameAll.data.level
       {
          var n:* = undefined;
          var num0:int = 0;
+         if(Game.gameData != null && Game.gameData.modAllLevelsPassed)
+         {
+            return this.getAllStar();
+         }
          for(n in this.scoreObj)
          {
             if(n != "p1_0_0")

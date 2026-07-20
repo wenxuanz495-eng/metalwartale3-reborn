@@ -37,7 +37,7 @@ package UI.gift
       
       public function show(e:* = null) : *
       {
-         Game.payController2.getTotalRecharged(this.fleshData);
+         this.fleshData();
          this.visible = true;
       }
       
@@ -54,8 +54,7 @@ package UI.gift
          this.armsIcon.inData_byDefine(d1);
          this.carIcon.clearData();
          this.carIcon.inData_byDefine(d2);
-         var mcoin:int = Game.payController2.getTrueTotalRecharged();
-         if(Game.gameData.livenessData.firstGetB || mcoin < 50)
+         if(Game.gameData.livenessData.firstGetB)
          {
             this.getGift_btn.mouseEnabled = false;
             this.getGift_btn.alpha = 0.4;
@@ -85,6 +84,7 @@ package UI.gift
             Game.uiGroup.checkTip.showTip("领取成功！",1);
             Game.SG.playSound("upgradeArms");
             Game.gameData.livenessData.firstGetB = true;
+            Game.uiGroup.saveDataNoUI("领取登录礼包");
             this.fleshData();
          }
          else

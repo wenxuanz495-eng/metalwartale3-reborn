@@ -9,6 +9,8 @@ package gameAll.data
       
       public static var maxLevel:int = 45;
       
+      public static const LEVEL_COOLDOWN:Number = 900000;
+      
       public var diffUnlock:Array = [1,0,0,0];
       
       public var score_arr:Array = [];
@@ -18,6 +20,12 @@ package gameAll.data
       public var allState:Array = [];
       
       public var buyNum:int = 0;
+      
+      public var firstFreeUsed:Array = [];
+      
+      public var cooldownReadyAt:Array = [];
+      
+      public var currentRunRewardB:Boolean = true;
       
       private var _juneB:String = "";
       
@@ -52,20 +60,34 @@ package gameAll.data
       public function init() : *
       {
          this.nowDiff = 0;
-         for(var i:int = 0; i < 4; i++)
+         var i:int = 0;
+         while(i < 4)
          {
             this.allState[i] = new Array(100);
+            i++;
          }
          this.diffUnlock = [1,0,0,0];
          this.initScore();
+         this.firstFreeUsed = [];
+         this.cooldownReadyAt = [];
+         var j:int = 0;
+         while(j < maxLevel)
+         {
+            this.firstFreeUsed.push(false);
+            this.cooldownReadyAt.push(0);
+            j++;
+         }
+         this.currentRunRewardB = true;
       }
       
       public function initScore() : *
       {
          this.score_arr = [];
-         for(var i:int = 0; i < maxLevel; i++)
+         var i:int = 0;
+         while(i < maxLevel)
          {
             this.score_arr.push(TextWay.toCode("0"));
+            i++;
          }
       }
       
@@ -149,6 +171,96 @@ package gameAll.data
          {
             this.juneB = obj.juneB;
          }
+         if(obj.hasOwnProperty("firstFreeUsed"))
+         {
+            this.firstFreeUsed = obj.firstFreeUsed.concat();
+         }
+         else
+         {
+            this.firstFreeUsed = [];
+            var j:int = 0;
+            while(j < maxLevel)
+            {
+               this.firstFreeUsed.push(false);
+               j++;
+            }
+         }
+         this.cooldownReadyAt = [];
+         var k:int = 0;
+         while(k < maxLevel)
+         {
+            if(obj.hasOwnProperty("cooldownReadyAt") && k < obj.cooldownReadyAt.length)
+            {
+               this.cooldownReadyAt.push(Number(obj.cooldownReadyAt[k]));
+            }
+            else
+            {
+               this.cooldownReadyAt.push(0);
+            }
+            k++;
+         }
+         this.currentRunRewardB = true;
+      }
+      
+      public function isLevelCooling(index0:int) : Boolean
+      {
+         if(Game.gameData != null && Game.gameData.modNoExtraCooldown)
+         {
+            return false;
+         }
+         return index0 >= 0 && index0 < this.cooldownReadyAt.length && Number(this.cooldownReadyAt[index0]) > new Date().time;
+      }
+      
+      public function getLevelCooldownSeconds(index0:int) : int
+      {
+         if(!this.isLevelCooling(index0))
+         {
+            return 0;
+         }
+         return Math.ceil((Number(this.cooldownReadyAt[index0]) - new Date().time) / 1000);
+      }
+      
+      public function startLevelCooldown(index0:int) : *
+      {
+         if(Game.gameData != null && Game.gameData.modNoExtraCooldown)
+         {
+            if(index0 >= 0 && index0 < this.cooldownReadyAt.length)
+            {
+               this.cooldownReadyAt[index0] = 0;
+            }
+            return;
+         }
+         if(index0 >= 0 && index0 < maxLevel)
+         {
+            this.cooldownReadyAt[index0] = new Date().time + LEVEL_COOLDOWN;
+         }
+      }
+      
+      public function hasFirstFree(index0:int) : Boolean
+      {
+         return !Boolean(this.firstFreeUsed[index0]);
+      }
+      
+      public function useFirstFree(index0:int) : *
+      {
+         this.firstFreeUsed[index0] = true;
+         this.currentRunRewardB = true;
+      }
+      
+      public function useChallengeCard() : Boolean
+      {
+         if(Game.gameData.propsItems.getNumByBase("elite_challenge_card") <= 0)
+         {
+            return false;
+         }
+         Game.gameData.propsItems.useItemsNum("elite_challenge_card",1);
+         this.currentRunRewardB = true;
+         return true;
+      }
+      
+      public function useNoReward() : *
+      {
+         this.currentRunRewardB = false;
       }
       
       public function newDayCtrl() : *
@@ -172,7 +284,8 @@ package gameAll.data
          var sta0:int = 0;
          var mustLevel0:int = 0;
          var lv0:int = Game.gameData.level;
-         for(var i:int = 0; i < maxLevel; i++)
+         var i:int = 0;
+         while(i < maxLevel)
          {
             sta0 = int(this.allState[this.nowDiff][i]);
             mustLevel0 = this.getMustLevel(this.nowDiff,i);
@@ -185,6 +298,7 @@ package gameAll.data
                sta0 = 1;
             }
             this.allState[this.nowDiff][i] = sta0;
+            i++;
          }
       }
       
@@ -220,7 +334,7 @@ package gameAll.data
       public function getRestart_M() : NormalMustDefine
       {
          var nmd0:NormalMustDefine = new NormalMustDefine();
-         nmd0.MCoin = 0;
+         nmd0.MCoin = (this.buyNum + 1) * 10;
          return nmd0;
       }
       

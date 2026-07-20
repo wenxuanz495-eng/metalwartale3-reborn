@@ -117,8 +117,6 @@ package gameAll.data
       public var playerName:String = "4399小战士";
       
       public var headLabel:String = "s1";
-
-      public var unlockedHeadArr:Array = ["s1","s2","s3"];
       
       public var tutorial:int = 0;
       
@@ -182,6 +180,24 @@ package gameAll.data
       
       public var backstageMCoin:int = 0;
       
+      public var totalEarnedMCoin:Number = 0;
+      
+      public var modInfiniteEnergy:Boolean = false;
+      
+      public var modGod:Boolean = false;
+      
+      public var modOneHit:Boolean = false;
+      
+      public var modUnlockAll:Boolean = false;
+      
+      public var modCraftFree:Boolean = false;
+      
+      public var modNoExtraCooldown:Boolean = false;
+      
+      public var modNoTaskCooldown:Boolean = false;
+      
+      public var modAllLevelsPassed:Boolean = false;
+      
       public var knowingData:KnowingData = new KnowingData();
       
       public var ghostData:GhostData = new GhostData();
@@ -195,8 +211,7 @@ package gameAll.data
       public var passData:PassScore = new PassScore();
       
       public var newLevelData:NewLevelData = new NewLevelData();
-
-      // Single-player replacement for the original 4399 union service.
+      
       public var offlineUnion:Object = null;
       
       public var saveDataVersion:String = "1.003";
@@ -281,7 +296,8 @@ package gameAll.data
       {
          var name0:String = null;
          var gd0:GoodsItemsData = null;
-         for(var i:int = 0; i < 4; i++)
+         var i:int = 0;
+         while(i < 4)
          {
             name0 = "GCoin_card_" + (i + 1);
             gd0 = this.propsItems.getItemsByName(name0);
@@ -289,19 +305,20 @@ package gameAll.data
             {
                Game.IC.useItems(gd0,this.propsItems,true);
             }
+            i++;
          }
       }
       
       public function inData_byObj(obj:Object, fleshB:Boolean = false) : *
       {
          var n:* = undefined;
-         var v00:Number = NaN;
-         var v01:Number = NaN;
+         var v00:Number = Number(NaN);
+         var v01:Number = Number(NaN);
          var m:* = undefined;
          var pro0:String = null;
          var name2:String = null;
          var tt:int = 0;
-         var pro_arr:Array = ["tutorial","levelsLock","nowSkillNum","foreverLife","nowLife","baseDefence","foreverDefence","level","nowArmsIndex","nowExp","achieve","allAchieve","GCoin","MCoin","MCoin2","score","playerRank","playerName","rankLevel","headLabel","lastExchangeData","growVip"];
+         var pro_arr:Array = ["tutorial","levelsLock","nowSkillNum","foreverLife","nowLife","baseDefence","foreverDefence","level","nowArmsIndex","nowExp","achieve","allAchieve","GCoin","MCoin","score","playerRank","playerName","rankLevel","headLabel","lastExchangeData","growVip"];
          for(n in pro_arr)
          {
             pro0 = pro_arr[n];
@@ -318,7 +335,14 @@ package gameAll.data
          this.GCoin2 = obj.hasOwnProperty("GCoin2") ? obj.GCoin2 : this.GCoin;
          this.MCoin2 = obj.hasOwnProperty("MCoin2") ? obj.MCoin2 : this.MCoin;
          this.level2 = obj.hasOwnProperty("level2") ? obj.level2 : this.level;
-         // Offline build: discard legacy anti-cheat state from imported saves.
+         this.modInfiniteEnergy = obj.hasOwnProperty("modInfiniteEnergy") ? Boolean(obj.modInfiniteEnergy) : false;
+         this.modGod = obj.hasOwnProperty("modGod") ? Boolean(obj.modGod) : false;
+         this.modOneHit = obj.hasOwnProperty("modOneHit") ? Boolean(obj.modOneHit) : false;
+         this.modUnlockAll = obj.hasOwnProperty("modUnlockAll") ? Boolean(obj.modUnlockAll) : false;
+         this.modCraftFree = obj.hasOwnProperty("modCraftFree") ? Boolean(obj.modCraftFree) : false;
+         this.modNoExtraCooldown = obj.hasOwnProperty("modNoExtraCooldown") ? Boolean(obj.modNoExtraCooldown) : false;
+         this.modNoTaskCooldown = obj.hasOwnProperty("modNoTaskCooldown") ? Boolean(obj.modNoTaskCooldown) : false;
+         this.modAllLevelsPassed = obj.hasOwnProperty("modAllLevelsPassed") ? Boolean(obj.modAllLevelsPassed) : false;
          this.isZuobi = false;
          this.zuobiStr = "";
          if(obj.hasOwnProperty("offlineUnion") && obj.offlineUnion != null)
@@ -328,18 +352,6 @@ package gameAll.data
          else
          {
             this.offlineUnion = null;
-         }
-         if(obj.hasOwnProperty("unlockedHeadArr") && obj.unlockedHeadArr is Array)
-         {
-            this.unlockedHeadArr = obj.unlockedHeadArr.concat();
-         }
-         else
-         {
-            this.unlockedHeadArr = ["s1","s2","s3"];
-         }
-         if(this.unlockedHeadArr.indexOf(this.headLabel) < 0)
-         {
-            this.unlockedHeadArr.push(this.headLabel);
          }
          if(!obj.hasOwnProperty("testRankZuobiB"))
          {
@@ -400,6 +412,18 @@ package gameAll.data
          {
             this.backstageMCoin = obj.backstageMCoin;
          }
+         if(obj.hasOwnProperty("totalEarnedMCoin"))
+         {
+            this.totalEarnedMCoin = Number(obj.totalEarnedMCoin);
+         }
+         else
+         {
+            this.totalEarnedMCoin = this.MCoin;
+         }
+         if(isNaN(this.totalEarnedMCoin) || this.totalEarnedMCoin < 0)
+         {
+            this.totalEarnedMCoin = 0;
+         }
          this.challengeTaskData.fleshByTaskDefine();
          this.collectTaskData.fleshByTaskDefine();
          this.weekTaskData.fleshByTaskDefine();
@@ -458,19 +482,25 @@ package gameAll.data
          this.nowDifficult = 0;
          this.lastExchangeData = "0_0|0,0|0,0|0,0|0,0|0,0|0";
          this.itemsAdd.clearData();
-         for(var n:int = 0; n < 1; n++)
+         var n:int = 0;
+         while(n < 1)
          {
             this.armsItems.addItems("soya_lv1");
+            n++;
          }
          this.armsItems.loadEquip(this.armsItems.arr[0].id,0);
          this.nowArmsData = this.armsItems.equArr[0];
-         for(var m:int = 0; m < 1; m++)
+         var m:int = 0;
+         while(m < 1)
          {
+            m++;
          }
          this.subItems.armsState = ["","lock","lock","lock","lock","lock","lock","lock"];
-         for(var m2:int = 0; m2 < 1; m2++)
+         var m2:int = 0;
+         while(m2 < 1)
          {
             this.carItems.addItems(this.nowCarLabel);
+            m2++;
          }
          this.carItems.loadFirstEquip();
          var chip0:GoodsItemsData = this.materialsItems.addItems("white_chip");
@@ -520,11 +550,19 @@ package gameAll.data
       
       public function getKnowingLevelUnLock() : int
       {
+         if(this.modUnlockAll || this.modAllLevelsPassed)
+         {
+            return 9999;
+         }
          return this.knowingData.levelsLock[this.nowDifficult];
       }
       
       public function getGhostLevelUnLock() : int
       {
+         if(this.modUnlockAll || this.modAllLevelsPassed)
+         {
+            return 9999;
+         }
          return this.ghostData.levelsLock[this.nowDifficult];
       }
       
@@ -649,6 +687,10 @@ package gameAll.data
       
       public function setLife(value:Number, way0:String = "add") : *
       {
+         if(this.modGod && value < 0)
+         {
+            return;
+         }
          var ml0:Number = this.maxLife;
          if(way0 == "add")
          {
@@ -730,24 +772,15 @@ package gameAll.data
          var g2:* = this.MCoin2;
          var zuobi0:Boolean = g1 != g2;
          this.MCoin += value;
+         if(value > 0)
+         {
+            this.totalEarnedMCoin += value;
+         }
          if(this.MCoin < 0)
          {
             this.MCoin = 0;
          }
          this.MCoin2 = this.MCoin;
-      }
-
-      public function isHeadUnlocked(label0:String) : Boolean
-      {
-         return this.unlockedHeadArr.indexOf(label0) >= 0;
-      }
-
-      public function unlockHead(label0:String) : *
-      {
-         if(this.unlockedHeadArr.indexOf(label0) < 0)
-         {
-            this.unlockedHeadArr.push(label0);
-         }
       }
       
       public function addScore(value:int) : *
@@ -824,11 +857,19 @@ package gameAll.data
       
       public function getNowLevelUnlock() : int
       {
+         if(this.modUnlockAll || this.modAllLevelsPassed)
+         {
+            return 9999;
+         }
          return this.levelsLock[this.nowDifficult];
       }
       
       public function getLevelUnlockB(diff0:int, level0:int, levelPack0:String = "") : Boolean
       {
+         if(this.modUnlockAll || this.modAllLevelsPassed)
+         {
+            return true;
+         }
          var bb0:Boolean = false;
          var unlock_level0:int = 0;
          var mustLevel:int = 0;
@@ -977,6 +1018,10 @@ package gameAll.data
       
       public function isLevelUnlock(diff0:int, level0:int) : Boolean
       {
+         if(this.modUnlockAll || this.modAllLevelsPassed)
+         {
+            return true;
+         }
          var page0:int = diff0 / 4;
          var bb0:Boolean = false;
          var p0:OnePackData = this.newLevelData[packName[page0]];
@@ -1016,6 +1061,10 @@ package gameAll.data
       
       public function isBeforeLevelUnlock(diff0:int, level0:int) : Boolean
       {
+         if(this.modUnlockAll || this.modAllLevelsPassed)
+         {
+            return true;
+         }
          var arr0:Array = this.changeToNewLevel(diff0,level0);
          var page0:String = arr0[0];
          level0 = int(arr0[1]);

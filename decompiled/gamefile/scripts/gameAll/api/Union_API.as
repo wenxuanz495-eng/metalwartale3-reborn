@@ -204,7 +204,12 @@ package gameAll.api
             var applyState:Object = this.getLocalState(false);
             if(!applyState.exists)
             {
-               Game.gameData.offlineUnion = this.makeLocalUnion("离线公会",idx,JSON2.encode({"notice":"本地单机公会","playerName":this.localPlayerName(),"zdl":Game.gameData.getAllDps(),"count":1}));
+               Game.gameData.offlineUnion = this.makeLocalUnion("离线公会",idx,JSON2.encode({
+                  "notice":"本地单机公会",
+                  "playerName":this.localPlayerName(),
+                  "zdl":Game.gameData.getAllDps(),
+                  "count":1
+               }));
                this.saveLocalState();
             }
             if(_yesFun is Function)
@@ -238,7 +243,10 @@ package gameAll.api
          if(!Game.serviceHold)
          {
             var ownState:Object = this.getLocalState(true);
-            var ownData:Object = {"unionInfo":null,"member":null};
+            var ownData:Object = {
+               "unionInfo":null,
+               "member":null
+            };
             if(ownState.exists)
             {
                ownData.unionInfo = ownState.unionInfo;
@@ -1193,7 +1201,7 @@ package gameAll.api
             this._doVariableNoFun = null;
          }
       }
-
+      
       private function localPlayerName() : String
       {
          var name:String = Game.gameData.username;
@@ -1207,17 +1215,31 @@ package gameAll.api
          }
          return name;
       }
-
+      
       private function makeLocalVariables() : Object
       {
-         return {"30":50,"31":60,"32":60,"33":60,"34":60,"35":60,"36":0};
+         return {
+            "30":50,
+            "31":60,
+            "32":60,
+            "33":60,
+            "34":60,
+            "35":60,
+            "36":0
+         };
       }
-
+      
       private function makeEmptyLocalState() : Object
       {
-         return {"version":1,"exists":false,"unionInfo":null,"member":null,"variables":this.makeLocalVariables()};
+         return {
+            "version":1,
+            "exists":false,
+            "unionInfo":null,
+            "member":null,
+            "variables":this.makeLocalVariables()
+         };
       }
-
+      
       private function makeLocalUnion(title:String, idx:int, extra:String) : Object
       {
          var name:String = this.localPlayerName();
@@ -1227,14 +1249,49 @@ package gameAll.api
          }
          if(extra == null || extra == "")
          {
-            extra = JSON2.encode({"notice":"本地单机公会","playerName":Game.gameData.playerName,"zdl":Game.gameData.getAllDps(),"count":1});
+            extra = JSON2.encode({
+               "notice":"本地单机公会",
+               "playerName":Game.gameData.playerName,
+               "zdl":Game.gameData.getAllDps(),
+               "count":1
+            });
          }
-         var memberExtra:String = JSON2.encode({"playerName":Game.gameData.playerName,"level":Game.gameData.level + 1,"zdl":Game.gameData.getAllDps(),"post":"会长"});
-         var member:Object = {"uId":Game.gameData.uid > 0 ? Game.gameData.uid : 1,"index":idx,"userName":name,"contribution":450,"extra":memberExtra};
-         var unionInfo:Object = {"id":1,"unionId":1,"title":title,"userName":name,"username":name,"index":idx,"level":3,"count":1,"contribution":20600,"extra":extra,"extra2":JSON2.encode({"zdl":Game.gameData.getAllDps()}),"dissolveDate":"0"};
-         return {"version":1,"exists":true,"unionInfo":unionInfo,"member":member,"variables":this.makeLocalVariables()};
+         var memberExtra:String = JSON2.encode({
+            "playerName":Game.gameData.playerName,
+            "level":Game.gameData.level + 1,
+            "zdl":Game.gameData.getAllDps(),
+            "post":"会长"
+         });
+         var member:Object = {
+            "uId":(Game.gameData.uid > 0 ? Game.gameData.uid : 1),
+            "index":idx,
+            "userName":name,
+            "contribution":450,
+            "extra":memberExtra
+         };
+         var unionInfo:Object = {
+            "id":1,
+            "unionId":1,
+            "title":title,
+            "userName":name,
+            "username":name,
+            "index":idx,
+            "level":3,
+            "count":1,
+            "contribution":20600,
+            "extra":extra,
+            "extra2":JSON2.encode({"zdl":Game.gameData.getAllDps()}),
+            "dissolveDate":"0"
+         };
+         return {
+            "version":1,
+            "exists":true,
+            "unionInfo":unionInfo,
+            "member":member,
+            "variables":this.makeLocalVariables()
+         };
       }
-
+      
       private function getLocalState(bootstrap:Boolean) : Object
       {
          var state:Object = Game.gameData.offlineUnion;
@@ -1242,7 +1299,12 @@ package gameAll.api
          {
             if(bootstrap)
             {
-               state = this.makeLocalUnion("离线公会",Game.nowSaveIndex,JSON2.encode({"notice":"欢迎来到本地单机公会","playerName":Game.gameData.playerName,"zdl":Game.gameData.getAllDps(),"count":1}));
+               state = this.makeLocalUnion("离线公会",Game.nowSaveIndex,JSON2.encode({
+                  "notice":"欢迎来到本地单机公会",
+                  "playerName":Game.gameData.playerName,
+                  "zdl":Game.gameData.getAllDps(),
+                  "count":1
+               }));
             }
             else
             {
@@ -1258,12 +1320,20 @@ package gameAll.api
          }
          return state;
       }
-
+      
       private function getLocalListItem(unionInfo:Object) : Object
       {
-         return {"unionId":unionInfo.id,"title":unionInfo.title,"username":unionInfo.userName,"level":unionInfo.level,"count":1,"contribution":unionInfo.contribution,"extra":unionInfo.extra};
+         return {
+            "unionId":unionInfo.id,
+            "title":unionInfo.title,
+            "username":unionInfo.userName,
+            "level":unionInfo.level,
+            "count":1,
+            "contribution":unionInfo.contribution,
+            "extra":unionInfo.extra
+         };
       }
-
+      
       private function refreshLocalUnionLevel(state:Object) : void
       {
          var exp:Array = [0,4400,20600,65400,139400,265400,473400,785400,1409400,3281400,99999999];
@@ -1274,7 +1344,7 @@ package gameAll.api
          }
          state.unionInfo.level = level;
       }
-
+      
       private function addLocalContribution(memberValue:int, unionValue:int) : void
       {
          var state:Object = this.getLocalState(false);
@@ -1287,23 +1357,28 @@ package gameAll.api
          this.refreshLocalUnionLevel(state);
          this.saveLocalState();
       }
-
+      
       private function getLocalVariables(ids:Array) : Array
       {
          var state:Object = this.getLocalState(false);
          var result:Array = [];
-         for(var i:int = 0; i < ids.length; i++)
+         var i:int = 0;
+         while(i < ids.length)
          {
             var id:String = String(ids[i]);
             if(!state.variables.hasOwnProperty(id))
             {
                state.variables[id] = 0;
             }
-            result.push({"id":int(ids[i]),"value":int(state.variables[id])});
+            result.push({
+               "id":int(ids[i]),
+               "value":int(state.variables[id])
+            });
+            i++;
          }
          return result;
       }
-
+      
       private function changeLocalVariable(id:int) : void
       {
          var state:Object = this.getLocalState(false);
@@ -1327,7 +1402,7 @@ package gameAll.api
          state.variables[key] = value;
          this.saveLocalState();
       }
-
+      
       private function saveLocalState() : void
       {
          this._getUnionListLT = {"time":-1};

@@ -129,10 +129,34 @@ package UI.extra
          this.nowIndex = index0;
          if(this.extraState == "extra")
          {
-            state0 = int(this.extraData.allState[this.extraData.nowDiff][index0]);
-            if(state0 >= 1)
+            if(this.extraData.isLevelCooling(index0))
             {
+               Game.uiGroup.checkTip.showCheck("该精英副本正在冷却，剩余 " + this.extraData.getLevelCooldownSeconds(index0) + " 秒。仍可进入，但不会消耗挑战卡，也不会获得场内掉落、固定奖励和翻牌奖励。是否继续？",this.gotoExtraNoReward);
+               return;
+            }
+            state0 = int(this.extraData.allState[this.extraData.nowDiff][index0]);
+            if(state0 == 1)
+            {
+               this.extraData.currentRunRewardB = true;
                this.gotoExtra();
+            }
+            else if(state0 == 2 || state0 == 3)
+            {
+               if(this.extraData.hasFirstFree(index0))
+               {
+                  this.extraData.useFirstFree(index0);
+                  Game.uiGroup.checkTip.showTip("使用该副本首次解锁赠送的免费挑战机会。",1);
+                  this.gotoExtra();
+               }
+               else if(this.extraData.useChallengeCard())
+               {
+                  Game.uiGroup.checkTip.showTip("已消耗1张精英副本挑战卡。",1);
+                  this.gotoExtra();
+               }
+               else
+               {
+                  Game.uiGroup.checkTip.showCheck("没有精英副本挑战卡。仍可进入，但不会获得场内掉落、固定奖励和翻牌奖励。是否继续？",this.gotoExtraNoReward);
+               }
             }
          }
          else if(this.extraState == "weekExtra")
@@ -144,7 +168,7 @@ package UI.extra
             }
             else if(state0 == 2)
             {
-               Game.uiGroup.checkTip.showCheck2("你已经战胜了该副本的Boss！",2);
+               Game.uiGroup.checkTip.showCheck2("玩家副本冷却中，剩余 " + this.weekExtraData.getCooldownSeconds(index0) + " 秒。",2);
             }
          }
          else if(this.extraState == "specialExtra")
@@ -154,7 +178,18 @@ package UI.extra
             {
                sd0 = this.specialExtraData.arr[index0];
                trace(sd0);
-               this.gotoExtra();
+               if(this.specialExtraData.getCooldownSeconds(index0) > 0)
+               {
+                  Game.uiGroup.checkTip.showCheck2("特殊副本冷却中，剩余 " + this.specialExtraData.getCooldownSeconds(index0) + " 秒。",2);
+               }
+               else if(sd0.nowNum > 0)
+               {
+                  this.gotoExtra();
+               }
+               else
+               {
+                  Game.uiGroup.checkTip.showCheck2("今日该副本的重玩次数使用完毕！",2);
+               }
             }
          }
          this.tipBox.hide();
@@ -176,6 +211,12 @@ package UI.extra
          Game.eventGroup.chosenLevel(this.nowIndex,this.extraState);
       }
       
+      private function gotoExtraNoReward(e:* = null) : *
+      {
+         this.extraData.useNoReward();
+         this.gotoExtra();
+      }
+      
       private function levelOver(event:ClickEvent) : *
       {
          var color0:String = null;
@@ -188,7 +229,10 @@ package UI.extra
          if(this.extraState == "extra")
          {
             mustLevel0 = this.extraData.getMustLevel(this.extraData.nowDiff,event.index);
-            num0 = "无限";
+            if(this.extraData.allState[this.extraData.nowDiff][event.index] == 1)
+            {
+               num0 = "1";
+            }
             giftArr0 = Game.gameDefine.extra.getGift(this.extraData.nowDiff,event.index);
          }
          else if(this.extraState == "weekExtra")
@@ -208,13 +252,13 @@ package UI.extra
             mustLevel0 = this.specialExtraData.getMustLevel(event.index);
             if(event.index <= this.specialExtraData.arr.length - 1)
             {
-               num0 = "无限";
+               num0 = String(this.specialExtraData.arr[event.index].nowNum);
                giftArr0 = this.specialExtraData.arr[event.index].giftArr;
             }
          }
          if(mustLevel0 >= 998)
          {
-            str0 += StringToDefine.getFontColor(String("暂未开放"),"#FFFF00");
+            str0 += StringToDefine.getFontColor("暂未开放","#FFFF00");
          }
          else
          {
@@ -235,12 +279,21 @@ package UI.extra
             {
                color0 = "#FF0000";
             }
-            str0 += "\n" + "今日剩余次数： " + StringToDefine.getFontColor(String(num0),color0) + " 次";
+            str0 += "\n" + "今日剩余次数： " + StringToDefine.getFontColor(num0,color0) + " 次";
+            if(this.extraState == "extra")
+            {
+               str0 += "\n首次解锁赠送：" + (this.extraData.hasFirstFree(event.index) ? "1次" : "已使用");
+               str0 += "\n挑战卡：" + Game.gameData.propsItems.getNumByBase("elite_challenge_card") + "张";
+               if(this.extraData.isLevelCooling(event.index))
+               {
+                  str0 += "\n" + StringToDefine.getFontColor("冷却剩余：" + this.extraData.getLevelCooldownSeconds(event.index) + "秒（期间无奖励）","#FF9900");
+               }
+            }
             if(this.extraState != "extra")
             {
                if(this.extraState == "specialExtra")
                {
-                  str0 += "\n" + StringToDefine.getFontColor("（离线版可无限挑战）","#00FF00");
+                  str0 += "\n" + StringToDefine.getFontColor("（副本通关后剩余次数清零）","#00FF00");
                }
             }
             arr4 = Game.goodsDefineGroup.getArr_byStrArr(giftArr0,Game.gameData.level,true);

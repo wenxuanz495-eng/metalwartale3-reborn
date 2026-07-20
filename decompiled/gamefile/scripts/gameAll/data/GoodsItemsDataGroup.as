@@ -197,9 +197,11 @@ package gameAll.data
       {
          var str0:String = String(num0);
          var cx0:int = len0 - str0.length;
-         for(var i:int = 0; i < cx0; i++)
+         var i:int = 0;
+         while(i < cx0)
          {
             str0 = "0" + str0;
+            i++;
          }
          return str0;
       }
@@ -208,6 +210,15 @@ package gameAll.data
       {
          var n:* = undefined;
          var aid:GoodsItemsData = null;
+         if(Game.gameData.modCraftFree && this == Game.gameData.materialsItems)
+         {
+            aid = this.getItemsByName(str);
+            if(aid == null)
+            {
+               aid = this.addItems(str,9999);
+            }
+            return aid;
+         }
          for(n in this.arr)
          {
             aid = this.arr[n];
@@ -256,7 +267,8 @@ package gameAll.data
                }
                else
                {
-                  for(m = arr1.length - 1; m >= 0; m--)
+                  m = arr1.length - 1;
+                  while(m >= 0)
                   {
                      aid2 = arr1[m];
                      if(aid.exploreIndex >= aid2.exploreIndex)
@@ -269,6 +281,7 @@ package gameAll.data
                         arr1.splice(0,0,aid);
                         break;
                      }
+                     m--;
                   }
                }
             }
@@ -391,6 +404,10 @@ package gameAll.data
       
       public function getNumByBase(str0:String) : int
       {
+         if(Game.gameData.modCraftFree && this == Game.gameData.materialsItems)
+         {
+            return 9999;
+         }
          var aid:GoodsItemsData = this.getItemsByBase(str0);
          if(aid is GoodsItemsData)
          {
@@ -399,8 +416,27 @@ package gameAll.data
          return 0;
       }
       
+      public function getRealNumByBase(str0:String) : int
+      {
+         var aid:GoodsItemsData = this.getItemsByBase(str0);
+         return aid is GoodsItemsData ? aid.nowNum : 0;
+      }
+      
+      public function useItemsNumReal(str:String, num0:int = 1) : Boolean
+      {
+         var oldValue:Boolean = Game.gameData.modCraftFree;
+         Game.gameData.modCraftFree = false;
+         var result:Boolean = this.useItemsNum(str,num0);
+         Game.gameData.modCraftFree = oldValue;
+         return result;
+      }
+      
       public function useItemsData(id:GoodsItemsData, num0:int = 1) : *
       {
+         if(Game.gameData.modCraftFree && this == Game.gameData.materialsItems)
+         {
+            return;
+         }
          if(id.nowNum < num0)
          {
             trace("物品数量不够，不使用");
@@ -419,6 +455,10 @@ package gameAll.data
       
       public function useItemsNum(str:String, num0:int = 1) : Boolean
       {
+         if(Game.gameData.modCraftFree && this == Game.gameData.materialsItems)
+         {
+            return true;
+         }
          var gid0:GoodsItemsData = this.getItemsByBase(str);
          if(gid0 != null)
          {

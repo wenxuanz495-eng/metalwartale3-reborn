@@ -49,20 +49,34 @@ package UI.main
             this.btn_arr.push(btn0);
             btn0.addEventListener(MouseEvent.CLICK,this.btnClick);
          }
+         this.refreshClaimState();
       }
       
       public function btnClick(e:*) : *
       {
          var index0:int = this.btn_arr.indexOf(e.target);
          var d0:OneArmsDefine = this.armsBox.arr[index0].itemsData;
-         if(Game.gameData.checkArms_byIDArr([d0.id]) == "")
+         if(index0 < 0 || index0 >= Game.gameData.giftData.conClaimed.length)
          {
-            Game.gameData.armsItems.addItems(d0.getLabel());
+            return;
          }
+         if(Game.gameData.giftData.conClaimed[index0])
+         {
+            Game.uiGroup.checkTip.showTip("该星座武器已经领取过了。",1);
+            return;
+         }
+         if(Game.gameData.armsItems.getSurplus() < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2("主武器背包已满，请先腾出一个空位。",2);
+            return;
+         }
+         Game.gameData.armsItems.addItems(d0.getLabel());
+         Game.gameData.giftData.conClaimed[index0] = true;
          Game.gameData.giftData.haveConB = true;
          Game.uiGroup.checkTip.showTip("领取成功！",1);
          Game.SG.playSound("upgradeArms");
-         this.hide();
+         Game.uiGroup.saveDataNoUI();
+         this.refreshClaimState();
          Game.uiGroup.mainUI._main.fleshBtn();
       }
       
@@ -85,7 +99,25 @@ package UI.main
          {
             this.fleshData();
          }
+         this.refreshClaimState();
          this.visible = true;
+      }
+      
+      private function refreshClaimState() : *
+      {
+         var i:int = 0;
+         var d0:OneArmsDefine = null;
+         while(i < this.btn_arr.length)
+         {
+            d0 = this.armsBox.arr[i].itemsData;
+            if(!Game.gameData.giftData.conClaimed[i] && Game.gameData.checkArms_byIDArr([d0.id]) != "")
+            {
+               Game.gameData.giftData.conClaimed[i] = true;
+            }
+            this.btn_arr[i].mouseEnabled = !Game.gameData.giftData.conClaimed[i];
+            this.btn_arr[i].alpha = Game.gameData.giftData.conClaimed[i] ? 0.35 : 1;
+            i++;
+         }
       }
       
       public function hide(e:* = null) : *

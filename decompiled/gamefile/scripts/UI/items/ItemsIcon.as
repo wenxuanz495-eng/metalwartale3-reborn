@@ -5,6 +5,7 @@ package UI.items
    import flash.display.MovieClip;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
+   import flash.geom.ColorTransform;
    import flash.geom.Rectangle;
    import flash.text.TextField;
    import goods.GoodsDefine;
@@ -157,7 +158,7 @@ package UI.items
       
       public function setNum2(num:int) : *
       {
-         this.num_mc.txt.text = String(num + "级");
+         this.num_mc.txt.text = num + "级";
          if(num <= 0)
          {
             this.num_mc.visible = false;
@@ -218,6 +219,14 @@ package UI.items
             {
                mc = temp;
             }
+            if(obj.getDefine().name == "research_upgrade_card")
+            {
+               mc.transform.colorTransform = new ColorTransform(0.35,0.65,1.35,1,15,10,80,0);
+            }
+            else if(obj.getDefine().name == "elite_challenge_card")
+            {
+               mc.transform.colorTransform = new ColorTransform(1.15,0.45,1.35,1,35,0,65,0);
+            }
             this.setState("fill");
             this.setIcon(mc);
             if(Boolean(obj) && obj.type == "chip")
@@ -246,6 +255,14 @@ package UI.items
          {
             mc = temp;
          }
+         if(d0.name == "research_upgrade_card")
+         {
+            mc.transform.colorTransform = new ColorTransform(0.35,0.65,1.35,1,15,10,80,0);
+         }
+         else if(d0.name == "elite_challenge_card")
+         {
+            mc.transform.colorTransform = new ColorTransform(1.15,0.45,1.35,1,35,0,65,0);
+         }
          var icon0:MovieClip = mc;
          this.setState("fill");
          this.setIcon(icon0);
@@ -273,6 +290,10 @@ package UI.items
          else
          {
             mc = temp;
+         }
+         if(d0.id == "mcoin_reward_card")
+         {
+            mc.transform.colorTransform = new ColorTransform(1.25,0.7,0.15,1,60,22,0,0);
          }
          this.setState("fill");
          this.setIcon(mc);

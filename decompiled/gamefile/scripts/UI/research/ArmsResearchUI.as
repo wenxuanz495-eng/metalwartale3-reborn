@@ -1,6 +1,7 @@
 package UI.research
 {
    import UI.ClickEvent;
+   import UI.button.SountoScrollBar;
    import UI.change.ArmsIconBox;
    import UI.change.ArmsItemsTip;
    import UI.dialog.ItemsTipbox;
@@ -21,6 +22,7 @@ package UI.research
    import flash.events.Event;
    import flash.events.MouseEvent;
    import flash.geom.Point;
+   import flash.geom.Rectangle;
    import flash.text.TextField;
    import gameAll.NormalMustDefine;
    import gameAll.data.ArmsItemsData;
@@ -51,6 +53,10 @@ package UI.research
       public var armsBox:ArmsIconBox = new ArmsIconBox();
       
       public var armsBox4:ArmsIconBox = new ArmsIconBox();
+      
+      private var armsLevelViewport:Sprite = new Sprite();
+      
+      private var armsLevelScroll:SountoScrollBar = new SountoScrollBar();
       
       public var left_labelNum:int = 0;
       
@@ -95,6 +101,12 @@ package UI.research
       public var maxLevelShow:*;
       
       public var upgrade_conditionB:Boolean = true;
+      
+      public var upgradeNonMaterialB:Boolean = true;
+      
+      public var upgradeMaterialsB:Boolean = true;
+      
+      private var useResearchUpgradeCardB:Boolean = false;
       
       public var nowArms:ItemsArmsIcon = null;
       
@@ -185,11 +197,21 @@ package UI.research
          this.shop_mc.exchange_btn.setText("arms_gotoExchange");
          this.shop_mc.shop_btn.addEventListener(MouseEvent.CLICK,this.gotoArmsShop);
          this.shop_mc.exchange_btn.addEventListener(MouseEvent.CLICK,this.gotoArmsExchange);
-         this.armsBox4.x = 300;
-         this.armsBox4.y = 88;
+         this.armsBox4.x = 0;
+         this.armsBox4.y = 0;
          this.armsBox4.setNum(1,5,140,360);
+         this.armsBox4.continuousVertical = true;
          this.armsBox4.addEventListener(ClickEvent.ON_OUT,this.armsIconOut);
-         addChild(this.armsBox4);
+         this.armsLevelViewport.x = 300;
+         this.armsLevelViewport.y = 88;
+         this.armsLevelViewport.scrollRect = new Rectangle(0,0,140,360);
+         this.armsLevelViewport.addChild(this.armsBox4);
+         this.armsLevelViewport.addEventListener(MouseEvent.MOUSE_WHEEL,this.armsLevelWheel);
+         addChild(this.armsLevelViewport);
+         this.armsLevelScroll.x = 445;
+         this.armsLevelScroll.y = 88;
+         this.armsLevelScroll.setHigh(360);
+         addChild(this.armsLevelScroll);
          this.mustLevel_txt = need_mc0.levelTxt;
          this.mustCoin_txt = need_mc0.coinTxt;
          this.nowCoinTxt = need_mc0.nowCoinTxt;
@@ -313,12 +335,12 @@ package UI.research
          if(this.armsFatherLabel == "arms")
          {
             this.trainTitle_txt.text = "射击训练加成";
-            this.trainValue_txt.text = String(pd0.attackAdd.getPer() + pd0.allAdd.getPer() + "%");
+            this.trainValue_txt.text = pd0.attackAdd.getPer() + pd0.allAdd.getPer() + "%";
          }
          else
          {
             this.trainTitle_txt.text = "控制训练加成";
-            this.trainValue_txt.text = String(pd0.subAdd.getPer() + pd0.allAdd.getPer() + "%");
+            this.trainValue_txt.text = pd0.subAdd.getPer() + pd0.allAdd.getPer() + "%";
          }
       }
       
@@ -331,6 +353,14 @@ package UI.research
          this.armsBox.showPage(nowpage00,false,false);
          this.pageBox.fleshByTable();
          this.fleshBag();
+      }
+      
+      private function armsLevelWheel(e:MouseEvent) : void
+      {
+         if(this.armsBox4.height > 360)
+         {
+            this.armsLevelScroll.setPer(this.armsLevelScroll.getPer() - e.delta * 0.08);
+         }
       }
       
       public function clearNew() : *
@@ -792,30 +822,18 @@ package UI.research
          var arms_len:int = int(arr2.length);
          var first_index:int = 0;
          var last_index:int = arr2.length - 1;
-         if(arms_len > 5 && aid_level >= 0)
+         arr5 = arr2;
+         this.armsBox4.inData_byArr2(arr5);
+         this.armsBox4.y = 0;
+         this.armsLevelScroll.setTarget(this.armsBox4,true);
+         if(arms_len > 5 && aid_level > 0)
          {
-            if(arms_len - aid_level > 5)
-            {
-               last_index = aid_level + 4;
-            }
-            first_index = last_index - 4;
-            if(first_index < 0)
-            {
-               first_index = 0;
-            }
-            for(n in arr2)
-            {
-               if(n >= first_index && n <= last_index)
-               {
-                  arr5.push(arr2[n]);
-               }
-            }
+            this.armsLevelScroll.setPer(Math.min(1,aid_level / Math.max(1,arms_len - 1)));
          }
          else
          {
-            arr5 = arr2;
+            this.armsLevelScroll.setPer(0);
          }
-         this.armsBox4.inData_byArr2(arr5);
          this.armsBox4.first_index = first_index;
          this.armsBox4.setTypeAll(0);
          var chooseIcon0:ItemsArmsIcon = this.armsBox4.arr[0];
@@ -857,6 +875,8 @@ package UI.research
          var d2:OneArmsDefine = null;
          var aid:ArmsItemsData = null;
          this.upgrade_conditionB = true;
+         this.upgradeNonMaterialB = true;
+         this.upgradeMaterialsB = true;
          this.no_arr[0].visible = false;
          this.no_arr[1].visible = false;
          this.no_arr[2].visible = false;
@@ -925,6 +945,7 @@ package UI.research
             if(Game.gameData.arenaData.score < d0.mustArenaScore)
             {
                this.upgrade_conditionB = false;
+               this.upgradeNonMaterialB = false;
                this.condition_icon1.gotoAndStop(2);
             }
             else
@@ -940,6 +961,7 @@ package UI.research
             if(Game.gameData.level < d0.mustLevel - 1)
             {
                this.upgrade_conditionB = false;
+               this.upgradeNonMaterialB = false;
                this.condition_icon1.gotoAndStop(2);
             }
             else
@@ -954,10 +976,11 @@ package UI.research
             this.nowScoreTxt.text = "当前等级：" + (Game.gameData.level + 1);
          }
          this.mustCoin_txt.text = String(d0.price);
-         this.nowCoinTxt.text = String("当前G币：" + Game.gameData.GCoin);
+         this.nowCoinTxt.text = "当前G币：" + Game.gameData.GCoin;
          if(Game.gameData.GCoin < d0.price)
          {
             this.upgrade_conditionB = false;
+            this.upgradeNonMaterialB = false;
             this.condition_icon4.gotoAndStop(2);
          }
          else
@@ -993,6 +1016,7 @@ package UI.research
                      trace("物品数量不够");
                      icon1.setCondition(2);
                      this.upgrade_conditionB = false;
+                     this.upgradeMaterialsB = false;
                      icon1.setMustNum(aid1.nowNum,d1.nowNum);
                   }
                }
@@ -1010,6 +1034,7 @@ package UI.research
                {
                   icon1.setCondition(2);
                   this.upgrade_conditionB = false;
+                  this.upgradeMaterialsB = false;
                   icon1.setMustNum(0,d1.nowNum);
                   trace("不存在物品：" + d1.name);
                }
@@ -1040,12 +1065,14 @@ package UI.research
                else
                {
                   this.upgrade_conditionB = false;
+                  this.upgradeNonMaterialB = false;
                   this.condition_icon3.gotoAndStop(2);
                }
             }
             else
             {
                this.upgrade_conditionB = false;
+               this.upgradeNonMaterialB = false;
                this.condition_icon3.gotoAndStop(2);
             }
          }
@@ -1056,7 +1083,7 @@ package UI.research
             this.no_arr[2].visible = true;
             this.mustArmsIcon.visible = false;
          }
-         if(this.upgrade_conditionB)
+         if(this.upgrade_conditionB || this.upgradeNonMaterialB && !this.upgradeMaterialsB && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
          {
             this.upgrade_btn.alpha = 1;
             this.upgrade_btn.enabled = true;
@@ -1407,14 +1434,29 @@ package UI.research
          {
             return;
          }
-         for(n in this.mustItemsBox.arr)
+         if(!this.upgradeMaterialsB && !this.useResearchUpgradeCardB)
          {
-            items0 = this.mustItemsBox.arr[n].itemsData;
-            bocc = this.materialsItems.useItemsNum(items0.name,items0.nowNum);
-            if(bocc == false)
+            if(Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
             {
-               Game.gameData.propsItems.useItemsNum(items0.name,items0.nowNum);
+               Game.uiGroup.checkTip.showCheck2("研发材料不足，是否消耗1张研发升级卡完成本次研发？",1,this.upgradeWithResearchCard);
             }
+            return;
+         }
+         if(!this.useResearchUpgradeCardB)
+         {
+            for(n in this.mustItemsBox.arr)
+            {
+               items0 = this.mustItemsBox.arr[n].itemsData;
+               bocc = this.materialsItems.useItemsNum(items0.name,items0.nowNum);
+               if(bocc == false)
+               {
+                  Game.gameData.propsItems.useItemsNum(items0.name,items0.nowNum);
+               }
+            }
+         }
+         else
+         {
+            Game.gameData.propsItems.useItemsNum("research_upgrade_card",1);
          }
          d0 = this.nowArms.itemsData;
          Game.gameData.addCoin(-d0.price);
@@ -1438,6 +1480,13 @@ package UI.research
          this.fleshArmsBox();
          this.chooseIcon(index0);
          this.chooseGradeArmsIcon();
+         this.useResearchUpgradeCardB = false;
+      }
+      
+      private function upgradeWithResearchCard() : *
+      {
+         this.useResearchUpgradeCardB = true;
+         this.upgradeClick(null);
       }
    }
 }

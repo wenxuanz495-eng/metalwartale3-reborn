@@ -12,7 +12,7 @@ package gameAll.data
       
       public var arr:Array = [];
       
-      public var bagMaxNum:int = 30;
+      public var bagMaxNum:int = 60;
       
       public var equArr:Array = [];
       
@@ -40,6 +40,10 @@ package gameAll.data
          {
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
+         }
+         if(this.bagMaxNum < 60)
+         {
+            this.bagMaxNum = 60;
          }
          this.arr.length = 0;
          arr0 = obj.arr;
@@ -132,7 +136,8 @@ package gameAll.data
       public function cleanUp() : *
       {
          var car0:CarItemsData = null;
-         for(var i:int = 0; i < this.arr.length; i++)
+         var i:int = 0;
+         while(i < this.arr.length)
          {
             if(i >= this.bagMaxNum)
             {
@@ -140,6 +145,7 @@ package gameAll.data
             }
             car0 = this.arr[i];
             car0.site = i;
+            i++;
          }
       }
       

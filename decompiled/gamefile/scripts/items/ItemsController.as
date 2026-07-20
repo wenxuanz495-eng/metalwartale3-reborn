@@ -1,4 +1,4 @@
-package items
+﻿package items
 {
    import UI.main.InfoUI;
    import gameAll.data.GameData;
@@ -103,6 +103,11 @@ package items
                this.upgradePackItem = it0;
                this.upgradePackFather = father0;
                Game.uiGroup.checkTip.showCheck2("请选择礼包类型：\n确定：随机材料\n取消：随机晶体",1,this.openUpgradeMaterial,this.openUpgradeCrystal);
+               return;
+            }
+            if(d0.cardType == "research_upgrade")
+            {
+               Game.uiGroup.checkTip.showCheck2("研发升级卡会在武器研发材料不足时自动提示使用，不能在背包中直接使用。",2);
                return;
             }
             if(num0 > 1 && (d0.cardType == "drop_box" || d0.cardType == "drop_box2" || d0.cardType == "drop_box3"))

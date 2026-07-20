@@ -18,6 +18,8 @@ package UI.vip
       
       public var good_arr0:Array = ["vipCard_11","vipCard_12","vipCard_13","vipCard_14"];
       
+      public var unlockText_arr:Array = ["普通2-7 全军覆没","普通4-9 决战月都","普通5-7 浴血奋战","普通7-10 重归暗影"];
+      
       public var vipName_txt:TextField;
       
       public var time_txt:TextField;
@@ -48,15 +50,17 @@ package UI.vip
       private function addBar6() : *
       {
          var bar0:VipGiftBar = null;
-         for(var i:int = 0; i < 6; i++)
+         var i:int = 0;
+         while(i < 6)
          {
             bar0 = new VipGiftBar();
             this.bar_arr.push(bar0);
             addChild(bar0);
             bar0.x = 307 + (515 - 307) * (i % 3);
-            bar0.y = 175 + (322 - 175) * int(i / 3);
+            bar0.y = 175 + (322 - 175) * (int(i / 3));
             bar0.index = i;
             bar0._btn.addEventListener(MouseEvent.CLICK,this.barClick);
+            i++;
          }
       }
       
@@ -64,7 +68,8 @@ package UI.vip
       {
          var bar0:VipGoodBar = null;
          var d0:GoodsDefine = null;
-         for(var i:int = 0; i < this.good_arr0.length; i++)
+         var i:int = 0;
+         while(i < this.good_arr0.length)
          {
             bar0 = new VipGoodBar();
             this.good_arr.push(bar0);
@@ -74,12 +79,13 @@ package UI.vip
             bar0.index = i;
             d0 = Game.goodsDefineGroup.getItemsDefine_byID(this.good_arr0[i],"props");
             bar0.name_txt.text = d0.name;
-            bar0.price_txt.text = d0.Mprice + "";
+            bar0.price_txt.text = this.unlockText_arr[i];
             bar0.define = d0;
             bar0.icon_con.addChild(Game.swfLoaderManager.getResource("",d0.imgLabel));
             bar0._btn.addEventListener(MouseEvent.CLICK,this.goodsClick);
             bar0.mouse_mc.addEventListener(MouseEvent.MOUSE_OVER,this.goodsOver);
             bar0.mouse_mc.addEventListener(MouseEvent.MOUSE_OUT,this.goodsOut);
+            i++;
          }
       }
       
@@ -115,25 +121,30 @@ package UI.vip
       {
          var n:* = undefined;
          var bar0:VipGoodBar = null;
+         var rank:int = 0;
+         var nowVip:String = this.vipData.nowVip;
+         if(nowVip != null && nowVip.indexOf("vipCard_1") == 0)
+         {
+            rank = int(nowVip.substr(8)) - 10;
+         }
          for(n in this.good_arr)
          {
             bar0 = this.good_arr[n];
+            if(int(n) < rank)
+            {
+               bar0.price_txt.text = "已解锁（永久）";
+            }
+            else
+            {
+               bar0.price_txt.text = this.unlockText_arr[int(n)];
+            }
          }
       }
       
       private function goodsClick(e:*) : *
       {
          var index0:int = int(e.target.parent.index);
-         var d0:GoodsDefine = this.good_arr[index0].define;
-         this.nowGoodsDefine = d0;
-         var vipstr1:Array = Game.gameData.vipData.nowVip.split("_");
-         var vipstr2:Array = this.nowGoodsDefine.id.split("_");
-         if(Boolean(vipstr1[1]) && int(vipstr1[1]) > int(vipstr2[1]))
-         {
-            Game.uiGroup.checkTip.showCheck2("您已经是高等级vip无法购买低等级。",2,null,null,2);
-            return;
-         }
-         Game.uiGroup.checkTip.showCheck("是否要花费" + StringToDefine.getFontColor(d0.Mprice + "M币","#FFFF00") + "购买" + d0.name + "？",this.yes_goodsClick);
+         Game.uiGroup.checkTip.showCheck2("VIP不能购买。解锁条件：" + this.unlockText_arr[index0],2,null,null,2);
       }
       
       private function yes_goodsClick() : *
@@ -206,15 +217,22 @@ package UI.vip
             bar0 = this.bar_arr[num0];
             bar0.name_txt.text = "Vip专属地图";
             bar0.btn_txt.text = "进入";
-            if(this.vipData.mapTime > 0)
+            this.vipData.refreshMapAccess();
+            if(this.vipData.getMapCooldownRemaining() > 0)
+            {
+               bar0.setUseBtn(false);
+               txt0 = "退出后冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
+            }
+            else if(this.vipData.mapTime > 0)
             {
                bar0.setUseBtn(true);
                txt0 = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00");
+               txt0 += "\n退出后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
             }
             else
             {
                bar0.setUseBtn(false);
-               txt0 = "\n今日时间使用完毕";
+               txt0 = "\n地图暂不可进入";
             }
             bar0.content_txt.htmlText = txt0;
             bar0.visible = true;
@@ -227,26 +245,31 @@ package UI.vip
             bar0.hideBtn();
             num0++;
             bar0 = this.bar_arr[num0];
-            bar0.name_txt.text = "每日上线礼包";
+            bar0.name_txt.text = "VIP礼包（3小时）";
             txt0 = Game.goodsDefineGroup.switchStrArr_toStr(d0.giftArr,true);
             txt0 = txt0.replace("\n","");
+            if(this.vipData.getGiftCooldownRemaining() > 0)
+            {
+               txt0 += "\n冷却剩余：" + StringToDefine.getTimeStr(this.vipData.getGiftCooldownRemaining());
+            }
+            else
+            {
+               txt0 += "\n当前可以领取";
+            }
             bar0.content_txt.text = txt0;
             bar0.visible = true;
             if(!hideBtnB)
             {
-               bar0.setUseBtn(!this.vipData.giftGetB);
+               bar0.setUseBtn(this.vipData.canGetVipGift());
             }
             num0++;
             bar0 = this.bar_arr[num0];
-            bar0.name_txt.text = "每日上线专属BUFF";
-            txt0 = "全能训练增加" + d0.all_pro * 100 + "%" + "\n持续时间" + int(d0.buffTime / 60) + "分钟";
+            bar0.name_txt.text = "VIP永久专属BUFF";
+            txt0 = "全能训练增加" + d0.all_pro * 100 + "%" + "\n永久生效，无需领取";
             bar0.content_txt.text = txt0;
             bar0.visible = true;
-            if(!hideBtnB)
-            {
-               bar0.setUseBtn(!this.vipData.buffGetB);
-               this.FTimer();
-            }
+            bar0.hideBtn();
+            this.FTimer();
             num0++;
             bar0 = this.bar_arr[num0];
             bar0.name_txt.text = "附加属性";
@@ -270,28 +293,42 @@ package UI.vip
          var d0:OneVipDefine = null;
          var bar0:* = undefined;
          var txt0:String = null;
-         var tt0:Number = NaN;
+         var tt0:Number = Number(NaN);
          if(this.showNowB)
          {
             d0 = this.vipData.getNowDefine();
             if(Boolean(d0))
             {
-               if(this.vipData.buffGetB)
+               this.vipData.refreshMapAccess();
+               bar0 = this.bar_arr[0];
+               if(this.vipData.getMapCooldownRemaining() > 0)
                {
-                  bar0 = this.bar_arr[3];
-                  txt0 = "全能训练增加" + d0.all_pro * 100 + "%" + "\n持续时间" + int(d0.buffTime / 60) + "分钟";
-                  tt0 = int(this.vipData.buffTime);
-                  if(tt0 >= 0)
-                  {
-                     txt0 += StringToDefine.getFontColor("\n剩余时间：" + StringToDefine.getTimeStr(tt0),"#FFFF00");
-                  }
-                  else
-                  {
-                     txt0 += StringToDefine.getFontColor("\n已结束","#FFFF00");
-                  }
-                  bar0.content_txt.htmlText = txt0;
-                  bar0.visible = true;
+                  bar0.setUseBtn(false);
+                  bar0.content_txt.htmlText = "退出后冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
                }
+               else
+               {
+                  bar0.setUseBtn(this.vipData.mapTime > 0);
+                  bar0.content_txt.htmlText = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00") + "\n退出后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
+               }
+               bar0 = this.bar_arr[2];
+               txt0 = Game.goodsDefineGroup.switchStrArr_toStr(d0.giftArr,true).replace("\n","");
+               tt0 = this.vipData.getGiftCooldownRemaining();
+               if(tt0 > 0)
+               {
+                  bar0.setUseBtn(false);
+                  txt0 += "\n冷却剩余：" + StringToDefine.getTimeStr(tt0);
+               }
+               else
+               {
+                  bar0.setUseBtn(true);
+                  txt0 += "\n当前可以领取";
+               }
+               bar0.content_txt.text = txt0;
+               bar0 = this.bar_arr[3];
+               bar0.name_txt.text = "VIP永久专属BUFF";
+               bar0.content_txt.text = "全能训练增加" + d0.all_pro * 100 + "%" + "\n永久生效，无需领取";
+               bar0.hideBtn();
                if(d0.name == "vipCard_0")
                {
                   this.time_txt.text = StringToDefine.getTimeStr(int(this.vipData.experienceTime));
@@ -321,18 +358,32 @@ package UI.vip
          {
             if(index0 == 0)
             {
-               Game.eventGroup.chosenLevel(999);
+               if(this.vipData.canEnterMap())
+               {
+                  Game.eventGroup.chosenLevel(999);
+               }
+               else
+               {
+                  Game.uiGroup.checkTip.showTip("VIP地图正在冷却中。",2);
+               }
             }
             else if(index0 == 2)
             {
-               arr1 = Game.goodsDefineGroup.getArr_byStrArr(d0.giftArr,1);
-               Game.uiGroup.addGift_byArr(arr1,true);
-               this.vipData.giftGetB = true;
+               if(this.vipData.canGetVipGift())
+               {
+                  arr1 = Game.goodsDefineGroup.getArr_byStrArr(d0.giftArr,1);
+                  Game.uiGroup.addGift_byArr(arr1,true);
+                  this.vipData.startGiftCooldown();
+                  Game.uiGroup.saveDataNoUI();
+               }
+               else
+               {
+                  Game.uiGroup.checkTip.showTip("VIP礼包正在冷却中。",2);
+               }
             }
             else if(index0 == 3)
             {
-               this.vipData.getNowBuffGift();
-               Game.uiGroup.checkTip.showTip("领取成功！",1);
+               Game.uiGroup.checkTip.showTip("VIP专属BUFF已经永久生效。",1);
             }
             this.fleshData();
          }

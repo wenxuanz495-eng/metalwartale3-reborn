@@ -21,6 +21,8 @@ package gameAll.data
       
       public var haveConB:Boolean = false;
       
+      public var conClaimed:Array = [];
+      
       public var pay29B:Boolean = false;
       
       public var nationalDayGiftB:Boolean = false;
@@ -80,13 +82,16 @@ package gameAll.data
       public function init() : *
       {
          this.oneYuanB = false;
-         for(var i:int = 0; i < 100; i++)
+         var i:int = 0;
+         while(i < 100)
          {
             this.unlock_arr[i] = 0;
+            i++;
          }
          this.levelGiftInit();
          this.onePayInit();
          this.haveConB = false;
+         this.conClaimed = [false,false,false,false,false,false,false,false,false,false,false,false];
          this.pay29B = false;
          this.nationalDayGiftB = false;
          this.nationalDayPayB = false;
@@ -111,17 +116,21 @@ package gameAll.data
       
       public function onePayInit() : *
       {
-         for(var i:int = 0; i < 100; i++)
+         var i:int = 0;
+         while(i < 100)
          {
             this.onePayArr[i] = 0;
+            i++;
          }
       }
       
       public function levelGiftInit() : *
       {
-         for(var i:int = 0; i < 100; i++)
+         var i:int = 0;
+         while(i < 100)
          {
             this.levelunlock_arr[i] = 0;
+            i++;
          }
       }
       
@@ -208,6 +217,18 @@ package gameAll.data
          else
          {
             this.haveConB = obj.haveConB;
+         }
+         if(obj.hasOwnProperty("conClaimed") && obj.conClaimed is Array)
+         {
+            this.conClaimed = obj.conClaimed.concat();
+         }
+         else
+         {
+            this.conClaimed = [false,false,false,false,false,false,false,false,false,false,false,false];
+         }
+         while(this.conClaimed.length < 12)
+         {
+            this.conClaimed.push(false);
          }
          if(!obj.hasOwnProperty("pay29B"))
          {
@@ -511,7 +532,8 @@ package gameAll.data
          var idstr:String = this.unionCityFighted.split("_")[1];
          var idArr:Array = idstr.split("|");
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -522,6 +544,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + count;
             }
+            i++;
          }
          if(has == false)
          {
@@ -550,7 +573,8 @@ package gameAll.data
          {
             idstr = this.unionCityFighted.split("_")[1];
             idArr = idstr.split("|");
-            for(i = 0; i < idArr.length; i++)
+            i = 0;
+            while(i < idArr.length)
             {
                ids = idArr[i];
                idd = int(ids.split(":")[0]);
@@ -558,6 +582,7 @@ package gameAll.data
                {
                   return int(ids.split(":")[1]);
                }
+               i++;
             }
             return 0;
          }
@@ -602,7 +627,8 @@ package gameAll.data
             idArr = idstr.split("|");
          }
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -613,6 +639,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + count;
             }
+            i++;
          }
          if(has == false)
          {
@@ -630,7 +657,7 @@ package gameAll.data
          var j:int = 0;
          var adddstr:String = null;
          var adddname:String = null;
-         var adddnum:Number = NaN;
+         var adddnum:Number = Number(NaN);
          var add:AdditionalData = new AdditionalData();
          var idstr:String = this.starShoped.split("_")[1];
          var idArr:Array = [];
@@ -638,18 +665,22 @@ package gameAll.data
          {
             idArr = idstr.split("|");
          }
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
             sd = Game.startGiftDefineGroup.GetOneGift(idd);
-            for(j = 0; j < sd.AddArr.length; j++)
+            j = 0;
+            while(j < sd.AddArr.length)
             {
                adddstr = sd.AddArr[j];
                adddname = adddstr.split(",")[0];
                adddnum = Number(adddstr.split(",")[1]);
                add[adddname] += adddnum;
+               j++;
             }
+            i++;
          }
          return add;
       }
@@ -664,7 +695,8 @@ package gameAll.data
          {
             idArr = idstr.split("|");
          }
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -672,6 +704,7 @@ package gameAll.data
             {
                return int(ids.split(":")[1]);
             }
+            i++;
          }
          return 0;
       }
@@ -688,7 +721,8 @@ package gameAll.data
             idArr = idstr.split("|");
          }
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -699,6 +733,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + count;
             }
+            i++;
          }
          if(has == false)
          {
@@ -716,7 +751,7 @@ package gameAll.data
          var j:int = 0;
          var adddstr:String = null;
          var adddname:String = null;
-         var adddnum:Number = NaN;
+         var adddnum:Number = Number(NaN);
          var add:AdditionalData = new AdditionalData();
          var idstr:String = this.growShoped.split("_")[1];
          var idArr:Array = [];
@@ -724,18 +759,22 @@ package gameAll.data
          {
             idArr = idstr.split("|");
          }
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
             sd = Game.growGiftDefineGroup.GetOneGift(idd);
-            for(j = 0; j < sd.AddArr.length; j++)
+            j = 0;
+            while(j < sd.AddArr.length)
             {
                adddstr = sd.AddArr[j];
                adddname = adddstr.split(",")[0];
                adddnum = Number(adddstr.split(",")[1]);
                add[adddname] += adddnum;
+               j++;
             }
+            i++;
          }
          return add;
       }
@@ -750,7 +789,8 @@ package gameAll.data
          {
             idArr = idstr.split("|");
          }
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -758,6 +798,7 @@ package gameAll.data
             {
                return int(ids.split(":")[1]);
             }
+            i++;
          }
          return 0;
       }
@@ -770,7 +811,8 @@ package gameAll.data
          var idstr:String = this.unionShoped.split("_")[1];
          var idArr:Array = idstr.split("|");
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -781,6 +823,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + count;
             }
+            i++;
          }
          if(has == false)
          {
@@ -809,7 +852,8 @@ package gameAll.data
          {
             idstr = this.unionShoped.split("_")[1];
             idArr = idstr.split("|");
-            for(i = 0; i < idArr.length; i++)
+            i = 0;
+            while(i < idArr.length)
             {
                ids = idArr[i];
                idd = int(ids.split(":")[0]);
@@ -817,6 +861,7 @@ package gameAll.data
                {
                   return int(ids.split(":")[1]);
                }
+               i++;
             }
             return 0;
          }
@@ -832,7 +877,8 @@ package gameAll.data
          var idstr:String = this.prize51.split("_")[1];
          var idArr:Array = idstr.split("|");
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -843,6 +889,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + count;
             }
+            i++;
          }
          if(has == false)
          {
@@ -871,7 +918,8 @@ package gameAll.data
          {
             idstr = this.prize51.split("_")[1];
             idArr = idstr.split("|");
-            for(i = 0; i < idArr.length; i++)
+            i = 0;
+            while(i < idArr.length)
             {
                ids = idArr[i];
                idd = int(ids.split(":")[0]);
@@ -879,6 +927,7 @@ package gameAll.data
                {
                   return int(ids.split(":")[1]);
                }
+               i++;
             }
             return 0;
          }
@@ -894,7 +943,8 @@ package gameAll.data
          var idstr:String = this.prize51_2;
          var idArr:Array = idstr.split("|");
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -905,6 +955,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + count;
             }
+            i++;
          }
          if(has == false)
          {
@@ -919,7 +970,8 @@ package gameAll.data
          var idd:int = 0;
          var idstr:String = this.prize51_2;
          var idArr:Array = idstr.split("|");
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -927,6 +979,7 @@ package gameAll.data
             {
                return int(ids.split(":")[1]);
             }
+            i++;
          }
          return 0;
       }
@@ -940,7 +993,8 @@ package gameAll.data
          var idstr:String = this.unionBuild.split("_")[1];
          var idArr:Array = idstr.split("|");
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -959,6 +1013,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + normalcount + ":" + extracount;
             }
+            i++;
          }
          if(has == false)
          {
@@ -994,7 +1049,8 @@ package gameAll.data
          {
             idstr = this.unionBuild.split("_")[1];
             idArr = idstr.split("|");
-            for(i = 0; i < idArr.length; i++)
+            i = 0;
+            while(i < idArr.length)
             {
                ids = idArr[i];
                idd = int(ids.split(":")[0]);
@@ -1006,6 +1062,7 @@ package gameAll.data
                   }
                   return int(ids.split(":")[2]);
                }
+               i++;
             }
             return 0;
          }
@@ -1022,7 +1079,8 @@ package gameAll.data
          var idstr:String = this.TechBuild.split("_")[1];
          var idArr:Array = idstr.split("|");
          var has:Boolean = false;
-         for(var i:int = 0; i < idArr.length; i++)
+         var i:int = 0;
+         while(i < idArr.length)
          {
             ids = idArr[i];
             idd = int(ids.split(":")[0]);
@@ -1041,6 +1099,7 @@ package gameAll.data
                has = true;
                idArr[i] = idd + ":" + normalcount + ":" + extracount;
             }
+            i++;
          }
          if(has == false)
          {
@@ -1076,7 +1135,8 @@ package gameAll.data
          {
             idstr = this.TechBuild.split("_")[1];
             idArr = idstr.split("|");
-            for(i = 0; i < idArr.length; i++)
+            i = 0;
+            while(i < idArr.length)
             {
                ids = idArr[i];
                idd = int(ids.split(":")[0]);
@@ -1088,6 +1148,7 @@ package gameAll.data
                   }
                   return int(ids.split(":")[2]);
                }
+               i++;
             }
             return 0;
          }
@@ -1106,7 +1167,8 @@ package gameAll.data
          var has:Boolean = false;
          var unionstr:String = this.unionTask.split("_")[1];
          var unionArr:Array = unionstr.split("|");
-         for(var i:int = 0; i < unionArr.length; i++)
+         var i:int = 0;
+         while(i < unionArr.length)
          {
             oneUnion = unionArr[i];
             oneUnionArr = oneUnion.split(":");
@@ -1116,6 +1178,7 @@ package gameAll.data
                oneUnionArr[2] = state;
                unionArr[i] = oneUnionArr.join(":");
             }
+            i++;
          }
          if(has == false)
          {
@@ -1135,7 +1198,8 @@ package gameAll.data
          var has:Boolean = false;
          var unionstr:String = this.unionTask.split("_")[1];
          var unionArr:Array = unionstr.split("|");
-         for(var i:int = 0; i < unionArr.length; i++)
+         var i:int = 0;
+         while(i < unionArr.length)
          {
             oneUnion = unionArr[i];
             oneUnionArr = oneUnion.split(":");
@@ -1145,6 +1209,7 @@ package gameAll.data
                oneUnionArr[1] = int(oneUnionArr[1]) + num;
                unionArr[i] = oneUnionArr.join(":");
             }
+            i++;
          }
          if(has == false)
          {
@@ -1172,7 +1237,8 @@ package gameAll.data
          {
             unionstr = this.unionTask.split("_")[1];
             unionArr = unionstr.split("|");
-            for(i = 0; i < unionArr.length; i++)
+            i = 0;
+            while(i < unionArr.length)
             {
                oneUnion = unionArr[i];
                oneUnionArr = oneUnion.split(":");
@@ -1180,6 +1246,7 @@ package gameAll.data
                {
                   return oneUnion;
                }
+               i++;
             }
             return "";
          }
@@ -1206,7 +1273,8 @@ package gameAll.data
          {
             unionstr = this.unionTask.split("_")[1];
             unionArr = unionstr.split("|");
-            for(i = 0; i < unionArr.length; i++)
+            i = 0;
+            while(i < unionArr.length)
             {
                oneUnion = unionArr[i];
                oneUnionArr = oneUnion.split(":");
@@ -1214,6 +1282,7 @@ package gameAll.data
                {
                   return oneUnionArr[0];
                }
+               i++;
             }
             if(unionArr.length > 0)
             {
@@ -1282,8 +1351,7 @@ package gameAll.data
       public function getGiftOneUnlock(index0:int) : *
       {
          var num0:int = int(this.onePayArr[index0]);
-         num0--;
-         if(num0 < 0)
+         if(--num0 < 0)
          {
             num0 = 0;
          }

@@ -69,7 +69,7 @@ package gameAll.data
          var n:* = undefined;
          var name0:String = null;
          var index0:int = 0;
-         var max0:Number = NaN;
+         var max0:Number = Number(NaN);
          var arr1:Array = [];
          for(n in arr0)
          {
@@ -88,7 +88,7 @@ package gameAll.data
          var cn0:String = null;
          var baifen0:* = undefined;
          var units:String = null;
-         var v0:Number = NaN;
+         var v0:Number = Number(NaN);
          var baifenhao:String = null;
          var str:String = "";
          for(n in allName)
@@ -138,7 +138,7 @@ package gameAll.data
          var cn0:String = null;
          var baifen0:* = undefined;
          var units:String = null;
-         var v0:Number = NaN;
+         var v0:Number = Number(NaN);
          var baifenhao:String = null;
          var str:String = "";
          for(n in allName)
@@ -228,7 +228,7 @@ package gameAll.data
          var cn0:String = null;
          var baifen0:* = undefined;
          var units:String = null;
-         var v0:Number = NaN;
+         var v0:Number = Number(NaN);
          var baifenhao:String = null;
          var str:String = "";
          for(n in allName)
@@ -265,7 +265,7 @@ package gameAll.data
             }
             if(v0 > 0)
             {
-               str += this.getColor(cn0 + "：",color1) + this.getColor(String(v0 + baifenhao),color2) + units + "\n";
+               str += this.getColor(cn0 + "：",color1) + this.getColor(v0 + baifenhao,color2) + units + "\n";
             }
          }
          return str;
@@ -283,7 +283,7 @@ package gameAll.data
          var cn0:String = null;
          var baifen0:* = undefined;
          var units:String = null;
-         var v0:Number = NaN;
+         var v0:Number = Number(NaN);
          var baifenhao:String = null;
          var obj:Object = new Object();
          var str1:String = "";
@@ -400,7 +400,7 @@ package gameAll.data
       {
          var n:* = undefined;
          var name0:String = null;
-         var v0:Number = NaN;
+         var v0:Number = Number(NaN);
          var arr0:Array = [];
          for(n in allName)
          {
@@ -418,7 +418,7 @@ package gameAll.data
       {
          var n:* = undefined;
          var name0:String = null;
-         var v0:Number = NaN;
+         var v0:Number = Number(NaN);
          var arr0:Array = [];
          for(n in allName)
          {
@@ -435,8 +435,8 @@ package gameAll.data
       public function getCheating() : String
       {
          var n:* = undefined;
-         var value0:Number = NaN;
-         var max0:Number = NaN;
+         var value0:Number = Number(NaN);
+         var max0:Number = Number(NaN);
          for(n in allName)
          {
             value0 = Number(this[allName[n]]);

@@ -7,6 +7,8 @@ package gameAll.data
       
       public var arr:Array = [];
       
+      public var readyAt:Array = [];
+      
       public function SpecialExtraData()
       {
          super();
@@ -24,7 +26,10 @@ package gameAll.data
             level0 = this.getMustLevel(n);
             if(level0 <= Game.gameData.level)
             {
-               num0++;
+               if(data0.nowNum > 0)
+               {
+                  num0++;
+               }
             }
          }
          return num0;
@@ -36,6 +41,7 @@ package gameAll.data
          var d0:SpecialExtraOneDefine = null;
          var data0:SpecialExtraOneDefine = null;
          this.arr.length = 0;
+         this.readyAt = [];
          var darr:Array = Game.gameDefine.specialExtra.arr;
          for(n in darr)
          {
@@ -72,6 +78,7 @@ package gameAll.data
             }
             this.arr[i] = data0;
          }
+         this.readyAt = obj.hasOwnProperty("readyAt") && obj.readyAt is Array ? obj.readyAt.concat() : [];
       }
       
       public function getNumArr() : Array
@@ -82,7 +89,7 @@ package gameAll.data
          for(n in this.arr)
          {
             data0 = this.arr[n];
-            arr0[n] = 999;
+            arr0[n] = data0.nowNum;
          }
          return arr0;
       }
@@ -91,7 +98,7 @@ package gameAll.data
       {
          var lock_arr:Array = this.getUnlockArr();
          var data0:SpecialExtraOneDefine = this.arr[index0];
-         if(lock_arr[index0] == 1)
+         if(data0.nowNum > 0 && lock_arr[index0] == 1)
          {
             return 1;
          }
@@ -126,9 +133,28 @@ package gameAll.data
          return this.arr[level0];
       }
       
+      public function startCooldown() : *
+      {
+         this.readyAt[Game.gameData.nowGameLevel] = new Date().time + 900000;
+      }
+      
+      public function getCooldownSeconds(index0:int) : int
+      {
+         var value0:Number = index0 < this.readyAt.length ? Number(this.readyAt[index0]) : 0;
+         return Math.max(0,Math.ceil((value0 - new Date().time) / 1000));
+      }
+      
       public function useOneNowData(num0:int = 1) : *
       {
-         // Offline mode: special/Boss dungeons have unlimited attempts.
+         var sd0:SpecialExtraOneDefine = this.getNowData();
+         if(sd0 is SpecialExtraOneDefine)
+         {
+            sd0.nowNum -= num0;
+            if(sd0.nowNum < 0)
+            {
+               sd0.nowNum = 0;
+            }
+         }
       }
       
       public function getNowNum() : int
@@ -136,7 +162,7 @@ package gameAll.data
          var sd0:SpecialExtraOneDefine = this.getNowData();
          if(sd0 is SpecialExtraOneDefine)
          {
-            return 999;
+            return sd0.nowNum;
          }
          return 0;
       }

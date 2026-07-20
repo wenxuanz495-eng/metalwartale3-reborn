@@ -192,6 +192,11 @@ package UI.shop
          var numRepeatB:Boolean = false;
          var surplusNum:int = 0;
          this.nowBuyGoods = d0.copy();
+         if(d0.id == "xuehua" || d0.id == "ertongaixin")
+         {
+            this.showMaterialBarter(d0.id);
+            return;
+         }
          var numB0:Boolean = false;
          if(d0.type == "sub" || d0.type == "arms")
          {
@@ -207,6 +212,11 @@ package UI.shop
                Game.uiGroup.checkTip.showCheck2("此商品只能购买一次。",3);
                return;
             }
+         }
+         if(d0.discount == -1000)
+         {
+            Game.uiGroup.checkTip.showCheck2("这是玩家定制的商品，只提供展示，不能购买。",3);
+            return;
          }
          if(d0.id == this.GD.subCarLabel)
          {
@@ -315,6 +325,67 @@ package UI.shop
          }
       }
       
+      private function showMaterialBarter(targetId:String) : *
+      {
+         var sourceId:String = targetId == "xuehua" ? "ertongaixin" : "xuehua";
+         var sourceName:String = targetId == "xuehua" ? "儿童节爱心" : "雪花";
+         var targetName:String = targetId == "xuehua" ? "雪花" : "儿童节爱心";
+         if(this.GD.materialsItems.getNumByBase(sourceId) < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2("没有可用于兑换的" + sourceName + "。",2);
+            return;
+         }
+         Game.uiGroup.checkTip.showBarterCheck(sourceName,targetName,this.GD.materialsItems.getNumByBase(sourceId),this.yesMaterialBarterSelected);
+      }
+      
+      private function yesMaterialBarterSelected() : *
+      {
+         this.materialBarter(Game.uiGroup.checkTip.getSelectedNum());
+      }
+      
+      private function yesMaterialBarterAll() : *
+      {
+         var targetId:String = this.nowBuyGoods.id;
+         var sourceId:String = targetId == "xuehua" ? "ertongaixin" : "xuehua";
+         this.materialBarter(this.GD.materialsItems.getNumByBase(sourceId));
+      }
+      
+      private function yesMaterialBarterOne() : *
+      {
+         this.materialBarter(1);
+      }
+      
+      private function yesMaterialBarter() : *
+      {
+         this.yesMaterialBarterOne();
+      }
+      
+      private function materialBarter(exchangeNum:int) : *
+      {
+         var targetId:String = this.nowBuyGoods.id;
+         var sourceId:String = targetId == "xuehua" ? "ertongaixin" : "xuehua";
+         var sourceName:String = targetId == "xuehua" ? "儿童节爱心" : "雪花";
+         var targetName:String = targetId == "xuehua" ? "雪花" : "儿童节爱心";
+         var sourceNum:int = this.GD.materialsItems.getNumByBase(sourceId);
+         if(sourceNum < exchangeNum || exchangeNum < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2(sourceName + "数量不足。",2);
+            return;
+         }
+         if(this.GD.materialsItems.getItemsByBase(targetId) == null && this.GD.materialsItems.getSurplus() <= 0 && exchangeNum < sourceNum)
+         {
+            Game.uiGroup.checkTip.showCheck2("材料背包没有空位，无法完成兑换。",2);
+            return;
+         }
+         this.GD.materialsItems.useItemsNum(sourceId,exchangeNum);
+         this.GD.materialsItems.addItems(targetId,exchangeNum);
+         Game.uiGroup.checkTip.showCheck2("兑换成功：" + exchangeNum + "个" + sourceName + " → " + exchangeNum + "个" + targetName + "。",2);
+         Game.uiGroup.saveDataNoUI("雪花与儿童节爱心互换");
+         Game.uiGroup.shopUI.fleshPrice();
+         Game.uiGroup.infoUI.fleshData();
+         this.nowBuyGoods = null;
+      }
+      
       public function superalloyStoneDismantle(num0:int) : *
       {
          var obj00:Object = Game.gameDefine.addSuperalloy(num0);
@@ -368,7 +439,7 @@ package UI.shop
          var totalNum0:int = 0;
          var m:int = 0;
          var obj00:Object = null;
-         var coin009:Number = NaN;
+         var coin009:Number = Number(NaN);
          var d_giftBoxArr:Array = null;
          var packnum0:int = 0;
          var trueLabel0:String = null;
@@ -399,9 +470,11 @@ package UI.shop
             if(d0.id.indexOf("_chip") > 0)
             {
                totalNum0 = buyDefine0.num;
-               for(m = 0; m < totalNum0; m++)
+               m = 0;
+               while(m < totalNum0)
                {
                   newGood = this.GD[d0.type + "Items"].addItems(d0.id,1,int(this.GD.level - 3 + Math.random() * 10));
+                  m++;
                }
             }
             else if(d0.id == "superalloyStone")

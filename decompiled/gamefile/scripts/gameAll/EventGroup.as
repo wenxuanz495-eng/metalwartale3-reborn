@@ -160,6 +160,10 @@ package gameAll
          this.UIG.gamingUI.showState();
          if(this.LG.state == "extra")
          {
+            if(this.GD.extraData.currentRunRewardB)
+            {
+               this.GD.extraData.startLevelCooldown(this.LG.index);
+            }
             this.GD.extraData.setNowExtraState(3);
          }
          else if(this.LG.state == "weekExtra")
@@ -190,12 +194,28 @@ package gameAll
          }
          else if(this.LG.state == "extra")
          {
-            this.GD.livenessData.addTaskNum("extra");
+            if(this.GD.extraData.currentRunRewardB)
+            {
+               this.GD.livenessData.addTaskNum("extra");
+            }
          }
       }
       
       public function closeLevel(mustSaveB:Boolean = true, mustNoSaveB:Boolean = false, fleshUIG:Boolean = true) : *
       {
+         if(this.LG.level is VipExtraLevel)
+         {
+            this.GD.vipData.startMapCooldown();
+         }
+         if(this.LG.state == "weekExtra")
+         {
+            this.GD.weekExtraData.getNowData().readyAt = new Date().time + 1800000;
+         }
+         else if(this.LG.state == "specialExtra")
+         {
+            this.GD.specialExtraData.startCooldown();
+            Game.uiGroup.saveDataNoUI();
+         }
          this.pauseGame();
          this.GAME.closeLevel();
          this.UIG.gameOverFlesh(fleshUIG);
@@ -236,6 +256,11 @@ package gameAll
          else if(this.LG.state == "weekExtra")
          {
             this.GD.weekExtraData.setNowExtraState(false);
+            Game.uiGroup.saveDataNoUI();
+         }
+         else if(this.LG.state == "specialExtra")
+         {
+            this.GD.specialExtraData.startCooldown();
          }
          else if(this.LG.state == "arena")
          {
@@ -275,12 +300,16 @@ package gameAll
       
       public function gameWin() : *
       {
-         var score0:Number = NaN;
+         var score0:Number = Number(NaN);
          Game.SG.playSound("win");
          var bb0:Boolean = false;
          if(this.LG.state == "extra")
          {
             bb0 = true;
+            if(this.GD.extraData.currentRunRewardB)
+            {
+               this.GD.extraData.startLevelCooldown(this.LG.index);
+            }
             score0 = Game.gameDefine.getGroupScore(int(this.GD.gameTime),this.LG.index);
             if(score0 > this.GD.extraData.getScore(this.LG.index))
             {
@@ -305,9 +334,12 @@ package gameAll
          else if(this.LG.state == "weekExtra")
          {
             this.GD.weekExtraData.setNowExtraState(true);
+            this.GD.addMCoin(45);
          }
          else if(this.LG.state == "specialExtra")
          {
+            this.GD.specialExtraData.startCooldown();
+            this.GD.addMCoin(15);
             this.GD.specialExtraData.useOneNowData(100);
          }
          else if(this.LG.state == "arena")
@@ -321,9 +353,236 @@ package gameAll
          }
          this.UIG.show("gameWin");
          this.UIG.gameoverUI.winShow(this.LG.state);
+         this.awardFirstClearMCoin();
          this.gameOverFlash("win");
+         Game.uiGroup.saveDataNoUI();
          var mustNoSaveB:Boolean = true;
          this.closeLevel(true,mustNoSaveB);
+         this.unlockVipByStory();
+         Game.uiGroup.saveDataNoUI();
+      }
+      
+      private function awardFirstClearMCoin() : *
+      {
+         var reward:int = 0;
+         var checkIndex:int = 0;
+         var chapter:int = 0;
+         var finalIndex:int = 0;
+         var difficult:int = 0;
+         var pack:String = this.GD.newLevelData.levelPack;
+         if(this.LG.state != "normal" || pack != "p1" && pack != "p2")
+         {
+            return;
+         }
+         checkIndex = this.LG.index;
+         if(pack == "p2")
+         {
+            checkIndex -= 100;
+         }
+         difficult = 0;
+         while(difficult < 4)
+         {
+            if(this.GD.newLevelData.getScore(checkIndex,difficult,pack) != -1)
+            {
+               return;
+            }
+            difficult++;
+         }
+         if(pack == "p1" && checkIndex == 0)
+         {
+            reward = 10;
+         }
+         else
+         {
+            chapter = this.getStoryChapter(pack,checkIndex);
+            finalIndex = this.getStoryFinalIndex(pack,chapter);
+            if(chapter <= 0 || finalIndex < 0)
+            {
+               return;
+            }
+            reward = Math.min(chapter + 4,11);
+            if(checkIndex == finalIndex)
+            {
+               reward += Math.min((chapter + 1) * 10,80);
+            }
+         }
+         this.GD.addMCoin(reward);
+         Game.dialogboxGroup.showGameTip("首次通关奖励：" + reward + " M币",5,true);
+      }
+      
+      private function getStoryChapter(pack:String, index0:int) : int
+      {
+         if(pack == "p1")
+         {
+            if(index0 >= 1 && index0 <= 6)
+            {
+               return 1;
+            }
+            if(index0 <= 13)
+            {
+               return 2;
+            }
+            if(index0 <= 21)
+            {
+               return 3;
+            }
+            if(index0 <= 30)
+            {
+               return 4;
+            }
+            if(index0 <= 37)
+            {
+               return 5;
+            }
+            if(index0 <= 42)
+            {
+               return 6;
+            }
+            if(index0 <= 52)
+            {
+               return 7;
+            }
+            if(index0 <= 60)
+            {
+               return 8;
+            }
+            if(index0 <= 69)
+            {
+               return 9;
+            }
+         }
+         else if(pack == "p2")
+         {
+            if(index0 >= 0 && index0 <= 19)
+            {
+               return 10;
+            }
+            if(index0 <= 28)
+            {
+               return 11;
+            }
+            if(index0 <= 40)
+            {
+               return 12;
+            }
+            if(index0 <= 58)
+            {
+               return 13;
+            }
+            if(index0 <= 100)
+            {
+               return 14;
+            }
+         }
+         return 0;
+      }
+      
+      private function getStoryFinalIndex(pack:String, chapter:int) : int
+      {
+         if(pack == "p1")
+         {
+            if(chapter == 1)
+            {
+               return 6;
+            }
+            if(chapter == 2)
+            {
+               return 13;
+            }
+            if(chapter == 3)
+            {
+               return 21;
+            }
+            if(chapter == 4)
+            {
+               return 30;
+            }
+            if(chapter == 5)
+            {
+               return 37;
+            }
+            if(chapter == 6)
+            {
+               return 42;
+            }
+            if(chapter == 7)
+            {
+               return 52;
+            }
+            if(chapter == 8)
+            {
+               return 60;
+            }
+            if(chapter == 9)
+            {
+               return 69;
+            }
+         }
+         else if(pack == "p2")
+         {
+            if(chapter == 10)
+            {
+               return 19;
+            }
+            if(chapter == 11)
+            {
+               return 28;
+            }
+            if(chapter == 12)
+            {
+               return 40;
+            }
+            if(chapter == 13)
+            {
+               return 58;
+            }
+            if(chapter == 14)
+            {
+               return 100;
+            }
+         }
+         return -1;
+      }
+      
+      private function unlockVipByStory() : *
+      {
+         var targetRank:int = 0;
+         var currentRank:int = 0;
+         var nowVip:String = null;
+         if(this.LG.state != "normal" || this.GD.nowDifficult != 0 || this.GD.newLevelData.levelPack != "p1")
+         {
+            return;
+         }
+         if(this.LG.index == 13)
+         {
+            targetRank = 1;
+         }
+         else if(this.LG.index == 30)
+         {
+            targetRank = 2;
+         }
+         else if(this.LG.index == 37)
+         {
+            targetRank = 3;
+         }
+         else if(this.LG.index == 52)
+         {
+            targetRank = 4;
+         }
+         if(targetRank == 0)
+         {
+            return;
+         }
+         nowVip = this.GD.vipData.nowVip;
+         if(nowVip != null && nowVip.indexOf("vipCard_1") == 0)
+         {
+            currentRank = int(nowVip.substr(8)) - 10;
+         }
+         if(targetRank > currentRank)
+         {
+            this.GD.vipData.setVip("vipCard_1" + targetRank);
+            Game.dialogboxGroup.showGameTip("VIP等级已永久解锁",5);
+         }
       }
       
       public function toTutorial() : *
@@ -519,8 +778,8 @@ package gameAll
       public function hurt(b0:*, value:Number, attackType:String, itemsData:ArmsItemsData = null, b1:* = null, x0:int = 0, y0:int = 0, hurt_0_B:Boolean = true, hurtTextShow:Boolean = false, bulletType:String = "bullet", bullet0:* = null, mulHurt:Number = 0) : *
       {
          var defenceType:String = null;
-         var hurt0:Number = NaN;
-         var b_hurt_0:Number = NaN;
+         var hurt0:Number = Number(NaN);
+         var b_hurt_0:Number = Number(NaN);
          var b_b0:* = undefined;
          var isnn:Boolean = false;
          var boomLabel0:String = null;
@@ -528,10 +787,10 @@ package gameAll
          var textColor:uint = 0;
          var skill0:* = undefined;
          var hurt3:int = 0;
-         var hurtBack0:Number = NaN;
+         var hurtBack0:Number = Number(NaN);
          var hurtBack1:int = 0;
-         var hurtDefence0:Number = NaN;
-         var redu00:Number = NaN;
+         var hurtDefence0:Number = Number(NaN);
+         var redu00:Number = Number(NaN);
          var dropBB:Boolean = false;
          if(b0 is HeroCarBody)
          {
@@ -592,7 +851,7 @@ package gameAll
                {
                   hurt0 = 1;
                }
-               this.TG.addHurtText(String("反弹 -" + int(hurt0)),b0.img.x,b0.img.y - 65);
+               this.TG.addHurtText("反弹 -" + int(hurt0),b0.img.x,b0.img.y - 65);
             }
             b0.img.car.startHurtEffect(0.1);
             if(bulletType == "bullet")
@@ -611,7 +870,7 @@ package gameAll
             }
             else
             {
-               isnn = isNaN(hurt0);
+               isnn = Boolean(isNaN(hurt0));
                if(isnn)
                {
                   hurt0 = this.GD.maxLife / 10;
@@ -739,6 +998,10 @@ package gameAll
                }
                else if(b1 is SubBody)
                {
+               }
+               if(Game.gameData.modOneHit && (b1 is HeroCarBody || b1 is SubBody))
+               {
+                  hurt0 = b0.define.maxLife + 1;
                }
                b0.define.nowLife -= hurt0;
                b0.img.startHurtEffect(0.1);
@@ -944,15 +1207,15 @@ package gameAll
       public function bodyAdd(b0:*, level0:int = -1, super3B:Boolean = true) : *
       {
          var trueLevel0:int = 0;
-         var ran0:Number = NaN;
+         var ran0:Number = Number(NaN);
          var superAllRa:Array = null;
-         var bl2:Number = NaN;
+         var bl2:Number = Number(NaN);
          var skillArr:* = undefined;
          var superPArr:Array = null;
          var m:int = 0;
          var b1:* = undefined;
          var championAllRa:Array = null;
-         var bl0:Number = NaN;
+         var bl0:Number = Number(NaN);
          var superName3:String = null;
          var b2:* = undefined;
          var eo:EventOrderDefineGroup = null;
@@ -1044,7 +1307,8 @@ package gameAll
             if(super3B && b0.define.superNum == 0)
             {
                superPArr = [50,-40];
-               for(m = 0; m < 2; m++)
+               m = 0;
+               while(m < 2)
                {
                   b1 = this.BG.getUnit(b0.define.name);
                   if(b1 == null)
@@ -1057,6 +1321,7 @@ package gameAll
                   b1.ai.attackBody(this.BG.hero);
                   b1.ai.skill.setSkillArr(skillArr);
                   this.bodyAdd(b1,-1,false);
+                  m++;
                }
             }
          }
@@ -1165,13 +1430,13 @@ package gameAll
       
       public function bodyDie(b0:*) : *
       {
-         var expMul101:Number = NaN;
-         var coinMul101:Number = NaN;
-         var exp001:Number = NaN;
+         var expMul101:Number = Number(NaN);
+         var coinMul101:Number = Number(NaN);
+         var exp001:Number = Number(NaN);
          var vip_d0:OneVipDefine = null;
-         var vip_achieve0:Number = NaN;
+         var vip_achieve0:Number = Number(NaN);
          var coin0:int = 0;
-         var zra0:Number = NaN;
+         var zra0:Number = Number(NaN);
          var achieve0:int = 0;
          var cd0:ChallengeTaskDefine = null;
          var eo:EventOrderDefineGroup = null;
@@ -1185,9 +1450,12 @@ package gameAll
             }
          }
          b0.toDie();
-         this.GD.addKillNum(1);
-         ++this.GD.honorData.ac.killEnemyNum;
-         if(this.LG.state == "normal" || Boolean(this.LG.level.doDropProgressB))
+         if(this.LG.state != "extra" || this.GD.extraData.currentRunRewardB)
+         {
+            this.GD.addKillNum(1);
+            ++this.GD.honorData.ac.killEnemyNum;
+         }
+         if((this.LG.state == "normal" || Boolean(this.LG.level.doDropProgressB)) && (this.LG.state != "extra" || this.GD.extraData.currentRunRewardB))
          {
             expMul101 = 1.5;
             coinMul101 = 1;
@@ -1245,10 +1513,9 @@ package gameAll
                   }
                }
             }
-            cd0 = this.GD.challengeTaskData.nowTask;
-            if(cd0 is ChallengeTaskDefine)
+            for each(cd0 in this.GD.challengeTaskData.arr)
             {
-               if(cd0.state == "ing")
+               if(cd0 is ChallengeTaskDefine && cd0.state == "ing")
                {
                   cd22 = cd0.getNewDefine();
                   if(this.GD.nowDifficult == cd22.targetDiff % 4)
@@ -1259,9 +1526,9 @@ package gameAll
                         {
                            if(b0.define.name == cd0.enemyName && b0.type == "boss")
                            {
-                              if(this.GD.challengeTaskData.challengeFail == "no")
+                              if(this.GD.challengeTaskData.getFail(cd0.index) == "no")
                               {
-                                 this.GD.challengeTaskData.completeNowTask();
+                                 this.GD.challengeTaskData.completeTask(cd0.index);
                                  this.UIG.gamingUI.fleshTaskBox();
                               }
                            }
@@ -1272,10 +1539,9 @@ package gameAll
             }
             if(this.GD.newLevelData.getBeforeLevelPackNow2() == "ghost")
             {
-               cd2 = this.GD.collectTaskData.nowTask;
-               if(cd2 is CollectTaskDefine)
+               for each(cd2 in this.GD.collectTaskData.arr)
                {
-                  if(Math.random() > 0.5 && cd2.state == "ing")
+                  if(cd2 is CollectTaskDefine && Math.random() > 0.5 && cd2.state == "ing")
                   {
                      this.IG.dropAppointItems(b0,cd2.targetItems,70);
                   }
@@ -1283,21 +1549,21 @@ package gameAll
             }
             Game.uiGroup.unionUI.CUnionTask.AddTaskGoal(2);
          }
-         var td0:OneTaskDefine = this.GD.taskData.nowTask;
-         if(td0.state == "ing")
+         var td0:OneTaskDefine = null;
+         for each(td0 in this.GD.taskData.task5)
          {
-            if(this.GD.nowDifficult == td0.targetDiff % 4)
+            if(td0.state == "ing" && this.GD.nowDifficult == td0.targetDiff % 4)
             {
                if(this.LG.index % 100 == td0.targetLevel)
                {
                   if(this.GD.newLevelData.levelPack == td0.getPageName())
                   {
                      td0.addKillNum();
-                     this.UIG.gamingUI.fleshTaskBox();
                   }
                }
             }
          }
+         this.UIG.gamingUI.fleshTaskBox();
          var tttr:Number = 0.01;
          if(Game.getTest())
          {

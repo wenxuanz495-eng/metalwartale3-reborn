@@ -13,7 +13,7 @@ package UI.shop
    
    public class TopDialogBox extends Sprite
    {
-
+      
       private static const MAX_BUY_NUM:int = 9999999;
       
       public var back:Sprite;
@@ -55,6 +55,14 @@ package UI.shop
       public var bagNum:int = 0;
       
       public var numberRepeatB:Boolean = false;
+      
+      public var barterMode:Boolean = false;
+      
+      public var barterMax:int = 0;
+      
+      public var barterSourceName:String = "";
+      
+      public var barterTargetName:String = "";
       
       public function TopDialogBox()
       {
@@ -173,6 +181,34 @@ package UI.shop
          }
       }
       
+      public function showBarterCheck(sourceName:String, targetName:String, maxNum:int, _yesFun:Function = null) : *
+      {
+         this.showCheck("");
+         this.barterMode = true;
+         this.barterMax = maxNum;
+         this.barterSourceName = sourceName;
+         this.barterTargetName = targetName;
+         this.yesFun = _yesFun;
+         this.buyDefine = new GoodsDefine();
+         this.buyDefine.baseNum = 1;
+         this.buyDefine.num = 1;
+         this.shop_mc.num_txt.text = "1";
+         this.txt.visible = false;
+         this.shop_mc.visible = true;
+         this.shop_mc.title_txt.htmlText = "你要将 <font color=\'#FFFF00\'>" + sourceName + "</font> 兑换为 <font color=\'#FFFF00\'>" + targetName + "</font> 吗？";
+         this.shop_mc.numCnTxt.x = -142;
+         this.shop_mc.price_txt.x = 12;
+         this.shop_mc.price_txt.width = 188;
+         this.shop_mc.price_txt.autoSize = TextFieldAutoSize.LEFT;
+         this.shop_mc.numCnTxt.visible = true;
+         this.shop_mc.num_txt.visible = true;
+         this.shop_mc.numBack_mc.visible = true;
+         this.shop_mc.prev_btn.visible = true;
+         this.shop_mc.next_btn.visible = true;
+         this.shop_mc.num_txt.type = "input";
+         this.fleshPrice();
+      }
+      
       public function show50M_unlock(fun0:Function) : *
       {
          this.m50_btn.setText("m50");
@@ -184,6 +220,18 @@ package UI.shop
       
       public function fleshPrice() : *
       {
+         if(this.barterMode)
+         {
+            this.fleshBuyNum();
+            if(this.buyNum > this.barterMax)
+            {
+               this.buyNum = this.barterMax;
+            }
+            this.yes_btn.actived = this.buyNum >= 1 && this.buyNum <= this.barterMax;
+            this.shop_mc.price_txt.htmlText = "需要：<font color=\'#FFFF00\'>" + this.buyNum + "</font> 个" + this.barterSourceName;
+            this.shop_mc.bag_txt.htmlText = "当前可兑换：<font color=\'#00FF00\'>" + this.barterMax + "</font> 个　兑换后获得：<font color=\'#FFFF00\'>" + this.buyNum + "</font> 个" + this.barterTargetName;
+            return;
+         }
          this.fleshBuyNum();
          this.buyDefine.init();
          this.buyDefine.fleshPrice_inData(this.goodsDefine);
@@ -304,6 +352,7 @@ package UI.shop
       
       public function show(str:String, _hideDelay:Number = -1, _icon:int = 0, _btn:int = 0, fun1:Function = null, fun2:Function = null) : *
       {
+         this.barterMode = false;
          this.yes_btn.actived = true;
          this.txt.visible = true;
          this.shop_mc.visible = false;
@@ -344,6 +393,11 @@ package UI.shop
          this.m50_btn.visible = false;
       }
       
+      public function getSelectedNum() : int
+      {
+         return this.buyNum;
+      }
+      
       public function showInputText(str:String, inputStr:String, fun1:Function = null, fun2:Function = null) : *
       {
          this.show(str,-1,0,1,fun1,fun2);
@@ -353,7 +407,7 @@ package UI.shop
          this.input_txt.visible = true;
          this.txtBack_mc.visible = true;
       }
-
+      
       public function showNumberInput(str:String, inputStr:String, fun1:Function = null, fun2:Function = null, maxChars0:int = 8) : *
       {
          this.showInputText(str,inputStr,fun1,fun2);

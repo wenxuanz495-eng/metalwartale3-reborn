@@ -31,6 +31,13 @@ package gameAll.honor
          d0.add = ["attackAdd+0.05"];
          this.honor_arr.push(d0);
          d0 = new OneHonorDefine();
+         d0.name = "mb_100000";
+         d0.cnName = "骨灰级死忠粉";
+         d0.pro = "纪念性称号";
+         d0.condition = "历史累计获得100000 M币";
+         d0.add = [];
+         this.honor_arr.push(d0);
+         d0 = new OneHonorDefine();
          d0.name = "lv_70";
          d0.cnName = "练级达人";
          d0.pro = "无";

@@ -94,6 +94,11 @@ package gameAll.data
       
       public function addEnergy(value:Number) : *
       {
+         if(Game.gameData.modInfiniteEnergy && value < 0)
+         {
+            this.nowEnergy = this.maxEnergy;
+            return;
+         }
          this.nowEnergy += value * this.maxEnergy;
          if(this.nowEnergy < 0)
          {
@@ -107,6 +112,11 @@ package gameAll.data
       
       public function setEnergy(value:Number) : *
       {
+         if(Game.gameData.modInfiniteEnergy && value < 0)
+         {
+            this.nowEnergy = this.maxEnergy;
+            return;
+         }
          this.nowEnergy += value;
          if(this.nowEnergy < 0)
          {
@@ -120,6 +130,11 @@ package gameAll.data
       
       public function getEnergyPer() : Number
       {
+         if(Game.gameData.modInfiniteEnergy)
+         {
+            this.nowEnergy = this.maxEnergy;
+            return 1;
+         }
          return this.nowEnergy / this.maxEnergy;
       }
       

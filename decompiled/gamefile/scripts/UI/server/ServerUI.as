@@ -5,11 +5,16 @@ package UI.server
    import flash.display.MovieClip;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
    import flash.events.MouseEvent;
+   import flash.net.URLLoader;
+   import flash.net.URLLoaderDataFormat;
    import flash.net.URLRequest;
    import flash.net.navigateToURL;
    import flash.text.StyleSheet;
    import flash.text.TextField;
+   import flash.text.TextFormat;
    
    public class ServerUI extends MovieClip
    {
@@ -90,6 +95,10 @@ package UI.server
       
       private var _selectSaveData:StringDate = null;
       
+      private var notice_txt:TextField;
+      
+      private var noticeLoader:URLLoader;
+      
       public function ServerUI()
       {
          super();
@@ -104,7 +113,7 @@ package UI.server
          sheet.parseCSS("a:link {text-decoration:none;}a:hover {text-decoration:underline;color:#FFFF00;}a:active {text-decoration:none;}");
          this.txt1.styleSheet = sheet;
          this.txt1.htmlText = this.str1.text;
-         this.versionNumber_txt.text = Game.versionNumber;
+         this.versionNumber_txt.text = "超合金离线优化海豹版，1.2";
          this.producer_mc.visible = false;
          this.intro_mc.visible = false;
          this.btn_new.addEventListener(MouseEvent.CLICK,this.gotonew);
@@ -123,21 +132,73 @@ package UI.server
          this.context_mc.mask = this.cover_mc;
          if(this.context_mc.numChildren == 0)
          {
-            mc0 = Game.swfLoaderManager.getResource("notice","notice");
-            if(Boolean(mc0))
-            {
-               this.sBar.setHigh(this.cover_mc.height - 6);
-               this.context_mc.addChild(mc0);
-               this.sBar.setTarget(this.context_mc);
-            }
+            mc0 = this.createOfflineNotice();
+            this.sBar.setHigh(this.cover_mc.height - 6);
+            this.context_mc.addChild(mc0);
+            this.sBar.setTarget(this.context_mc);
+            this.loadOfflineNotice();
          }
          addChild(this.producer_mc);
          addChild(this.intro_mc);
       }
       
+      private function createOfflineNotice() : Sprite
+      {
+         var box:Sprite = new Sprite();
+         this.notice_txt = new TextField();
+         this.notice_txt.width = 455;
+         this.notice_txt.height = 210;
+         this.notice_txt.multiline = true;
+         this.notice_txt.wordWrap = true;
+         this.notice_txt.selectable = false;
+         this.notice_txt.defaultTextFormat = new TextFormat("_sans",13,65331,null,null,null,null,null,null,0,0,3,2);
+         this.notice_txt.text = "【离线优化海豹版 1.2·游玩说明】\n" + "1. 剧情关卡首次通关奖励M币，章节终章另有额外奖励。\n" + "2. 精英副本需要精英副本挑战卡；无卡挑战没有奖励和翻牌。\n" + "3. 挑战卡可从普通关卡结算翻牌，或日常、挑战、收集任务获得。\n" + "4. 精英副本固定奖励15～80M币，翻牌还有机会获得25M币。\n" + "5. 玩家副本奖励45M币，特殊副本奖励15M币。\n" + "6. 20级解锁星座武器后，12件武器均可各领取一次。\n" + "7. 每级升级所需经验大幅降低，回归玩家可更顺畅推进剧情。\n" + "8. 三类战斗核心爆率提高；拆解必得G币及对应保底材料。\n" + "9. 核心可选择使用全部，按对应拆解器数量批量拆解并消耗拆解器。\n" + "10. 成长礼包达到对应等级即可免费领取，不需要充值。\n" + "11. 累计充值礼包已改为累计获得M币礼包，历史累计达到档位即可领取。\n" + "12. 原首充礼包改为登录礼包，每个存档登录后可免费领取一次。";
+         box.addChild(this.notice_txt);
+         return box;
+      }
+      
+      private function loadOfflineNotice() : void
+      {
+         this.noticeLoader = new URLLoader();
+         this.noticeLoader.dataFormat = URLLoaderDataFormat.TEXT;
+         this.noticeLoader.addEventListener(Event.COMPLETE,this.offlineNoticeLoaded);
+         this.noticeLoader.addEventListener(IOErrorEvent.IO_ERROR,this.offlineNoticeLoadFailed);
+         this.noticeLoader.load(new URLRequest("公告.txt?time=" + new Date().time));
+      }
+      
+      private function offlineNoticeLoaded(event:Event) : void
+      {
+         var text0:String = String(this.noticeLoader.data);
+         if(text0.length > 0 && text0.charCodeAt(0) == 65279)
+         {
+            text0 = text0.substr(1);
+         }
+         if(this.notice_txt != null && text0.length > 0)
+         {
+            this.notice_txt.text = text0;
+         }
+         this.clearNoticeLoader();
+      }
+      
+      private function offlineNoticeLoadFailed(event:IOErrorEvent) : void
+      {
+         this.clearNoticeLoader();
+      }
+      
+      private function clearNoticeLoader() : void
+      {
+         if(this.noticeLoader != null)
+         {
+            this.noticeLoader.removeEventListener(Event.COMPLETE,this.offlineNoticeLoaded);
+            this.noticeLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.offlineNoticeLoadFailed);
+            this.noticeLoader = null;
+         }
+      }
+      
       public function InitSelect() : void
       {
-         for(var i:int = 1; i < 9; i++)
+         var i:int = 1;
+         while(i < 9)
          {
             (this["btn_" + i] as MovieClip).gotoAndStop(1);
             (this["btn_" + i] as MovieClip).buttonMode = true;
@@ -148,6 +209,7 @@ package UI.server
             (this["name_" + i]["txt_level"] as TextField).text = "";
             (this["name_" + i]["txt_date"] as TextField).text = "";
             (this["btn_" + i] as MovieClip).addEventListener(MouseEvent.CLICK,this.onSelectClick);
+            i++;
          }
          (this["btn_back"] as SimpleButton).addEventListener(MouseEvent.CLICK,this.onGoTo1);
       }
@@ -260,12 +322,14 @@ package UI.server
          var mc:MovieClip = event.currentTarget as MovieClip;
          var name:String = mc.name;
          var id:int = int(name.split("_")[1]);
-         for(var i:int = 1; i < 9; i++)
+         var i:int = 1;
+         while(i < 9)
          {
             (this["btn_" + i] as MovieClip).gotoAndStop(1);
+            i++;
          }
          mc.gotoAndStop(2);
-         this._selectIdex = this.getindex(id);
+         this._selectIdex = mc["objindex"] != null ? int(mc["objindex"]) : this.getindex(id);
          if(mc["objindex"] != null)
          {
             if(this._isnew)
@@ -305,16 +369,18 @@ package UI.server
       
       private function yesfun() : void
       {
+         var hasData:Boolean = false;
          Game.gameData.nowSaveIndex = this._selectIdex;
          if(Boolean(this["name_" + this.getid(this._selectIdex)]) && Boolean((this["name_" + this.getid(this._selectIdex)]["txt_date"] as TextField).text))
          {
+            hasData = true;
             this._selectSaveData = new StringDate();
             this._selectSaveData.inData_byStr((this["name_" + this.getid(this._selectIdex)]["txt_date"] as TextField).text);
          }
          this.hide();
          if(this.fun2 is Function)
          {
-            this.fun2();
+            this.fun2(!hasData);
          }
       }
       

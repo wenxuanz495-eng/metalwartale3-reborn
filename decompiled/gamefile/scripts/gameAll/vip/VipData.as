@@ -13,6 +13,8 @@ package gameAll.vip
       
       public var giftGetB:Boolean = false;
       
+      public var giftReadyAt:Number = 0;
+      
       public var buffGetB:Boolean = false;
       
       public var buffTime:Number = -100;
@@ -25,6 +27,8 @@ package gameAll.vip
       
       private var _mapTime:String = "";
       
+      public var mapCooldownReadyAt:Number = 0;
+      
       public var _discount:String = "";
       
       public function VipData()
@@ -36,12 +40,14 @@ package gameAll.vip
       {
          this.nowVip = "";
          this.giftGetB = false;
+         this.giftReadyAt = 0;
          this.buffGetB = false;
          this.durationTime = "";
          this.cDay = 0;
          this.buffTime = 0;
          this.experienceTime = -100;
          this.mapTime = -100;
+         this.mapCooldownReadyAt = 0;
          this.buffAdd.clearData();
       }
       
@@ -71,6 +77,7 @@ package gameAll.vip
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
+         this.giftReadyAt = obj.hasOwnProperty("giftReadyAt") ? Number(obj.giftReadyAt) : 0;
          if(obj.hasOwnProperty("mapTime"))
          {
             this.mapTime = obj.mapTime;
@@ -79,10 +86,18 @@ package gameAll.vip
          {
             this.mapTime = -100;
          }
+         this.mapCooldownReadyAt = obj.hasOwnProperty("mapCooldownReadyAt") ? Number(obj.mapCooldownReadyAt) : 0;
+         if(!obj.hasOwnProperty("mapCooldownReadyAt") && this.mapTime <= 0 && this.getMapDuration() > 0)
+         {
+            this.mapTime = this.getMapDuration();
+         }
+         this.refreshMapAccess();
          this.fleshDiscount();
          var d0:OneVipDefine = this.getNowDefine();
-         if(Boolean(d0) && Boolean(this.buffGetB) && this.buffTime > 0)
+         if(Boolean(d0) && this.nowVip != "")
          {
+            this.buffGetB = true;
+            this.buffTime = -100;
             this.buffAdd.allAdd = d0.all_pro;
          }
          else
@@ -111,12 +126,11 @@ package gameAll.vip
             d0 = this.getNowDefine();
             if(Boolean(d0))
             {
-               this.giftGetB = false;
-               this.buffGetB = false;
-               this.mapTime = 60 * 60;
+               this.buffGetB = true;
                this.buffTime = -100;
+               this.buffAdd.allAdd = d0.all_pro;
             }
-            this.buffAdd.clearData();
+            this.refreshMapAccess();
          }
          this.fleshDiscount();
       }
@@ -124,12 +138,12 @@ package gameAll.vip
       public function fleshCDay() : int
       {
          var date0:StringDate = null;
-         var cday0:Number = NaN;
+         var cday0:Number = Number(NaN);
          var d0:OneVipDefine = this.getNowDefine();
          this.cDay = 0;
          if(Boolean(d0))
          {
-            if(d0.name == "vipCard_4")
+            if(this.nowVip != null && this.nowVip.indexOf("vipCard_1") == 0)
             {
                this.cDay = 10000;
             }
@@ -149,10 +163,19 @@ package gameAll.vip
          var d0:OneVipDefine = null;
          this.nowVip = str0;
          this.giftGetB = false;
-         this.buffGetB = false;
+         this.giftReadyAt = 0;
+         this.buffGetB = this.nowVip != "";
          if(this.nowVip != "")
          {
-            this.mapTime = 60 * 60;
+            this.mapTime = this.getMapDuration();
+            this.mapCooldownReadyAt = 0;
+            d0 = this.getNowDefine();
+            if(Boolean(d0))
+            {
+               this.buffTime = -100;
+               this.buffAdd.allAdd = d0.all_pro;
+               Game.gameData.fleshAdd_byItems(true);
+            }
          }
          if(this.nowVip == "vipCard_0")
          {
@@ -164,14 +187,9 @@ package gameAll.vip
          }
          else
          {
-            Game.severTime.getTime(this.affterGetSeverTime);
+            this.durationTime = "";
          }
          this.fleshDiscount();
-      }
-      
-      public function affterGetSeverTime(time00:String) : *
-      {
-         this.durationTime = Game.inTimeGetSaveDate(time00).getStr();
       }
       
       public function getNowBuffGift() : *
@@ -179,7 +197,7 @@ package gameAll.vip
          var d0:OneVipDefine = this.getNowDefine();
          if(Boolean(d0))
          {
-            this.buffTime = d0.buffTime;
+            this.buffTime = -100;
             this.buffGetB = true;
             this.buffAdd.allAdd = d0.all_pro;
             Game.gameData.fleshAdd_byItems(true);
@@ -209,6 +227,109 @@ package gameAll.vip
       public function get mapTime() : Number
       {
          return Number(TextWay.getText(this._mapTime));
+      }
+      
+      public function getGiftCooldownRemaining() : Number
+      {
+         var remain:Number = this.giftReadyAt - new Date().time;
+         if(remain <= 0)
+         {
+            this.giftReadyAt = 0;
+            this.giftGetB = false;
+            return 0;
+         }
+         this.giftGetB = true;
+         return Math.ceil(remain / 1000);
+      }
+      
+      public function canGetVipGift() : Boolean
+      {
+         return this.getGiftCooldownRemaining() <= 0;
+      }
+      
+      public function startGiftCooldown() : *
+      {
+         this.giftReadyAt = new Date().time + 3 * 60 * 60 * 1000;
+         this.giftGetB = true;
+      }
+      
+      public function getMapDuration() : Number
+      {
+         if(this.nowVip == "vipCard_11")
+         {
+            return 30 * 60;
+         }
+         if(this.nowVip == "vipCard_12")
+         {
+            return 60 * 60;
+         }
+         if(this.nowVip == "vipCard_13")
+         {
+            return 90 * 60;
+         }
+         if(this.nowVip == "vipCard_14")
+         {
+            return 120 * 60;
+         }
+         return 0;
+      }
+      
+      public function getMapCooldown() : Number
+      {
+         if(this.nowVip == "vipCard_11")
+         {
+            return 20 * 60;
+         }
+         if(this.nowVip == "vipCard_12")
+         {
+            return 15 * 60;
+         }
+         if(this.nowVip == "vipCard_13")
+         {
+            return 10 * 60;
+         }
+         if(this.nowVip == "vipCard_14")
+         {
+            return 5 * 60;
+         }
+         return 0;
+      }
+      
+      public function getMapCooldownRemaining() : Number
+      {
+         var remain:Number = this.mapCooldownReadyAt - new Date().time;
+         return remain > 0 ? Math.ceil(remain / 1000) : 0;
+      }
+      
+      public function refreshMapAccess() : Boolean
+      {
+         if(this.mapCooldownReadyAt > 0 && this.getMapCooldownRemaining() <= 0)
+         {
+            this.mapCooldownReadyAt = 0;
+            this.mapTime = this.getMapDuration();
+            return true;
+         }
+         if(this.mapCooldownReadyAt <= 0 && this.mapTime > this.getMapDuration())
+         {
+            this.mapTime = this.getMapDuration();
+         }
+         return false;
+      }
+      
+      public function canEnterMap() : Boolean
+      {
+         this.refreshMapAccess();
+         return this.mapCooldownReadyAt <= 0 && this.mapTime > 0;
+      }
+      
+      public function startMapCooldown() : *
+      {
+         var seconds:Number = this.getMapCooldown();
+         if(seconds > 0 && this.mapCooldownReadyAt <= new Date().time)
+         {
+            this.mapTime = 0;
+            this.mapCooldownReadyAt = new Date().time + seconds * 1000;
+         }
       }
       
       public function set discount(str0:Number) : *
@@ -254,18 +375,12 @@ package gameAll.vip
       
       public function FTimer() : *
       {
-         if(this.buffTime > 0)
+         var vipDefine:OneVipDefine = this.getNowDefine();
+         if(Boolean(vipDefine) && this.nowVip != "")
          {
-            if(this.buffGetB)
-            {
-               this.buffTime -= 1;
-            }
-         }
-         else if(this.buffTime <= 0)
-         {
+            this.buffGetB = true;
             this.buffTime = -100;
-            this.buffAdd.clearData();
-            Game.gameData.fleshAdd_byItems(true);
+            this.buffAdd.allAdd = vipDefine.all_pro;
          }
          if(this.experienceTime > 0)
          {

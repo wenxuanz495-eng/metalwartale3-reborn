@@ -6,6 +6,7 @@ package UI.task
    import flash.display.MovieClip;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
+   import flash.geom.ColorTransform;
    import flash.geom.Rectangle;
    import flash.text.TextField;
    import goods.GoodsDefine;
@@ -154,6 +155,10 @@ package UI.task
             mc = temp;
          }
          var icon0:MovieClip = mc;
+         if(d0.id == "elite_challenge_card")
+         {
+            icon0.transform.colorTransform = new ColorTransform(1.15,0.45,1.35,1,35,0,65,0);
+         }
          this.setText(d0.getLevelTitle());
          this.setIcon(icon0);
          this.setState("fill");

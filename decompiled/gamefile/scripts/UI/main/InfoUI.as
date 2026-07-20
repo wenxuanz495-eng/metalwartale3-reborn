@@ -151,12 +151,30 @@ package UI.main
          var name0:String = event.target.name;
          if(name0 == "name_btn")
          {
-            this.showChangeName();
+            if(Game.gameData.rankAdd.nameChangeNum > 0)
+            {
+               this.showChangeName();
+            }
+            else if(Game.gameData.MCoin < 5)
+            {
+               Game.uiGroup.checkTip.showCheck2("修改昵称需要5M币，\nM币不足，无法修改。",2);
+            }
+            else
+            {
+               Game.uiGroup.checkTip.showCheck2("修改昵称需要5M币，要继续吗？",1,this.showChangeName);
+            }
          }
          else if(event.target is HeadBtn)
          {
             trace("修改头像！！");
-            this.showChangeHead();
+            if(Game.gameData.MCoin < 10)
+            {
+               Game.uiGroup.checkTip.showCheck2("修改头像需要10M币，\nM币不足，无法修改。",2);
+            }
+            else
+            {
+               Game.uiGroup.checkTip.showCheck2("修改头像需要10M币，要继续吗？",1,this.showChangeHead);
+            }
          }
          else if(name0 == "rank_btn")
          {
@@ -177,7 +195,7 @@ package UI.main
       {
          Game.uiGroup.loginUI.visible = true;
          Game.uiGroup.loginUI.showBox("head");
-         trace("修改头像，未解锁头像需要消耗G币。");
+         trace("修改头像，需要消耗10M币。");
       }
       
       private function showChangeName() : *
@@ -188,7 +206,15 @@ package UI.main
       
       private function affter_showChangeName() : *
       {
-         this.changeNameYes();
+         if(Game.gameData.rankAdd.nameChangeNum > 0)
+         {
+            this.changeNameYes();
+            --Game.gameData.rankAdd.nameChangeNum;
+         }
+         else
+         {
+            Game.payController.decMCoin(5,this.changeNameYes);
+         }
       }
       
       public function changeNameYes() : *
@@ -209,12 +235,16 @@ package UI.main
          var GD:GameData = Game.gameData;
          if(event.target == this.name_btn)
          {
-            str00 = "点击免费修改名称";
+            str00 = "点击修改名称\n需要消耗5M币";
+            if(Game.gameData.rankAdd.nameChangeNum > 0)
+            {
+               str00 += "\n" + this.getColor("你有" + Game.gameData.rankAdd.nameChangeNum + "次免费修改的机会","#FFFF00");
+            }
             this.tipBox.showText(str00);
          }
          else if(event.target == this.head_btn)
          {
-            this.tipBox.showText("点击修改头像\n未解锁头像需要50000 G币");
+            this.tipBox.showText("点击修改头像\n需要消耗10M币");
          }
          else if(event.target == this.rank_btn)
          {
@@ -344,7 +374,7 @@ package UI.main
          str2 += Math.floor(GD.nowLife) + "/" + Math.floor(GD.maxLife) + "\n";
          str2 += int(GD.maxDefence) + "\n";
          str2 += int(GD.nowExp) + "/" + int(GD.maxExp) + "\n";
-         str2 += int(GD.allAchieve) + "/" + int(Game.gameDefine.getAllAchieve(GD.rankLevel)) + "\n";
+         str2 += GD.allAchieve + "/" + Game.gameDefine.getAllAchieve(GD.rankLevel) + "\n";
          this.txt2.htmlText = str2;
          var str3:String = "";
          str3 += GD.playerData.lifeAdd.getPer() + GD.playerData.allAdd.getPer() + "%";
@@ -422,7 +452,7 @@ package UI.main
       
       private function MMove(event:MouseEvent) : *
       {
-         var index0:int = int(event.target.mouseY / int(191 - 168));
+         var index0:int = int(event.target.mouseY / (int(191 - 168)));
          this.showTip(index0);
          this.tipBox.x = this.mouseX - 10 - this.tipBox.width;
          this.tipBox.y = this.mouseY + 10;
@@ -479,7 +509,7 @@ package UI.main
             }
             else if(str0 == "lifeMax")
             {
-               str1 = "基础耐久：" + int(GD.baseLife + GD.foreverLife);
+               str1 = "基础耐久：" + (int(GD.baseLife + GD.foreverLife));
                str1 += "\n车身耐久：" + int(GD.carLife);
                str1 += "\n军衔耐久加成：" + int(GD.rankAdd.lifeAdd * 100) + "%";
                str1 += "\n芯片耐久加成：" + int(GD.itemsAdd.life_max * 100) + "%";
@@ -488,7 +518,7 @@ package UI.main
             }
             else if(str0 == "defence")
             {
-               str1 = "车身防御：" + int(GD.carDefence + GD.foreverDefence);
+               str1 = "车身防御：" + (int(GD.carDefence + GD.foreverDefence));
                str1 += "\n芯片防御加成：" + int(GD.itemsAdd.defence_max) + "点";
                str1 += "\n" + this.getColor("伤害减免率：" + int(GD.defenceHurtRedu * 100) + "%","#FFFF00");
                this.tipBox.showText(str1);

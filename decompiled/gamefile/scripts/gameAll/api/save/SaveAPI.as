@@ -12,6 +12,12 @@ package gameAll.api.save
       
       public var loadUI:LoadingUI;
       
+      private var localReadIndex:int = 2;
+      
+      private var localCreateRequested:Boolean = false;
+      
+      private var returnBusy:Boolean = false;
+      
       public function SaveAPI()
       {
          super();
@@ -29,7 +35,17 @@ package gameAll.api.save
       
       public function game_init() : *
       {
-         Game.severTime.getTime(this.next_game_init,this.next_game_init);
+         if(this.isLocal())
+         {
+            Game.gameData.username = "本地玩家";
+            Game.gameData.uid = 1;
+            this.loadUI.hide();
+            Game.uiGroup.serverUI.show(this.readlist,this.read);
+         }
+         else
+         {
+            Game.severTime.getTime(this.next_game_init,this.next_game_init);
+         }
       }
       
       private function next_game_init(time0:String) : *
@@ -66,8 +82,31 @@ package gameAll.api.save
       
       private function outLogin() : *
       {
-         Game.testText.addTestText("玩家退出登录！");
-         this.loadUI.show();
+         this.returnToMainMenu();
+      }
+      
+      public function returnToMainMenu() : *
+      {
+         if(this.returnBusy)
+         {
+            return;
+         }
+         this.returnBusy = true;
+         Game.testText.addTestText("返回本地主菜单。");
+         if(this.isLocal() && Game.saveExistB)
+         {
+            this.loadUI.show();
+            this.localSave.WriteServer(Game.gameData.copyObj(),this.returnToLocalMenu,this.returnToLocalMenu);
+            return;
+         }
+         this.returnToLocalMenu();
+      }
+      
+      private function returnToLocalMenu(str0:String = "") : *
+      {
+         this.returnBusy = false;
+         this.loadUI.hide();
+         Game.ME.closeLevel();
          Game.uiGroup.mainUI.levelGift.hide(true);
          Game.uiGroup.shopUI.clearAll();
          Game.uiGroup.unionUI.clearAll();
@@ -75,10 +114,11 @@ package gameAll.api.save
          Game.uiGroup.mainUI.hideAll();
          Game.payController.init();
          Game.payController2.init();
-         Game.clearGameData();
+         Game.gameState = "no";
          Game.uiGroup.show("fase");
          Game.uiGroup.serverUI.InitSever();
          Game.uiGroup.checkTip.hide();
+         Game.uiGroup.serverUI.show(this.readlist,this.read);
       }
       
       private function closePanel() : *
@@ -137,7 +177,14 @@ package gameAll.api.save
       private function readlist() : void
       {
          this.loadUI.show();
-         this.s4399.readlist(this.yes_readlist,this.no_read);
+         if(this.isLocal())
+         {
+            this.localSave.ReadList(this.yes_readlist,this.no_read);
+         }
+         else
+         {
+            this.s4399.readlist(this.yes_readlist,this.no_read);
+         }
       }
       
       private function read(iscover:Boolean = false) : *
@@ -148,7 +195,16 @@ package gameAll.api.save
          this.loadUI.show();
          if(this.isLocal())
          {
-            this.localSave.ReadServer(this.yes_read_local,this.no_read);
+            this.localReadIndex = Game.gameData.nowSaveIndex;
+            this.localCreateRequested = iscover;
+            if(iscover)
+            {
+               this.yes_read_local(null);
+            }
+            else
+            {
+               this.localSave.ReadServer(this.yes_read_local,this.no_read);
+            }
          }
          else
          {
@@ -156,13 +212,20 @@ package gameAll.api.save
             this.s4399.read(this.yes_read,this.no_read,iscover);
          }
       }
-
+      
       private function yes_read_local(obj0:Object) : *
       {
          var obj2:Object = {};
+         if(obj0 == null && !this.localCreateRequested)
+         {
+            this.loadUI.hide();
+            Game.uiGroup.serverUI.show(this.readlist,this.read);
+            return;
+         }
+         this.localCreateRequested = false;
          obj2.data = obj0;
          obj2.title = "本地主存档";
-         obj2.index = 0;
+         obj2.index = this.localReadIndex;
          obj2.datetime = Game.getNowLocalTime();
          this.yes_read(obj2);
       }
@@ -191,6 +254,10 @@ package gameAll.api.save
             }
          }
          Game.replaceGameData(useObj);
+         if(this.isLocal() && obj0 != null && obj0.hasOwnProperty("index"))
+         {
+            Game.gameData.nowSaveIndex = int(obj0.index);
+         }
          if(Game.timeDate.lastLoginToGet() >= 1)
          {
             Game.testText.addTestText("新的一天上线，清空经验卡使用和任务更新！！！！！！！");

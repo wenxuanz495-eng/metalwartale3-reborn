@@ -136,7 +136,7 @@ package bodyGroup
          var bullet0:* = undefined;
          var n:* = undefined;
          var rect0:Rectangle = null;
-         var ra0:Number = NaN;
+         var ra0:Number = Number(NaN);
          var bb:Boolean = false;
          var arr0:Array = this.hitRectArr;
          for(m in bu_arr)
@@ -199,13 +199,13 @@ package bodyGroup
          var i:int = 0;
          var nextMot:Point = null;
          var nextMot2:Point = null;
-         var ra0:Number = NaN;
+         var ra0:Number = Number(NaN);
          var bu0:LaserBody = null;
          var p0:Point = null;
          var effectAddB3:Boolean = false;
          var esmc3:EffectSMC = null;
          var effect3:EffectSMC = null;
-         var sb0:SubBody = null;
+         var sb0:* = null;
          var shootP0:Point = null;
          var obj10:Object = null;
          var p2:Point = null;
@@ -252,7 +252,7 @@ package bodyGroup
                            heroPlasmaB = Boolean(b0.ai.plasmaB);
                         }
                      }
-                     if((Boolean(b0.hitHurtB == 0 || bullet0.getBroken_PlasmaB() && heroPlasmaB)) && Boolean(!heroSpeedB) && b0.die == 0)
+                     if((b0.hitHurtB == 0 || bullet0.getBroken_PlasmaB() && heroPlasmaB) && !heroSpeedB && b0.die == 0)
                      {
                         hurtRectArr = b0.AAHD.hurtRectArr;
                         multPoint = 8;
@@ -266,12 +266,13 @@ package bodyGroup
                            if(bullet0.bounceNum == 0 || bullet0.nowBounceNum >= bullet0.bounceNum)
                            {
                               i = 0;
-                              if(Boolean(heroPlasmaB && !ignorePlasmaB) && Boolean(plasmaP) && Boolean(b0.hasOwnProperty("plasmaD")))
+                              if(heroPlasmaB && !ignorePlasmaB && Boolean(plasmaP) && Boolean(b0.hasOwnProperty("plasmaD")))
                               {
                                  bb = HitIO.hitCirclePoint(plasmaP.x,plasmaP.y,b0.plasmaD,bullet0.mot.x0,bullet0.mot.y0);
                                  if(isabsolute && !bb)
                                  {
-                                    for(i = multPoint; i > 0; i--)
+                                    i = multPoint;
+                                    while(i > 0)
                                     {
                                        nextMot = (bullet0 as OneBulletBody).mot.getNextBulletPoint(1 / multPoint * i);
                                        bb = HitIO.hitCirclePoint(plasmaP.x,plasmaP.y,b0.plasmaD,nextMot.x,nextMot.y);
@@ -286,6 +287,7 @@ package bodyGroup
                                           bullet0.mot.y0 = nextMot.y;
                                           break;
                                        }
+                                       i--;
                                     }
                                  }
                               }
@@ -294,7 +296,8 @@ package bodyGroup
                                  bb = HitIO.hitRectArrRect(hurtRectArr,bullet0.mot.x0 - bullet0.width,bullet0.mot.y0 - bullet0.width,bullet0.width * 2,bullet0.width * 2);
                                  if(isabsolute && !bb)
                                  {
-                                    for(i = multPoint; i > 0; i--)
+                                    i = multPoint;
+                                    while(i > 0)
                                     {
                                        nextMot2 = (bullet0 as OneBulletBody).mot.getNextBulletPoint(1 / multPoint * i);
                                        bb = HitIO.hitRectArrRect(hurtRectArr,nextMot2.x - bullet0.width,nextMot2.y - bullet0.width,bullet0.width * 2,bullet0.width * 2);
@@ -309,6 +312,7 @@ package bodyGroup
                                           bullet0.mot.y0 = nextMot2.y;
                                           break;
                                        }
+                                       i--;
                                     }
                                  }
                               }
@@ -324,7 +328,7 @@ package bodyGroup
                            }
                            else
                            {
-                              if(Boolean(heroPlasmaB) && Boolean(plasmaP) && Boolean(b0.hasOwnProperty("plasmaD")))
+                              if(heroPlasmaB && Boolean(plasmaP) && Boolean(b0.hasOwnProperty("plasmaD")))
                               {
                                  ra0 = HitIO.hitCirclePoint_ra(plasmaP.x,plasmaP.y,b0.plasmaD,bullet0.mot.x0,bullet0.mot.y0);
                               }
@@ -352,7 +356,7 @@ package bodyGroup
                            bu0 = bullet0;
                            if(bu0.penetrationB == 1)
                            {
-                              if(Boolean(heroPlasmaB) && Boolean(plasmaP) && Boolean(b0.hasOwnProperty("plasmaD")))
+                              if(heroPlasmaB && Boolean(plasmaP) && Boolean(b0.hasOwnProperty("plasmaD")))
                               {
                                  p0 = HitIO.hitCircleLine(plasmaP.x,plasmaP.y,b0.plasmaD,bullet0.x0,bullet0.y0,bullet0.ra);
                               }
@@ -403,42 +407,51 @@ package bodyGroup
                if(bullet0.bulletType == "laser" && bullet0.penetrationB == 0 && !bullet0.hitEnemyB)
                {
                   sb0 = bullet0.attackBody;
-                  shootP0 = sb0.AAHD.shootPoint;
-                  sb0.img.arms.length = 1000;
-                  obj10 = HitIO.hitRectArrLaser2(body_arr,shootP0.x,shootP0.y,sb0.AAHD.shootRa,bullet0.width);
-                  p2 = obj10.point;
-                  if(p2 is Point)
+                  if(!(sb0 == null || sb0.AAHD == null))
                   {
-                     b10 = obj10.b0;
-                     if(b10.die == 0)
+                     shootP0 = sb0.AAHD.shootPoint;
+                     if(sb0.img != null && sb0.img.arms != null)
                      {
-                        effectAddB = true;
-                        esmc = bullet0.hitEffectImg;
-                        if(esmc is EffectSMC)
+                        sb0.img.arms.length = 1000;
+                     }
+                     obj10 = HitIO.hitRectArrLaser2(body_arr,shootP0.x,shootP0.y,sb0.AAHD.shootRa,bullet0.width);
+                     p2 = obj10.point;
+                     if(p2 is Point)
+                     {
+                        b10 = obj10.b0;
+                        if(b10.die == 0)
                         {
-                           if(esmc.die < 2)
+                           effectAddB = true;
+                           esmc = bullet0.hitEffectImg;
+                           if(esmc is EffectSMC)
                            {
-                              effectAddB = false;
+                              if(esmc.die < 2)
+                              {
+                                 effectAddB = false;
+                              }
                            }
+                           if(effectAddB)
+                           {
+                              effect2 = this.EG.addEffect(bullet0.imgFather,bullet0.hitImgLabel,this.gameSprite.effectL,p2.x,p2.y);
+                              bullet0.hitEffectImg = effect2;
+                           }
+                           else
+                           {
+                              effect2 = bullet0.hitEffectImg;
+                              effect2.x = p2.x;
+                              effect2.y = p2.y;
+                           }
+                           effect2.mc.rotation = bullet0.ra * 180 / Math.PI;
+                           imgLen = Maths.Long(shootP0.x - p2.x,shootP0.y - p2.y);
+                           if(sb0.img != null && sb0.img.arms != null)
+                           {
+                              sb0.img.arms.length = imgLen;
+                           }
+                           bullet0.hitEnemyB = true;
+                           ++bullet0.penetrationNum;
+                           bullet0.doEffect();
+                           this.eventGroup.hurt(b10,bullet0.hurt,bullet0.attackType,bullet0.itemsData,bullet0.attackBody,p2.x,p2.y,bullet0.hurt_0_B,false,bullet0.bulletType,bullet0,bullet0.mulHurt);
                         }
-                        if(effectAddB)
-                        {
-                           effect2 = this.EG.addEffect(bullet0.imgFather,bullet0.hitImgLabel,this.gameSprite.effectL,p2.x,p2.y);
-                           bullet0.hitEffectImg = effect2;
-                        }
-                        else
-                        {
-                           effect2 = bullet0.hitEffectImg;
-                           effect2.x = p2.x;
-                           effect2.y = p2.y;
-                        }
-                        effect2.mc.rotation = bullet0.ra * 180 / Math.PI;
-                        imgLen = Maths.Long(shootP0.x - p2.x,shootP0.y - p2.y);
-                        sb0.img.arms.length = imgLen;
-                        bullet0.hitEnemyB = true;
-                        ++bullet0.penetrationNum;
-                        bullet0.doEffect();
-                        this.eventGroup.hurt(b10,bullet0.hurt,bullet0.attackType,bullet0.itemsData,bullet0.attackBody,p2.x,p2.y,bullet0.hurt_0_B,false,bullet0.bulletType,bullet0,bullet0.mulHurt);
                      }
                   }
                }
@@ -500,8 +513,8 @@ package bodyGroup
          var e0:* = undefined;
          var ad:AttackHitData = null;
          var p0:Lines = null;
-         var ra00:Number = NaN;
-         var ra02:Number = NaN;
+         var ra00:Number = Number(NaN);
+         var ra02:Number = Number(NaN);
          if(b0.hitHurtB == 0 && !heroSpeedB && b0.die == 0)
          {
             hurtRectArr0 = b0.AAHD.hurtRectArr;
@@ -549,7 +562,7 @@ package bodyGroup
          var n2:* = undefined;
          var rect0:Rectangle = null;
          var p0:Point = null;
-         var ra0:Number = NaN;
+         var ra0:Number = Number(NaN);
          var l0:Lines = null;
          var p1:Point = null;
          var rArr:Array = ad.hitRectArr;

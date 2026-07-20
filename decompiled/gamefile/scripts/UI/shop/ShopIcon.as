@@ -250,10 +250,33 @@ package UI.shop
       {
          var n:* = undefined;
          var name00:String = null;
-         var p00:Number = NaN;
+         var p00:Number = Number(NaN);
          var num00:int = 0;
          var spaceStr0:String = null;
          var i:int = 0;
+         var sourceId:String = null;
+         if(this.itemsData.id == "xuehua" || this.itemsData.id == "ertongaixin")
+         {
+            for(n in this.money_icon_arr)
+            {
+               this.money_icon_arr[n].visible = false;
+               this.price_txt_arr[n].visible = false;
+            }
+            this.price_txt_arr[0].visible = true;
+            this.price_txt_arr[0].text = "1:1";
+            sourceId = this.itemsData.id == "xuehua" ? "ertongaixin" : "xuehua";
+            if(Game.gameData.materialsItems.getNumByBase(sourceId) > 0)
+            {
+               this.setState("fill");
+               this.buy_btn.setText("兑换");
+            }
+            else
+            {
+               this.setState("noMoney");
+               this.buy_btn2.txt.text = "材料不足";
+            }
+            return;
+         }
          var buyDefine0:GoodsDefine = new GoodsDefine();
          buyDefine0.num = this.itemsData.num;
          buyDefine0.fleshPrice_inData(this.itemsData);
@@ -305,11 +328,13 @@ package UI.shop
          if(discount > 0 && (this.itemsData.priceType == "Mprice" || this.itemsData.priceType == "price") && this.itemsData.specialType != "week")
          {
             p00 = Number(this.itemsData.getPriceArr()[0]);
-            num00 = (4 - String(this.swapToWan(p00)).length) * 2 + 2;
+            num00 = (4 - this.swapToWan(p00).length) * 2 + 2;
             spaceStr0 = "";
-            for(i = 0; i < num00; i++)
+            i = 0;
+            while(i < num00)
             {
                spaceStr0 += " ";
+               i++;
             }
             if(spaceStr0 == "")
             {
@@ -324,6 +349,10 @@ package UI.shop
                this.price_txt.htmlText = this.price_txt.htmlText + spaceStr0 + "<font color=\'#FFFFFF\'>" + this.swapToWan(int(p00 / (1 - this.itemsData.discount))) + "</font>";
             }
          }
+         else if(discount == -1000)
+         {
+            this.price_txt.text = "?????";
+         }
          var d0:* = this.itemsData;
          if(discount == -100 && d0.priceType == "Mprice")
          {
@@ -332,6 +361,10 @@ package UI.shop
          else if(discount > 0 && (d0.priceType == "Mprice" || d0.priceType == "price") && d0.specialType != "week")
          {
             this.setSpecialState("discount");
+         }
+         else if(discount == -1000)
+         {
+            this.setSpecialState("show");
          }
          else if(d0.specialType == "week")
          {

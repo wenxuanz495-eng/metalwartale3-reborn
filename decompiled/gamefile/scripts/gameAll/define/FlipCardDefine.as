@@ -47,12 +47,14 @@ package gameAll.define
       {
          var type0:String = null;
          var arr0:Array = [];
-         for(var i:int = 0; i < 5; i++)
+         var i:int = 0;
+         while(i < 5)
          {
             type0 = this.getType_byArr(arr0);
             arr0.push(type0);
             trace(arr0);
             trace("文本：" + this.getGoodsDefineStr_byType(type0,30));
+            i++;
          }
          trace("-----------------------------------");
       }
@@ -105,11 +107,7 @@ package gameAll.define
          }
          else if(type0 == "coin")
          {
-            if(level0 > this.coin_arr.length - 1)
-            {
-               level0 = this.coin_arr.length - 1;
-            }
-            str0 = "GCoin," + int(this.coin_arr[level0]) + ",1";
+            str0 = "props,elite_challenge_card,1";
          }
          else if(type0 == "superalloy")
          {
@@ -154,8 +152,7 @@ package gameAll.define
       public function getMaterialNum(level0:int) : int
       {
          var num0:int = 1;
-         level0++;
-         if(level0 < 18)
+         if(++level0 < 18)
          {
             num0 = 5;
          }

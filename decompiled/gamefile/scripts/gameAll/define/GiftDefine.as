@@ -5,11 +5,11 @@ package gameAll.define
       
       public var oneYuan_arr:Array = [];
       
-      public var pay_arr:Array = [100,200,500,1000,2000,3000,4000,5000,10000,20000,30000,40000,43990,50000,60000,70000,79980,80000,90000,99980,100000];
+      public var pay_arr:Array = [10,20,50,100,200,300,400,500,1000,2000,3000,4000,4399,5000,6000,7000,7998,8000,9000,9998,10000,100000];
       
       public var onePay_arr:Array = [100,500,1000,2000,3000,5000];
       
-      public var payBagMust:Array = [4,4,6,8,8,8,8,8,13,13,13,13,0,13,23,23,-1,23,23,-2,53];
+      public var payBagMust:Array = [4,4,6,8,8,8,8,8,13,13,13,13,0,13,23,23,-1,23,23,-2,53,8];
       
       public var payGift:Array = [];
       
@@ -34,10 +34,12 @@ package gameAll.define
          this.oneYuan_arr.push("props,\t\trebirth_crystal,1");
          this.oneYuan_arr.push("props,\t\texp_card_double,1");
          this.oneYuan_arr.push("props,\t\tGCoin_card_3,\t1");
-         for(var i:int = 0; i < 100; i++)
+         var i:int = 0;
+         while(i < 100)
          {
             this.payGift[i] = new Array();
             this.onePayGift[i] = new Array();
+            i++;
          }
          this.payGift[0].push("props,\t\trebirth_crystal,1");
          this.payGift[0].push("materials,\tsuperalloy,\t\t8");
@@ -187,6 +189,7 @@ package gameAll.define
          this.payGift[num0].push("props,\t\tlife_capsule,\t5");
          this.payGift[num0].push("props,\t\tdefence_capsule,5");
          this.payGift[num0].push("crystal,\t\t8,\t\t\t\t1");
+         this.configureEarnedMCoinGifts();
          this.onePayGift[0].push("props,\t\trebirth_crystal,2");
          this.onePayGift[0].push("props,\t\tGCoin_card_3,\t1");
          this.onePayGift[0].push("crystal,\t5,\t\t\t\t1");
@@ -248,6 +251,48 @@ package gameAll.define
          this.gift11.push("materials,\tyellow_crystal_5,\t2");
          this.gift11.push("materials,\tpurple_crystal_5,\t2");
          ExtraDefine.swapToCode(this.gift11);
+      }
+      
+      private function configureEarnedMCoinGifts() : void
+      {
+         var i:int = 0;
+         var n:int = 0;
+         var factor:Number = 1;
+         var threshold:int = 0;
+         var source:Array = null;
+         var parts:Array = null;
+         while(i < 21)
+         {
+            threshold = int(this.pay_arr[i]);
+            factor = threshold < 1000 ? 1.5 : (threshold < 10000 ? 2 : 3);
+            n = 0;
+            while(n < this.payGift[i].length)
+            {
+               this.payGift[i][n] = this.multiplyGiftCount(String(this.payGift[i][n]),factor);
+               n++;
+            }
+            i++;
+         }
+         source = this.payGift[20];
+         this.payGift[21] = [];
+         n = 0;
+         while(n < source.length)
+         {
+            parts = String(source[n]).split(",");
+            factor = parts.length > 1 && String(parts[1]).indexOf("superalloy") >= 0 ? 10 : 5;
+            this.payGift[21].push(this.multiplyGiftCount(String(source[n]),factor));
+            n++;
+         }
+      }
+      
+      private function multiplyGiftCount(value:String, factor:Number) : String
+      {
+         var parts:Array = value.split(",");
+         if(parts.length >= 3)
+         {
+            parts[2] = String(Math.max(1,Math.round(Number(parts[2]) * factor)));
+         }
+         return parts.join(",");
       }
       
       public function getDouwaGift() : Array

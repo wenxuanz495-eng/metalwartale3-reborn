@@ -14,27 +14,31 @@ package gameAll.api.save
    {
       
       private var saveURL:String = "api/game-save";
-
+      
+      private var slots:Array = new Array(8);
+      
       private var readLoader:URLLoader;
-
-      private var writeLoader:URLLoader;
-
-      private var writeBusy:Boolean = false;
-
+      
+      private var readMode:String = "";
+      
       private var readYes:Function;
-
+      
       private var readNo:Function;
-
+      
+      private var writeLoader:URLLoader;
+      
+      private var writeBusy:Boolean = false;
+      
       private var currentWriteData:*;
-
+      
       private var currentWriteYes:Array = [];
-
+      
       private var currentWriteNo:Array = [];
-
+      
       private var queuedWriteData:*;
-
+      
       private var queuedWriteYes:Array = [];
-
+      
       private var queuedWriteNo:Array = [];
       
       public function LocalSave()
@@ -44,9 +48,33 @@ package gameAll.api.save
       
       public function WriteServer(gd:*, _yesFun:Function = null, _noFun:Function = null) : *
       {
+         var index:int = Game.gameData.nowSaveIndex;
+         if(this.isGeneratedBlankData(gd))
+         {
+            if(_noFun is Function)
+            {
+               _noFun("默认空白角色不会被创建或保存");
+            }
+            return;
+         }
+         if(index < 0 || index > 7)
+         {
+            index = 2;
+         }
+         this.slots[index] = {
+            "index":index,
+            "title":Game.gameData.playerName + "_" + Game.gameData.level,
+            "datetime":Game.getNowLocalTime(),
+            "status":1,
+            "data":gd
+         };
+         var container:Object = {
+            "localSaveVersion":2,
+            "localSlots":this.slots
+         };
          if(this.writeBusy)
          {
-            this.queuedWriteData = gd;
+            this.queuedWriteData = container;
             if(_yesFun is Function)
             {
                this.queuedWriteYes.push(_yesFun);
@@ -67,17 +95,17 @@ package gameAll.api.save
          {
             noArr.push(_noFun);
          }
-         this.startWriteServer(gd,yesArr,noArr);
+         this.startWriteServer(container,yesArr,noArr);
       }
-
-      private function startWriteServer(gd:*, yesArr:Array, noArr:Array) : *
+      
+      private function startWriteServer(data:*, yesArr:Array, noArr:Array) : *
       {
          var bytes:ByteArray = new ByteArray();
-         bytes.writeObject(gd);
+         bytes.writeObject(data);
          bytes.deflate();
          bytes.position = 0;
          this.writeBusy = true;
-         this.currentWriteData = gd;
+         this.currentWriteData = data;
          this.currentWriteYes = yesArr;
          this.currentWriteNo = noArr;
          var request:URLRequest = new URLRequest(this.saveURL);
@@ -91,27 +119,27 @@ package gameAll.api.save
          this.writeLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.writeServerError);
          this.writeLoader.load(request);
       }
-
+      
       private function writeServerComplete(e:Event) : *
       {
          this.clearWriteLoader();
-         for each(var yesFun:Function in this.currentWriteYes)
+         for each(var yesFun in this.currentWriteYes)
          {
             yesFun();
          }
          this.finishWriteServer();
       }
-
+      
       private function writeServerError(e:Event) : *
       {
          this.clearWriteLoader();
-         for each(var noFun:Function in this.currentWriteNo)
+         for each(var noFun in this.currentWriteNo)
          {
             noFun("本地存档服务写入失败");
          }
          this.finishWriteServer();
       }
-
+      
       private function clearWriteLoader() : *
       {
          if(this.writeLoader != null)
@@ -122,7 +150,7 @@ package gameAll.api.save
          }
          this.writeLoader = null;
       }
-
+      
       private function finishWriteServer() : *
       {
          this.currentWriteData = null;
@@ -141,8 +169,20 @@ package gameAll.api.save
          }
       }
       
+      public function ReadList(_yesFun:Function, _noFun:Function = null) : *
+      {
+         this.startRead("list",_yesFun,_noFun);
+      }
+      
       public function ReadServer(_yesFun:Function, _noFun:Function = null) : *
       {
+         this.startRead("slot",_yesFun,_noFun);
+      }
+      
+      private function startRead(mode:String, _yesFun:Function, _noFun:Function) : *
+      {
+         this.clearReadLoader();
+         this.readMode = mode;
          this.readYes = _yesFun;
          this.readNo = _noFun;
          var request:URLRequest = new URLRequest(this.saveURL + "?t=" + getTimer());
@@ -154,38 +194,113 @@ package gameAll.api.save
          this.readLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.readServerFallback);
          this.readLoader.load(request);
       }
-
+      
       private function readServerComplete(e:Event) : *
       {
+         var root:Object = null;
          var bytes:ByteArray = this.readLoader.data as ByteArray;
-         this.clearReadLoader();
          try
          {
             bytes.position = 0;
             bytes.inflate();
             bytes.position = 0;
-            var obj:Object = bytes.readObject();
-            this.readYes(obj);
+            root = bytes.readObject();
          }
          catch(error:Error)
          {
-            this.readServerFallback(e);
+            root = null;
+         }
+         this.clearReadLoader();
+         this.loadRoot(root);
+         this.finishRead();
+      }
+      
+      private function finishRead() : *
+      {
+         if(this.readMode == "list")
+         {
+            this.readYes(this.makeList());
+         }
+         else
+         {
+            var index:int = Game.gameData.nowSaveIndex;
+            var slot:Object = index >= 0 && index < 8 ? this.slots[index] : null;
+            this.readYes(slot != null ? slot.data : null);
          }
       }
-
+      
+      private function loadRoot(root:Object) : *
+      {
+         this.slots = new Array(8);
+         if(root != null && root.hasOwnProperty("localSlots") && root.localSlots is Array)
+         {
+            var source:Array = root.localSlots as Array;
+            var i:int = 0;
+            while(i < 8)
+            {
+               if(i < source.length && source[i] != null)
+               {
+                  if(source[i].data != null && !this.isGeneratedBlankData(source[i].data))
+                  {
+                     this.slots[i] = source[i];
+                  }
+               }
+               i++;
+            }
+         }
+         else if(root != null && !this.isGeneratedBlankData(root))
+         {
+            this.slots[2] = {
+               "index":2,
+               "title":(root.hasOwnProperty("playerName") ? root.playerName : "本地存档") + "_" + (root.hasOwnProperty("level") ? root.level : 0),
+               "datetime":"旧版本地存档",
+               "status":1,
+               "data":root
+            };
+         }
+      }
+      
+      private function makeList() : Array
+      {
+         var result:Array = [];
+         var i:int = 0;
+         while(i < 8)
+         {
+            if(this.slots[i] != null)
+            {
+               result.push({
+                  "index":i,
+                  "title":this.slots[i].title,
+                  "datetime":this.slots[i].datetime,
+                  "status":1
+               });
+            }
+            i++;
+         }
+         return result;
+      }
+      
       private function readServerFallback(e:Event) : *
       {
          this.clearReadLoader();
+         this.slots = new Array(8);
          if(this.readYes is Function)
          {
-            this.readYes(null);
+            if(this.readMode == "list")
+            {
+               this.readYes([]);
+            }
+            else
+            {
+               this.readYes(null);
+            }
          }
          else if(this.readNo is Function)
          {
             this.readNo("本地存档服务读取失败");
          }
       }
-
+      
       private function clearReadLoader() : *
       {
          if(this.readLoader != null)
@@ -197,6 +312,14 @@ package gameAll.api.save
          this.readLoader = null;
       }
       
+      private function isGeneratedBlankData(data:Object) : Boolean
+      {
+         if(data == null)
+         {
+            return true;
+         }
+         return data.hasOwnProperty("playerName") && String(data.playerName) == "4399小战士";
+      }
    }
 }
 

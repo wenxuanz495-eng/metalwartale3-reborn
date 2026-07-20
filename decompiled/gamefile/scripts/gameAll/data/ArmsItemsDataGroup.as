@@ -9,7 +9,7 @@ package gameAll.data
       
       public var arr:Array = [];
       
-      public var bagMaxNum:int = 30;
+      public var bagMaxNum:int = 72;
       
       public var equArr:Array = [];
       
@@ -37,6 +37,10 @@ package gameAll.data
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
+         if(this.bagMaxNum < 72)
+         {
+            this.bagMaxNum = 72;
+         }
          for(j in obj.armsState)
          {
             this.armsState[j] = obj.armsState[j];
@@ -63,7 +67,7 @@ package gameAll.data
       {
          var n:* = undefined;
          var aid1:ArmsItemsData = null;
-         var dps0:Number = NaN;
+         var dps0:Number = Number(NaN);
          var aid0:ArmsItemsData = null;
          var maxdps0:Number = 0;
          for(n in this.equArr)
@@ -118,9 +122,11 @@ package gameAll.data
          var n:* = undefined;
          var d0:ArmsItemsData = null;
          var arr1:Array = [];
-         for(var i:int = 0; i < this.equMaxNum; i++)
+         var i:int = 0;
+         while(i < this.equMaxNum)
          {
             arr1.push("");
+            i++;
          }
          for(n in this.equArr)
          {

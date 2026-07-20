@@ -58,12 +58,16 @@ package UI
    import body.hero.CarDefine;
    import flash.display.DisplayObject;
    import flash.display.SimpleButton;
+   import flash.display.Sprite;
    import flash.events.Event;
    import flash.events.MouseEvent;
    import flash.events.TimerEvent;
    import flash.geom.Point;
    import flash.media.SoundMixer;
    import flash.media.SoundTransform;
+   import flash.text.TextField;
+   import flash.text.TextFieldAutoSize;
+   import flash.text.TextFormat;
    import flash.utils.Timer;
    import flash.utils.getTimer;
    import gameAll.data.ArmsItemsData;
@@ -140,6 +144,16 @@ package UI
       public var helperUI:HelperUI;
       
       public var serverUI:ServerUI;
+      
+      public var returnMenuTab:Sprite;
+      
+      private var returnMenuTitle:TextField;
+      
+      private var returnMenuArrow:TextField;
+      
+      private var returnMenuWidth:Number = 14;
+      
+      private var returnMenuTargetWidth:Number = 14;
       
       public var breakEffectUI:BreakEffectUI;
       
@@ -267,6 +281,8 @@ package UI
          this.gameSprite.topUIL.addChild(this.serverUI);
          this.loginUI = new LoginUI();
          this.gameSprite.topUIL.addChild(this.loginUI);
+         this.returnMenuTab = this.createReturnMenuTab();
+         this.gameSprite.topUIL.addChild(this.returnMenuTab);
          this.breakEffectUI = new BreakEffectUI();
          this.breakEffectUI.visible = false;
          this.gameSprite.goHomeL.addChild(this.breakEffectUI);
@@ -309,6 +325,7 @@ package UI
          this.checkTip = new MustTopDialogBox();
          this.gameSprite.goHomeL.addChild(this.checkTip);
          this.checkTip.visible = false;
+         this.returnMenuTab.visible = false;
          this.loginUI.createRole_btn.addEventListener(MouseEvent.CLICK,this.buttonClick);
          this.leftUI.menu_btn.addEventListener(MouseEvent.CLICK,this.buttonClick);
          this.menuUI.resumeGame_btn.addEventListener(MouseEvent.CLICK,this.buttonClick);
@@ -462,7 +479,7 @@ package UI
          this.mainUI.fleshData();
          this.infoUI.fleshData();
          this.loginUI.fleshHead();
-         this.beforeMCoin = int(Game.gameData.MCoin);
+         this.beforeMCoin = Game.gameData.MCoin;
          this.researchUI.crystalBox.newPlayerLogin();
          this.gameoverUI.cardUI.visible = false;
          this.researchUI.crystalBox.chipBaptizeUI.clear();
@@ -525,6 +542,7 @@ package UI
             this.researchUI.crystalBox.chipBaptizeUI.chipReturn();
          }
          this.checkTip.visible = false;
+         this.returnMenuTab.visible = false;
          this.orderArr.unshift(str);
          if(this.orderArr.length > 40)
          {
@@ -647,6 +665,9 @@ package UI
                   this.allback.showInfo();
                   this.allback.showPlayerBox();
                   this.mainUI.hideAll();
+                  this.returnMenuTab.visible = true;
+                  this.returnMenuTab.mouseEnabled = true;
+                  this.returnMenuTargetWidth = 14;
                }
                else
                {
@@ -881,6 +902,12 @@ package UI
          ++Game.gameData.extraData.buyNum;
       }
       
+      public function restartExtraNoReward(e:* = null) : *
+      {
+         Game.gameData.extraData.useNoReward();
+         this.restartLevel();
+      }
+      
       public function buttonClick(event:MouseEvent) : *
       {
          var order0:String = null;
@@ -910,9 +937,23 @@ package UI
             {
                if(this.extraUI.extraState == "extra")
                {
-                  if(Game.gameData.extraData.getNowExtraState() != 1)
+                  if(Game.gameData.extraData.isLevelCooling(Game.gameData.nowGameLevel))
                   {
-                     this.checkTip.showMustCheck(Game.gameData.extraData.getRestart_M(),"重玩副本需要：",this.restartExtraPayOrder);
+                     this.checkTip.showCheck("该精英副本正在冷却，重玩不会消耗挑战卡，也不会获得任何奖励。是否继续？",this.restartExtraNoReward);
+                  }
+                  else if(Game.gameData.extraData.hasFirstFree(Game.gameData.nowGameLevel))
+                  {
+                     Game.gameData.extraData.useFirstFree(Game.gameData.nowGameLevel);
+                     this.restartLevel();
+                  }
+                  else if(Game.gameData.extraData.useChallengeCard())
+                  {
+                     this.checkTip.showTip("已消耗1张精英副本挑战卡。",1);
+                     this.restartLevel();
+                  }
+                  else
+                  {
+                     this.checkTip.showCheck("没有精英副本挑战卡。重玩后不会获得任何奖励，是否继续？",this.restartExtraNoReward);
                   }
                }
                else if(this.extraUI.extraState == "weekExtra")
@@ -1388,11 +1429,6 @@ package UI
             {
                d0 = Game.goodsDefineGroup.getDefine_byStr3(d0,affixLevel0,true);
             }
-            if(d0.specialType == "offlineMCoin")
-            {
-               GD.addMCoin(int(d0.price));
-               continue;
-            }
             ig0 = GD[d0.type + "Items"];
             if(d0.type == "props" || d0.type == "materials")
             {
@@ -1401,6 +1437,10 @@ package UI
                   if(d0.id == "GCoin_card_4")
                   {
                      GD.addCoin(d0.price);
+                  }
+                  else if(d0.id == "mcoin_reward_card")
+                  {
+                     GD.addMCoin(d0.price);
                   }
                   else if(d0.id == "achieve_card_3")
                   {
@@ -1450,6 +1490,101 @@ package UI
             Game.SG.playSound("upgradeArms");
          }
          Game.uiGroup.infoUI.fleshData();
+      }
+      
+      private function createReturnMenuTab() : Sprite
+      {
+         var tab:Sprite = new Sprite();
+         tab.x = 0;
+         tab.y = 350;
+         tab.buttonMode = true;
+         tab.mouseChildren = false;
+         this.returnMenuTitle = new TextField();
+         this.returnMenuTitle.defaultTextFormat = new TextFormat("_sans",18,16776960,true);
+         this.returnMenuTitle.autoSize = TextFieldAutoSize.LEFT;
+         this.returnMenuTitle.text = "返回主界面";
+         this.returnMenuTitle.y = 11;
+         tab.addChild(this.returnMenuTitle);
+         this.returnMenuArrow = new TextField();
+         this.returnMenuArrow.defaultTextFormat = new TextFormat("_sans",16,65535,true);
+         this.returnMenuArrow.autoSize = TextFieldAutoSize.LEFT;
+         this.returnMenuArrow.text = ">";
+         this.returnMenuArrow.y = 12;
+         tab.addChild(this.returnMenuArrow);
+         tab.addEventListener(MouseEvent.ROLL_OVER,this.openReturnMenuTab);
+         tab.addEventListener(MouseEvent.ROLL_OUT,this.closeReturnMenuTab);
+         tab.addEventListener(MouseEvent.CLICK,this.clickReturnMenuTab);
+         tab.addEventListener(Event.ENTER_FRAME,this.animateReturnMenuTab);
+         this.returnMenuTab = tab;
+         this.drawReturnMenuTab();
+         return tab;
+      }
+      
+      private function openReturnMenuTab(e:MouseEvent) : *
+      {
+         this.returnMenuTargetWidth = 138;
+      }
+      
+      private function closeReturnMenuTab(e:MouseEvent) : *
+      {
+         this.returnMenuTargetWidth = 14;
+      }
+      
+      private function clickReturnMenuTab(e:MouseEvent) : *
+      {
+         if(this.returnMenuWidth < 80)
+         {
+            this.returnMenuTargetWidth = 138;
+            return;
+         }
+         this.returnMenuTab.mouseEnabled = false;
+         this.checkTip.showCheck("是否保存当前进度并返回主界面？",this.confirmReturnMenu,this.cancelReturnMenu);
+      }
+      
+      private function confirmReturnMenu() : *
+      {
+         this.returnMenuTargetWidth = 14;
+         this.returnMenuTab.visible = false;
+         Game.save_api.returnToMainMenu();
+      }
+      
+      private function cancelReturnMenu() : *
+      {
+         this.returnMenuTab.mouseEnabled = true;
+      }
+      
+      private function animateReturnMenuTab(e:Event) : *
+      {
+         if(!this.returnMenuTab.visible)
+         {
+            return;
+         }
+         var distance:Number = this.returnMenuTargetWidth - this.returnMenuWidth;
+         if(Math.abs(distance) < 0.5)
+         {
+            this.returnMenuWidth = this.returnMenuTargetWidth;
+         }
+         else
+         {
+            this.returnMenuWidth += distance * 0.28;
+         }
+         this.drawReturnMenuTab();
+      }
+      
+      private function drawReturnMenuTab() : *
+      {
+         this.returnMenuTab.graphics.clear();
+         this.returnMenuTab.graphics.beginFill(263177,0.96);
+         this.returnMenuTab.graphics.lineStyle(2,2739419,1);
+         this.returnMenuTab.graphics.drawRect(-2,0,this.returnMenuWidth + 2,46);
+         this.returnMenuTab.graphics.endFill();
+         this.returnMenuTab.graphics.lineStyle(2,16755200,1);
+         this.returnMenuTab.graphics.moveTo(this.returnMenuWidth - 2,5);
+         this.returnMenuTab.graphics.lineTo(this.returnMenuWidth - 2,41);
+         this.returnMenuTitle.x = 17;
+         this.returnMenuTitle.alpha = Math.max(0,Math.min(1,(this.returnMenuWidth - 42) / 55));
+         this.returnMenuArrow.x = this.returnMenuWidth - 11;
+         this.returnMenuArrow.text = this.returnMenuTargetWidth > 14 ? "<" : ">";
       }
    }
 }

@@ -3,11 +3,25 @@ package gameAll.data.challenge
    public class ChallengeTaskData
    {
       
+      public static const CARD_COOLDOWN:Number = 1200000;
+      
+      public static const TASK_COOLDOWN:Number = 1800000;
+      
       public var arr:Array = [];
       
       public var nowTask:ChallengeTaskDefine = null;
       
       public var challengeFail:String = "no";
+      
+      public var extraNum:int = 0;
+      
+      public var readyAt:Array = [];
+      
+      public var failArr:Array = [];
+      
+      public var taskReadyAt:Array = [];
+      
+      public var roundCompleted:int = 0;
       
       public function ChallengeTaskData()
       {
@@ -18,6 +32,11 @@ package gameAll.data.challenge
       {
          this.nowTask = null;
          this.challengeFail = "no";
+         this.extraNum = 0;
+         this.readyAt = [];
+         this.failArr = [];
+         this.taskReadyAt = [];
+         this.roundCompleted = 0;
       }
       
       public function inData_byObj(obj:Object) : *
@@ -46,6 +65,36 @@ package gameAll.data.challenge
             }
          }
          this.nowTask = nowTask0;
+         this.extraNum = obj.hasOwnProperty("extraNum") ? int(obj.extraNum) : 0;
+         this.readyAt = obj.hasOwnProperty("readyAt") ? this.restoreArray(obj.readyAt) : [];
+         this.failArr = obj.hasOwnProperty("failArr") ? this.restoreArray(obj.failArr) : [];
+         this.taskReadyAt = obj.hasOwnProperty("taskReadyAt") ? this.restoreArray(obj.taskReadyAt) : [];
+         this.roundCompleted = obj.hasOwnProperty("roundCompleted") ? int(obj.roundCompleted) : 0;
+      }
+      
+      private function restoreArray(value:*) : Array
+      {
+         var result:Array = [];
+         var key:String = null;
+         if(value is Array)
+         {
+            return (value as Array).concat();
+         }
+         if(value != null && value.hasOwnProperty("$dense") && value["$dense"] is Array)
+         {
+            result = (value["$dense"] as Array).concat();
+         }
+         if(value != null)
+         {
+            for(key in value)
+            {
+               if(key != "$dense" && !isNaN(Number(key)))
+               {
+                  result[int(key)] = value[key];
+               }
+            }
+         }
+         return result;
       }
       
       public function fleshByTaskDefine() : *
@@ -75,14 +124,44 @@ package gameAll.data.challenge
       
       public function startOneTask(nowIndex:*) : *
       {
-         this.nowTask = this.getTrueTask_byIndex(nowIndex);
-         this.nowTask.state = "ing";
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(nowIndex);
+         if(td0 != null && td0.state == "no")
+         {
+            td0.state = "ing";
+            this.failArr[int(nowIndex)] = "no";
+            Game.gameData.taskData.reserveChallengeCard("challenge",int(nowIndex));
+         }
+         this.syncNowTask();
+      }
+      
+      public function canStart(index0:int) : Boolean
+      {
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
+         this.refreshTask(index0);
+         if(td0.state == "no")
+         {
+            return true;
+         }
+         return false;
+      }
+      
+      public function getCooldownSeconds(index0:int) : int
+      {
+         if(Game.gameData.modNoTaskCooldown)
+         {
+            return 0;
+         }
+         this.refreshTask(index0);
+         return Math.max(0,Math.ceil((Number(this.taskReadyAt[index0]) - new Date().time) / 1000));
       }
       
       public function giveupNowTask() : *
       {
-         this.nowTask.state = "over";
-         this.nowTask = null;
+         if(this.nowTask != null)
+         {
+            this.nowTask.state = "no";
+            this.nowTask = null;
+         }
       }
       
       public function completeNowTask() : *
@@ -96,17 +175,129 @@ package gameAll.data.challenge
          this.giveupNowTask();
       }
       
+      public function giveupTask(index0:int) : *
+      {
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
+         if(td0 != null && (td0.state == "ing" || td0.state == "complete"))
+         {
+            td0.state = "no";
+            Game.gameData.taskData.releaseChallengeCard("challenge",index0);
+         }
+         this.syncNowTask();
+      }
+      
+      public function getGiftTask(index0:int) : *
+      {
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
+         if(td0 != null)
+         {
+            td0.state = "over";
+            this.taskReadyAt[index0] = Game.gameData.modNoTaskCooldown ? 0 : new Date().time + TASK_COOLDOWN;
+            ++this.roundCompleted;
+            if(Game.gameData.modNoTaskCooldown || this.roundCompleted >= 3)
+            {
+               this.refreshRound();
+            }
+         }
+         this.syncNowTask();
+      }
+      
+      private function refreshTask(index0:int) : *
+      {
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
+         var ready:Number = Number(this.taskReadyAt[index0]);
+         if(td0 != null && td0.state == "over" && (Game.gameData.modNoTaskCooldown || isNaN(ready) || new Date().time >= ready))
+         {
+            td0.state = "no";
+            this.taskReadyAt[index0] = 0;
+         }
+      }
+      
+      public function refreshCooldownTasks() : *
+      {
+         var i:int = 0;
+         i = 0;
+         while(i < this.arr.length)
+         {
+            this.refreshTask(i);
+            i++;
+         }
+         this.syncNowTask();
+      }
+      
+      private function refreshRound() : *
+      {
+         var i:int = 0;
+         i = 0;
+         while(i < this.arr.length)
+         {
+            if(this.arr[i] != null && this.arr[i].state == "over")
+            {
+               this.arr[i].state = "no";
+            }
+            this.taskReadyAt[i] = 0;
+            i++;
+         }
+         this.roundCompleted = 0;
+      }
+      
+      public function completeTask(index0:int) : *
+      {
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
+         if(td0 != null && td0.state == "ing")
+         {
+            td0.state = "complete";
+            Game.gameData.livenessData.addTaskNum("challenge_task");
+         }
+         this.syncNowTask();
+      }
+      
+      public function getFail(index0:int) : String
+      {
+         if(index0 >= 0 && index0 < this.failArr.length && Boolean(this.failArr[index0]))
+         {
+            return String(this.failArr[index0]);
+         }
+         return "no";
+      }
+      
+      public function syncNowTask() : *
+      {
+         var td0:ChallengeTaskDefine = null;
+         this.nowTask = null;
+         for each(td0 in this.arr)
+         {
+            if(td0 != null && td0.getNowB())
+            {
+               this.nowTask = td0;
+               return;
+            }
+         }
+      }
+      
+      public function tryGrantChallengeCard(index0:int) : Boolean
+      {
+         return Game.gameData.taskData.consumeChallengeCard("challenge",index0);
+      }
+      
+      public function canShowChallengeCard(index0:int) : Boolean
+      {
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
+         return td0 != null && Game.gameData.taskData.canShowChallengeCardFor("challenge",index0,td0.state);
+      }
+      
       public function dieTrigger() : *
       {
-         if(this.nowTask != null)
+         var td0:ChallengeTaskDefine = null;
+         for each(td0 in this.arr)
          {
-            if(this.nowTask.state == "ing")
+            if(td0 != null && td0.state == "ing")
             {
-               if(Game.gameData.nowDifficult == this.nowTask.targetDiff && Game.gameData.nowGameLevel == this.nowTask.targetLevel)
+               if(Game.gameData.nowDifficult == td0.targetDiff % 4 && Game.gameData.nowGameLevel == td0.getNewDefine().targetLevel)
                {
-                  if(this.nowTask.noDieB)
+                  if(td0.noDieB)
                   {
-                     this.challengeFail = "died";
+                     this.failArr[td0.index] = "died";
                   }
                }
             }
@@ -115,18 +306,20 @@ package gameAll.data.challenge
       
       public function timeTrigger(time0:int) : Boolean
       {
-         if(this.nowTask != null)
+         var td0:ChallengeTaskDefine = null;
+         var result:Boolean = true;
+         for each(td0 in this.arr)
          {
-            if(this.nowTask.state == "ing")
+            if(td0 != null && td0.state == "ing")
             {
-               if(this.nowTask.time > 0 && this.nowTask.time < time0)
+               if(td0.time > 0 && td0.time < time0)
                {
-                  this.challengeFail = "timeout";
-                  return false;
+                  this.failArr[td0.index] = "timeout";
+                  result = false;
                }
             }
          }
-         return true;
+         return result;
       }
       
       public function getEnabledNum() : int
@@ -147,16 +340,7 @@ package gameAll.data.challenge
       
       public function newDayCtrl() : *
       {
-         var n:* = undefined;
-         var td0:ChallengeTaskDefine = null;
-         for(n in this.arr)
-         {
-            td0 = this.arr[n];
-            if(td0.state == "over")
-            {
-               td0.state = "no";
-            }
-         }
+         this.challengeFail = "no";
       }
    }
 }

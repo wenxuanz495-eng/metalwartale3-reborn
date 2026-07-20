@@ -3,6 +3,8 @@ package UI.task
    import UI.ClickEvent;
    import UI.button.SountoScrollBar;
    import UI.explore.ExploreIconBox;
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
@@ -29,6 +31,8 @@ package UI.task
       public var taskNum_txt:TextField;
       
       public var itemsBox:ExploreIconBox = new ExploreIconBox();
+      
+      public var rewardSlider:Sprite;
       
       public var get_btn:SimpleButton;
       
@@ -71,6 +75,10 @@ package UI.task
          this.itemsBox.x = 490;
          this.itemsBox.y = 255;
          this.addChild(this.itemsBox);
+         this.rewardSlider = this.taskUI.createRewardSlider(this.itemsBox);
+         this.rewardSlider.x = 490;
+         this.rewardSlider.y = 390;
+         this.addChild(this.rewardSlider);
          this.no_btn.mouseEnabled = false;
          this.get_btn.addEventListener(MouseEvent.CLICK,this.startOneTask);
          this.giveup_btn.addEventListener(MouseEvent.CLICK,this.giveupNowTask);
@@ -78,13 +86,9 @@ package UI.task
          this.gotoLevel_btn.addEventListener(MouseEvent.CLICK,this.gotoLevel);
       }
       
-      public function fleshData() : *
+      public function fleshData(fleshGoodsB:Boolean = true) : *
       {
-         if(this.cData.nowTask != null)
-         {
-            this.nowIndex = this.cData.nowTask.index;
-         }
-         this.showTask_byIndex(this.nowIndex);
+         this.showTask_byIndex(this.nowIndex,fleshGoodsB);
       }
       
       public function labelClick(event:ClickEvent) : *
@@ -103,6 +107,7 @@ package UI.task
          var level_str:String = d0.name;
          this.taskName_txt.htmlText = "击杀" + td0.enemyName;
          var str0:String = "";
+         this.taskNum_txt.text = "挑战任务可同时接取；单项冷却30分钟，完成3项立即刷新；剩余：" + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex));
          str0 += "关卡：" + this.getFontColor(page_str + " > " + diff_str + " > " + level_str.replace(" ",""),"#00FFFF");
          var diff0:int = td0.targetDiff;
          var level0:int = td0.targetLevel;
@@ -123,15 +128,24 @@ package UI.task
          {
             str0 += this.getFontColor("（完成任务）","#FFFF00");
          }
+         else if(td0.state == "over")
+         {
+            str0 += this.getFontColor("（任务已完成，冷却剩余 " + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex)) + "）","#FF9900");
+         }
          if(td0.getRequest() != "")
          {
             str0 += "\n要求：" + this.getFontColor(td0.getRequest(),"#FF66FF");
          }
          this.description_txt.htmlText = str0;
          var arr4:Array = Game.goodsDefineGroup.getArr_byStrArr(td0.getGiftArr(),Game.gameData.level,true);
+         if(this.cData.canShowChallengeCard(this.nowIndex))
+         {
+            arr4 = arr4.concat(Game.goodsDefineGroup.getArr_byStrArr(["props,\t\t\telite_challenge_card,\t1"],Game.gameData.level,true));
+         }
          if(fleshGoodsB)
          {
             this.itemsBox.inData_byArr(arr4,true);
+            this.taskUI.updateRewardSlider(this.rewardSlider,this.itemsBox);
          }
          if(td0.state == "no")
          {
@@ -139,7 +153,15 @@ package UI.task
          }
          else if(td0.state == "over")
          {
-            this.showBtn("no");
+            if(this.cData.canStart(this.nowIndex))
+            {
+               this.showBtn("get");
+            }
+            else
+            {
+               this.setNoButtonText("任务已完成  " + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex)));
+               this.showBtn("no");
+            }
          }
          else if(td0.state == "ing")
          {
@@ -153,14 +175,43 @@ package UI.task
          this.gotoLevel_btn.mouseEnabled = true;
          this.list.inData_byArr(this.cData.arr);
          this.sBar.setTarget(this.list,false);
-         if(td0.getNowB())
+         this.list.showLabel(index0,false);
+      }
+      
+      private function setNoButtonText(value:String) : *
+      {
+         this.setStateText(this.no_btn.upState,value);
+         this.setStateText(this.no_btn.overState,value);
+         this.setStateText(this.no_btn.downState,value);
+         this.setStateText(this.no_btn.hitTestState,value);
+      }
+      
+      private function setStateText(target:DisplayObject, value:String) : *
+      {
+         var container:DisplayObjectContainer = null;
+         var i:int = 0;
+         if(target is TextField)
          {
-            this.list.showLabel(index0,true);
+            TextField(target).text = value;
          }
-         else
+         else if(target is DisplayObjectContainer)
          {
-            this.list.showLabel(index0,false);
+            container = target as DisplayObjectContainer;
+            i = 0;
+            while(i < container.numChildren)
+            {
+               this.setStateText(container.getChildAt(i),value);
+               i++;
+            }
          }
+      }
+      
+      private function formatCooldown(seconds0:int) : String
+      {
+         var seconds:int = Math.max(0,seconds0);
+         var minutes:int = int(seconds / 60);
+         var remain:int = seconds % 60;
+         return minutes + ":" + (remain < 10 ? "0" : "") + remain;
       }
       
       public function showBtn(str0:String) : *
@@ -181,8 +232,8 @@ package UI.task
       public function gotoLevel(e:* = null) : *
       {
          var page0:* = undefined;
-         var td0:ChallengeTaskDefine = this.cData.nowTask;
-         if(td0 != null)
+         var td0:ChallengeTaskDefine = this.cData.getTrueTask_byIndex(this.nowIndex);
+         if(td0 != null && td0.getNowB())
          {
             td0 = td0.getNewDefine();
             page0 = td0.getPageName();
@@ -193,8 +244,8 @@ package UI.task
       
       public function startOneTask(e:* = null) : *
       {
-         var td0:ChallengeTaskDefine = this.cData.nowTask;
-         if(td0 == null)
+         var td0:ChallengeTaskDefine = this.cData.getTrueTask_byIndex(this.nowIndex);
+         if(td0 != null && td0.state == "no")
          {
             this.cData.startOneTask(this.nowIndex);
             this.fleshData();
@@ -258,22 +309,27 @@ package UI.task
          }
          Game.uiGroup.checkTip.showTip("领取成功！",1);
          Game.SG.playSound("upgradeArms");
-         this.cData.getGiftNowTask();
+         if(this.cData.tryGrantChallengeCard(this.nowIndex))
+         {
+            Game.uiGroup.checkTip.showTip("挑战任务额外获得1张精英副本挑战卡！",1);
+         }
+         this.cData.getGiftTask(this.nowIndex);
          this.fleshData();
          Game.uiGroup.infoUI.fleshData();
+         Game.uiGroup.saveDataNoUI();
       }
       
       public function giveupNowTask(e:* = null) : *
       {
-         Game.uiGroup.checkTip.showCheck("你确定要放弃吗？\n放弃之后今日将不能进行此任务了。",this.affterGiveupNowTask);
+         Game.uiGroup.checkTip.showCheck("你确定要放弃吗？\n放弃不会消耗次数，之后可以重新接取。",this.affterGiveupNowTask);
       }
       
       public function affterGiveupNowTask(e:* = null) : *
       {
-         var td0:ChallengeTaskDefine = this.cData.nowTask;
-         if(td0 != null)
+         var td0:ChallengeTaskDefine = this.cData.getTrueTask_byIndex(this.nowIndex);
+         if(td0 != null && td0.getNowB())
          {
-            this.cData.giveupNowTask();
+            this.cData.giveupTask(this.nowIndex);
             this.fleshData();
             Game.SG.playSound("giveUp_task");
          }

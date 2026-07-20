@@ -242,6 +242,7 @@ package gameAll.define
          this.weekArr[num1].giftArr.push("exp,\t\t\t2000000,\t\t\t1");
          this.weekArr[num1].giftArr.push("achieve,\t\t5000,\t\t\t\t1");
          this.weekArr[num1].giftArr.push("crystal_4,\t\t1,\t\t\t\t\t3");
+         this.weekArr[num1].giftArr.push("props,\t\t\telite_challenge_card,\t1");
          num1 = 1;
          this.weekArr[num1] = new CollectTaskDefine();
          this.weekArr[num1].index = num1;
@@ -249,6 +250,7 @@ package gameAll.define
          this.weekArr[num1].giftArr.push("exp,\t\t\t20000000,\t\t\t1");
          this.weekArr[num1].giftArr.push("achieve,\t\t5000,\t\t\t\t1");
          this.weekArr[num1].giftArr.push("crystal_5,\t\t1,\t\t\t\t\t3");
+         this.weekArr[num1].giftArr.push("props,\t\t\telite_challenge_card,\t1");
          num1 = 2;
          this.weekArr[num1] = new CollectTaskDefine();
          this.weekArr[num1].index = num1;
@@ -256,6 +258,7 @@ package gameAll.define
          this.weekArr[num1].giftArr.push("exp,\t\t\t200000000,\t\t\t1");
          this.weekArr[num1].giftArr.push("achieve,\t\t5000,\t\t\t\t1");
          this.weekArr[num1].giftArr.push("crystal_6,\t\t1,\t\t\t\t\t3");
+         this.weekArr[num1].giftArr.push("props,\t\t\telite_challenge_card,\t1");
          num1 = 3;
          this.weekArr[num1] = new CollectTaskDefine();
          this.weekArr[num1].index = num1;
@@ -263,6 +266,7 @@ package gameAll.define
          this.weekArr[num1].giftArr.push("exp,\t\t\t500000000,\t\t\t1");
          this.weekArr[num1].giftArr.push("achieve,\t\t5000,\t\t\t\t1");
          this.weekArr[num1].giftArr.push("crystal_7,\t\t1,\t\t\t\t\t3");
+         this.weekArr[num1].giftArr.push("props,\t\t\telite_challenge_card,\t1");
          for(n2 in this.weekArr)
          {
             ca2 = this.weekArr[n2];

@@ -6,6 +6,8 @@ package UI.gift
    import UI.label.LabelBox;
    import UI.task.TaskIcon;
    import data.StringToDefine;
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
    import flash.display.MovieClip;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
@@ -39,6 +41,8 @@ package UI.gift
       
       public var return_btn:SimpleButton;
       
+      private var legacyTextFixed:Boolean = false;
+      
       public function PayGiftUI()
       {
          super();
@@ -50,7 +54,8 @@ package UI.gift
          this.itemsBox.y = 114;
          this.addChild(this.itemsBox);
          this.buy_btn.addEventListener(MouseEvent.CLICK,this.getGift);
-         this.chongzhi_btn.addEventListener(MouseEvent.CLICK,this.chongzhi);
+         this.chongzhi_btn.visible = false;
+         this.chongzhi_btn.mouseEnabled = false;
          this.switchLabel.setLabelClass(PayGiftBtn);
          this.dingzhi_mc.stop();
          this.dingzhi_mc.visible = false;
@@ -65,7 +70,7 @@ package UI.gift
          var name_arr:Array = [];
          for(n in pay_arr)
          {
-            name_arr.push("账户持有 " + pay_arr[n] + " M币");
+            name_arr.push("累计获得 " + pay_arr[n] + " M币");
          }
          this.switchLabel.addLabel(name_arr,30 * name_arr.length,false,"new_pay");
          this.switchLabel.x = 267;
@@ -82,6 +87,11 @@ package UI.gift
       
       public function fleshData() : *
       {
+         if(!this.legacyTextFixed && this.parent is DisplayObjectContainer)
+         {
+            this.replaceLegacyText(this.parent as DisplayObjectContainer);
+            this.legacyTextFixed = true;
+         }
          this.showPay(this.switchLabel.nowIndex);
       }
       
@@ -110,8 +120,8 @@ package UI.gift
          this.itemsBox.inData_byArr(arr1);
          var unlock:int = Game.gameData.giftData.getUnlock(index0);
          var mustM:int = int(pay_arr[index0]);
-         nowM = int(Game.gameData.MCoin);
-         this.MCoin_txt.htmlText = "账户持有：" + StringToDefine.getFontColor(nowM + " M币","#FFFF00");
+         nowM = int(Game.gameData.totalEarnedMCoin);
+         this.MCoin_txt.htmlText = "历史累计获得：" + StringToDefine.getFontColor(nowM + " M币","#FFFF00");
          if(mustM > nowM)
          {
             this.showBtn(2);
@@ -147,7 +157,11 @@ package UI.gift
             gd0 = arr1[n];
             all_M += gd0.Mprice * gd0.num;
          }
-         this.taskName_txt.htmlText = "账户持有 " + StringToDefine.getFontColor(mustM + "","#FFFF00") + " M币，即可领取价值 " + StringToDefine.getFontColor(all_M + "","#FFFF00") + " M币的礼包";
+         this.taskName_txt.htmlText = "历史累计获得 " + StringToDefine.getFontColor(mustM + "","#FFFF00") + " M币，即可领取本档礼包";
+         if(index0 == pay_arr.length - 1)
+         {
+            this.taskName_txt.htmlText += "，并解锁纪念称号“骨灰级死忠粉”";
+         }
       }
       
       public function showBtn(num0:int) : *
@@ -197,7 +211,8 @@ package UI.gift
                   if(d0.id.indexOf("_chip") > 0)
                   {
                      totalNum0 = d0.num;
-                     for(m = 0; m < totalNum0; m++)
+                     m = 0;
+                     while(m < totalNum0)
                      {
                         affixLevel0 = GD.level - 4 + Math.random() * 11;
                         if(affixLevel0 < 0)
@@ -205,6 +220,7 @@ package UI.gift
                            affixLevel0 = 0;
                         }
                         items0 = ig0.addItems(d0.id,1,affixLevel0);
+                        m++;
                      }
                   }
                   else
@@ -219,7 +235,13 @@ package UI.gift
             }
             Game.uiGroup.checkTip.showTip("领取成功！",1);
             Game.SG.playSound("upgradeArms");
+            if(index0 == Game.gameDefine.gift.pay_arr.length - 1 && Game.gameData.honorData.getData("mb_100000") == null)
+            {
+               Game.gameData.honorData.addHonor("mb_100000");
+               Game.uiGroup.checkTip.showCheck2("已获得纪念称号：骨灰级死忠粉",2,null,null,2);
+            }
             Game.gameData.giftData.setUnlock(index0);
+            Game.uiGroup.saveDataNoUI();
             this.fleshData();
          }
       }
@@ -232,6 +254,34 @@ package UI.gift
       public function close(e:* = null) : *
       {
          Game.uiGroup.show("startGame");
+      }
+      
+      private function replaceLegacyText(container:DisplayObjectContainer) : void
+      {
+         var i:int = 0;
+         var child:DisplayObject = null;
+         var field:TextField = null;
+         while(i < container.numChildren)
+         {
+            child = container.getChildAt(i);
+            if(child is TextField)
+            {
+               field = child as TextField;
+               if(field.text.indexOf("累计充值奖励") >= 0)
+               {
+                  field.text = field.text.replace("累计充值奖励","累计获得M币奖励");
+               }
+               if(field.text.indexOf("1元=10M币") >= 0)
+               {
+                  field.text = field.text.replace("1元=10M币","");
+               }
+            }
+            else if(child is DisplayObjectContainer)
+            {
+               this.replaceLegacyText(child as DisplayObjectContainer);
+            }
+            i++;
+         }
       }
    }
 }

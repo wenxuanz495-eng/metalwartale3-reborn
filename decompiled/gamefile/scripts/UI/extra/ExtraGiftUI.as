@@ -42,14 +42,17 @@ package UI.extra
          if(Game.uiGroup.extraUI.extraState == "extra")
          {
             giftArr0 = Game.gameData.extraData.getGiftArr();
+            this.title_txt.text = "副本奖励（另固定获得 " + this.getFixedMCoin() + " M币）";
          }
          else if(Game.uiGroup.extraUI.extraState == "weekExtra")
          {
             giftArr0 = Game.gameData.weekExtraData.getNowData().define.giftArr;
+            this.title_txt.text = "玩家副本奖励（另固定获得 45 M币）";
          }
          else if(Game.uiGroup.extraUI.extraState == "specialExtra")
          {
             giftArr0 = Game.gameData.specialExtraData.getNowData().giftArr;
+            this.title_txt.text = "特殊副本奖励（另固定获得 15 M币）";
          }
          arr4 = Game.goodsDefineGroup.getArr_byStrArr(giftArr0,Game.gameData.level,true);
          this.itemsBox.inData_byArr(arr4,true);
@@ -58,6 +61,13 @@ package UI.extra
       public function getGift(e:* = null) : *
       {
          var GD:GameData = Game.gameData;
+         if(Game.uiGroup.extraUI.extraState == "extra" && !GD.extraData.currentRunRewardB)
+         {
+            Game.uiGroup.checkTip.showTip("本次挑战未使用免费次数或挑战卡，不获得任何奖励。",1);
+            Game.uiGroup.leftUI.hideExtraGift();
+            Game.eventGroup.gameWin();
+            return;
+         }
          if(GD.materialsItems.getSurplus() < 4)
          {
             Game.uiGroup.checkTip.showCheck2("材料背包必须有4个以上空位才能领取奖励。",2,null,null,2);
@@ -76,6 +86,16 @@ package UI.extra
          var ig0:* = undefined;
          var affixLevel0:int = 0;
          var GD:GameData = Game.gameData;
+         if(Game.uiGroup.extraUI.extraState == "extra" && !GD.extraData.currentRunRewardB)
+         {
+            Game.uiGroup.leftUI.hideExtraGift();
+            Game.eventGroup.gameWin();
+            return;
+         }
+         if(Game.uiGroup.extraUI.extraState == "extra" && GD.extraData.currentRunRewardB)
+         {
+            GD.addMCoin(this.getFixedMCoin());
+         }
          for(n in this.itemsBox.arr)
          {
             d0 = this.itemsBox.arr[n].itemsData;
@@ -122,6 +142,21 @@ package UI.extra
          Game.uiGroup.infoUI.fleshData();
          Game.uiGroup.leftUI.hideExtraGift();
          Game.eventGroup.gameWin();
+      }
+      
+      private function getFixedMCoin() : int
+      {
+         var row0:int = int(Game.gameData.nowGameLevel / 6);
+         var arr0:Array = [15,20,30,40,50,60,70,80];
+         if(row0 < 0)
+         {
+            row0 = 0;
+         }
+         if(row0 > 7)
+         {
+            row0 = 7;
+         }
+         return int(arr0[row0]);
       }
    }
 }
