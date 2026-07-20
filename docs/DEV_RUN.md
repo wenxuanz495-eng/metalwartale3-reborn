@@ -1,44 +1,64 @@
-﻿# 开发启动方式（自构建，不用 runtime 主路径）
+﻿# 开发启动方式（构建 / 启动分离）
 
-1. 自己构建 SWF（FFDec 导入 decompiled 源码）
-2. 自己用 Go 构建 server（模块缓存放到 D 盘）
-3. 用 tools/debug/flashplayer_sa_debug.exe 运行
-
-## 一键
+## 1. 构建（会花时间）
 
 根目录：
 
-- 启动游戏.bat
-- start-game.bat
+- `构建.bat`
+- 或 `build.bat`
+
+等价：
+
+```powershell
+.\scripts\build_all.ps1
+```
+
+实际执行：
+
+1. `scripts/build_server.ps1` → `build/server.exe`
+2. `scripts/build_swf.ps1` → `build/game.swf`
+
+Go 缓存固定在 D 盘：
+
+- `D:\superalloy\.gopath\...`
+
+## 2. 启动（不重新构建）
+
+根目录：
+
+- `启动游戏.bat`
+- 或 `start-game.bat`
+
+等价：
 
 ```powershell
 .\scripts\run_dev.ps1
 ```
 
-## 分步
+只会：
+
+1. 检查 `build/server.exe` 和 `build/game.swf` 是否存在
+2. 同步资源到 `build/swf`
+3. 启动自建 server
+4. 用 `tools/debug/flashplayer_sa_debug.exe` 打开游戏
+
+如果缺构建产物，会提示先运行 `构建.bat`。
+
+## 可选：构建并启动
 
 ```powershell
-.\scripts\build_server.ps1
-.\scripts\build_swf.ps1
-.\scripts\run_dev.ps1 -SkipBuild
+.\scripts\run_dev.ps1 -Build
 ```
 
 ## 产物
 
-- build/server.exe
-- build/game.swf
-- build/saves/
-- build/www/（临时静态根，资源链接到仓库 swf/）
+- `build/server.exe`
+- `build/game.swf`
+- `build/saves/`
+- `build/swf/`（运行资源副本，优先来自海豹 1.2 层级布局）
 
-## Go 缓存（非 C 盘用户目录）
+## 注意
 
-scripts/go_env.ps1：
-
-- GOPATH=D:\superalloy\.gopath\gopath
-- GOMODCACHE=D:\superalloy\.gopath\pkg\mod
-- GOCACHE=D:\superalloy\.gopath\cache
-
-## 运行时注意
-
-- 资源优先使用海豹 1.2 的层级目录（`swf/ui`、`swf/enemy` 等），仓库平铺 `swf/` 不能直接作为运行资源。
-- `run_dev.ps1` 会自动选择带 `ui` 目录的资源布局。
+- 不要把 `runtime/` 当主运行路径
+- 仓库平铺 `swf/` 不能直接替代发行版层级资源
+- 改代码后先 `构建.bat`，再 `启动游戏.bat`

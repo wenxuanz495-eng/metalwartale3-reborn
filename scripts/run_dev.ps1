@@ -1,6 +1,7 @@
 ﻿param(
   [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [int]$Port = 8765,
+  [switch]$Build,
   [switch]$SkipBuild
 )
 $ErrorActionPreference = "Stop"
@@ -20,13 +21,19 @@ $gameSwf = Join-Path $buildDir "game.swf"
 $player = Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe"
 $saves = Join-Path $buildDir "saves"
 
-if (-not $SkipBuild) {
+# Compatibility: -SkipBuild is default behavior now.
+# Only build when -Build is explicitly provided.
+if ($Build -and -not $SkipBuild) {
   & (Join-Path $PSScriptRoot "build_server.ps1") -RepoRoot $RepoRoot
   & (Join-Path $PSScriptRoot "build_swf.ps1") -RepoRoot $RepoRoot
 }
 
-if (-not (Test-Path $serverExe)) { throw "missing $serverExe" }
-if (-not (Test-Path $gameSwf)) { throw "missing $gameSwf" }
+if (-not (Test-Path $serverExe)) {
+  throw "missing $serverExe`nPlease run build first: .\构建.bat  or  .\scripts\build_all.ps1"
+}
+if (-not (Test-Path $gameSwf)) {
+  throw "missing $gameSwf`nPlease run build first: .\构建.bat  or  .\scripts\build_all.ps1"
+}
 if (-not (Test-Path $player)) { throw "missing debug player: $player" }
 if (-not (Test-Path $swfDir)) { throw "missing resource dir: $swfDir" }
 
@@ -36,7 +43,6 @@ New-Item -ItemType Directory -Force -Path $buildSwf | Out-Null
 Write-Host "Syncing resources to build\swf ..."
 robocopy $swfDir $buildSwf /E /XO /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
 
-# optional modifier/notice into build root for static serve
 $modSrc = Join-Path $RepoRoot "runtime\modifier.html"
 if (Test-Path $modSrc) { Copy-Item $modSrc (Join-Path $buildDir "modifier.html") -Force }
 $notice = Join-Path $RepoRoot "runtime\公告.txt"
@@ -84,4 +90,3 @@ finally {
     Stop-Process -Id $serverProc.Id -Force -ErrorAction SilentlyContinue
   }
 }
-
