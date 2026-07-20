@@ -1,0 +1,22 @@
+package com.adobe.serialization.json
+{
+   public class JSON2
+   {
+      
+      public function JSON2()
+      {
+         super();
+      }
+      
+      public static function encode(o:Object) : String
+      {
+         return new JSONEncoder(o).getString();
+      }
+      
+      public static function decode(s:String, strict:Boolean = true) : *
+      {
+         return new JSONDecoder(s).getValue();
+      }
+   }
+}
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data>
+	<EItem Id="1" GoodsID="disassemble" Price="5" DayCanTime="1" BuyType="X" Count="1" Name="普通拆解器" ConditionUnion="1" ConditionMember="1"/>
+	<EItem Id="2" GoodsID="jianzhuling" Price="5" DayCanTime="1" BuyType="X" Count="1" Name="建筑令*1" ConditionUnion="1" ConditionMember="1"/>
+	<EItem Id="3" GoodsID="red_crystal_4" Price="5" DayCanTime="1" BuyType="X" Count="1" Name="四级红色晶体*1" ConditionUnion="2" ConditionMember="2"/>
+	<EItem Id="4" GoodsID="yellow_crystal_4" Price="5" DayCanTime="1" BuyType="X" Count="1" Name="四级黄色晶体*1" ConditionUnion="2" ConditionMember="2"/>
+	<EItem Id="5" GoodsID="green_crystal_4" Price="5" DayCanTime="1" BuyType="X" Count="1" Name="四级黄色晶体*1" ConditionUnion="3" ConditionMember="2"/>
+	<EItem Id="6" GoodsID="darkpower" Price="85" DayCanTime="1" BuyType="X" Count="1" Name="黯灭" ConditionUnion="3" ConditionMember="2"/>
+	<EItem Id="7" GoodsID="superalloyStone" Price="10" DayCanTime="2" BuyType="X" Count="1" Name="超合金原石*1" ConditionUnion="4" ConditionMember="3"/>
+	<EItem Id="8" GoodsID="disassemble_2" Price="10" DayCanTime="1" BuyType="X" Count="1" Name="优质拆解器" ConditionUnion="4" ConditionMember="3"/>
+	<EItem Id="9" GoodsID="red_crystal_7" Price="20" DayCanTime="1" BuyType="X" Count="1" Name="七级红色晶体*1" ConditionUnion="5" ConditionMember="3"/>
+	<EItem Id="10" GoodsID="yellow_crystal_7" Price="20" DayCanTime="1" BuyType="X" Count="1" Name="七级黄色晶体*1" ConditionUnion="5" ConditionMember="3"/>
+	<EItem Id="11" GoodsID="disassemble_3" Price="20" DayCanTime="1" BuyType="X" Count="1" Name="稀有拆解器" ConditionUnion="6" ConditionMember="3"/>
+	<EItem Id="12" GoodsID="green_crystal_7" Price="20" DayCanTime="1" BuyType="X" Count="1" Name="七级绿色晶体*1" ConditionUnion="6" ConditionMember="3"/>
+	<EItem Id="13" GoodsID="red_crystal_8" Price="40" DayCanTime="1" BuyType="X" Count="1" Name="八级红色晶体*1" ConditionUnion="7" ConditionMember="3"/>
+</data>

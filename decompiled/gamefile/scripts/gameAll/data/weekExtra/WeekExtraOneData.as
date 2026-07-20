@@ -1,0 +1,55 @@
+package gameAll.data.weekExtra
+{
+   import data.TextWay;
+   import gameAll.define.WeekExtraOneDefine;
+   
+   public class WeekExtraOneData
+   {
+      
+      public var id:String = "";
+      
+      private var _nowLife:String = "";
+      
+      public var winB:Boolean = false;
+      
+      public var define:WeekExtraOneDefine = null;
+      
+      public function WeekExtraOneData()
+      {
+         super();
+         this.nowLife = 0;
+      }
+      
+      public function inData_byObj(obj:Object) : *
+      {
+         var n:* = undefined;
+         var pro0:String = null;
+         var pro_arr:Array = ["id","nowLife","winB"];
+         for(n in pro_arr)
+         {
+            pro0 = pro_arr[n];
+            this[pro0] = obj[pro0];
+         }
+      }
+      
+      public function fleshDefine() : *
+      {
+         this.define = Game.gameDefine.weekExtra.getDefine(this.id);
+         if(this.nowLife > this.define.maxLife)
+         {
+            this.nowLife = this.define.maxLife;
+         }
+      }
+      
+      public function set nowLife(value0:Number) : *
+      {
+         this._nowLife = TextWay.toCode(String(value0));
+      }
+      
+      public function get nowLife() : Number
+      {
+         return Number(TextWay.getText(this._nowLife));
+      }
+   }
+}
+

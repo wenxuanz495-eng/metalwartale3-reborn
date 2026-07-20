@@ -1,0 +1,369 @@
+package main
+
+import (
+	"bytes"
+	"compress/flate"
+	"compress/zlib"
+	"encoding/binary"
+	"encoding/json"
+	"io"
+	"math"
+	"net/http"
+	"net/http/httptest"
+	"os"
+	"path/filepath"
+	"testing"
+)
+
+func deflatedAMFObject(t *testing.T) []byte {
+	t.Helper()
+	var amf bytes.Buffer
+	amf.WriteByte(0x03)
+	_ = binary.Write(&amf, binary.BigEndian, uint16(3))
+	amf.WriteString("foo")
+	amf.WriteByte(0x00)
+	_ = binary.Write(&amf, binary.BigEndian, math.Float64bits(42))
+	amf.Write([]byte{0, 0, 9})
+	var compressed bytes.Buffer
+	zw := zlib.NewWriter(&compressed)
+	_, _ = zw.Write(amf.Bytes())
+	_ = zw.Close()
+	return compressed.Bytes()
+}
+
+func rawDeflatedAMF3Object(t *testing.T) []byte {
+	t.Helper()
+	amf3 := []byte{
+		0x0A, 0x0B, 0x01, // dynamic anonymous object
+		0x07, 'f', 'o', 'o',
+		0x04, 0x2A,
+		0x01, // empty dynamic key
+	}
+	var compressed bytes.Buffer
+	fw, err := flate.NewWriter(&compressed, flate.DefaultCompression)
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, _ = fw.Write(amf3)
+	_ = fw.Close()
+	return compressed.Bytes()
+}
+
+func TestParseGamePayload(t *testing.T) {
+	value, _, err := parseGamePayload(deflatedAMFObject(t))
+	if err != nil {
+		t.Fatal(err)
+	}
+	obj := value.(map[string]any)
+	if obj["foo"] != float64(42) {
+		t.Fatalf("foo = %#v", obj["foo"])
+	}
+}
+
+func TestParseRawDeflatedAMF3Payload(t *testing.T) {
+	value, _, err := parseGamePayload(rawDeflatedAMF3Object(t))
+	if err != nil {
+		t.Fatal(err)
+	}
+	obj := value.(map[string]any)
+	if obj["foo"] != 42 {
+		t.Fatalf("foo = %#v", obj["foo"])
+	}
+}
+
+func TestAMF0StrictArrayRejectsImpossibleLengthBeforeAllocating(t *testing.T) {
+	// AMF3 objects and AMF0 strict arrays both use marker 0x0a. Probing an
+	// AMF3 payload as AMF0 must reject its trait bytes as an impossible array
+	// length before calling make with a multi-gigabyte capacity.
+	r := newAMFReader([]byte{0x0a, 0xa0, 0x00, 0x00, 0x00, 0x01})
+	if _, err := r.readValue(); err == nil {
+		t.Fatal("impossible AMF0 strict-array length must be rejected")
+	}
+}
+
+func TestAMF3EncodeRoundTrip(t *testing.T) {
+	input := map[string]any{
+		"name":  "小战士",
+		"level": 42,
+		"large": float64(9999999999),
+		"rate":  0.125,
+		"ok":    true,
+		"empty": nil,
+		"items": []any{
+			map[string]any{"name": "green_chip", "nowNum": 999},
+			"tail",
+		},
+	}
+	raw, err := encodeGamePayload(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	value, _, err := parseGamePayload(raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := value.(map[string]any)
+	if got["name"] != "小战士" || got["level"] != 42 || got["large"] != float64(9999999999) {
+		t.Fatalf("round trip mismatch: %#v", got)
+	}
+	items := got["items"].([]any)
+	if items[0].(map[string]any)["nowNum"] != 999 {
+		t.Fatalf("items mismatch: %#v", items)
+	}
+}
+
+func TestRealSaveAMF3RoundTripWhenFixtureExists(t *testing.T) {
+	path := filepath.Join("..", "offline", "saves", "game_save.bin")
+	raw, err := os.ReadFile(path)
+	if os.IsNotExist(err) {
+		t.Skip("real save fixture is not present")
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	value, _, err := parseGamePayload(raw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	encoded, err := encodeGamePayload(value)
+	if err != nil {
+		t.Fatal(err)
+	}
+	roundTrip, _, err := parseGamePayload(encoded)
+	if err != nil {
+		t.Fatal(err)
+	}
+	before, _ := json.Marshal(jsonSafe(value, 0))
+	after, _ := json.Marshal(jsonSafe(roundTrip, 0))
+	if !bytes.Equal(before, after) {
+		t.Fatal("real save changed after AMF3 round trip")
+	}
+}
+
+func TestSavePrimaryWritesBinaryJSONAndSQLite(t *testing.T) {
+	root := t.TempDir()
+	store := newSaveStore(root)
+	raw := deflatedAMFObject(t)
+	if _, err := store.savePrimary(raw, "test"); err != nil {
+		t.Fatal(err)
+	}
+	got, err := os.ReadFile(store.primaryPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, raw) {
+		t.Fatal("primary payload changed")
+	}
+	jsonData, err := os.ReadFile(store.jsonPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Contains(jsonData, []byte(`"foo": 42`)) {
+		t.Fatalf("unexpected JSON: %s", jsonData)
+	}
+	if _, err := os.Stat(store.dbPath); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestGetPrimaryDoesNotConsultGlobalFlashSOL(t *testing.T) {
+	root := t.TempDir()
+	appData := t.TempDir()
+	t.Setenv("APPDATA", appData)
+	legacyDir := filepath.Join(appData, "Macromedia", "Flash Player", "#SharedObjects", "legacy")
+	if err := os.MkdirAll(legacyDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(legacyDir, "yagao.sol"), []byte("legacy-sol"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	store := newSaveStore(root)
+	_, err := store.getPrimary()
+	if !os.IsNotExist(err) {
+		t.Fatalf("empty server store should return os.ErrNotExist, got %v", err)
+	}
+	if _, err := os.Stat(store.primaryPath); !os.IsNotExist(err) {
+		t.Fatalf("global Flash SOL created primary save: %v", err)
+	}
+}
+
+func TestHTTPNoSaveReturns404WithoutImportingGlobalFlashSOL(t *testing.T) {
+	root := t.TempDir()
+	appData := t.TempDir()
+	t.Setenv("APPDATA", appData)
+	legacyDir := filepath.Join(appData, "Macromedia", "Flash Player", "#SharedObjects", "legacy")
+	if err := os.MkdirAll(legacyDir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(legacyDir, "yagao.sol"), []byte("legacy-sol"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	store := newSaveStore(root)
+	server := httptest.NewServer((&app{root: root, store: store}).routes())
+	defer server.Close()
+
+	response, err := http.Get(server.URL + "/api/game-save")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusNotFound {
+		body, _ := io.ReadAll(response.Body)
+		t.Fatalf("status=%d body=%s", response.StatusCode, body)
+	}
+	if _, err := os.Stat(store.primaryPath); !os.IsNotExist(err) {
+		t.Fatalf("HTTP read imported global Flash SOL: %v", err)
+	}
+}
+
+func TestEditorSaveCreatesBackupAndPreservesTypes(t *testing.T) {
+	root := t.TempDir()
+	if err := os.WriteFile(filepath.Join(root, "game.swf"), []byte("FWS-test"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	store := newSaveStore(root)
+	original := map[string]any{
+		"level": 4,
+		"MCoin": 0,
+		"vv":    3.123,
+		"name":  "old",
+		"items": []any{map[string]any{"nowNum": 1}},
+	}
+	raw, err := encodeGamePayload(original)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(raw, "fixture"); err != nil {
+		t.Fatal(err)
+	}
+	server := httptest.NewServer((&app{root: root, store: store}).routes())
+	defer server.Close()
+
+	body := bytes.NewBufferString(`{"game_data":{"level":9,"MCoin":123456,"vv":0.5,"name":"new","items":[{"nowNum":999}]}}`)
+	request, _ := http.NewRequest(http.MethodPost, server.URL+"/api/editor/save", body)
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("Origin", server.URL)
+	response, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		data, _ := io.ReadAll(response.Body)
+		t.Fatalf("status=%d body=%s", response.StatusCode, data)
+	}
+	savedRaw, err := store.getPrimary()
+	if err != nil {
+		t.Fatal(err)
+	}
+	value, _, err := parseGamePayload(savedRaw)
+	if err != nil {
+		t.Fatal(err)
+	}
+	saved := value.(map[string]any)
+	if saved["level"] != 9 || saved["MCoin"] != 123456 || saved["vv"] != float64(0.5) {
+		t.Fatalf("saved values or types mismatch: %#v", saved)
+	}
+	backups, err := store.listEditorBackups()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(backups) != 1 {
+		t.Fatalf("backups=%#v", backups)
+	}
+	backupRaw, err := store.readEditorBackup(backups[0].Name)
+	if err != nil {
+		t.Fatal(err)
+	}
+	backupValue, _, _ := parseGamePayload(backupRaw)
+	if backupValue.(map[string]any)["level"] != 4 {
+		t.Fatalf("backup does not contain original save: %#v", backupValue)
+	}
+}
+
+func TestEditorRejectsCrossOriginMutation(t *testing.T) {
+	root := t.TempDir()
+	store := newSaveStore(root)
+	raw, _ := encodeGamePayload(map[string]any{"level": 1})
+	if _, err := store.savePrimary(raw, "fixture"); err != nil {
+		t.Fatal(err)
+	}
+	server := httptest.NewServer((&app{root: root, store: store}).routes())
+	defer server.Close()
+	request, _ := http.NewRequest(http.MethodPost, server.URL+"/api/editor/save", bytes.NewBufferString(`{"game_data":{"level":2}}`))
+	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set("Origin", "https://evil.example")
+	response, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusForbidden {
+		t.Fatalf("status=%d", response.StatusCode)
+	}
+}
+
+func TestHTTPCompatibility(t *testing.T) {
+	root := t.TempDir()
+	if err := os.WriteFile(filepath.Join(root, "game.swf"), []byte("FWS-test"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	store := newSaveStore(root)
+	if _, err := store.savePrimary(deflatedAMFObject(t), "test"); err != nil {
+		t.Fatal(err)
+	}
+	server := httptest.NewServer((&app{root: root, store: store}).routes())
+	defer server.Close()
+
+	response, err := http.Get(server.URL + "/api/status")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+	var status map[string]any
+	if err := json.NewDecoder(response.Body).Decode(&status); err != nil {
+		t.Fatal(err)
+	}
+	if status["backend"] != "go" {
+		t.Fatalf("status = %#v", status)
+	}
+
+	request, _ := http.NewRequest(http.MethodGet, server.URL+"/game.swf", nil)
+	request.Header.Set("If-Modified-Since", "Wed, 21 Oct 2015 07:28:00 GMT")
+	staticResponse, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer staticResponse.Body.Close()
+	if staticResponse.StatusCode != http.StatusOK {
+		t.Fatalf("static status = %d", staticResponse.StatusCode)
+	}
+
+	saveResponse, err := http.Get(server.URL + "/api/game-save")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer saveResponse.Body.Close()
+	body, _ := io.ReadAll(saveResponse.Body)
+	if !bytes.Equal(body, deflatedAMFObject(t)) {
+		t.Fatal("GET /api/game-save returned different payload")
+	}
+
+	newRaw := deflatedAMFObject(t)
+	postResponse, err := http.Post(server.URL+"/api/game-save", "application/octet-stream", bytes.NewReader(newRaw))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer postResponse.Body.Close()
+	if postResponse.StatusCode != http.StatusOK {
+		postBody, _ := io.ReadAll(postResponse.Body)
+		t.Fatalf("POST /api/game-save status=%d body=%s", postResponse.StatusCode, postBody)
+	}
+	stored, err := os.ReadFile(store.primaryPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(stored, newRaw) {
+		t.Fatal("POST /api/game-save did not update primary payload")
+	}
+}

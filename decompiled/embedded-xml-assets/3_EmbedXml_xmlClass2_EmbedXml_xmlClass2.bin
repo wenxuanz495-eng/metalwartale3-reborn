@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<!-- 物品掉落 -->
+	<items>
+		<!-- 难度1 -->
+		<diff id="1">
+			<!-- 物品掉落概率 -->
+			<items>
+				<type>chip,crystal,material,lifePer,money,</type><!-- 掉落类型，最后一个为noDrop，【不可更改】-->
+				<soldier>0.005, 0.005, 0.09, 0.05, 0.35, 0.5</soldier><!-- 一般怪物掉落概率 -->
+				<super>0.2, 0.2, 0.2, 0, 0.2, 0.4</super><!-- 精英怪物掉落概率 -->
+				<champion>0.2, 0.2, 0.2, 0, 0.2, 0.2</champion><!-- 冠军怪物掉落概率 -->
+				<boss>0.3, 0.3, 0.2, 0, 0.2, 0</boss><!-- boss怪物掉落概率 -->
+			</items>
+			<!-- 芯片掉落概率 -->
+			<chip>
+				<type>green_chip,orange_chip,yellow_chip,blue_chip,white_chip</type><!-- 掉落类型，【不可更改】-->
+				<soldier>0.0001, 0, 0.0001, 0.0098, 0.99</soldier><!-- 一般怪物掉落概率 -->
+				<super>0.0001, 0.0001, 0.0098, 0.99, 0</super><!-- 精英怪物掉落概率 -->
+				<champion>0.01, 0.09, 0.2, 0.7, 0</champion><!-- 冠军怪物掉落概率 -->
+				<boss>0.01, 0.09, 0.6, 0.3, 0</boss><!-- boss怪物掉落概率 -->
+			</chip>	
+		</diff>
+	</items>
+	
+	
+	<!-- 车身掉落 -->
+	<car>
+		<diff id="1">
+			<items>
+				<type>car,</type><!-- 掉落类型，最后一个为noDrop，【不可更改】-->
+				<soldier>0,1</soldier><!-- 一般怪物掉落概率 -->
+				<super>0.05,0.95</super><!-- 精英怪物掉落概率 -->
+				<champion>0.10,0.90</champion><!-- 冠军怪物掉落概率 -->
+				<boss>0.20,0.80</boss><!-- boss怪物掉落概率 -->
+			</items>
+			<car>
+				<type>green,orange,yellow,blue,white</type><!-- 掉落类型，【不可更改】-->
+				<soldier>0, 0, 0, 0, 0</soldier><!-- 一般怪物掉落概率 -->
+				<super>0, 0, 0, 0.8, 0.2</super><!-- 精英怪物掉落概率 -->
+				<champion>0, 0, 0, 0.8, 0.2</champion><!-- 冠军怪物掉落概率 -->
+				<boss>0, 0, 0, 0.8, 0.2</boss><!-- boss怪物掉落概率 -->
+			</car>
+		</diff>
+		<diff id="2">
+			<items>
+				<type>car,</type>
+				<soldier>0,1</soldier>
+				<super>0.10,0.90</super>
+				<champion>0.15,0.85</champion>
+				<boss>0.25,0.75</boss>
+			</items>
+			<car>
+				<type>green,orange,yellow,blue,white</type>
+				<soldier>0, 0, 0, 0, 0</soldier>
+				<super>0, 0, 0.1, 0.3, 0.6</super>
+				<champion>0, 0, 0.13, 0.4, 0.47</champion>
+				<boss>0, 0, 0.16, 0.40, 0.44</boss>
+			</car>
+		</diff>
+		<diff id="3">
+			<items>
+				<type>car,</type>
+				<soldier>0,1</soldier>
+				<super>0.15,0.85</super>
+				<champion>0.20,0.80</champion>
+				<boss>0.30,0.70</boss>
+			</items>
+			<car>
+				<type>green,orange,yellow,blue,white</type>
+				<soldier>0, 0, 0, 0, 0</soldier>
+				<super>0, 0.0007, 0.13, 0.53, 0.3303</super>
+				<champion>0, 0.005, 0.25, 0.5, 0.245</champion>
+				<boss>0, 0.03, 0.33, 0.50, 0.14</boss>
+			</car>
+		</diff>
+		<diff id="4">
+			<items>
+				<type>car,</type>
+				<soldier>0,1</soldier>
+				<super>0.20,0.80</super>
+				<champion>0.25,0.75</champion>
+				<boss>0.35,0.65</boss>
+			</items>
+			<car>
+				<type>green,orange,yellow,blue,white</type>
+				<soldier>0, 0, 0, 0, 0</soldier>
+				<super>0, 0.005, 0.2, 0.5, 0.295</super>
+				<champion>0, 0.04, 0.4, 0.32, 0.24</champion>
+				<boss>0, 0.14, 0.43, 0.28, 0.15</boss>
+			</car>
+		</diff>
+	</car>
+</data>

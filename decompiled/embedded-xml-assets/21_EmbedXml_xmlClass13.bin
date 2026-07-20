@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<GCoin>
+		<car>	
+		</car>
+		
+		<arms>	
+		</arms>	
+		
+		<sub>	
+		</sub>
+			
+		<materials>	
+		</materials>
+			
+		<props>
+		</props>
+	</GCoin>
+	<MCoin>
+			<arms>
+				microwave_lv1,
+				amplitude_lv1,
+				schoolArms_lv1,
+				jujiaoguangshupao_lv1,
+			</arms>
+			
+			<sub>
+				flyBlade_lv1,
+				highEnergy_lv1,
+				tesilapao_lv1,
+				tianjidiancipao_lv1,
+				positron_lv1,
+				banger_lv1,
+				Goldbanger_lv1,
+			</sub>
+			
+			<car>
+				
+				hellokitty,
+				matchaTea,
+				pikaqiu,
+				doraemon,
+				wizard_oz,
+				meteor,
+				mamba,
+				blueDream,
+				batman,
+				blackDragon,
+				nightrider,
+				terminator,
+				falcon,
+				fireDemon,
+				motorcycle,
+				ghostSon,
+				zonda,
+				aventador,
+				porsche918,
+				razer,
+				predator,
+				ghost,
+				flyShadow,
+				nightmare,
+				batman2,
+				glimpse2,
+				falcon2,
+				predator2,
+				zonda2,
+				aventador2,
+				nightmare2,
+				enemyPredator,
+				Moonfighter,
+				CrimsonAssault,
+			</car>
+			<materials>
+				laodongjie,
+				xinchunsongfu,
+				red_crystal_9,
+				purple_crystal_9,
+				green_crystal_9,
+				yellow_crystal_9,
+				
+				superalloy_pack10,
+				superalloy_Z_pack10,
+				
+				red_crystal_5,
+				purple_crystal_5,
+				green_crystal_5,
+				yellow_crystal_5,
+				buncher_6,
+				boom_6,
+				thorn_6,
+				buncher_5,
+				boom_5,
+				thorn_5,
+			</materials>
+			<props>
+				novice_giftBox,
+				grow_giftBox,
+				superalloyStone,
+				justice_badge,
+				
+				drop_box,
+				drop_box_2,
+				drop_box_3,
+				achieve_card_3,
+				
+				disassemble,
+				disassemble_2,
+				disassemble_3,
+				GCoin_card_4,
+				
+				exp_card_double,
+				exp_card_3,
+				exp_card_2,
+				exp_card_1,
+				
+				subCar_yellow,
+				subCar_red,
+				jianzhuling,
+				rebirth_crystal,
+			</props>
+	</MCoin>
+	<!-- 每周商品-->
+	<week>
+		<car>
+			
+		</car>
+	</week>
+		
+	<!-- 兑换物品-->
+	<Xexchange>
+			<arms>
+				
+			</arms>
+			
+			<sub>
+				
+				
+			</sub>
+				
+			<car>
+				
+			</car>
+			<materials>
+				superalloy_pack10,
+				superalloy_Z_pack10,
+			</materials>
+			<props>
+				
+			</props>
+	</Xexchange>
+	
+	<XYexchange>
+			<arms>
+				
+			</arms>
+			
+			<sub>
+				
+			</sub>
+				
+			<car>
+				
+			</car>
+			<materials>
+				
+			</materials>
+			<props>
+				
+			</props>
+	</XYexchange>
+	
+	<!-- 勋章物品-->
+	<Jexchange>
+			<arms>
+				
+			</arms>
+			
+			<sub>
+				
+			</sub>
+				
+			<car>
+				
+			</car>
+			<materials>
+				
+				
+			</materials>
+			<props>
+				
+			</props>
+	</Jexchange>
+	<MJexchange>
+			<arms>
+				
+			</arms>
+			
+			<sub>
+				
+				
+			</sub>
+				
+			<car>
+				
+			</car>
+			<materials>
+				
+				
+			</materials>
+			<props>
+				
+			</props>
+	</MJexchange>
+	
+	
+	
+	
+	
+	
+	
+	<!-- 探索物品-->
+	<explore>
+			<arms>
+				
+				
+			</arms>
+			
+			<sub>
+				
+			
+			</sub>
+			
+			<car>
+				
+			</car>
+			<materials>
+				
+				green_crystal_1
+				
+			</materials>
+			<props>
+				blue_capsule
+				
+			</props>
+			<chip>
+				white_chip
+				
+			</chip>
+	</explore>
+	<!-- 探索物品-->
+	<explore2>
+			<arms>
+				
+			</arms>
+			
+			<sub>
+				
+			</sub>
+			
+			<car>
+				
+			</car>
+			<materials>
+				
+				
+			</materials>
+			<props>
+				blue_capsule,
+				red_capsule,
+			</props>
+			<chip>
+				white_chip,
+				blue_chip,
+				yellow_chip,
+				orange_chip,
+				green_chip,
+			</chip>
+	</explore2>
+</data>

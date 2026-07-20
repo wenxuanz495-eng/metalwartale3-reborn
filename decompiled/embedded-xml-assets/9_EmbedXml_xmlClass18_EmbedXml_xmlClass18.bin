@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data>
+<!--几率几率千分之整数 //////TurnTable:大转盘 GoodID_1="物品id|中奖几率|中奖数量-->
+	<TurnTable TimeOneDay="9999999" Cost="1000" 
+	GoodID_1	="稀有拆解器|100|4" 
+	GoodID_2	="八级红色晶体|90|2" 
+	GoodID_3	="超合金X|200|40" 
+	GoodID_4	="武器礼包|50|1" 
+	GoodID_5	="八级黄色晶体|110|2" 
+	GoodID_6	="优质拆解器|200|4" 
+	GoodID_7	="超合金原石|15|10" 
+	GoodID_8	="超合金Z|250|80" 
+	GoodID_9	="大型G币礼包|500|4" 
+	GoodID_10	="八级绿色晶体|100|2" 
+	GoodID_11	="大型G币礼包|50|10" 
+	GoodID_12	="超合金|400|160"/>
+</data>

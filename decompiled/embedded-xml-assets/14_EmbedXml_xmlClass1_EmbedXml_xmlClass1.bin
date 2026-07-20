@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<data>
+	<skill cnName="反重力装置">
+		<name>jump</name>
+		<cnName>反重力装置</cnName>
+		<skillType>number</skillType>
+		<maxLevel>20</maxLevel>
+		<key>W</key>
+		<keyEvent>downOpen_upClose</keyEvent>
+		<effectDescribe>有效时间上限："maxTime"秒</effectDescribe>
+		<!-- 默认效果-->
+		<default>
+			<maxNum>2</maxNum>
+			<!-- 最大次数，时效型默认为1-->
+			<maxTime>3</maxTime>
+			<!-- 有效时间-->
+			<recoveryTime>0</recoveryTime>
+			<!-- 恢复1秒有效时间所需的时间-->
+			<coolingTime>0</coolingTime>
+		</default>
+		<!-- 各等级效果，如果没有某项参数，则该参数使用默认效果-->
+		<level id="1">
+			<maxTime>4</maxTime>
+			<mustLevel>2</mustLevel>
+			<mustGcoin>0</mustGcoin>
+		</level>
+		<level id="2">
+			<maxTime>5</maxTime>
+			<mustLevel>6</mustLevel>
+			<mustGcoin>2000</mustGcoin>
+		</level>
+		<level id="3">
+			<maxTime>6</maxTime>
+			<mustLevel>11</mustLevel>
+			<mustGcoin>3250</mustGcoin>
+		</level>
+		<level id="4">
+			<maxTime>7</maxTime>
+			<mustLevel>16</mustLevel>
+			<mustGcoin>4500</mustGcoin>
+		</level>
+		<level id="5">
+			<maxTime>8</maxTime>
+			<mustLevel>21</mustLevel>
+			<mustGcoin>11500</mustGcoin>
+		</level>
+		<level id="6">
+			<maxTime>9</maxTime>
+			<mustLevel>26</mustLevel>
+			<mustGcoin>14000</mustGcoin>
+		</level>
+		<level id="7">
+			<maxTime>10</maxTime>
+			<mustLevel>31</mustLevel>
+			<mustGcoin>33000</mustGcoin>
+		</level>
+		<level id="8">
+			<maxTime>11</maxTime>
+			<mustLevel>36</mustLevel>
+			<mustGcoin>38000</mustGcoin>
+		</level>
+		<level id="9">
+			<maxTime>12</maxTime>
+			<mustLevel>41</mustLevel>
+			<mustGcoin>107500</mustGcoin>
+		</level>
+		<level id="10">
+			<maxTime>13</maxTime>
+			<mustLevel>46</mustLevel>
+			<mustGcoin>120000</mustGcoin>
+		</level>
+		<level id="11">
+			<maxTime>14</maxTime>
+			<mustLevel>51</mustLevel>
+			<mustGcoin>265000</mustGcoin>
+		</level>
+		<level id="12">
+			<maxTime>15</maxTime>
+			<mustLevel>56</mustLevel>
+			<mustGcoin>290000</mustGcoin>
+		</level>
+		<level id="13">
+			<maxTime>16</maxTime>
+			<mustLevel>61</mustLevel>
+			<mustGcoin>315000</mustGcoin>
+		</level>
+		<level id="14">
+			<maxTime>17</maxTime>
+			<mustLevel>66</mustLevel>
+			<mustGcoin>340000</mustGcoin>
+		</level>
+		<level id="15">
+			<maxTime>18</maxTime>
+			<mustLevel>71</mustLevel>
+			<mustGcoin>912500</mustGcoin>
+		</level>
+		<level id="16">
+			<maxTime>19</maxTime>
+			<mustLevel>76</mustLevel>
+			<mustGcoin>975000</mustGcoin>
+		</level>
+		<level id="17">
+			<maxTime>20</maxTime>
+			<mustLevel>81</mustLevel>
+			<mustGcoin>2075000</mustGcoin>
+		</level>
+		<level id="18">
+			<maxTime>21</maxTime>
+			<mustLevel>86</mustLevel>
+			<mustGcoin>2200000</mustGcoin>
+		</level>
+		<level id="19">
+			<maxTime>22</maxTime>
+			<mustLevel>91</mustLevel>
+			<mustGcoin>4650000</mustGcoin>
+		</level>
+		<level id="20">
+			<maxTime>23</maxTime>
+			<mustLevel>96</mustLevel>
+			<mustGcoin>4900000</mustGcoin>
+		</level>
+	</skill>
+	<skill cnName="火箭喷射器">
+		<name>rocket</name>
+		<cnName>火箭喷射器</cnName>
+		<skillType>number</skillType>
+		<maxLevel>20</maxLevel>
+		<key>Q</key>
+		<keyEvent>clickOpen</keyEvent>
+		<effectDescribe>使用次数上限："maxNum"次</effectDescribe>
+		<default>
+			<maxNum>1</maxNum>
+			<recoveryTime>10</recoveryTime>
+		</default>
+		<level id="1">
+			<maxNum>1</maxNum>
+			<mustLevel>2</mustLevel>
+			<mustGcoin>0</mustGcoin>
+		</level>
+		<level id="2">
+			<maxNum>2</maxNum>
+			<mustLevel>7</mustLevel>
+			<mustGcoin>2250</mustGcoin>
+		</level>
+		<level id="3">
+			<maxNum>3</maxNum>
+			<mustLevel>12</mustLevel>
+			<mustGcoin>3500</mustGcoin>
+		</level>
+		<level id="4">
+			<maxNum>4</maxNum>
+			<mustLevel>17</mustLevel>
+			<mustGcoin>4750</mustGcoin>
+		</level>
+		<level id="5">
+			<maxNum>5</maxNum>
+			<mustLevel>22</mustLevel>
+			<mustGcoin>12000</mustGcoin>
+		</level>
+		<level id="6">
+			<maxNum>6</maxNum>
+			<mustLevel>27</mustLevel>
+			<mustGcoin>14500</mustGcoin>
+		</level>
+		<level id="7">
+			<maxNum>7</maxNum>
+			<mustLevel>32</mustLevel>
+			<mustGcoin>34000</mustGcoin>
+		</level>
+		<level id="8">
+			<maxNum>8</maxNum>
+			<mustLevel>37</mustLevel>
+			<mustGcoin>39000</mustGcoin>
+		</level>
+		<level id="9">
+			<maxNum>9</maxNum>
+			<mustLevel>42</mustLevel>
+			<mustGcoin>110000</mustGcoin>
+		</level>
+		<level id="10">
+			<maxNum>10</maxNum>
+			<mustLevel>47</mustLevel>
+			<mustGcoin>122500</mustGcoin>
+		</level>
+		<level id="11">
+			<maxNum>11</maxNum>
+			<mustLevel>52</mustLevel>
+			<mustGcoin>270000</mustGcoin>
+		</level>
+		<level id="12">
+			<maxNum>12</maxNum>
+			<mustLevel>57</mustLevel>
+			<mustGcoin>295000</mustGcoin>
+		</level>
+		<level id="13">
+			<maxNum>13</maxNum>
+			<mustLevel>62</mustLevel>
+			<mustGcoin>320000</mustGcoin>
+		</level>
+		<level id="14">
+			<maxNum>14</maxNum>
+			<mustLevel>67</mustLevel>
+			<mustGcoin>345000</mustGcoin>
+		</level>
+		<level id="15">
+			<maxNum>15</maxNum>
+			<mustLevel>72</mustLevel>
+			<mustGcoin>925000</mustGcoin>
+		</level>
+		<level id="16">
+			<maxNum>16</maxNum>
+			<mustLevel>77</mustLevel>
+			<mustGcoin>987500</mustGcoin>
+		</level>
+		<level id="17">
+			<maxNum>17</maxNum>
+			<mustLevel>82</mustLevel>
+			<mustGcoin>2100000</mustGcoin>
+		</level>
+		<level id="18">
+			<maxNum>18</maxNum>
+			<mustLevel>87</mustLevel>
+			<mustGcoin>2225000</mustGcoin>
+		</level>
+		<level id="19">
+			<maxNum>19</maxNum>
+			<mustLevel>92</mustLevel>
+			<mustGcoin>4700000</mustGcoin>
+		</level>
+		<level id="20">
+			<maxNum>20</maxNum>
+			<mustLevel>97</mustLevel>
+			<mustGcoin>4950000</mustGcoin>
+		</level>
+	</skill>
+	<skill cnName="等离子护盾">
+		<name>plasma</name>
+		<cnName>等离子护盾</cnName>
+		<skillType>time</skillType>
+		<maxLevel>20</maxLevel>
+		<key>E</key>
+		<keyEvent>clickOpen_clickClose</keyEvent>
+		<effectDescribe>有效时间上限："maxTime"秒</effectDescribe>
+		<default>
+			<maxNum>1</maxNum>
+			<maxTime>3</maxTime>
+			<recoveryTime>3</recoveryTime>
+			<coolingTime>5</coolingTime>
+		</default>
+		<level id="1">
+			<maxTime>2</maxTime>
+			<mustLevel>2</mustLevel>
+			<mustGcoin>0</mustGcoin>
+		</level>
+		<level id="2">
+			<maxTime>2.5</maxTime>
+			<mustLevel>8</mustLevel>
+			<mustGcoin>2500</mustGcoin>
+		</level>
+		<level id="3">
+			<maxTime>3</maxTime>
+			<mustLevel>13</mustLevel>
+			<mustGcoin>3750</mustGcoin>
+		</level>
+		<level id="4">
+			<maxTime>3.5</maxTime>
+			<mustLevel>18</mustLevel>
+			<mustGcoin>5000</mustGcoin>
+		</level>
+		<level id="5">
+			<maxTime>4</maxTime>
+			<mustLevel>23</mustLevel>
+			<mustGcoin>12500</mustGcoin>
+		</level>
+		<level id="6">
+			<maxTime>4.5</maxTime>
+			<mustLevel>28</mustLevel>
+			<mustGcoin>15000</mustGcoin>
+		</level>
+		<level id="7">
+			<maxTime>5</maxTime>
+			<mustLevel>33</mustLevel>
+			<mustGcoin>35000</mustGcoin>
+		</level>
+		<level id="8">
+			<maxTime>5.5</maxTime>
+			<mustLevel>38</mustLevel>
+			<mustGcoin>40000</mustGcoin>
+		</level>
+		<level id="9">
+			<maxTime>6</maxTime>
+			<mustLevel>43</mustLevel>
+			<mustGcoin>112500</mustGcoin>
+		</level>
+		<level id="10">
+			<maxTime>6.5</maxTime>
+			<mustLevel>48</mustLevel>
+			<mustGcoin>125000</mustGcoin>
+		</level>
+		<level id="11">
+			<maxTime>7</maxTime>
+			<mustLevel>53</mustLevel>
+			<mustGcoin>275000</mustGcoin>
+		</level>
+		<level id="12">
+			<maxTime>7.5</maxTime>
+			<mustLevel>58</mustLevel>
+			<mustGcoin>300000</mustGcoin>
+		</level>
+		<level id="13">
+			<maxTime>8</maxTime>
+			<mustLevel>63</mustLevel>
+			<mustGcoin>325000</mustGcoin>
+		</level>
+		<level id="14">
+			<maxTime>8.5</maxTime>
+			<mustLevel>68</mustLevel>
+			<mustGcoin>350000</mustGcoin>
+		</level>
+		<level id="15">
+			<maxTime>9</maxTime>
+			<mustLevel>73</mustLevel>
+			<mustGcoin>937500</mustGcoin>
+		</level>
+		<level id="16">
+			<maxTime>9.5</maxTime>
+			<mustLevel>78</mustLevel>
+			<mustGcoin>1000000</mustGcoin>
+		</level>
+		<level id="17">
+			<maxTime>10</maxTime>
+			<mustLevel>83</mustLevel>
+			<mustGcoin>2125000</mustGcoin>
+		</level>
+		<level id="18">
+			<maxTime>10.5</maxTime>
+			<mustLevel>88</mustLevel>
+			<mustGcoin>2250000</mustGcoin>
+		</level>
+		<level id="19">
+			<maxTime>11</maxTime>
+			<mustLevel>93</mustLevel>
+			<mustGcoin>4750000</mustGcoin>
+		</level>
+		<level id="20">
+			<maxTime>11.5</maxTime>
+			<mustLevel>98</mustLevel>
+			<mustGcoin>5000000</mustGcoin>
+		</level>
+	</skill>
+	<skill cnName="机甲变形">
+		<name>change</name>
+		<cnName>机甲变形</cnName>
+		<skillType>number</skillType>
+		<maxLevel>20</maxLevel>
+		<key>F</key>
+		<keyEvent>clickOpen</keyEvent>
+		<effectDescribe>有效时间上限："maxTime"秒</effectDescribe>
+		<default>
+			<maxNum>1</maxNum>
+			<maxTime>10</maxTime>
+			<recoveryTime>120</recoveryTime>
+		</default>
+		<level id="1">
+			<maxTime>12</maxTime>
+			<mustLevel>20</mustLevel>
+			<mustGcoin>5500</mustGcoin>
+		</level>
+		<level id="2">
+			<maxTime>13</maxTime>
+			<mustLevel>25</mustLevel>
+			<mustGcoin>13500</mustGcoin>
+		</level>
+		<level id="3">
+			<maxTime>14</maxTime>
+			<mustLevel>30</mustLevel>
+			<mustGcoin>16000</mustGcoin>
+		</level>
+		<level id="4">
+			<maxTime>15</maxTime>
+			<mustLevel>35</mustLevel>
+			<mustGcoin>37000</mustGcoin>
+		</level>
+		<level id="5">
+			<maxTime>16</maxTime>
+			<mustLevel>40</mustLevel>
+			<mustGcoin>42000</mustGcoin>
+		</level>
+		<level id="6">
+			<maxTime>17</maxTime>
+			<mustLevel>45</mustLevel>
+			<mustGcoin>117500</mustGcoin>
+		</level>
+		<level id="7">
+			<maxTime>18</maxTime>
+			<mustLevel>50</mustLevel>
+			<mustGcoin>130000</mustGcoin>
+		</level>
+		<level id="8">
+			<maxTime>19</maxTime>
+			<mustLevel>55</mustLevel>
+			<mustGcoin>285000</mustGcoin>
+		</level>
+		<level id="9">
+			<maxTime>20</maxTime>
+			<mustLevel>60</mustLevel>
+			<mustGcoin>310000</mustGcoin>
+		</level>
+		<level id="10">
+			<maxTime>21</maxTime>
+			<mustLevel>65</mustLevel>
+			<mustGcoin>335000</mustGcoin>
+		</level>
+		<level id="11">
+			<maxTime>22</maxTime>
+			<mustLevel>70</mustLevel>
+			<mustGcoin>360000</mustGcoin>
+		</level>
+		<level id="12">
+			<maxTime>23</maxTime>
+			<mustLevel>75</mustLevel>
+			<mustGcoin>962500</mustGcoin>
+		</level>
+		<level id="13">
+			<maxTime>24</maxTime>
+			<mustLevel>80</mustLevel>
+			<mustGcoin>1025000</mustGcoin>
+		</level>
+		<level id="14">
+			<maxTime>25</maxTime>
+			<mustLevel>85</mustLevel>
+			<mustGcoin>2175000</mustGcoin>
+		</level>
+		<level id="15">
+			<maxTime>26</maxTime>
+			<mustLevel>90</mustLevel>
+			<mustGcoin>2300000</mustGcoin>
+		</level>
+		<level id="16">
+			<maxTime>27</maxTime>
+			<mustLevel>95</mustLevel>
+			<mustGcoin>4850000</mustGcoin>
+		</level>
+		<level id="17">
+			<maxTime>28</maxTime>
+			<mustLevel>100</mustLevel>
+			<mustGcoin>5100000</mustGcoin>
+		</level>
+		<level id="18">
+			<maxTime>29</maxTime>
+			<mustLevel>105</mustLevel>
+			<mustGcoin>10000000</mustGcoin>
+		</level>
+		<level id="19">
+			<maxTime>30</maxTime>
+			<mustLevel>110</mustLevel>
+			<mustGcoin>20000000</mustGcoin>
+		</level>
+		<level id="20">
+			<maxTime>31</maxTime>
+			<mustLevel>105</mustLevel>
+			<mustGcoin>30000000</mustGcoin>
+		</level>
+	</skill>
+	<skill cnName="卫星闪电炮">
+		<name>lighting</name>
+		<cnName>卫星闪电炮</cnName>
+		<skillType>number</skillType>
+		<maxLevel>20</maxLevel>
+		<key>SPACE</key>
+		<keyEvent>clickOpen</keyEvent>
+		<effectDescribe>使用次数上限："maxNum"次\n 伤害："hurt"倍于战斗力</effectDescribe>
+		<default>
+			<maxNum>1</maxNum>
+			<hurt>1</hurt>
+			<recoveryTime>120</recoveryTime>
+		</default>
+		<level id="1">
+			<maxNum>1</maxNum>
+			<hurt>4</hurt>
+			<mustLevel>10</mustLevel>
+			<mustGcoin>3000</mustGcoin>
+		</level>
+		<level id="2">
+			<maxNum>1</maxNum>
+			<hurt>4.2</hurt>
+			<mustLevel>14</mustLevel>
+			<mustGcoin>4000</mustGcoin>
+		</level>
+		<level id="3">
+			<maxNum>1</maxNum>
+			<hurt>4.4</hurt>
+			<mustLevel>19</mustLevel>
+			<mustGcoin>5250</mustGcoin>
+		</level>
+		<level id="4">
+			<maxNum>1</maxNum>
+			<hurt>4.6</hurt>
+			<mustLevel>24</mustLevel>
+			<mustGcoin>13000</mustGcoin>
+		</level>
+		<level id="5">
+			<maxNum>1</maxNum>
+			<hurt>4.8</hurt>
+			<mustLevel>29</mustLevel>
+			<mustGcoin>15500</mustGcoin>
+		</level>
+		<level id="6">
+			<maxNum>1</maxNum>
+			<hurt>5.0</hurt>
+			<mustLevel>34</mustLevel>
+			<mustGcoin>36000</mustGcoin>
+		</level>
+		<level id="7">
+			<maxNum>1</maxNum>
+			<hurt>5.2</hurt>
+			<mustLevel>39</mustLevel>
+			<mustGcoin>41000</mustGcoin>
+		</level>
+		<level id="8">
+			<maxNum>1</maxNum>
+			<hurt>5.4</hurt>
+			<mustLevel>44</mustLevel>
+			<mustGcoin>115000</mustGcoin>
+		</level>
+		<level id="9">
+			<maxNum>1</maxNum>
+			<hurt>5.6</hurt>
+			<mustLevel>49</mustLevel>
+			<mustGcoin>127500</mustGcoin>
+		</level>
+		<level id="10">
+			<maxNum>1</maxNum>
+			<hurt>5.8</hurt>
+			<mustLevel>54</mustLevel>
+			<mustGcoin>280000</mustGcoin>
+		</level>
+		<level id="11">
+			<maxNum>2</maxNum>
+			<hurt>6.0</hurt>
+			<mustLevel>59</mustLevel>
+			<mustGcoin>305000</mustGcoin>
+		</level>
+		<level id="12">
+			<maxNum>2</maxNum>
+			<hurt>6.2</hurt>
+			<mustLevel>64</mustLevel>
+			<mustGcoin>330000</mustGcoin>
+		</level>
+		<level id="13">
+			<maxNum>2</maxNum>
+			<hurt>6.4</hurt>
+			<mustLevel>69</mustLevel>
+			<mustGcoin>355000</mustGcoin>
+		</level>
+		<level id="14">
+			<maxNum>2</maxNum>
+			<hurt>6.6</hurt>
+			<mustLevel>74</mustLevel>
+			<mustGcoin>950000</mustGcoin>
+		</level>
+		<level id="15">
+			<maxNum>2</maxNum>
+			<hurt>6.8</hurt>
+			<mustLevel>79</mustLevel>
+			<mustGcoin>1012500</mustGcoin>
+		</level>
+		<level id="16">
+			<maxNum>2</maxNum>
+			<hurt>7.0</hurt>
+			<mustLevel>84</mustLevel>
+			<mustGcoin>2150000</mustGcoin>
+		</level>
+		<level id="17">
+			<maxNum>2</maxNum>
+			<hurt>7.2</hurt>
+			<mustLevel>89</mustLevel>
+			<mustGcoin>2275000</mustGcoin>
+		</level>
+		<level id="18">
+			<maxNum>2</maxNum>
+			<hurt>7.4</hurt>
+			<mustLevel>94</mustLevel>
+			<mustGcoin>4800000</mustGcoin>
+		</level>
+		<level id="19">
+			<maxNum>2</maxNum>
+			<hurt>7.6</hurt>
+			<mustLevel>99</mustLevel>
+			<mustGcoin>5050000</mustGcoin>
+		</level>
+		<level id="20">
+			<maxNum>2</maxNum>
+			<hurt>7.8</hurt>
+			<mustLevel>104</mustLevel>
+			<mustGcoin>10000000</mustGcoin>
+		</level>
+	</skill>
+</data>

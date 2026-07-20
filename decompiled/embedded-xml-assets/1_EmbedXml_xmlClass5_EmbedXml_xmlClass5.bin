@@ -1,0 +1,1482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSpy v2013 (http://www.altova.com) by  () -->
+<data>
+	<!-- 车身的附加属性 -->
+	<extra>
+		<property cnName="全能训练">
+			<name>allAdd</name>
+			<cnName>全能训练提升</cnName>
+			<unit>%</unit>
+			<!-- 单位 -->
+			<decimal>3</decimal>
+			<!-- 小数位数 -->
+			<level range="1,9">0.01,0.05</level>
+			<level range="10,19">0.03,0.07</level>
+			<level range="20,29">0.05,0.09</level>
+			<level range="30,39">0.07,0.11</level>
+			<level range="40,49">0.09,0.13</level>
+			<level range="50,59">0.11,0.15</level>
+			<level range="60,69">0.13,0.17</level>
+			<level range="70,79">0.15,0.19</level>
+			<level range="80,89">0.17,0.21</level>
+			<level range="90,99">0.19,0.23</level>
+			<level range="100,109">0.21,0.25</level>
+			<level range="110,119">0.23,0.27</level>
+			<level range="120,129">0.25,0.29</level>
+			<level range="130,139">0.27,0.31</level>
+			<level range="140,149">0.29,0.33</level>
+			<level range="150,159">0.31,0.35</level>
+			<level range="160,169">0.33,0.37</level>
+			<level range="170,179">0.35,0.39</level>
+			<level range="180,189">0.37,0.41</level>
+			<level range="190,199">0.39,0.43</level>
+			<level range="200,209">0.41,0.45</level>
+		</property>
+		<property cnName="射击训练">
+			<name>attackAdd</name>
+			<cnName>射击训练提升</cnName>
+			<unit>%</unit>
+			<decimal>3</decimal>
+			<level range="1,9">0.06,0.10</level>
+			<level range="10,19">0.10,0.14</level>
+			<level range="20,29">0.14,0.18</level>
+			<level range="30,39">0.18,0.22</level>
+			<level range="40,49">0.22,0.26</level>
+			<level range="50,59">0.26,0.30</level>
+			<level range="60,69">0.30,0.34</level>
+			<level range="70,79">0.34,0.38</level>
+			<level range="80,89">0.38,0.42</level>
+			<level range="90,99">0.42,0.46</level>
+			<level range="100,109">0.46,0.50</level>
+			<level range="110,119">0.50,0.54</level>
+			<level range="120,129">0.54,0.58</level>
+			<level range="130,139">0.58,0.62</level>
+			<level range="140,149">0.62,0.66</level>
+			<level range="150,159">0.66,0.70</level>
+			<level range="160,169">0.70,0.74</level>
+			<level range="170,179">0.74,0.78</level>
+			<level range="180,189">0.78,0.82</level>
+			<level range="190,199">0.82,0.86</level>
+			<level range="200,209">0.86,0.90</level>
+		</property>
+		<property cnName="控制训练">
+			<name>subAdd</name>
+			<cnName>控制训练提升</cnName>
+			<unit>%</unit>
+			<decimal>3</decimal>
+			<level range="1,9">0.06,0.10</level>
+			<level range="10,19">0.10,0.14</level>
+			<level range="20,29">0.14,0.18</level>
+			<level range="30,39">0.18,0.22</level>
+			<level range="40,49">0.22,0.26</level>
+			<level range="50,59">0.26,0.30</level>
+			<level range="60,69">0.30,0.34</level>
+			<level range="70,79">0.34,0.38</level>
+			<level range="80,89">0.38,0.42</level>
+			<level range="90,99">0.42,0.46</level>
+			<level range="100,109">0.46,0.50</level>
+			<level range="110,119">0.50,0.54</level>
+			<level range="120,129">0.54,0.58</level>
+			<level range="130,139">0.58,0.62</level>
+			<level range="140,149">0.62,0.66</level>
+			<level range="150,159">0.66,0.70</level>
+			<level range="160,169">0.70,0.74</level>
+			<level range="170,179">0.74,0.78</level>
+			<level range="180,189">0.78,0.82</level>
+			<level range="190,199">0.82,0.86</level>
+			<level range="200,209">0.86,0.90</level>
+		</property>
+		<property cnName="体能训练">
+			<name>lifeAdd</name>
+			<cnName>体能训练提升</cnName>
+			<unit>%</unit>
+			<decimal>3</decimal>
+			<level range="1,9">0.06,0.10</level>
+			<level range="10,19">0.10,0.14</level>
+			<level range="20,29">0.14,0.18</level>
+			<level range="30,39">0.18,0.22</level>
+			<level range="40,49">0.22,0.26</level>
+			<level range="50,59">0.26,0.30</level>
+			<level range="60,69">0.30,0.34</level>
+			<level range="70,79">0.34,0.38</level>
+			<level range="80,89">0.38,0.42</level>
+			<level range="90,99">0.42,0.46</level>
+			<level range="100,109">0.46,0.50</level>
+			<level range="110,119">0.50,0.54</level>
+			<level range="120,129">0.54,0.58</level>
+			<level range="130,139">0.58,0.62</level>
+			<level range="140,149">0.62,0.66</level>
+			<level range="150,159">0.66,0.70</level>
+			<level range="160,169">0.70,0.74</level>
+			<level range="170,179">0.74,0.78</level>
+			<level range="180,189">0.78,0.82</level>
+			<level range="190,199">0.82,0.86</level>
+			<level range="200,209">0.86,0.90</level>
+		</property>
+		<property cnName="防御值">
+			<name>defence_max</name>
+			<cnName>防御值提升</cnName>
+			<unit>点</unit>
+			<level range="1,9">15,128</level>
+			<level range="10,19">143,271</level>
+			<level range="20,29">286,414</level>
+			<level range="30,39">428,557</level>
+			<level range="40,49">571,700</level>
+			<level range="50,59">714,843</level>
+			<level range="60,69">857,986</level>
+			<level range="70,79">1000,1128</level>
+			<level range="80,89">1143,1281</level>
+			<level range="90,99">1286,1414</level>
+			<level range="100,109">1428,1557</level>
+			<level range="110,119">1571,1700</level>
+			<level range="120,129">1714,1843</level>
+			<level range="130,139">1900,2150</level>
+			<level range="140,149">2300,2600</level>
+			<level range="150,159">2700,3000</level>
+			<level range="160,169">3200,3600</level>
+			<level range="170,179">3800,4500</level>
+			<level range="180,189">4500,5200</level>
+			<level range="190,199">5300,6400</level>
+			<level range="200,209">6800,8000</level>
+		</property>
+		<property cnName="防御百分比">
+			<name>defence_mul</name>
+			<cnName>防御值提升</cnName>
+			<unit>%</unit>
+			<decimal>3</decimal>
+			<level range="1,9">0.06,0.10</level>
+			<level range="10,19">0.10,0.14</level>
+			<level range="20,29">0.14,0.18</level>
+			<level range="30,39">0.18,0.22</level>
+			<level range="40,49">0.22,0.26</level>
+			<level range="50,59">0.26,0.30</level>
+			<level range="60,69">0.30,0.34</level>
+			<level range="70,79">0.34,0.38</level>
+			<level range="80,89">0.38,0.42</level>
+			<level range="90,99">0.42,0.46</level>
+			<level range="100,109">0.46,0.50</level>
+			<level range="110,119">0.50,0.54</level>
+			<level range="120,129">0.54,0.58</level>
+			<level range="130,139">0.58,0.62</level>
+			<level range="140,149">0.62,0.66</level>
+			<level range="150,159">0.66,0.70</level>
+			<level range="160,169">0.70,0.74</level>
+			<level range="170,179">0.74,0.78</level>
+			<level range="180,189">0.78,0.82</level>
+			<level range="190,199">0.82,0.86</level>
+			<level range="200,209">0.86,0.90</level>
+		</property>
+		<property cnName="耐久值">
+			<name>life_value</name>
+			<cnName>耐久值提升</cnName>
+			<unit>点</unit>
+			<level range="1,9">40,573</level>
+			<level range="10,19">700,2440</level>
+			<level range="20,29">2700,5640</level>
+			<level range="30,39">6033,10173</level>
+			<level range="40,49">10700,16040</level>
+			<level range="50,59">16700,23240</level>
+			<level range="60,69">24033,31773</level>
+			<level range="70,79">32700,41640</level>
+			<level range="80,89">42700,52840</level>
+			<level range="90,99">54033,65373</level>
+			<level range="100,109">66700,79240</level>
+			<level range="110,119">80700,94440</level>
+			<level range="120,129">96033,110973</level>
+			<level range="130,139">120000,150000</level>
+			<level range="140,149">160000,210000</level>
+			<level range="150,159">220000,290000</level>
+			<level range="160,169">300000,380000</level>
+			<level range="170,179">400000,520000</level>
+			<level range="180,189">500000,640000</level>
+			<level range="190,199">700000,850000</level>
+			<level range="200,209">900000,1000000</level>
+		</property>
+		<property cnName="耐久百分比">
+			<name>life_max</name>
+			<cnName>耐久值提升</cnName>
+			<unit>%</unit>
+			<decimal>3</decimal>
+			<level range="1,9">0.06,0.10</level>
+			<level range="10,19">0.10,0.14</level>
+			<level range="20,29">0.14,0.18</level>
+			<level range="30,39">0.18,0.22</level>
+			<level range="40,49">0.22,0.26</level>
+			<level range="50,59">0.26,0.30</level>
+			<level range="60,69">0.30,0.34</level>
+			<level range="70,79">0.34,0.38</level>
+			<level range="80,89">0.38,0.42</level>
+			<level range="90,99">0.42,0.46</level>
+			<level range="100,109">0.46,0.50</level>
+			<level range="110,119">0.50,0.54</level>
+			<level range="120,129">0.54,0.58</level>
+			<level range="130,139">0.58,0.62</level>
+			<level range="140,149">0.62,0.66</level>
+			<level range="150,159">0.66,0.70</level>
+			<level range="160,169">0.70,0.74</level>
+			<level range="170,179">0.74,0.78</level>
+			<level range="180,189">0.78,0.82</level>
+			<level range="190,199">0.82,0.86</level>
+			<level range="200,209">0.86,0.90</level>
+		</property>
+	</extra>
+	<!-- 车身基础成长属性 -->
+	<base>
+		<level index="1">
+			<life>120</life>
+			<defence>43</defence>
+			<price>1000</price>
+		</level>
+		<level index="2">
+			<life>180</life>
+			<defence>86</defence>
+			<price>2000</price>
+		</level>
+		<level index="3">
+			<life>280</life>
+			<defence>129</defence>
+			<price>3000</price>
+		</level>
+		<level index="4">
+			<life>420</life>
+			<defence>172</defence>
+			<price>4000</price>
+		</level>
+		<level index="5">
+			<life>600</life>
+			<defence>215</defence>
+			<price>5000</price>
+		</level>
+		<level index="6">
+			<life>820</life>
+			<defence>258</defence>
+			<price>6000</price>
+		</level>
+		<level index="7">
+			<life>1080</life>
+			<defence>300</defence>
+			<price>7000</price>
+		</level>
+		<level index="8">
+			<life>1380</life>
+			<defence>343</defence>
+			<price>8000</price>
+		</level>
+		<level index="9">
+			<life>1720</life>
+			<defence>386</defence>
+			<price>9000</price>
+		</level>
+		<level index="10">
+			<life>2100</life>
+			<defence>429</defence>
+			<price>10000</price>
+		</level>
+		<level index="11">
+			<life>2520</life>
+			<defence>472</defence>
+			<price>11000</price>
+		</level>
+		<level index="12">
+			<life>2980</life>
+			<defence>515</defence>
+			<price>12000</price>
+		</level>
+		<level index="13">
+			<life>3480</life>
+			<defence>558</defence>
+			<price>13000</price>
+		</level>
+		<level index="14">
+			<life>4020</life>
+			<defence>600</defence>
+			<price>14000</price>
+		</level>
+		<level index="15">
+			<life>4600</life>
+			<defence>643</defence>
+			<price>15000</price>
+		</level>
+		<level index="16">
+			<life>5220</life>
+			<defence>686</defence>
+			<price>16000</price>
+		</level>
+		<level index="17">
+			<life>5880</life>
+			<defence>729</defence>
+			<price>17000</price>
+		</level>
+		<level index="18">
+			<life>6580</life>
+			<defence>772</defence>
+			<price>18000</price>
+		</level>
+		<level index="19">
+			<life>7320</life>
+			<defence>815</defence>
+			<price>19000</price>
+		</level>
+		<level index="20">
+			<life>8100</life>
+			<defence>858</defence>
+			<price>20000</price>
+		</level>
+		<level index="21">
+			<life>8920</life>
+			<defence>900</defence>
+			<price>21000</price>
+		</level>
+		<level index="22">
+			<life>9780</life>
+			<defence>943</defence>
+			<price>22000</price>
+		</level>
+		<level index="23">
+			<life>10680</life>
+			<defence>986</defence>
+			<price>23000</price>
+		</level>
+		<level index="24">
+			<life>11620</life>
+			<defence>1029</defence>
+			<price>24000</price>
+		</level>
+		<level index="25">
+			<life>12600</life>
+			<defence>1072</defence>
+			<price>25000</price>
+		</level>
+		<level index="26">
+			<life>13620</life>
+			<defence>1115</defence>
+			<price>26000</price>
+		</level>
+		<level index="27">
+			<life>14680</life>
+			<defence>1158</defence>
+			<price>27000</price>
+		</level>
+		<level index="28">
+			<life>15780</life>
+			<defence>1200</defence>
+			<price>28000</price>
+		</level>
+		<level index="29">
+			<life>16920</life>
+			<defence>1243</defence>
+			<price>29000</price>
+		</level>
+		<level index="30">
+			<life>18100</life>
+			<defence>1286</defence>
+			<price>30000</price>
+		</level>
+		<level index="31">
+			<life>19320</life>
+			<defence>1329</defence>
+			<price>31000</price>
+		</level>
+		<level index="32">
+			<life>20580</life>
+			<defence>1372</defence>
+			<price>32000</price>
+		</level>
+		<level index="33">
+			<life>21880</life>
+			<defence>1415</defence>
+			<price>33000</price>
+		</level>
+		<level index="34">
+			<life>23220</life>
+			<defence>1458</defence>
+			<price>34000</price>
+		</level>
+		<level index="35">
+			<life>24600</life>
+			<defence>1500</defence>
+			<price>35000</price>
+		</level>
+		<level index="36">
+			<life>26020</life>
+			<defence>1543</defence>
+			<price>36000</price>
+		</level>
+		<level index="37">
+			<life>27480</life>
+			<defence>1586</defence>
+			<price>37000</price>
+		</level>
+		<level index="38">
+			<life>28980</life>
+			<defence>1629</defence>
+			<price>38000</price>
+		</level>
+		<level index="39">
+			<life>30520</life>
+			<defence>1672</defence>
+			<price>39000</price>
+		</level>
+		<level index="40">
+			<life>32100</life>
+			<defence>1715</defence>
+			<price>40000</price>
+		</level>
+		<level index="41">
+			<life>33720</life>
+			<defence>1758</defence>
+			<price>41000</price>
+		</level>
+		<level index="42">
+			<life>35380</life>
+			<defence>1800</defence>
+			<price>42000</price>
+		</level>
+		<level index="43">
+			<life>37080</life>
+			<defence>1843</defence>
+			<price>43000</price>
+		</level>
+		<level index="44">
+			<life>38820</life>
+			<defence>1886</defence>
+			<price>44000</price>
+		</level>
+		<level index="45">
+			<life>40600</life>
+			<defence>1929</defence>
+			<price>45000</price>
+		</level>
+		<level index="46">
+			<life>42420</life>
+			<defence>1972</defence>
+			<price>46000</price>
+		</level>
+		<level index="47">
+			<life>44280</life>
+			<defence>2015</defence>
+			<price>47000</price>
+		</level>
+		<level index="48">
+			<life>46180</life>
+			<defence>2058</defence>
+			<price>48000</price>
+		</level>
+		<level index="49">
+			<life>48120</life>
+			<defence>2100</defence>
+			<price>49000</price>
+		</level>
+		<level index="50">
+			<life>50100</life>
+			<defence>2143</defence>
+			<price>50000</price>
+		</level>
+		<level index="51">
+			<life>52120</life>
+			<defence>2186</defence>
+			<price>51000</price>
+		</level>
+		<level index="52">
+			<life>54180</life>
+			<defence>2229</defence>
+			<price>52000</price>
+		</level>
+		<level index="53">
+			<life>56280</life>
+			<defence>2272</defence>
+			<price>53000</price>
+		</level>
+		<level index="54">
+			<life>58420</life>
+			<defence>2315</defence>
+			<price>54000</price>
+		</level>
+		<level index="55">
+			<life>60600</life>
+			<defence>2358</defence>
+			<price>55000</price>
+		</level>
+		<level index="56">
+			<life>62820</life>
+			<defence>2400</defence>
+			<price>56000</price>
+		</level>
+		<level index="57">
+			<life>65080</life>
+			<defence>2443</defence>
+			<price>57000</price>
+		</level>
+		<level index="58">
+			<life>67380</life>
+			<defence>2486</defence>
+			<price>58000</price>
+		</level>
+		<level index="59">
+			<life>69720</life>
+			<defence>2529</defence>
+			<price>59000</price>
+		</level>
+		<level index="60">
+			<life>72100</life>
+			<defence>2572</defence>
+			<price>60000</price>
+		</level>
+		<level index="61">
+			<life>74520</life>
+			<defence>2615</defence>
+			<price>61000</price>
+		</level>
+		<level index="62">
+			<life>76980</life>
+			<defence>2658</defence>
+			<price>62000</price>
+		</level>
+		<level index="63">
+			<life>79480</life>
+			<defence>2700</defence>
+			<price>63000</price>
+		</level>
+		<level index="64">
+			<life>82020</life>
+			<defence>2743</defence>
+			<price>64000</price>
+		</level>
+		<level index="65">
+			<life>84600</life>
+			<defence>2786</defence>
+			<price>65000</price>
+		</level>
+		<level index="66">
+			<life>87220</life>
+			<defence>2829</defence>
+			<price>66000</price>
+		</level>
+		<level index="67">
+			<life>89880</life>
+			<defence>2872</defence>
+			<price>67000</price>
+		</level>
+		<level index="68">
+			<life>92580</life>
+			<defence>2915</defence>
+			<price>68000</price>
+		</level>
+		<level index="69">
+			<life>95320</life>
+			<defence>2958</defence>
+			<price>69000</price>
+		</level>
+		<level index="70">
+			<life>98100</life>
+			<defence>3000</defence>
+			<price>70000</price>
+		</level>
+		<level index="71">
+			<life>100920</life>
+			<defence>3043</defence>
+			<price>71000</price>
+		</level>
+		<level index="72">
+			<life>103780</life>
+			<defence>3086</defence>
+			<price>72000</price>
+		</level>
+		<level index="73">
+			<life>106680</life>
+			<defence>3129</defence>
+			<price>73000</price>
+		</level>
+		<level index="74">
+			<life>109620</life>
+			<defence>3172</defence>
+			<price>74000</price>
+		</level>
+		<level index="75">
+			<life>112600</life>
+			<defence>3215</defence>
+			<price>75000</price>
+		</level>
+		<level index="76">
+			<life>115620</life>
+			<defence>3258</defence>
+			<price>76000</price>
+		</level>
+		<level index="77">
+			<life>118680</life>
+			<defence>3300</defence>
+			<price>77000</price>
+		</level>
+		<level index="78">
+			<life>121780</life>
+			<defence>3343</defence>
+			<price>78000</price>
+		</level>
+		<level index="79">
+			<life>124920</life>
+			<defence>3386</defence>
+			<price>79000</price>
+		</level>
+		<level index="80">
+			<life>128100</life>
+			<defence>3429</defence>
+			<price>80000</price>
+		</level>
+		<level index="81">
+			<life>131320</life>
+			<defence>3472</defence>
+			<price>81000</price>
+		</level>
+		<level index="82">
+			<life>134580</life>
+			<defence>3515</defence>
+			<price>82000</price>
+		</level>
+		<level index="83">
+			<life>137880</life>
+			<defence>3558</defence>
+			<price>83000</price>
+		</level>
+		<level index="84">
+			<life>141220</life>
+			<defence>3600</defence>
+			<price>84000</price>
+		</level>
+		<level index="85">
+			<life>144600</life>
+			<defence>3643</defence>
+			<price>85000</price>
+		</level>
+		<level index="86">
+			<life>148020</life>
+			<defence>3686</defence>
+			<price>86000</price>
+		</level>
+		<level index="87">
+			<life>151480</life>
+			<defence>3729</defence>
+			<price>87000</price>
+		</level>
+		<level index="88">
+			<life>154980</life>
+			<defence>3772</defence>
+			<price>88000</price>
+		</level>
+		<level index="89">
+			<life>158520</life>
+			<defence>3815</defence>
+			<price>89000</price>
+		</level>
+		<level index="90">
+			<life>162100</life>
+			<defence>3858</defence>
+			<price>90000</price>
+		</level>
+		<level index="91">
+			<life>165720</life>
+			<defence>3900</defence>
+			<price>91000</price>
+		</level>
+		<level index="92">
+			<life>169380</life>
+			<defence>3943</defence>
+			<price>92000</price>
+		</level>
+		<level index="93">
+			<life>173080</life>
+			<defence>3986</defence>
+			<price>93000</price>
+		</level>
+		<level index="94">
+			<life>176820</life>
+			<defence>4028</defence>
+			<price>94000</price>
+		</level>
+		<level index="95">
+			<life>180600</life>
+			<defence>4072</defence>
+			<price>95000</price>
+		</level>
+		<level index="96">
+			<life>184420</life>
+			<defence>4115</defence>
+			<price>96000</price>
+		</level>
+		<level index="97">
+			<life>188280</life>
+			<defence>4158</defence>
+			<price>97000</price>
+		</level>
+		<level index="98">
+			<life>192180</life>
+			<defence>4200</defence>
+			<price>98000</price>
+		</level>
+		<level index="99">
+			<life>196120</life>
+			<defence>4243</defence>
+			<price>99000</price>
+		</level>
+		<level index="100">
+			<life>200100</life>
+			<defence>4286</defence>
+			<price>100000</price>
+		</level>
+		<level index="101">
+			<life>204120</life>
+			<defence>4329</defence>
+			<price>101000</price>
+		</level>
+		<level index="102">
+			<life>208180</life>
+			<defence>4372</defence>
+			<price>102000</price>
+		</level>
+		<level index="103">
+			<life>212280</life>
+			<defence>4415</defence>
+			<price>103000</price>
+		</level>
+		<level index="104">
+			<life>216420</life>
+			<defence>4458</defence>
+			<price>104000</price>
+		</level>
+		<level index="105">
+			<life>220600</life>
+			<defence>4500</defence>
+			<price>105000</price>
+		</level>
+		<level index="106">
+			<life>224820</life>
+			<defence>4543</defence>
+			<price>106000</price>
+		</level>
+		<level index="107">
+			<life>229080</life>
+			<defence>4586</defence>
+			<price>107000</price>
+		</level>
+		<level index="108">
+			<life>233380</life>
+			<defence>4629</defence>
+			<price>108000</price>
+		</level>
+		<level index="109">
+			<life>237720</life>
+			<defence>4672</defence>
+			<price>109000</price>
+		</level>
+		<level index="110">
+			<life>242100</life>
+			<defence>4715</defence>
+			<price>110000</price>
+		</level>
+		<level index="111">
+			<life>246520</life>
+			<defence>4758</defence>
+			<price>111000</price>
+		</level>
+		<level index="112">
+			<life>250980</life>
+			<defence>4800</defence>
+			<price>112000</price>
+		</level>
+		<level index="113">
+			<life>255480</life>
+			<defence>4843</defence>
+			<price>113000</price>
+		</level>
+		<level index="114">
+			<life>260020</life>
+			<defence>4886</defence>
+			<price>114000</price>
+		</level>
+		<level index="115">
+			<life>264600</life>
+			<defence>4929</defence>
+			<price>115000</price>
+		</level>
+		<level index="116">
+			<life>269220</life>
+			<defence>4972</defence>
+			<price>116000</price>
+		</level>
+		<level index="117">
+			<life>273880</life>
+			<defence>5015</defence>
+			<price>117000</price>
+		</level>
+		<level index="118">
+			<life>278580</life>
+			<defence>5058</defence>
+			<price>118000</price>
+		</level>
+		<level index="119">
+			<life>283320</life>
+			<defence>5100</defence>
+			<price>119000</price>
+		</level>
+		<level index="120">
+			<life>288100</life>
+			<defence>5143</defence>
+			<price>120000</price>
+		</level>
+		<level index="121">
+			<life>292920</life>
+			<defence>5186</defence>
+			<price>121000</price>
+		</level>
+		<level index="122">
+			<life>297780</life>
+			<defence>5229</defence>
+			<price>122000</price>
+		</level>
+		<level index="123">
+			<life>302680</life>
+			<defence>5272</defence>
+			<price>123000</price>
+		</level>
+		<level index="124">
+			<life>307620</life>
+			<defence>5315</defence>
+			<price>124000</price>
+		</level>
+		<level index="125">
+			<life>312600</life>
+			<defence>5358</defence>
+			<price>125000</price>
+		</level>
+		<level index="126">
+			<life>317620</life>
+			<defence>5400</defence>
+			<price>126000</price>
+		</level>
+		<level index="127">
+			<life>322680</life>
+			<defence>5443</defence>
+			<price>127000</price>
+		</level>
+		<level index="128">
+			<life>327780</life>
+			<defence>5486</defence>
+			<price>128000</price>
+		</level>
+		<level index="129">
+			<life>332920</life>
+			<defence>5529</defence>
+			<price>129000</price>
+		</level>
+		<level index="130">
+			<life>338100</life>
+			<defence>5572</defence>
+			<price>130000</price>
+		</level>
+		<level index="131">
+			<life>343320</life>
+			<defence>5615</defence>
+			<price>131000</price>
+		</level>
+		<level index="132">
+			<life>348580</life>
+			<defence>5658</defence>
+			<price>132000</price>
+		</level>
+		<level index="133">
+			<life>353880</life>
+			<defence>5700</defence>
+			<price>133000</price>
+		</level>
+		<level index="134">
+			<life>359220</life>
+			<defence>5743</defence>
+			<price>134000</price>
+		</level>
+		<level index="135">
+			<life>364600</life>
+			<defence>5786</defence>
+			<price>135000</price>
+		</level>
+		<level index="136">
+			<life>370020</life>
+			<defence>5829</defence>
+			<price>136000</price>
+		</level>
+		<level index="137">
+			<life>375480</life>
+			<defence>5872</defence>
+			<price>137000</price>
+		</level>
+		<level index="138">
+			<life>380980</life>
+			<defence>5915</defence>
+			<price>138000</price>
+		</level>
+		<level index="139">
+			<life>386520</life>
+			<defence>5958</defence>
+			<price>139000</price>
+		</level>
+		<level index="140">
+			<life>392100</life>
+			<defence>6000</defence>
+			<price>140000</price>
+		</level>
+		<level index="141">
+			<life>397720</life>
+			<defence>6043</defence>
+			<price>141000</price>
+		</level>
+		<level index="142">
+			<life>403380</life>
+			<defence>6086</defence>
+			<price>142000</price>
+		</level>
+		<level index="143">
+			<life>409080</life>
+			<defence>6129</defence>
+			<price>143000</price>
+		</level>
+		<level index="144">
+			<life>414820</life>
+			<defence>6172</defence>
+			<price>144000</price>
+		</level>
+		<level index="145">
+			<life>420600</life>
+			<defence>6215</defence>
+			<price>145000</price>
+		</level>
+		<level index="146">
+			<life>426420</life>
+			<defence>6258</defence>
+			<price>146000</price>
+		</level>
+		<level index="147">
+			<life>432280</life>
+			<defence>6300</defence>
+			<price>147000</price>
+		</level>
+		<level index="148">
+			<life>438180</life>
+			<defence>6343</defence>
+			<price>148000</price>
+		</level>
+		<level index="149">
+			<life>444120</life>
+			<defence>6386</defence>
+			<price>149000</price>
+		</level>
+		<level index="150">
+			<life>450100</life>
+			<defence>6429</defence>
+			<price>150000</price>
+		</level>
+		<level index="151">
+			<life>456120</life>
+			<defence>6472</defence>
+			<price>151000</price>
+		</level>
+		<level index="152">
+			<life>462180</life>
+			<defence>6515</defence>
+			<price>152000</price>
+		</level>
+		<level index="153">
+			<life>468280</life>
+			<defence>6558</defence>
+			<price>153000</price>
+		</level>
+		<level index="154">
+			<life>474420</life>
+			<defence>6600</defence>
+			<price>154000</price>
+		</level>
+		<level index="155">
+			<life>480600</life>
+			<defence>6643</defence>
+			<price>155000</price>
+		</level>
+		<level index="156">
+			<life>486820</life>
+			<defence>6686</defence>
+			<price>156000</price>
+		</level>
+		<level index="157">
+			<life>493080</life>
+			<defence>6729</defence>
+			<price>157000</price>
+		</level>
+		<level index="158">
+			<life>499380</life>
+			<defence>6772</defence>
+			<price>158000</price>
+		</level>
+		<level index="159">
+			<life>505720</life>
+			<defence>6815</defence>
+			<price>159000</price>
+		</level>
+		<level index="160">
+			<life>512100</life>
+			<defence>6858</defence>
+			<price>160000</price>
+		</level>
+		<level index="161">
+			<life>518520</life>
+			<defence>6900</defence>
+			<price>161000</price>
+		</level>
+		<level index="162">
+			<life>524980</life>
+			<defence>6943</defence>
+			<price>162000</price>
+		</level>
+		<level index="163">
+			<life>531480</life>
+			<defence>6986</defence>
+			<price>163000</price>
+		</level>
+		<level index="164">
+			<life>5380200</life>
+			<defence>7029</defence>
+			<price>164000</price>
+		</level>
+		<level index="165">
+			<life>544600</life>
+			<defence>7072</defence>
+			<price>165000</price>
+		</level>
+		<level index="166">
+			<life>551220</life>
+			<defence>7115</defence>
+			<price>166000</price>
+		</level>
+		<level index="167">
+			<life>557880</life>
+			<defence>7158</defence>
+			<price>167000</price>
+		</level>
+		<level index="168">
+			<life>564580</life>
+			<defence>7200</defence>
+			<price>168000</price>
+		</level>
+		<level index="169">
+			<life>571320</life>
+			<defence>7243</defence>
+			<price>169000</price>
+		</level>
+		<level index="170">
+			<life>578100</life>
+			<defence>7286</defence>
+			<price>170000</price>
+		</level>
+		<level index="171">
+			<life>584920</life>
+			<defence>7329</defence>
+			<price>171000</price>
+		</level>
+		<level index="172">
+			<life>591780</life>
+			<defence>7372</defence>
+			<price>172000</price>
+		</level>
+		<level index="173">
+			<life>598680</life>
+			<defence>7415</defence>
+			<price>173000</price>
+		</level>
+		<level index="174">
+			<life>605620</life>
+			<defence>7458</defence>
+			<price>174000</price>
+		</level>
+		<level index="175">
+			<life>612600</life>
+			<defence>7500</defence>
+			<price>175000</price>
+		</level>
+		<level index="176">
+			<life>619620</life>
+			<defence>7543</defence>
+			<price>176000</price>
+		</level>
+		<level index="177">
+			<life>626680</life>
+			<defence>7586</defence>
+			<price>177000</price>
+		</level>
+		<level index="178">
+			<life>633780</life>
+			<defence>7629</defence>
+			<price>178000</price>
+		</level>
+		<level index="179">
+			<life>640920</life>
+			<defence>7672</defence>
+			<price>179000</price>
+		</level>
+		<level index="180">
+			<life>648100</life>
+			<defence>7715</defence>
+			<price>180000</price>
+		</level>
+		<level index="181">
+			<life>655320</life>
+			<defence>7758</defence>
+			<price>181000</price>
+		</level>
+		<level index="182">
+			<life>662580</life>
+			<defence>7800</defence>
+			<price>182000</price>
+		</level>
+		<level index="183">
+			<life>669880</life>
+			<defence>7843</defence>
+			<price>183000</price>
+		</level>
+		<level index="184">
+			<life>677220</life>
+			<defence>7886</defence>
+			<price>184000</price>
+		</level>
+		<level index="185">
+			<life>684600</life>
+			<defence>7929</defence>
+			<price>185000</price>
+		</level>
+		<level index="186">
+			<life>692020</life>
+			<defence>7972</defence>
+			<price>186000</price>
+		</level>
+		<level index="187">
+			<life>699480</life>
+			<defence>8015</defence>
+			<price>187000</price>
+		</level>
+		<level index="188">
+			<life>706980</life>
+			<defence>8058</defence>
+			<price>188000</price>
+		</level>
+		<level index="189">
+			<life>714520</life>
+			<defence>8100</defence>
+			<price>189000</price>
+		</level>
+		<level index="190">
+			<life>722100</life>
+			<defence>8143</defence>
+			<price>190000</price>
+		</level>
+		<level index="191">
+			<life>729720</life>
+			<defence>8186</defence>
+			<price>191000</price>
+		</level>
+		<level index="192">
+			<life>737380</life>
+			<defence>8229</defence>
+			<price>192000</price>
+		</level>
+		<level index="193">
+			<life>745080</life>
+			<defence>8272</defence>
+			<price>193000</price>
+		</level>
+		<level index="194">
+			<life>752820</life>
+			<defence>8315</defence>
+			<price>194000</price>
+		</level>
+		<level index="195">
+			<life>760600</life>
+			<defence>8358</defence>
+			<price>195000</price>
+		</level>
+		<level index="196">
+			<life>768420</life>
+			<defence>8400</defence>
+			<price>196000</price>
+		</level>
+		<level index="197">
+			<life>776280</life>
+			<defence>8443</defence>
+			<price>197000</price>
+		</level>
+		<level index="198">
+			<life>784180</life>
+			<defence>8486</defence>
+			<price>198000</price>
+		</level>
+		<level index="199">
+			<life>792120</life>
+			<defence>8529</defence>
+			<price>199000</price>
+		</level>
+		<level index="200">
+			<life>800100</life>
+			<defence>8572</defence>
+			<price>200000</price>
+		</level>
+		<level index="201">
+			<life>820000</life>
+			<defence>8600</defence>
+			<price>200000</price>
+		</level>
+		<level index="202">
+			<life>840000</life>
+			<defence>8650</defence>
+			<price>200000</price>
+		</level>
+		<level index="203">
+			<life>860000</life>
+			<defence>8700</defence>
+			<price>200000</price>
+		</level>
+		<level index="204">
+			<life>880000</life>
+			<defence>8750</defence>
+			<price>200000</price>
+		</level>
+		<level index="205">
+			<life>900000</life>
+			<defence>8800</defence>
+			<price>200000</price>
+		</level>
+		<level index="206">
+			<life>920000</life>
+			<defence>8850</defence>
+			<price>200000</price>
+		</level>
+		<level index="207">
+			<life>940000</life>
+			<defence>8900</defence>
+			<price>200000</price>
+		</level>
+		<level index="208">
+			<life>960000</life>
+			<defence>8950</defence>
+			<price>200000</price>
+		</level>
+		<level index="209">
+			<life>980000</life>
+			<defence>9000</defence>
+			<price>200000</price>
+		</level>
+		<level index="210">
+			<life>1000000</life>
+			<defence>9050</defence>
+			<price>200000</price>
+		</level>
+	</base>
+	<!-- 升级 -->
+	<upgrade>
+		<level num="1" gotoLevel="11">
+			<M>150</M>
+		</level>
+		<level num="2" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="3" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="4" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="5" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="6" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="7" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="8" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="9" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="10" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="11" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="12" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="13" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="14" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="15" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="16" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="17" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="18" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="19" gotoLevel="17">
+			<M>150</M>
+		</level>
+		<level num="20" gotoLevel="17">
+			<M>150</M>
+		</level>
+	</upgrade>
+	<!-- 强化 -->
+	<strengthen>
+		<level num="1">
+			<lifeMul>0.1</lifeMul>				<!-- 耐久加成百分比 -->
+			<defenceMul>0.1</defenceMul>		<!-- 防御加成百分比 -->
+			<superalloy_X>10</superalloy_X>		<!-- 需求的超合金X数量 -->
+			<superalloy_Y>0</superalloy_Y>		<!-- 需求的超合金Y数量 -->
+			<successRate>1</successRate>		<!-- 成功率 -->
+		</level>
+		<level num="2">
+			<lifeMul>0.2</lifeMul>
+			<defenceMul>0.2</defenceMul>
+			<superalloy_X>20</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.95</successRate>
+		</level>
+		<level num="3">
+			<lifeMul>0.3</lifeMul>
+			<defenceMul>0.3</defenceMul>
+			<superalloy_X>30</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.9</successRate>
+		</level>
+		<level num="4">
+			<lifeMul>0.4</lifeMul>
+			<defenceMul>0.4</defenceMul>
+			<superalloy_X>40</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.85</successRate>
+		</level>
+		<level num="5">
+			<lifeMul>0.5</lifeMul>
+			<defenceMul>0.5</defenceMul>
+			<superalloy_X>50</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.8</successRate>
+		</level>
+		<level num="6">
+			<lifeMul>0.6</lifeMul>
+			<defenceMul>0.6</defenceMul>
+			<superalloy_X>60</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.75</successRate>
+		</level>
+		<level num="7">
+			<lifeMul>0.7</lifeMul>
+			<defenceMul>0.7</defenceMul>
+			<superalloy_X>70</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.7</successRate>
+		</level>
+		<level num="8">
+			<lifeMul>0.8</lifeMul>
+			<defenceMul>0.8</defenceMul>
+			<superalloy_X>80</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.65</successRate>
+		</level>
+		<level num="9">
+			<lifeMul>0.9</lifeMul>
+			<defenceMul>0.9</defenceMul>
+			<superalloy_X>90</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.6</successRate>
+		</level>
+		<level num="10">
+			<lifeMul>1</lifeMul>
+			<defenceMul>1</defenceMul>
+			<superalloy_X>100</superalloy_X>
+			<superalloy_Y>0</superalloy_Y>
+			<successRate>0.55</successRate>
+		</level>
+		<level num="11">
+			<lifeMul>1.1</lifeMul>
+			<defenceMul>1.1</defenceMul>
+			<superalloy_X>110</superalloy_X>
+			<superalloy_Y>5</superalloy_Y>
+			<successRate>0.5</successRate>
+		</level>
+		<level num="12">
+			<lifeMul>1.2</lifeMul>
+			<defenceMul>1.2</defenceMul>
+			<superalloy_X>120</superalloy_X>
+			<superalloy_Y>10</superalloy_Y>
+			<successRate>0.45</successRate>
+		</level>
+		<level num="13">
+			<lifeMul>1.3</lifeMul>
+			<defenceMul>1.3</defenceMul>
+			<superalloy_X>130</superalloy_X>
+			<superalloy_Y>15</superalloy_Y>
+			<successRate>0.4</successRate>
+		</level>
+		<level num="14">
+			<lifeMul>1.4</lifeMul>
+			<defenceMul>1.4</defenceMul>
+			<superalloy_X>140</superalloy_X>
+			<superalloy_Y>20</superalloy_Y>
+			<successRate>0.35</successRate>
+		</level>
+		<level num="15">
+			<lifeMul>1.5</lifeMul>
+			<defenceMul>1.5</defenceMul>
+			<superalloy_X>150</superalloy_X>
+			<superalloy_Y>25</superalloy_Y>
+			<successRate>0.3</successRate>
+		</level>
+		<level num="16">
+			<lifeMul>1.6</lifeMul>
+			<defenceMul>1.6</defenceMul>
+			<superalloy_X>160</superalloy_X>
+			<superalloy_Y>30</superalloy_Y>
+			<successRate>0.25</successRate>
+		</level>
+		<level num="17">
+			<lifeMul>1.7</lifeMul>
+			<defenceMul>1.7</defenceMul>
+			<superalloy_X>170</superalloy_X>
+			<superalloy_Y>35</superalloy_Y>
+			<successRate>0.2</successRate>
+		</level>
+		<level num="18">
+			<lifeMul>1.8</lifeMul>
+			<defenceMul>1.8</defenceMul>
+			<superalloy_X>180</superalloy_X>
+			<superalloy_Y>40</superalloy_Y>
+			<successRate>0.15</successRate>
+		</level>
+		<level num="19">
+			<lifeMul>1.9</lifeMul>
+			<defenceMul>1.9</defenceMul>
+			<superalloy_X>190</superalloy_X>
+			<superalloy_Y>45</superalloy_Y>
+			<successRate>0.1</successRate>
+		</level>
+		<level num="20">
+			<lifeMul>2</lifeMul>
+			<defenceMul>2</defenceMul>
+			<superalloy_X>200</superalloy_X>
+			<superalloy_Y>50</superalloy_Y>
+			<successRate>0.05</successRate>
+		</level>
+	</strengthen>
+</data>

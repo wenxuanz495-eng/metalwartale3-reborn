@@ -1,0 +1,47 @@
+# Build outputs
+/build/
+/dist/
+/release/
+/offline/
+/portable/
+/海豹/
+*.build.swf
+*.compiled.swf
+*.before-*.swf
+*.new.swf
+*.swf.bak
+*~ffdec*
+
+# Generated executables and packages
+/server/*.exe
+*.new.exe
+*.zip
+
+# Saves and runtime data
+/saves/
+**/backups/
+*.sol
+*.db
+game_save.bin
+api_save_*.bin
+api_save_*.meta.json
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.stderr
+*.stdout
+*.downloading
+**/__pycache__/
+*.py[cod]
+
+# Editors and OS
+.vscode/
+.idea/
+*.user
+*.suo
+Thumbs.db
+Desktop.ini
+.DS_Store
