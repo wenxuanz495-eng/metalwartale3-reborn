@@ -37,3 +37,8 @@ scripts/go_env.ps1：
 - GOPATH=D:\superalloy\.gopath\gopath
 - GOMODCACHE=D:\superalloy\.gopath\pkg\mod
 - GOCACHE=D:\superalloy\.gopath\cache
+
+## 运行时注意
+
+- 资源优先使用海豹 1.2 的层级目录（`swf/ui`、`swf/enemy` 等），仓库平铺 `swf/` 不能直接作为运行资源。
+- `run_dev.ps1` 会自动选择带 `ui` 目录的资源布局。

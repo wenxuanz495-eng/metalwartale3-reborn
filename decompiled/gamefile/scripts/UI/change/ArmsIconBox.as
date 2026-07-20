@@ -1,4 +1,4 @@
-package UI.change
+﻿package UI.change
 {
    import UI.ClickEvent;
    import UI.icon.ItemsArmsIcon;
@@ -40,6 +40,8 @@ package UI.change
       private var siteRankB:Boolean = false;
       
       public var first_index:int = 0;
+
+      public var continuousVertical:Boolean = false;
       
       public function ArmsIconBox(_type:String = "bag", _siteRankB:Boolean = false)
       {
@@ -89,13 +91,21 @@ package UI.change
          if(this.arr.length > 0)
          {
             lb0 = this.arr[0];
-            if(this.xNum > 1)
+            if(this.continuousVertical)
             {
-               this.xGap = (this.baseWidth - this.xNum * lb0.width) / (this.xNum - 1);
+               this.xGap = 0;
+               this.yGap = 4;
             }
-            if(this.yNum > 1)
+            else
             {
-               this.yGap = (this.baseHeight - this.yNum * lb0.height) / (this.yNum - 1);
+               if(this.xNum > 1)
+               {
+                  this.xGap = (this.baseWidth - this.xNum * lb0.width) / (this.xNum - 1);
+               }
+               if(this.yNum > 1)
+               {
+                  this.yGap = (this.baseHeight - this.yNum * lb0.height) / (this.yNum - 1);
+               }
             }
          }
       }
@@ -371,8 +381,16 @@ package UI.change
          if(_num != this.nowPage || _breakB)
          {
             this.nowPage = _num;
+         if(this.continuousVertical)
+         {
+            first = 0;
+            last = this.arr.length - 1;
+         }
+         else
+         {
             first = this.nowPage * this.xNum * this.yNum;
             last = (this.nowPage + 1) * this.xNum * this.yNum - 1;
+         }
             if(last > this.totalNum - 1)
             {
                last = this.totalNum - 1;

@@ -8,6 +8,13 @@ $ErrorActionPreference = "Stop"
 
 $buildDir = Join-Path $RepoRoot "build"
 $swfDir = Join-Path $RepoRoot "swf"
+$sealSwf = "D:\superalloy\超合金离线优化海豹版1.2\swf"
+if (Test-Path (Join-Path $sealSwf "ui")) {
+  $swfDir = $sealSwf
+  Write-Host "Using seal resource layout: $swfDir"
+} else {
+  Write-Host "Using repo resource layout: $swfDir"
+}
 $serverExe = Join-Path $buildDir "server.exe"
 $gameSwf = Join-Path $buildDir "game.swf"
 $player = Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe"
@@ -77,3 +84,4 @@ finally {
     Stop-Process -Id $serverProc.Id -Force -ErrorAction SilentlyContinue
   }
 }
+

@@ -1,4 +1,4 @@
-package gameAll.data
+﻿package gameAll.data
 {
    import body.hero.CarDefine;
    import data.TextWay;
@@ -117,6 +117,8 @@ package gameAll.data
       public var playerName:String = "4399小战士";
       
       public var headLabel:String = "s1";
+      
+      public var unlockedHeads:Array = ["s1","s2","s3"];
       
       public var tutorial:int = 0;
       
@@ -318,7 +320,7 @@ package gameAll.data
          var pro0:String = null;
          var name2:String = null;
          var tt:int = 0;
-         var pro_arr:Array = ["tutorial","levelsLock","nowSkillNum","foreverLife","nowLife","baseDefence","foreverDefence","level","nowArmsIndex","nowExp","achieve","allAchieve","GCoin","MCoin","score","playerRank","playerName","rankLevel","headLabel","lastExchangeData","growVip"];
+         var pro_arr:Array = ["tutorial","levelsLock","nowSkillNum","foreverLife","nowLife","baseDefence","foreverDefence","level","nowArmsIndex","nowExp","achieve","allAchieve","GCoin","MCoin","score","playerRank","playerName","rankLevel","headLabel","unlockedHeads","lastExchangeData","growVip"];
          for(n in pro_arr)
          {
             pro0 = pro_arr[n];
@@ -745,6 +747,45 @@ package gameAll.data
          }
       }
       
+      
+      public function isHeadUnlocked(headId:String) : Boolean
+      {
+         var n:* = undefined;
+         if(headId == null || headId == "")
+         {
+            return false;
+         }
+         if(this.unlockedHeads == null)
+         {
+            this.unlockedHeads = ["s1","s2","s3"];
+         }
+         for(n in this.unlockedHeads)
+         {
+            if(this.unlockedHeads[n] == headId)
+            {
+               return true;
+            }
+         }
+         // default free heads
+         if(headId == "s1" || headId == "s2" || headId == "s3")
+         {
+            return true;
+         }
+         return false;
+      }
+
+      public function unlockHead(headId:String) : *
+      {
+         if(this.isHeadUnlocked(headId))
+         {
+            return;
+         }
+         if(this.unlockedHeads == null)
+         {
+            this.unlockedHeads = ["s1","s2","s3"];
+         }
+         this.unlockedHeads.push(headId);
+      }
       public function addCoin(value:int) : *
       {
          var g1:* = this.GCoin;
@@ -1300,4 +1341,5 @@ package gameAll.data
       }
    }
 }
+
 
