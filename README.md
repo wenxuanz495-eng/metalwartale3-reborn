@@ -17,12 +17,21 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 
 ## 开发启动（当前）
 
+## 启动脚本（按播放器区分）
+
+1. `构建.bat`：只构建
+2. `启动游戏-flashplayer_sa.bat`：`flashplayer_sa.exe`
+3. `启动游戏-flashplayer_sa_debug.bat`：`flashplayer_sa_debug.exe`
+4. `启动游戏-FlashPlayer发行版.bat`：1.2 `FlashPlayer.exe`
+
+
 见 [docs/DEV_RUN.md](docs/DEV_RUN.md)。根目录 启动游戏.bat 会：
 
 1. go build server（缓存到 D:\\superalloy\\.gopath）
 2. FFDec 构建 uild/game.swf`n3. 用 	ools/debug/flashplayer_sa_debug.exe 打开
 
-> 不要再把 untime/ 当作主运行路径。
+> 不要再把 
+untime/ 当作主运行路径。
 
 ## 目录
 

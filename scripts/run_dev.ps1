@@ -1,15 +1,19 @@
-﻿param(
+param(
   [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
   [int]$Port = 8765,
   [switch]$Build,
-  [switch]$SkipBuild
+  [switch]$SkipBuild,
+  [ValidateSet("sa", "sa_debug", "release")]
+  [string]$PlayerType = "sa_debug",
+  [string]$PlayerPath = ""
 )
 $ErrorActionPreference = "Stop"
 . (Join-Path $PSScriptRoot "go_env.ps1")
 
 $buildDir = Join-Path $RepoRoot "build"
 $swfDir = Join-Path $RepoRoot "swf"
-$sealSwf = "D:\superalloy\超合金离线优化海豹版1.2\swf"
+$sealDir = "D:\superalloy\超合金离线优化海豹版1.2"
+$sealSwf = Join-Path $sealDir "swf"
 if (Test-Path (Join-Path $sealSwf "ui")) {
   $swfDir = $sealSwf
   Write-Host "Using seal resource layout: $swfDir"
@@ -18,24 +22,59 @@ if (Test-Path (Join-Path $sealSwf "ui")) {
 }
 $serverExe = Join-Path $buildDir "server.exe"
 $gameSwf = Join-Path $buildDir "game.swf"
-$player = Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe"
 $saves = Join-Path $buildDir "saves"
 
-# Compatibility: -SkipBuild is default behavior now.
-# Only build when -Build is explicitly provided.
+function Resolve-PlayerPath([string]$type, [string]$explicit) {
+  if ($explicit -and (Test-Path -LiteralPath $explicit)) {
+    return (Resolve-Path -LiteralPath $explicit).Path
+  }
+  $candidates = @()
+  switch ($type) {
+    "sa" {
+      $candidates = @(
+        (Join-Path $RepoRoot "tools\debug\flashplayer_sa.exe"),
+        "D:\superalloy\flashplayer_sa.exe"
+      )
+    }
+    "sa_debug" {
+      $candidates = @(
+        (Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe"),
+        "D:\superalloy\flashplayer_32_sa_debug.exe",
+        "D:\superalloy\flashplayer_sa_debug.exe"
+      )
+    }
+    "release" {
+      $candidates = @(
+        (Join-Path $sealDir "FlashPlayer.exe"),
+        (Join-Path $RepoRoot "tools\debug\FlashPlayer.exe"),
+        "D:\superalloy\FlashPlayer.exe"
+      )
+    }
+  }
+  foreach ($c in $candidates) {
+    if ($c -and (Test-Path -LiteralPath $c)) {
+      return (Resolve-Path -LiteralPath $c).Path
+    }
+  }
+  throw "Flash player not found for type=$type. Checked: $($candidates -join ' | ')"
+}
+
 if ($Build -and -not $SkipBuild) {
   & (Join-Path $PSScriptRoot "build_server.ps1") -RepoRoot $RepoRoot
   & (Join-Path $PSScriptRoot "build_swf.ps1") -RepoRoot $RepoRoot
 }
 
 if (-not (Test-Path $serverExe)) {
-  throw "missing $serverExe`nPlease run build first: .\构建.bat  or  .\scripts\build_all.ps1"
+  throw "missing $serverExe`nPlease run build first: .\构建.bat or .\scripts\build_all.ps1"
 }
 if (-not (Test-Path $gameSwf)) {
-  throw "missing $gameSwf`nPlease run build first: .\构建.bat  or  .\scripts\build_all.ps1"
+  throw "missing $gameSwf`nPlease run build first: .\构建.bat or .\scripts\build_all.ps1"
 }
-if (-not (Test-Path $player)) { throw "missing debug player: $player" }
 if (-not (Test-Path $swfDir)) { throw "missing resource dir: $swfDir" }
+
+$player = Resolve-PlayerPath -type $PlayerType -explicit $PlayerPath
+Write-Host "PlayerType : $PlayerType"
+Write-Host "Player     : $player"
 
 New-Item -ItemType Directory -Force -Path $saves | Out-Null
 $buildSwf = Join-Path $buildDir "swf"
@@ -63,7 +102,6 @@ if (-not (Test-PortFree $Port)) {
 Write-Host "Starting self-built server on $Port"
 Write-Host "Static root: $buildDir"
 Write-Host "Saves      : $saves"
-Write-Host "Player     : $player"
 
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = $serverExe
