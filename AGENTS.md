@@ -75,3 +75,10 @@
 - `docs/COLLAB_WORKSPACE.md`：工作区说明
 - `docs/OFFLINE_ARCHITECTURE.md`：离线架构
 - `docs/DEVELOPMENT.md`：开发与发布
+
+
+## 开发启动
+
+- 主路径：scripts/run_dev.ps1 / 根目录 启动游戏.bat`n- 自建 SWF + 自建 Go server + 	ools/debug 播放器
+- Go 模块缓存：D:\\superalloy\\.gopath`n- 不要以 untime/ 为主运行目录
+

@@ -15,6 +15,15 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 > 注意：`D:\superalloy\metalwartale3-reborn` 是空目录，不要在那里开发。  
 > `超合金离线优化海豹版1.2` 是已验证玩法与发行壳参考，不是源码 SSOT。
 
+## 开发启动（当前）
+
+见 [docs/DEV_RUN.md](docs/DEV_RUN.md)。根目录 启动游戏.bat 会：
+
+1. go build server（缓存到 D:\\superalloy\\.gopath）
+2. FFDec 构建 uild/game.swf`n3. 用 	ools/debug/flashplayer_sa_debug.exe 打开
+
+> 不要再把 untime/ 当作主运行路径。
+
 ## 目录
 
 - `decompiled/`：ActionScript 源码、嵌入 XML、符号表和提取资源。
@@ -48,3 +57,4 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 Flash 代码重新编译前，应阅读 [`docs/FFDEC_CONTROL_FLOW_REGRESSION.md`](docs/FFDEC_CONTROL_FLOW_REGRESSION.md)，并对复杂方法比较原始与构建后 P-code，避免反编译控制流回归。
 
 备份统一放在仓库外：`D:\superalloy\1.2文件备份\`。
+

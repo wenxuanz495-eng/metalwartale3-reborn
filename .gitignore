@@ -80,3 +80,6 @@ Desktop.ini
 # Runtime copied resources (use repo /swf or prepare script)
 /runtime/swf/
 
+D path caches are outside repo; ignore accidental local copies
+/.gopath/
+
