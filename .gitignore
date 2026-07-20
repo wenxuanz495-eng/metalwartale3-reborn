@@ -45,3 +45,20 @@ api_save_*.meta.json
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Runtime player data (never commit player saves)
+/runtime/saves/
+/runtime/**/backups/
+/runtime/*.log
+
+# Local agent/editor caches
+.agents/cache/
+.codex/
+.claude/settings.local.*
+
+# Worktree noise from historical disks
+/11.4/
+/超合金*/
+/1.2文件备份/
+/vip_*/
+/video_review_frames/
