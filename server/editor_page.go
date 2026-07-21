@@ -58,7 +58,8 @@ th{color:var(--cyan);background:#102337;position:sticky;top:0}.path{font:12px Co
 <div id="toast" class="toast"></div>
 <script>
 "use strict";
-let data=null, dirty=false;
+const EDITOR_SLOT_INDEX=-1;
+let data=null, rootData=null, dirty=false;
 const $=id=>document.getElementById(id);
 const quickGroups=[
  {title:"玩家",fields:[
@@ -77,6 +78,26 @@ const quickGroups=[
   ["当前难度","nowDifficult","number"],["当前关卡","nowGameLevel","number"],["教程状态","tutorial","number"],["存档版本","saveDataVersion","text"]
  ]}
 ];
+function indexedValue(container,index){
+ if(Array.isArray(container))return container[index]??null;
+ if(!container||typeof container!=="object")return null;
+ if(Object.prototype.hasOwnProperty.call(container,String(index)))return container[String(index)];
+ if(Array.isArray(container.$dense))return container.$dense[index]??null;
+ return null;
+}
+function selectedEditorData(root){
+ if(EDITOR_SLOT_INDEX<0)return root;
+ const slot=indexedValue(root&&root.localSlots,EDITOR_SLOT_INDEX);
+ if(!slot||!slot.data)throw new Error("指定槽位不存在或没有角色数据："+(EDITOR_SLOT_INDEX+1));
+ return slot.data;
+}
+function editorSavePayload(value){
+ if(EDITOR_SLOT_INDEX<0){rootData=value;return rootData;}
+ const slot=indexedValue(rootData&&rootData.localSlots,EDITOR_SLOT_INDEX);
+ if(!slot)throw new Error("保存失败：指定槽位已经不存在。");
+ slot.data=value;
+ return rootData;
+}
 function pathParts(path){return path.replace(/\[(\d+)\]/g,".$1").split(".").filter(Boolean)}
 function getPath(path){let v=data;for(const p of pathParts(path)){if(v==null)return undefined;v=v[p]}return v}
 function setPath(path,value){const ps=pathParts(path);let v=data;for(let i=0;i<ps.length-1;i++){if(v[ps[i]]==null)v[ps[i]]={};v=v[ps[i]]}v[ps[ps.length-1]]=value;changed()}
@@ -88,7 +109,7 @@ function showError(message){$("notice").textContent=message;$("notice").classNam
 async function api(path,options={}){const response=await fetch(path,{...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});let body;try{body=await response.json()}catch{body={error:await response.text()}}if(!response.ok)throw new Error(body.error||("HTTP "+response.status));return body}
 async function loadData(){
  try{
-  const result=await api("/api/editor/data");data=result.game_data;dirty=false;
+  const result=await api("/api/editor/data");rootData=result.game_data;data=selectedEditorData(rootData);dirty=false;
   $("notice").textContent="修改前请退出游戏，防止游戏自动保存覆盖修改结果。每次保存都会自动备份。";$("notice").className="notice";
   $("saveMeta").textContent=result.size+" 字节 · "+new Date(result.updated_at).toLocaleString();
   renderAll();await loadBackups();
@@ -123,7 +144,7 @@ function renderFields(){
 }
 async function save(){
  if(!data)return showError("没有存档可保存");
- try{data=JSON.parse($("jsonText").value);$("saveBtn").disabled=true;const result=await api("/api/editor/save",{method:"POST",body:JSON.stringify({game_data:data})});data=result.game_data;dirty=false;toast("保存成功，备份："+result.backup);await loadData()}catch(error){showError(error.message)}finally{$("saveBtn").disabled=false}
+ try{data=JSON.parse($("jsonText").value);$("saveBtn").disabled=true;const payload=editorSavePayload(data);const result=await api("/api/editor/save",{method:"POST",body:JSON.stringify({game_data:payload})});rootData=result.game_data;data=selectedEditorData(rootData);dirty=false;toast("保存成功，备份："+result.backup);await loadData()}catch(error){showError(error.message)}finally{$("saveBtn").disabled=false}
 }
 async function loadBackups(){
  try{const result=await api("/api/editor/backups");const root=$("backupList");root.innerHTML=result.backups.length?"":"暂无备份";

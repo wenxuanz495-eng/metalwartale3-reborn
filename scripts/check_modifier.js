@@ -19,4 +19,20 @@ for (const [index, match] of scripts.entries()) {
   }
 }
 
+if (html.includes('id="editorFrame"')) {
+  const required = [
+    /const\s+freeHeartLevels\s*=/,
+    /function\s+indexedValue\s*\(/,
+    /function\s+saveSlotEntries\s*\(/,
+    /function\s+saveSlotAt\s*\(/,
+    /function\s+ensureNewLevelData\s*\(/,
+    /const\s+slotMarker\s*=\s*['"]const EDITOR_SLOT_INDEX=-1;/,
+  ];
+  for (const pattern of required) {
+    if (!pattern.test(html)) {
+      throw new Error(`missing modifier runtime dependency ${pattern}: ${file}`);
+    }
+  }
+}
+
 console.log(`[OK] modifier JavaScript: ${file}`);
