@@ -52,6 +52,8 @@ package gameAll.data
       public var unionCityFighted:String = "";
       
       public var starShoped:String = "";
+
+      public var starMBCompensated:String = "";
       
       public var growShoped:String = "";
       
@@ -353,6 +355,14 @@ package gameAll.data
          else
          {
             this.starShoped = obj.starShoped;
+         }
+         if(!obj.hasOwnProperty("starMBCompensated"))
+         {
+            this.starMBCompensated = "";
+         }
+         else
+         {
+            this.starMBCompensated = obj.starMBCompensated;
          }
          if(!obj.hasOwnProperty("growShoped"))
          {
@@ -703,6 +713,40 @@ package gameAll.data
             if(idd == id)
             {
                return int(ids.split(":")[1]);
+            }
+            i++;
+         }
+         return 0;
+      }
+
+      public function AddStarMBCompensatedByID(id:int) : void
+      {
+         var idstr:String = this.starMBCompensated.split("_")[1];
+         var idArr:Array = Boolean(idstr) ? idstr.split("|") : [];
+         var i:int = 0;
+         while(i < idArr.length)
+         {
+            if(int(String(idArr[i]).split(":")[0]) == id)
+            {
+               return;
+            }
+            i++;
+         }
+         idArr.push(id + ":1");
+         var ndate:Number = Game.timeDate.getSaveDate.getDateClass().getTime();
+         this.starMBCompensated = ndate + getTimer() + "_" + idArr.join("|");
+      }
+
+      public function GetStarMBCompensatedByID(id:int) : int
+      {
+         var idstr:String = this.starMBCompensated.split("_")[1];
+         var idArr:Array = Boolean(idstr) ? idstr.split("|") : [];
+         var i:int = 0;
+         while(i < idArr.length)
+         {
+            if(int(String(idArr[i]).split(":")[0]) == id)
+            {
+               return int(String(idArr[i]).split(":")[1]);
             }
             i++;
          }

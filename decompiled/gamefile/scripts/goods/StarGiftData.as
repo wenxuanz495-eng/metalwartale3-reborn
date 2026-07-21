@@ -16,6 +16,11 @@ package goods
       public var Icon:String = "";
       
       public var AddArr:Array = [];
+
+      public function getMCoinReward() : int
+      {
+         return Math.max(0,int(this.NeedNum / 10) * 70);
+      }
       
       public function StarGiftData()
       {
