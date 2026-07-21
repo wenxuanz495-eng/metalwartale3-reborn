@@ -7,7 +7,7 @@ package gameAll.define.other
       
       private var conMust:String = "";
       
-      private var conYoudaoMust:String = "200,300,400,500,600";
+      private var conYoudaoMust:String = "40,60,80,100,120";
       
       public function ArmsUpgradeDefine()
       {
