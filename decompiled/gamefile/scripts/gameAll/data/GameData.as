@@ -200,6 +200,8 @@
       
       public var modAllLevelsPassed:Boolean = false;
       
+      public var autoCollectLifePer:Boolean = true;
+      
       public var knowingData:KnowingData = new KnowingData();
       
       public var ghostData:GhostData = new GhostData();
@@ -346,6 +348,7 @@
          this.modCraftFree = obj.hasOwnProperty("modCraftFree") ? Boolean(obj.modCraftFree) : false;
          this.modNoExtraCooldown = obj.hasOwnProperty("modNoExtraCooldown") ? Boolean(obj.modNoExtraCooldown) : false;
          this.modNoTaskCooldown = obj.hasOwnProperty("modNoTaskCooldown") ? Boolean(obj.modNoTaskCooldown) : false;
+         this.autoCollectLifePer = obj.hasOwnProperty("autoCollectLifePer") ? Boolean(obj.autoCollectLifePer) : true;
          this.modAllLevelsPassed = obj.hasOwnProperty("modAllLevelsPassed") ? Boolean(obj.modAllLevelsPassed) : false;
          this.isZuobi = false;
          this.zuobiStr = "";

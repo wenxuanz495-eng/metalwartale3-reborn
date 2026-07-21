@@ -1434,13 +1434,13 @@ package UI
             {
                if(firstB && Boolean(d0.getFastUseB()))
                {
-                  if(d0.id == "GCoin_card_4")
+                  if(d0.specialType == "offlineMCoin" || d0.id == "mcoin_reward_card" || d0.name == "M币")
+                  {
+                     GD.addMCoin(int(d0.price));
+                  }
+                  else if(d0.id == "GCoin_card_4")
                   {
                      GD.addCoin(d0.price);
-                  }
-                  else if(d0.id == "mcoin_reward_card")
-                  {
-                     GD.addMCoin(d0.price);
                   }
                   else if(d0.id == "achieve_card_3")
                   {

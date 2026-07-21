@@ -27,7 +27,7 @@ package UI.shop
       
       public const ITEMMAX:int = 8;
       
-      public const REFRESHTIME:int = 1800000;
+      public const REFRESHTIME:int = 300000;
       
       public var car_btn:SimpleButton;
       

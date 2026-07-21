@@ -215,7 +215,7 @@ package gameAll
       
       public var unlockBagMustMCoin:int = 50;
       
-      public var refreshExchange:int = 20;
+      public var refreshExchange:int = 2;
       
       public var rankAdd:Array = [];
       

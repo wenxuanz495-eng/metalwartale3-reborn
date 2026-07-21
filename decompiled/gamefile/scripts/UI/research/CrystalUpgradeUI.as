@@ -302,8 +302,16 @@ package UI.research
             aid3 = this.itemsData.getItemsByName(define0.name);
             if(!(aid3 is GoodsItemsData))
             {
-               this.showBox(false,tweenB);
-               return;
+               // Bag full and target is a new stack: allow if consuming source will free one slot.
+               var prevNameTmp:String = define0.getPrevCrystalName();
+               var prevAidTmp:GoodsItemsData = this.itemsData.getItemsByBase(prevNameTmp);
+               var needNumTmp:int = this.isCrystalB() ? Game.gameDefine.crystalUpgradeNum * this.cubeNum : Game.gameDefine.materialUpgradeNum * this.cubeNum;
+               var willFreeSlot:Boolean = prevAidTmp is GoodsItemsData && prevAidTmp.nowNum > 0 && prevAidTmp.nowNum <= needNumTmp;
+               if(!willFreeSlot)
+               {
+                  this.showBox(false,tweenB);
+                  return;
+               }
             }
             this.showBox(true,tweenB);
          }

@@ -191,6 +191,10 @@
          this.sub = this.inArr(this.sub,this.Msub);
          this.car = this.Week_Car.concat(this.inArr(this.car,this.Mcar));
          this.materials = this.materials;
+         if((this.materials == null || this.materials.length == 0) && this.Mmaterials != null && this.Mmaterials.length > 0)
+         {
+            this.materials = this.Mmaterials.concat();
+         }
          this.props = this.inArr(this.props,this.Mprops);
          var upgradePack0:GoodsDefine = this.getItemsDefine_byID("offline_upgrade_pack","props","Mprice");
          if(upgradePack0 is GoodsDefine)
@@ -219,6 +223,38 @@
          this.Earms = this.inArr(this.Earms,this.Esub);
       }
 
+      private function getCustomWeaponPrice(label0:String) : int
+      {
+         var seed:int = 0;
+         var i:int = 0;
+         if(label0 == null)
+         {
+            label0 = "";
+         }
+         for(i = 0; i < label0.length; i++)
+         {
+            seed = (seed * 33 + label0.charCodeAt(i)) % 100000;
+         }
+         // custom weapons: 4000~9000 MB
+         return 4000 + seed % 5001;
+      }
+
+      private function getCustomCarPrice(label0:String) : int
+      {
+         var seed:int = 0;
+         var i:int = 0;
+         if(label0 == null)
+         {
+            label0 = "";
+         }
+         for(i = 0; i < label0.length; i++)
+         {
+            seed = (seed * 37 + label0.charCodeAt(i)) % 100000;
+         }
+         // custom cars: 1000~2000 MB, never below 1000
+         return 1000 + seed % 1001;
+      }
+
       private function addCustomGoods() : *
       {
          var n:* = undefined;
@@ -240,13 +276,13 @@
                      if(d0.father == "arms" && this.findGoods_inArr(this.arms,d0.getLabel()) == null)
                      {
                         goods0 = this.switchArms([d0],"arms","Mprice")[0];
-                        goods0.Mprice = 20000;
+                        goods0.Mprice = this.getCustomWeaponPrice(d0.getLabel());
                         this.arms.push(goods0);
                      }
                      else if(d0.father == "sub" && this.findGoods_inArr(this.sub,d0.getLabel()) == null)
                      {
                         goods0 = this.switchArms([d0],"sub","Mprice")[0];
-                        goods0.Mprice = 20000;
+                        goods0.Mprice = this.getCustomWeaponPrice(d0.getLabel());
                         this.sub.push(goods0);
                      }
                      break;
@@ -260,7 +296,7 @@
             if(car0.discount == -1000 && this.findGoods_inArr(this.car,car0.id) == null)
             {
                goods0 = this.switchCar([car0],"car","Mprice")[0];
-               goods0.Mprice = 2000;
+               goods0.Mprice = this.getCustomCarPrice(car0.id);
                this.car.push(goods0);
             }
          }

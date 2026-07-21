@@ -113,11 +113,28 @@
       {
          var n:* = undefined;
          var str0:String = null;
+         var arr0:Array = null;
          var labelNameArr:Array = this.switchLabel.label_arr;
          for(n in labelNameArr)
          {
             str0 = labelNameArr[n];
-            this[str0 + "Box"].inData_byArr(this.GDG[this.FITST_txt + str0]);
+            arr0 = this.GDG[this.FITST_txt + str0];
+            if((arr0 == null || arr0.length == 0) && str0 == "materials")
+            {
+               if(this.GDG.Mmaterials != null && this.GDG.Mmaterials.length > 0)
+               {
+                  arr0 = this.GDG.Mmaterials;
+               }
+               else if(this.GDG.materials != null)
+               {
+                  arr0 = this.GDG.materials;
+               }
+            }
+            if(arr0 == null)
+            {
+               arr0 = [];
+            }
+            this[str0 + "Box"].inData_byArr(arr0);
          }
          this.fleshPrice();
          this.showBox(this.switchLabel.nowIndex);

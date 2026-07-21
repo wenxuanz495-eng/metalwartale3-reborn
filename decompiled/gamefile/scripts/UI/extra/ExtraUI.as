@@ -7,6 +7,8 @@ package UI.extra
    import data.StringToDefine;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
+   import flash.events.TimerEvent;
+   import flash.utils.Timer;
    import gameAll.data.ExtraData;
    import gameAll.data.SpecialExtraData;
    import gameAll.data.weekExtra.WeekExtraData;
@@ -26,6 +28,8 @@ package UI.extra
       public var extraData:ExtraData;
       
       public var weekExtraData:WeekExtraData;
+      
+      private var cooldownTimer:Timer = new Timer(1000);
       
       public var specialExtraData:SpecialExtraData;
       
@@ -72,6 +76,8 @@ package UI.extra
          this.init();
          this.labelCtrl.inData([this.extra_btn,this.weekExtra_btn,this.specialExtra_btn],this.light_sp);
          this.labelCtrl.addEventListener(ClickEvent.ON_CLICK,this.labelClick);
+         this.cooldownTimer.addEventListener(TimerEvent.TIMER,this.cooldownTick);
+         this.cooldownTimer.start();
       }
       
       public function init() : *
@@ -79,6 +85,16 @@ package UI.extra
          this.extraData = Game.gameData.extraData;
          this.weekExtraData = Game.gameData.weekExtraData;
          this.specialExtraData = Game.gameData.specialExtraData;
+      }
+      
+      private function cooldownTick(e:TimerEvent = null) : *
+      {
+         if(!this.visible)
+         {
+            return;
+         }
+         // Always refresh when panel is open so 0-second cooldowns unlock immediately.
+         this.fleshData();
       }
       
       public function fleshData() : *
