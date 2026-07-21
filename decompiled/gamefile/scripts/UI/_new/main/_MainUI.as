@@ -73,6 +73,8 @@ package UI._new.main
       public var SAVEDATA_TIME:int = 60;
       
       public var saveData_t:Number;
+
+      private var growNewBadge:DisplayObject;
       
       public function _MainUI()
       {
@@ -90,9 +92,30 @@ package UI._new.main
          this.startSaveDelay();
          this.firstGift_y = this.firstPayGift_btn.y;
          this.conArms_y = this.conChoose_btn.y;
+         this.growNewBadge = this.findGrowNewBadge();
+         if(this.growNewBadge != null)
+         {
+            this.growNewBadge.visible = false;
+         }
          this.replaceButtonText(this.firstPayGift_btn,["首充礼包"],"新手礼包");
          // The visible label is a sibling timeline TextField, not a child of allGift_btn.
          this.replaceDisplayText(this,["累计充值值奖励","累计充值值礼包","累计充值奖励","累计充值礼包","累计MB礼包"],"累计MB奖励");
+      }
+
+      private function findGrowNewBadge() : DisplayObject
+      {
+         var child:DisplayObject = null;
+         var i:int = 0;
+         while(i < this.numChildren)
+         {
+            child = this.getChildAt(i);
+            if(Math.abs(child.x - 553.4) < 1 && Math.abs(child.y - 168.95) < 1 && child.width >= 30 && child.width <= 34 && child.height >= 30 && child.height <= 34)
+            {
+               return child;
+            }
+            i++;
+         }
+         return null;
       }
 
       private function replaceButtonText(button:SimpleButton, oldValues:Array, newValue:String) : void
