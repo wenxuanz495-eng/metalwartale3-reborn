@@ -221,7 +221,7 @@
             this.showMaterialBarter("xuehua");
             return;
          }
-         if(d0.id == "xinchunsongfu" || d0.id == "laodongjie" || d0.specialType == "heartPrice1")
+         if(d0.id == "xinchunsongfu" || d0.id == "laodongjie" || d0.specialType.indexOf("heartPrice") == 0)
          {
             this.showHeartPriceBuy(d0);
             return;
@@ -353,14 +353,15 @@
       private function showHeartPriceBuy(d0:GoodsDefine) : *
       {
          var heartNum:int = this.GD.materialsItems.getNumByBase("ertongaixin");
+         var price:int = this.getHeartPrice(d0);
          var itemName:String = d0.name != null && d0.name != "" ? d0.name : d0.id;
-         if(heartNum < 1)
+         if(heartNum < price)
          {
             Game.uiGroup.checkTip.showCheck2("没有可用于兑换的儿童节爱心。",2);
             return;
          }
          this.nowBuyGoods = d0.copy();
-         Game.uiGroup.checkTip.showBarterCheck("儿童节爱心",itemName,heartNum,this.yesHeartPriceBuySelected);
+         Game.uiGroup.checkTip.showBarterCheck(price + "个儿童节爱心",itemName,int(heartNum / price),this.yesHeartPriceBuySelected);
       }
 
       private function yesHeartPriceBuySelected() : *
@@ -372,24 +373,38 @@
       {
          var d0:GoodsDefine = this.nowBuyGoods;
          var heartNum:int = this.GD.materialsItems.getNumByBase("ertongaixin");
+         var price:int = this.getHeartPrice(d0);
+         var heartCost:int = exchangeNum * price;
          var itemName:String = d0 != null && d0.name != null && d0.name != "" ? d0.name : (d0 != null ? d0.id : "");
-         if(d0 == null || exchangeNum < 1 || heartNum < exchangeNum)
+         if(d0 == null || exchangeNum < 1 || heartNum < heartCost)
          {
             Game.uiGroup.checkTip.showCheck2("儿童节爱心数量不足。",2);
             return;
          }
-         if(this.GD.materialsItems.getItemsByBase(d0.id) == null && this.GD.materialsItems.getSurplus() <= 0)
+         if(this.GD[d0.type + "Items"].getItemsByBase(d0.id) == null && this.GD[d0.type + "Items"].getSurplus() <= 0)
          {
             Game.uiGroup.checkTip.showCheck2("材料背包没有空位，无法完成兑换。",2);
             return;
          }
-         // 1 Children's Day heart -> 1 item.
-         this.GD.materialsItems.useItemsNum("ertongaixin",exchangeNum);
-         this.GD.materialsItems.addItems(d0.id,exchangeNum);
-         Game.uiGroup.checkTip.showCheck2("兑换成功：" + exchangeNum + "个儿童节爱心 → " + exchangeNum + "个" + itemName + "。",2);
+         this.GD.materialsItems.useItemsNum("ertongaixin",heartCost);
+         this.GD[d0.type + "Items"].addItems(d0.id,exchangeNum);
+         Game.uiGroup.checkTip.showCheck2("兑换成功：消耗" + heartCost + "个儿童节爱心，获得" + exchangeNum + "个" + itemName + "。",2);
          Game.uiGroup.saveDataNoUI();
          this.fleshAll();
          Game.uiGroup.infoUI.fleshData();
+      }
+
+      private function getHeartPrice(d0:GoodsDefine) : int
+      {
+         if(d0 != null && d0.specialType != null && d0.specialType.indexOf("heartPrice") == 0)
+         {
+            var price:int = int(d0.specialType.substr("heartPrice".length));
+            if(price > 0)
+            {
+               return price;
+            }
+         }
+         return 1;
       }
 
       private function showMaterialBarter(targetId:String) : *

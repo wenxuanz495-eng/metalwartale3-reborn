@@ -231,6 +231,9 @@
          var heart:GoodsDefine = null;
          var spring:GoodsDefine = null;
          var labor:GoodsDefine = null;
+         var normalDisassemble:GoodsDefine = null;
+         var qualityDisassemble:GoodsDefine = null;
+         var honorBadge:GoodsDefine = null;
          // Snow: 1 Children's Day heart -> 1 snow, quantity selectable in shop UI.
          if(this.findGoods_inArr(this.materials,"xuehua") == null)
          {
@@ -286,6 +289,58 @@
                this.materials.push(labor);
             }
          }
+         // Permanent Children's Day heart goods in the normal props shop.
+         normalDisassemble = this.findGoods_inArr(this.props,"disassemble");
+         if(normalDisassemble == null)
+         {
+            normalDisassemble = this.getItemsDefine_byID("disassemble","props","Mprice");
+            if(normalDisassemble is GoodsDefine)
+            {
+               this.props.push(normalDisassemble);
+            }
+         }
+         if(normalDisassemble is GoodsDefine)
+         {
+            normalDisassemble.Mprice = 0;
+            normalDisassemble.price = 0;
+            normalDisassemble.num = 1;
+            normalDisassemble.baseNum = 1;
+            normalDisassemble.specialType = "heartPrice10";
+         }
+         qualityDisassemble = this.findGoods_inArr(this.props,"disassemble_2");
+         if(qualityDisassemble == null)
+         {
+            qualityDisassemble = this.getItemsDefine_byID("disassemble_2","props","Mprice");
+            if(qualityDisassemble is GoodsDefine)
+            {
+               this.props.push(qualityDisassemble);
+            }
+         }
+         if(qualityDisassemble is GoodsDefine)
+         {
+            qualityDisassemble.Mprice = 0;
+            qualityDisassemble.price = 0;
+            qualityDisassemble.num = 1;
+            qualityDisassemble.baseNum = 1;
+            qualityDisassemble.specialType = "heartPrice25";
+         }
+         honorBadge = this.findGoods_inArr(this.props,"justice_badge");
+         if(honorBadge == null)
+         {
+            honorBadge = this.getItemsDefine_byID("justice_badge","props","Mprice");
+            if(honorBadge is GoodsDefine)
+            {
+               this.props.push(honorBadge);
+            }
+         }
+         if(honorBadge is GoodsDefine)
+         {
+            honorBadge.Mprice = 0;
+            honorBadge.price = 0;
+            honorBadge.num = 1;
+            honorBadge.baseNum = 1;
+            honorBadge.specialType = "heartPrice10";
+         }
          // Keep Mmaterials in sync for fallback materials tab.
          if(this.Mmaterials != null)
          {
@@ -300,6 +355,21 @@
             if(this.findGoods_inArr(this.Mmaterials,"laodongjie") == null && this.findGoods_inArr(this.materials,"laodongjie") != null)
             {
                this.Mmaterials.push(this.findGoods_inArr(this.materials,"laodongjie"));
+            }
+         }
+         if(this.Mprops != null)
+         {
+            if(this.findGoods_inArr(this.Mprops,"disassemble") == null && this.findGoods_inArr(this.props,"disassemble") != null)
+            {
+               this.Mprops.push(this.findGoods_inArr(this.props,"disassemble"));
+            }
+            if(this.findGoods_inArr(this.Mprops,"disassemble_2") == null && this.findGoods_inArr(this.props,"disassemble_2") != null)
+            {
+               this.Mprops.push(this.findGoods_inArr(this.props,"disassemble_2"));
+            }
+            if(this.findGoods_inArr(this.Mprops,"justice_badge") == null && this.findGoods_inArr(this.props,"justice_badge") != null)
+            {
+               this.Mprops.push(this.findGoods_inArr(this.props,"justice_badge"));
             }
          }
       }

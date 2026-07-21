@@ -277,7 +277,7 @@ package UI.shop
             }
             return;
          }
-         if(this.itemsData.id == "xinchunsongfu" || this.itemsData.id == "laodongjie" || this.itemsData.specialType == "heartPrice1")
+         if(this.itemsData.id == "xinchunsongfu" || this.itemsData.id == "laodongjie" || this.itemsData.specialType.indexOf("heartPrice") == 0)
          {
             for(n in this.money_icon_arr)
             {
@@ -285,8 +285,13 @@ package UI.shop
                this.price_txt_arr[n].visible = false;
             }
             this.price_txt_arr[0].visible = true;
-            this.price_txt_arr[0].text = "1爱心";
-            if(Game.gameData.materialsItems.getNumByBase("ertongaixin") > 0)
+            var heartPrice:int = int(this.itemsData.specialType.substr("heartPrice".length));
+            if(heartPrice <= 0)
+            {
+               heartPrice = 1;
+            }
+            this.price_txt_arr[0].text = heartPrice + "爱心";
+            if(Game.gameData.materialsItems.getNumByBase("ertongaixin") >= heartPrice)
             {
                this.setState("fill");
                this.buy_btn.setText("兑换");

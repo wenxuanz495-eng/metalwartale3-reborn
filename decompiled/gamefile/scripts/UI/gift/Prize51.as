@@ -79,15 +79,14 @@ package UI.gift
          this.mc_box.btn_3.addEventListener(MouseEvent.CLICK,this.exchange3);
          this.mc_box.btn_4.addEventListener(MouseEvent.CLICK,this.exchange4);
          this.mc_box.btn_5.addEventListener(MouseEvent.CLICK,this.exchange5);
-         this.mc_box.btn_6.visible = false;
-         this.mc_box.btn_6.mouseEnabled = false;
+         this.mc_box.btn_6.addEventListener(MouseEvent.CLICK,this.exchange6);
          // Offline: Children's Day exchange has no daily limited counts.
          this.mc_box["txt_icount_" + 1].text = "无限";
          this.mc_box["txt_icount_" + 2].text = "无限";
          this.mc_box["txt_icount_" + 3].text = "无限";
          this.mc_box["txt_icount_" + 4].text = "无限";
          this.mc_box["txt_icount_" + 5].text = "无限";
-         this.mc_box["txt_icount_" + 6].visible = false;
+         this.mc_box["txt_icount_" + 6].text = "无限";
       }
       
       private function Init_2() : void
@@ -204,24 +203,25 @@ package UI.gift
       protected function exchange3(event:MouseEvent) : void
       {
          this._state = 3;
-         Game.uiGroup.checkTip.showCheck2("确定要用10个儿童节爱心兑换1个普通拆解器吗?",1,this.exchange_2);
+         Game.uiGroup.checkTip.showCheck2("确定要兑换1个六级红色晶体吗?",1,this.exchange_2);
       }
       
       protected function exchange4(event:MouseEvent) : void
       {
          this._state = 4;
-         Game.uiGroup.checkTip.showCheck2("确定要用25个儿童节爱心兑换1个优质拆解器吗?",1,this.exchange_2);
+         Game.uiGroup.checkTip.showCheck2("确定要兑换1个六级黄色晶体吗?",1,this.exchange_2);
       }
       
       protected function exchange5(event:MouseEvent) : void
       {
          this._state = 5;
-         Game.uiGroup.checkTip.showCheck2("确定要用10个儿童节爱心兑换1个荣誉勋章吗?",1,this.exchange_2);
+         Game.uiGroup.checkTip.showCheck2("确定要兑换1个六级绿色晶体吗?",1,this.exchange_2);
       }
       
       protected function exchange6(event:MouseEvent) : void
       {
-         return;
+         this._state = 6;
+         Game.uiGroup.checkTip.showCheck2("确定要兑换1个六级紫色晶体吗?",1,this.exchange_2);
       }
       
       private function init() : void
@@ -238,7 +238,7 @@ package UI.gift
          {
             case 1:
 
-               if(xuehua < 10)
+               if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
                   return;
@@ -263,32 +263,41 @@ package UI.gift
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
                   return;
                }
-               Game.gameData.propsItems.addItems("disassemble",1);
-               Game.gameData.materialsItems.useItemsNum("ertongaixin",10);
+               Game.gameData.materialsItems.addItems("red_crystal_6",1);
+               Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 4:
 
-               if(xuehua < 25)
+               if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
                   return;
                }
-               Game.gameData.propsItems.addItems("disassemble_2",1);
-               Game.gameData.materialsItems.useItemsNum("ertongaixin",25);
+               Game.gameData.materialsItems.addItems("yellow_crystal_6",1);
+               Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 5:
 
-               if(xuehua < 10)
+               if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
                   return;
                }
-               Game.gameData.propsItems.addItems("justice_badge",1);
-               Game.gameData.materialsItems.useItemsNum("ertongaixin",10);
+               Game.gameData.materialsItems.addItems("green_crystal_6",1);
+               Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
+               break;
+            case 6:
+
+               if(xuehua < 50)
+               {
+                  Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
+                  return;
+               }
+               Game.gameData.materialsItems.addItems("purple_crystal_6",1);
+               Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
          }
 
          Game.uiGroup.checkTip.showCheck2("兑换成功!",1);
-         Game.uiGroup.saveDataNoUI("儿童节爱心兑换");
          this.init();
          this.Init_1();
       }
