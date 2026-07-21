@@ -47,9 +47,10 @@ package items
 
       private function applyOfflineCoreDescriptions() : *
       {
-         var normal0:ItemsDefine = this.getDefine("drop_box");
-         var quality0:ItemsDefine = this.getDefine("drop_box_2");
-         var rare0:ItemsDefine = this.getDefine("drop_box_3");
+         // getDefine() returns copies; mutate stored originals so tooltips use fixed rewards.
+         var normal0:ItemsDefine = this.getDefineOriginal("drop_box");
+         var quality0:ItemsDefine = this.getDefineOriginal("drop_box_2");
+         var rare0:ItemsDefine = this.getDefineOriginal("drop_box_3");
          if(normal0 is ItemsDefine)
          {
             normal0.description = "固定获得：<font color=\"#FFFF00\">5万G币</font>。<br>固定获得：中级至大师级穿透器、聚束器、爆炸器各10个，品质分别随机。<br>保底之外，再从原版卡池必定抽取1项：5万G币（49%）；三种超合金各10个（各10%）；橙色芯片1个（10%）；四级晶体1个（5%）；优质拆解器1个（5%）。<br>原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。";
@@ -62,6 +63,32 @@ package items
          {
             rare0.description = "固定获得：<font color=\"#FFFF00\">20万G币</font>。<br>固定获得：专家级至宗师级穿透器、聚束器、爆炸器各10个，品质分别随机。<br>保底之外，再从原版卡池必定抽取1项：20万G币、三种超合金、橙/绿芯片、四至六级晶体、20至100级芯片袋之一。<br>原版稀有武器：斯巴达（1.5%）、黄金深渊（1.5%）。";
          }
+      }
+
+      private function getDefineOriginal(label0:String) : ItemsDefine
+      {
+         var n:* = undefined;
+         var arr0:Array = null;
+         var m:* = undefined;
+         var define0:ItemsDefine = null;
+         var arr3:Array = label0.split("_num");
+         if(arr3.length >= 2)
+         {
+            label0 = arr3[0];
+         }
+         for(n in this.arr)
+         {
+            arr0 = this.arr[n];
+            for(m in arr0)
+            {
+               define0 = arr0[m];
+               if(define0.name == label0)
+               {
+                  return define0;
+               }
+            }
+         }
+         return null;
       }
 
       private function addOfflineUpgradePack() : *

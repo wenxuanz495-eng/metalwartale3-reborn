@@ -1709,16 +1709,10 @@
 				<propId>1585</propId>
 				<propId2>1586</propId2>
 				<description>
-				需要普通拆解器才能开启，开启后可以获得下列物品中的一个：{br}
-				G币 {font color="#FFFF00"}5万{/font} {br}
-				主武器 {font color="#FFFF00"}斯巴达{/font}{br}
-				副武器 {font color="#FFFF00"}黄金深渊{/font}{br}
-				超合金 {font color="#FFFF00"}10个{/font}{br}
-				超合金Z {font color="#FFFF00"}10个{/font}{br}
-				超合金X {font color="#FFFF00"}10个{/font}{br}
-				橙色芯片{font color="#FFFF00"}1个{/font}{br}
-				四级晶体{font color="#FFFF00"}1个{/font}{br}
-				优质拆解器{font color="#FFFF00"}1个{/font}{br}
+				固定获得：{font color="#FFFF00"}5万G币{/font}。{br}
+				固定获得：中级至大师级穿透器、聚束器、爆炸器各10个，品质分别随机。{br}
+				保底之外，再从原版卡池必定抽取1项：5万G币（49%）；三种超合金各10个（各10%）；橙色芯片1个（10%）；四级晶体1个（5%）；优质拆解器1个（5%）。{br}
+				原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。{br}
 				</description>
 			</items>
 			<items index="0">
@@ -1736,18 +1730,10 @@
 				<propId>1587</propId>
 				<propId2>1588</propId2>
 				<description>
-				需要优质拆解器才能开启，开启后可以获得下列物品中的一个：{br}
-				G币 {font color="#FFFF00"}10万{/font} {br}
-				主武器 {font color="#FFFF00"}斯巴达{/font}{br}
-				副武器 {font color="#FFFF00"}黄金深渊{/font}{br}
-				超合金 {font color="#FFFF00"}10个{/font}{br}
-				超合金Z {font color="#FFFF00"}10个{/font}{br}
-				超合金X {font color="#FFFF00"}10个{/font}{br}
-				橙色芯片{font color="#FFFF00"}1个{/font}{br}
-				绿色芯片{font color="#FFFF00"}1个{/font}{br}
-				四级晶体{font color="#FFFF00"}1个{/font}{br}
-				五级晶体{font color="#FFFF00"}1个{/font}{br}
-				稀有拆解器{font color="#FFFF00"}1个{/font}{br}
+				固定获得：{font color="#FFFF00"}10万G币{/font}。{br}
+				固定获得：超合金、超合金Z、超合金X各10个。{br}
+				保底之外，再从原版卡池必定抽取1项：10万G币（39%）；三种超合金各10个（各10%）；橙色芯片（10%）；绿色芯片、四级晶体、五级晶体、稀有拆解器（各5%）。{br}
+				原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。{br}
 				</description>
 			</items>
 			<items index="0">
