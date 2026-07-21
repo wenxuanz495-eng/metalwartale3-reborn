@@ -3,6 +3,8 @@ package UI.server
    import UI.button.SountoScrollBar;
    import data.StringDate;
    import flash.display.MovieClip;
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
    import flash.events.Event;
@@ -111,6 +113,7 @@ package UI.server
       {
          var mc0:Sprite = null;
          this.gotoAndStop(1);
+         this.hideLegacyNewBadge(this);
          var sheet:StyleSheet = new StyleSheet();
          sheet.parseCSS("a:link {text-decoration:none;}a:hover {text-decoration:underline;color:#FFFF00;}a:active {text-decoration:none;}");
          this.txt1.styleSheet = sheet;
@@ -143,6 +146,31 @@ package UI.server
          }
          addChild(this.producer_mc);
          addChild(this.intro_mc);
+      }
+
+      private function hideLegacyNewBadge(container:DisplayObjectContainer) : void
+      {
+         var i:int = 0;
+         var child:DisplayObject = null;
+         var field:TextField = null;
+         while(i < container.numChildren)
+         {
+            child = container.getChildAt(i);
+            if(child is TextField)
+            {
+               field = child as TextField;
+               if(field.text == "新" && field.parent != null)
+               {
+                  field.parent.visible = false;
+                  return;
+               }
+            }
+            else if(child is DisplayObjectContainer)
+            {
+               this.hideLegacyNewBadge(child as DisplayObjectContainer);
+            }
+            i++;
+         }
       }
 
       private function createOfflineNotice() : Sprite

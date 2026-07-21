@@ -91,7 +91,8 @@ package UI._new.main
          this.firstGift_y = this.firstPayGift_btn.y;
          this.conArms_y = this.conChoose_btn.y;
          this.replaceButtonText(this.firstPayGift_btn,["首充礼包"],"新手礼包");
-         this.replaceButtonText(this.allGift_btn,["累计充值值奖励","累计充值值礼包","累计充值奖励","累计充值奖励","累计充值礼包"],"累计MB礼包");
+         // The visible label is a sibling timeline TextField, not a child of allGift_btn.
+         this.replaceDisplayText(this,["累计充值值奖励","累计充值值礼包","累计充值奖励","累计充值礼包","累计MB礼包"],"累计MB奖励");
       }
 
       private function replaceButtonText(button:SimpleButton, oldValues:Array, newValue:String) : void
