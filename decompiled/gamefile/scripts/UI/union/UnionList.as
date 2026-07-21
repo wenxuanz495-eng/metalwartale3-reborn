@@ -43,8 +43,8 @@ package UI.union
          switch(name)
          {
             case "btn_create":
-               this.mc_create.condition_icon1.gotoAndStop(1);
-               this.mc_create.condition_icon2.gotoAndStop(1);
+               this.mc_create.condition_icon1.gotoAndStop(Game.gameData.MCoin >= 500 ? 1 : 2);
+               this.mc_create.condition_icon2.gotoAndStop(Game.gameData.level + 1 >= 10 ? 1 : 2);
                this.mc_create.visible = true;
                this.mc_create.txt_hasM.text = "" + Game.gameData.MCoin;
                this.mc_create.txt_lv.text = "" + 10;
@@ -53,6 +53,16 @@ package UI.union
                this.mc_create.btn_ok.addEventListener(MouseEvent.CLICK,this.onClickBtn);
                break;
             case "btn_ok":
+               if(Game.gameData.MCoin < 500)
+               {
+                  Game.uiGroup.checkTip.showCheck2("创建公会需要500 M币！",2);
+                  return;
+               }
+               if(Game.gameData.level + 1 < 10)
+               {
+                  Game.uiGroup.checkTip.showCheck2("创建公会需要角色达到10级！",2);
+                  return;
+               }
                if(this.mc_create.txt_name.text == "" || this.mc_create.txt_name.text == null)
                {
                   Game.uiGroup.checkTip.showCheck2("没有公会名！",2);
@@ -111,9 +121,11 @@ package UI.union
          var okFun:Function = function():void
          {
             Game.uiGroup.checkTip.showCheck2("创建成功!",2);
+            Game.gameData.addMCoin(-500);
             Game.uiGroup.infoUI.fleshData();
             father.InitBox(2,false);
             father.hideAllWindows();
+            Game.uiGroup.saveDataNoUI();
          };
          var noFun:Function = function(errs:String):void
          {

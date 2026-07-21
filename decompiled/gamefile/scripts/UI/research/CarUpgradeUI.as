@@ -196,14 +196,7 @@ package UI.research
          var icon0:ItemsCarIcon = this.carBox.arr[this.nowIndex];
          var data0:CarItemsData = icon0.itemsData;
          var mustM0:int = data0.getNextMustM();
-         if(Game.save_api.isLocal())
-         {
-            this.completeUpgrade();
-         }
-         else
-         {
-            Game.payController.decMCoin(mustM0,this.completeUpgrade);
-         }
+         Game.payController.decMCoin(mustM0,this.completeUpgrade);
       }
       
       public function completeUpgrade() : *
