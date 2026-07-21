@@ -52,9 +52,8 @@ PowerShell：
 - 资源优先使用海豹 1.2 层级目录（`swf/ui` 等）
 - 不要把 `runtime/` 当主运行路径
 
-
 ## 存档目录
 
 - 权威目录：`build/saves`
-- 快捷打开：`打开存档目录.bat`
-- 快捷导入：`导入存档.bat`
+- 快捷打开：`打开存档目录.bat` / `open-saves.bat`
+
