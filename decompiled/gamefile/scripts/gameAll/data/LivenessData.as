@@ -143,34 +143,19 @@ package gameAll.data
       public function getGift_byIndex(index0:int) : *
       {
          this.giftGetB[index0] = true;
-         // After full liveness (100) rewards are claimed, auto reset for a new cycle.
-         this.tryResetAfterFull();
       }
       
-      public function tryResetAfterFull() : *
+      public function refreshAfterFull() : Boolean
       {
          if(this.value < max)
          {
-            return;
+            return false;
          }
-         var allClaimed:Boolean = true;
-         var i:int = 0;
-         while(i < this.giftGetB.length)
-         {
-            if(!Boolean(this.giftGetB[i]))
-            {
-               allClaimed = false;
-               break;
-            }
-            i++;
-         }
-         // Also reset if the final tier (100) gift itself was claimed and value is full.
-         var finalClaimed:Boolean = this.giftGetB.length > 0 && Boolean(this.giftGetB[this.giftGetB.length - 1]);
-         if(allClaimed || finalClaimed)
-         {
-            this.value = 0;
-            this.initGiftGet();
-         }
+         this.value = 0;
+         this.initGiftGet();
+         this.initTaskNum();
+         this.addTaskNum("login");
+         return true;
       }
       
       public function getGiftStateArr() : Array

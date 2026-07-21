@@ -2,6 +2,7 @@ package gameAll.data
 {
    import data.TextWay;
    import gameAll.high.HighArena_All;
+   import gameAll.high.HighArena_ExtraData;
    
    public class ArenaData
    {
@@ -31,6 +32,12 @@ package gameAll.data
       public var autoFightingB:Boolean = false;
       
       public var beforeScore:int = 0;
+
+      public var botReadyAt:Array = [];
+
+      public static const LOCAL_BOT_COUNT:int = 15;
+
+      public static const LOCAL_BOT_COOLDOWN:Number = 1800000;
       
       public function ArenaData()
       {
@@ -40,6 +47,7 @@ package gameAll.data
          this.arival = null;
          this.nowRank = 0;
          this.autoFightingB = false;
+         this.initBotCooldowns();
       }
       
       public function init() : *
@@ -52,6 +60,7 @@ package gameAll.data
          this.arival = null;
          this.nowRank = 0;
          this.autoFightingB = false;
+         this.initBotCooldowns();
       }
       
       public function inData_byObj(obj:Object) : *
@@ -91,6 +100,106 @@ package gameAll.data
          }
          this.nowRank = 0;
          this.autoFightingB = false;
+         this.loadBotCooldowns(obj);
+      }
+
+      private function initBotCooldowns() : *
+      {
+         this.botReadyAt = [];
+         for(var i:int = 0; i < LOCAL_BOT_COUNT; i++)
+         {
+            this.botReadyAt.push(0);
+         }
+      }
+
+      private function loadBotCooldowns(obj:Object) : *
+      {
+         var source:* = obj.hasOwnProperty("botReadyAt") ? obj.botReadyAt : null;
+         this.initBotCooldowns();
+         if(source == null)
+         {
+            return;
+         }
+         for(var i:int = 0; i < LOCAL_BOT_COUNT; i++)
+         {
+            if(source[i] != null)
+            {
+               this.botReadyAt[i] = Number(source[i]);
+            }
+         }
+      }
+
+      public function getLocalBotIndex(userName:String) : int
+      {
+         var prefix:String = "local_arena_bot_";
+         if(userName == null || userName.indexOf(prefix) != 0)
+         {
+            return -1;
+         }
+         var index0:int = int(userName.substr(prefix.length));
+         if(index0 < 0 || index0 >= LOCAL_BOT_COUNT)
+         {
+            return -1;
+         }
+         return index0;
+      }
+
+      public function getBotCooldown(userName:String) : Number
+      {
+         var index0:int = this.getLocalBotIndex(userName);
+         if(index0 < 0)
+         {
+            return 0;
+         }
+         var remain:Number = Number(this.botReadyAt[index0]) - new Date().time;
+         return remain > 0 ? remain : 0;
+      }
+
+      public function startCurrentBotCooldown() : *
+      {
+         if(!(this.arival is HighArena_All))
+         {
+            return;
+         }
+         var index0:int = this.getLocalBotIndex(this.arival.userName);
+         if(index0 >= 0)
+         {
+            this.botReadyAt[index0] = new Date().time + LOCAL_BOT_COOLDOWN;
+         }
+      }
+
+      public function getLocalOpponents() : Array
+      {
+         var names:Array = ["铁拳教官","荒原猎手","疾风游骑","重甲卫士","电弧先锋","赤焰追猎","寒霜守望","雷鸣战将","钢铁壁垒","幻影刀锋","熔火统领","深空巡猎","审判之矛","不朽堡垒","竞技场冠军"];
+         var heads:Array = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15"];
+         var base:HighArena_ExtraData = Game.gameData.getHighArena_ExtraData();
+         var result:Array = [];
+         var arms0:Array = base.arms != null && base.arms.length > 0 ? base.arms : ["soya_lv1"];
+         var sub0:Array = base.sub != null && base.sub.length > 0 ? base.sub : ["highEnergy_lv2"];
+         var car0:String = base.car != null && base.car != "" ? base.car : "beetle";
+         for(var i:int = 0; i < LOCAL_BOT_COUNT; i++)
+         {
+            var d0:HighArena_All = new HighArena_All();
+            var extra0:HighArena_ExtraData = new HighArena_ExtraData();
+            var scale0:Number = 1.35 - i * 0.05;
+            d0.rank = i + 1;
+            d0.score = Math.max(1,Math.round(this.score + (7 - i) * 80));
+            d0.userName = "local_arena_bot_" + i;
+            extra0.name = names[i];
+            extra0.lv = Math.max(1,Game.gameData.level + 1 + int((7 - i) / 3));
+            extra0.head = heads[i];
+            extra0.group = "本地竞技联盟";
+            extra0.life = Math.max(200,Math.round(base.life * scale0));
+            extra0.defence = Math.max(0,Math.round(base.defence * scale0));
+            extra0.dps = Math.max(100,Math.round(base.dps * scale0));
+            extra0.skill = base.skill != null ? base.skill.concat() : [11,12,10];
+            extra0.arms = arms0.concat();
+            extra0.sub = sub0.concat();
+            extra0.car = car0;
+            d0.extra = extra0;
+            result.push(d0.getObj());
+         }
+         return result;
       }
       
       public function newDayCtrl() : *

@@ -242,6 +242,7 @@
          this.maxAchieve = 0;
          this.maxExp = 0;
          this.subItems.equMaxNum = 8;
+         this.materialsItems.bagMaxNum = 126;
          this.propsItems.bagMaxNum = 144;
       }
       
@@ -443,6 +444,10 @@
          this.subItems.inData_byObj(obj.subItems);
          this.carItems.inData_byObj(obj.carItems);
          this.materialsItems.inData_byObj(obj.materialsItems);
+         if(this.materialsItems.bagMaxNum < 126)
+         {
+            this.materialsItems.bagMaxNum = 126;
+         }
          this.propsItems.inData_byObj(obj.propsItems);
          if(this.propsItems.bagMaxNum < 144)
          {

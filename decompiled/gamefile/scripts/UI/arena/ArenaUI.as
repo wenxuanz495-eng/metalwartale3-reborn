@@ -7,9 +7,10 @@ package UI.arena
    import data.TextWay;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
+   import flash.events.Event;
    import flash.events.MouseEvent;
    import flash.text.TextField;
-   import flash.utils.ByteArray;
+   import flash.utils.getTimer;
    import gameAll.data.ArenaData;
    import gameAll.data.GameData;
    import gameAll.define.other.Normal_HighDefine;
@@ -58,6 +59,10 @@ package UI.arena
       public var randomB:Boolean = false;
       
       private var arenaNum:int = 15;
+
+      private var localOpponents:Array = [];
+
+      private var lastCooldownFlesh:int = 0;
       
       public function ArenaUI()
       {
@@ -70,9 +75,9 @@ package UI.arena
          this.highBox.y = 97;
          this.highDefine = Game.gameDefine.high.getDefine_byType("top_arena");
          this.highBox.define = this.highDefine;
-         this.highBox.data_arr = this.getTest();
-         this.highBox.fleshData();
-         this.setBarData(this.getTest());
+         this.highBox.pageBox.visible = false;
+         this.highBox.pageBox.maxPage = 1;
+         this.refreshLocalOpponents();
          this.addNum_btn.addEventListener(MouseEvent.CLICK,this.addNumFun);
          this.mustM0 = TextWay.toCode("10");
          this.highBox.addEventListener(ClickEvent.ON_OVER,this.barOver);
@@ -84,6 +89,91 @@ package UI.arena
          addChild(this.head_btn);
          this.head_btn.x = 198;
          this.head_btn.y = 55;
+         this.addEventListener(Event.ENTER_FRAME,this.cooldownTimer);
+      }
+
+      private function refreshLocalOpponents() : *
+      {
+         this.localOpponents = this.arenaData.getLocalOpponents();
+         this.highBox.data_arr = this.localOpponents;
+         this.fleshOpponentStates();
+      }
+
+      private function getQuickOpponents() : Array
+      {
+         var available:Array = [];
+         var cooling:Array = [];
+         var obj0:Object = null;
+         for each(obj0 in this.localOpponents)
+         {
+            if(this.arenaData.getBotCooldown(String(obj0.userName)) > 0)
+            {
+               cooling.push(obj0);
+            }
+            else
+            {
+               available.push(obj0);
+            }
+         }
+         available = available.concat(cooling);
+         if(available.length > 10)
+         {
+            available.splice(10,available.length - 10);
+         }
+         return available;
+      }
+
+      private function cooldownText(remain:Number) : String
+      {
+         var seconds:int = Math.ceil(remain / 1000);
+         var minutes:int = int(seconds / 60);
+         seconds %= 60;
+         return "冷却 " + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      }
+
+      private function fleshOpponentStates() : *
+      {
+         var n:* = undefined;
+         var bar0:ArenArivalBar = null;
+         var highBar:ArenaHighBar = null;
+         var obj0:Object = null;
+         var remain:Number = NaN;
+         this.highBox.fleshData();
+         this.setBarData(this.getQuickOpponents());
+         for(n in this.bar_arr)
+         {
+            bar0 = this.bar_arr[n];
+            obj0 = bar0.itemsData;
+            remain = obj0 == null ? 0 : this.arenaData.getBotCooldown(String(obj0.userName));
+            bar0._btn.mouseEnabled = this.arenaData.useNum > 0 && remain <= 0;
+            bar0._btn.alpha = bar0._btn.mouseEnabled ? 1 : 0.35;
+            if(remain > 0)
+            {
+               bar0._txt.text = this.cooldownText(remain);
+            }
+         }
+         for(n in this.highBox.bar_arr)
+         {
+            highBar = this.highBox.bar_arr[n];
+            obj0 = this.highBox.data_arr[n];
+            remain = obj0 == null ? 0 : this.arenaData.getBotCooldown(String(obj0.userName));
+            highBar._btn.mouseEnabled = this.arenaData.useNum > 0 && remain <= 0;
+            highBar._btn.alpha = highBar._btn.mouseEnabled ? 1 : 0.35;
+            if(remain > 0 && highBar.t4 != null)
+            {
+               highBar.t4.text = this.cooldownText(remain);
+            }
+         }
+      }
+
+      private function cooldownTimer(event:Event) : *
+      {
+         if(!this.visible || getTimer() - this.lastCooldownFlesh < 1000)
+         {
+            return;
+         }
+         this.lastCooldownFlesh = getTimer();
+         this.fleshOpponentStates();
       }
       
       public function addNumFun(e:*) : *
@@ -159,6 +249,7 @@ package UI.arena
       public function fleshData() : *
       {
          var GD:GameData = Game.gameData;
+         this.refreshLocalOpponents();
          this.name_txt.text = GD.playerName;
          this.dps_txt.text = "战斗力：" + Math.round(GD.getAllDps());
          this.level_txt.text = "LV." + (GD.level + 1);
@@ -237,7 +328,7 @@ package UI.arena
          for(n in this.bar_arr)
          {
             bar0 = this.bar_arr[n];
-            if(num0 == 0)
+            if(num0 == 0 && bar0.itemsData != null && this.arenaData.getBotCooldown(String(bar0.itemsData.userName)) <= 0)
             {
                bar0._btn.mouseEnabled = true;
                bar0._btn.alpha = 1;
@@ -264,36 +355,72 @@ package UI.arena
       
       private function barClick(event:ClickEvent) : *
       {
-         this.arenaData.arival = event.target.itemsData;
-         trace("arenaData.autoFightingB:" + this.arenaData.autoFightingB);
-         Game.eventGroup.chosenLevel(0,"arena");
+         this.startLocalChallenge(event.target.itemsData);
       }
       
       private function gotoRandomBar() : *
       {
-         var bar0:* = this.bar_arr[int(this.bar_arr.length * Math.random())];
-         this.arenaData.arival = bar0.itemsData;
+         var available:Array = [];
+         var obj0:Object = null;
+         for each(obj0 in this.localOpponents)
+         {
+            if(this.arenaData.getBotCooldown(String(obj0.userName)) <= 0)
+            {
+               available.push(obj0);
+            }
+         }
+         if(available.length == 0)
+         {
+            Game.uiGroup.checkTip.showCheck2("当前所有竞技场对手都在冷却中。",2);
+            return;
+         }
+         this.startLocalChallenge(available[int(available.length * Math.random())]);
+      }
+
+      private function startLocalChallenge(obj0:*) : *
+      {
+         var d0:HighArena_All = null;
+         if(this.arenaData.useNum <= 0)
+         {
+            Game.uiGroup.checkTip.showCheck2("今日竞技场挑战次数已经用完。",2);
+            return;
+         }
+         if(obj0 == null)
+         {
+            return;
+         }
+         d0 = obj0 is HighArena_All ? obj0 : new HighArena_All();
+         if(!(obj0 is HighArena_All))
+         {
+            d0.inData_byObj(obj0);
+         }
+         if(this.arenaData.getBotCooldown(d0.userName) > 0)
+         {
+            Game.uiGroup.checkTip.showCheck2("该竞技场对手正在冷却中。",2);
+            this.fleshOpponentStates();
+            return;
+         }
+         this.arenaData.arival = d0;
          Game.eventGroup.chosenLevel(0,"arena");
       }
       
       public function uploadScore(e:* = null) : *
       {
-         Game.uiGroup.loadingUI.show();
-         var obj0:Object = new Object();
-         obj0.rId = this.highDefine.id_arr[Game.nowSaveIndex];
-         obj0.score = this.arenaData.score;
-         if(obj0.score <= 0)
+         this.refreshLocalOpponents();
+         this.high_txt.text = "本地";
+         this.arenaData.nowRank = 0;
+         Game.uiGroup.loadingUI.hide();
+         if(this.randomB)
          {
-            obj0.score = 1;
+            this.randomB = false;
+            this.gotoRandomBar();
          }
-         obj0.extra = JSON2.encode(Game.gameData.getHighArena_ExtraData());
-         var bty00:ByteArray = new ByteArray();
-         bty00.writeObject(obj0.extra);
-         Game.high_api.submitScoreToRankLists([obj0],this.affter_uploadScore,this.noFun_uploadScore);
       }
       
       private function affter_uploadScore(tmpObj:Object) : *
       {
+         this.uploadScore();
+         return;
          this.high_txt.text = tmpObj.curRank;
          var id0:int = int(this.highDefine.id_arr[Game.nowSaveIndex]);
          this.arenaData.nowRank = tmpObj.curRank;
@@ -325,6 +452,9 @@ package UI.arena
       
       private function affter_getRankLists(dataAry:Array) : *
       {
+         this.refreshLocalOpponents();
+         Game.uiGroup.loadingUI.hide();
+         return;
          var n:* = undefined;
          var obj0:* = undefined;
          for(n in dataAry)
@@ -383,6 +513,8 @@ package UI.arena
       
       public function barClick2(e:ClickEvent) : *
       {
+         this.startLocalChallenge(this.highBox.data_arr[e.goal.index]);
+         return;
          var d0:HighArena_All = null;
          if(this.arenaData.useNum > 0)
          {

@@ -29,7 +29,9 @@ package gameAll.level
          this.time_num = 3;
          super.startLevel();
          this.addArival();
+         Game.gameData.arenaData.startCurrentBotCooldown();
          Game.gameData.arenaData.reduceUseNum();
+         Game.uiGroup.saveDataNoUI();
          Game.gameData.lifeRateB2 = false;
       }
       
