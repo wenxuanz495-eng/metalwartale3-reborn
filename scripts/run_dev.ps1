@@ -35,13 +35,16 @@ function Stop-RootServers([string]$rootPath, [string]$serverExePath) {
 
 $buildDir = Join-Path $RepoRoot "build"
 $swfDir = Join-Path $RepoRoot "swf"
-$sealDir = "D:\superalloy\超合金离线优化海豹版1.2"
-$sealSwf = Join-Path $sealDir "swf"
-if (Test-Path (Join-Path $sealSwf "ui")) {
+$runtimeSwf = Join-Path $RepoRoot "runtime\swf"
+$sealSwf = "D:\superalloy\超合金离线优化海豹版1.2.3（内测）\swf"
+if (Test-Path (Join-Path $runtimeSwf "enemy")) {
+  $swfDir = $runtimeSwf
+  Write-Host "Using runtime resource layout: $swfDir"
+} elseif (Test-Path (Join-Path $sealSwf "enemy")) {
   $swfDir = $sealSwf
   Write-Host "Using seal resource layout: $swfDir"
 } else {
-  Write-Host "Using repo resource layout: $swfDir"
+  Write-Host "Using flat repo resource layout: $swfDir"
 }
 $serverExe = Join-Path $buildDir "server.exe"
 $gameSwf = Join-Path $buildDir "game.swf"

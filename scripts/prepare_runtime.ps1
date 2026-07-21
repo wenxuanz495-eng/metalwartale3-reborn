@@ -1,13 +1,16 @@
 ﻿param(
   [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
-  [string]$SealDir = "D:\superalloy\超合金离线优化海豹版1.2"
+  [string]$SealDir = "D:\superalloy\超合金离线优化海豹版1.2.3（内测）"
 )
 $ErrorActionPreference = "Stop"
 $rt = Join-Path $RepoRoot "runtime"
-$srcSwf = Join-Path $RepoRoot "swf"
+$srcSwf = Join-Path $SealDir "swf"
+if (-not (Test-Path (Join-Path $srcSwf "enemy"))) {
+  $srcSwf = Join-Path $RepoRoot "swf"
+}
 if (-not (Test-Path $srcSwf)) { throw "repo swf missing" }
 New-Item -ItemType Directory -Force -Path (Join-Path $rt "swf") | Out-Null
-Write-Host "Copying resources from repo swf -> runtime/swf"
+Write-Host "Copying resources from $srcSwf -> runtime/swf"
 robocopy $srcSwf (Join-Path $rt "swf") /E /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
 $baseSrc = Join-Path $SealDir "game.swf"
 if (Test-Path $baseSrc) {
