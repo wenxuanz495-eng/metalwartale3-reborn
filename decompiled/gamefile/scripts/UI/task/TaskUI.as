@@ -260,7 +260,7 @@ package UI.task
       
       public function fleshUseNum() : *
       {
-         this.taskNum_txt.htmlText = "日常任务：单项冷却15分钟；5项全部完成时立即整组刷新。本任务挑战卡奖励冷却 " + this.taskData.getCardCooldownSeconds(this.nowIndex) + " 秒。";
+         this.taskNum_txt.htmlText = "日常任务：单项冷却10分钟；5项全部完成时立即整组刷新。本任务挑战卡奖励冷却 " + this.taskData.getCardCooldownSeconds(this.nowIndex) + " 秒。";
       }
       
       public function panTaskingNow(label0:String) : String

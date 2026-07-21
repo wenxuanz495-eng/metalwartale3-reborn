@@ -7,7 +7,7 @@ package gameAll.data.collect
       
       public static const CARD_COOLDOWN:Number = 600000;
       
-      public static const TASK_COOLDOWN:Number = 900000;
+      public static const TASK_COOLDOWN:Number = 600000;
       
       public var pro_arr:Array = [];
       
@@ -48,6 +48,9 @@ package gameAll.data.collect
          var m:* = undefined;
          var pro0:String = null;
          var d0:CollectTaskDefine = null;
+         var ready0:Number = 0;
+         var now0:Number = new Date().time;
+         var i:int = 0;
          for(n in this.pro_arr)
          {
             pro0 = this.pro_arr[n];
@@ -69,6 +72,22 @@ package gameAll.data.collect
          this.nowNum = 0;
          this.readyAt = obj.hasOwnProperty("readyAt") ? this.restoreArray(obj.readyAt) : [];
          this.taskReadyAt = obj.hasOwnProperty("taskReadyAt") ? this.restoreArray(obj.taskReadyAt) : [];
+         i = 0;
+         while(i < this.arr.length)
+         {
+            ready0 = i < this.taskReadyAt.length ? Number(this.taskReadyAt[i]) : 0;
+            if(this.arr[i].state != "over" || isNaN(ready0) || ready0 <= now0)
+            {
+               ready0 = 0;
+            }
+            else if(ready0 > now0 + TASK_COOLDOWN)
+            {
+               ready0 = now0 + TASK_COOLDOWN;
+            }
+            this.taskReadyAt[i] = ready0;
+            i++;
+         }
+         this.taskReadyAt.length = this.arr.length;
          this.roundCompleted = obj.hasOwnProperty("roundCompleted") ? int(obj.roundCompleted) : 0;
       }
       

@@ -102,7 +102,7 @@ package UI.task
          var cnName0:String = td0.targetItems;
          this.taskName_txt.htmlText = td0.getTitle();
          var str0:String = "";
-         this.taskNum_txt.text = "收集/扫荡任务可同时接取；领取后可立即再次接取；剩余：" + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex)) + "。";
+         this.taskNum_txt.text = "收集任务可同时接取；单项冷却10分钟，3项全部完成时立即整组刷新；剩余：" + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex)) + "。";
          str0 += "关卡：" + this.getFontColor("“第六章-第九章”任意关卡","#00FFFF");
          str0 += "\n任务：" + this.getFontColor("收集“" + td0.cnItems + "” " + td0.targetNum + " 个","#00FFFF");
          if(td0.state == "ing")

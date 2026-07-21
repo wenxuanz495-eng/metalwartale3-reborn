@@ -174,7 +174,10 @@ package UI.extra
             state0 = int(this.extraData.allState[this.extraData.nowDiff][index0]);
             if(state0 == 1)
             {
-               this.extraData.currentRunRewardB = true;
+               // The first unlocked run is this level's one available free run;
+               // it must not stack with another daily free run afterwards.
+               this.extraData.useFirstFree(index0);
+               Game.uiGroup.checkTip.showTip("使用该精英副本首次解锁免费挑战机会。",1);
                this.gotoExtra();
             }
             else if(state0 == 2 || state0 == 3)

@@ -10,7 +10,7 @@ package gameAll.data
       
       public static const CARD_COOLDOWN:Number = 1800000;
       
-      public static const TASK_COOLDOWN:Number = 900000;
+      public static const TASK_COOLDOWN:Number = 600000;
       
       public var saveDataVersion:Number = 1.2;
       
@@ -60,6 +60,9 @@ package gameAll.data
          var n:* = undefined;
          var m:* = undefined;
          var pro0:String = null;
+         var ready0:Number = 0;
+         var now0:Number = new Date().time;
+         var i:int = 0;
          if(!obj.hasOwnProperty("saveDataVersion"))
          {
             this.init();
@@ -100,6 +103,24 @@ package gameAll.data
          {
             this.slotReadyAt = [0,0,0,0,0];
          }
+         // Normalize early/sparse editor saves and clamp old 15-minute
+         // timestamps to the current 10-minute rule.
+         i = 0;
+         while(i < this.task5.length)
+         {
+            ready0 = i < this.slotReadyAt.length ? Number(this.slotReadyAt[i]) : 0;
+            if(this.task5[i].state != "over" || isNaN(ready0) || ready0 <= now0)
+            {
+               ready0 = 0;
+            }
+            else if(ready0 > now0 + TASK_COOLDOWN)
+            {
+               ready0 = now0 + TASK_COOLDOWN;
+            }
+            this.slotReadyAt[i] = ready0;
+            i++;
+         }
+         this.slotReadyAt.length = this.task5.length;
          this.cardReadyAt = obj.hasOwnProperty("cardReadyAt") ? Number(obj.cardReadyAt) : 0;
          if(obj.hasOwnProperty("normalCardReadyAt"))
          {

@@ -100,7 +100,7 @@ package gameAll.define
          var baifen0:Number = Number(baifen_Arr[int(baifen_Arr.length * Math.random())]);
          if(type0 == "mcoin")
          {
-            str0 = "MCoin," + (10 + Math.ceil((level0 + 1) / 5) * 5) + ",1";
+            str0 = "MCoin,100,1";
          }
          else if(type0.indexOf("exp") >= 0)
          {

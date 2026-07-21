@@ -26,6 +26,8 @@ package gameAll.data
       public var cooldownReadyAt:Array = [];
       
       public var currentRunRewardB:Boolean = true;
+
+      public var currentRunCardB:Boolean = false;
       
       private var _juneB:String = "";
       
@@ -78,6 +80,7 @@ package gameAll.data
             j++;
          }
          this.currentRunRewardB = true;
+         this.currentRunCardB = false;
       }
       
       public function initScore() : *
@@ -130,6 +133,8 @@ package gameAll.data
          var n:* = undefined;
          var pro0:String = null;
          var i:* = undefined;
+         var ready0:Number = 0;
+         var now0:Number = new Date().time;
          var pro_arr:Array = ["diffUnlock","nowDiff","buyNum"];
          for(n in pro_arr)
          {
@@ -171,27 +176,28 @@ package gameAll.data
          {
             this.juneB = obj.juneB;
          }
-         if(obj.hasOwnProperty("firstFreeUsed"))
-         {
-            this.firstFreeUsed = obj.firstFreeUsed.concat();
-         }
-         else
-         {
-            this.firstFreeUsed = [];
-            var j:int = 0;
-            while(j < maxLevel)
-            {
-               this.firstFreeUsed.push(false);
-               j++;
-            }
-         }
+         // Always rebuild fixed-length arrays. Old saves may not contain these
+         // fields, or may contain sparse/short arrays written by early editors.
+         this.firstFreeUsed = [];
          this.cooldownReadyAt = [];
          var k:int = 0;
          while(k < maxLevel)
          {
+            this.firstFreeUsed.push(obj.hasOwnProperty("firstFreeUsed") && Boolean(obj.firstFreeUsed[k]));
             if(obj.hasOwnProperty("cooldownReadyAt") && k < obj.cooldownReadyAt.length)
             {
-               this.cooldownReadyAt.push(Number(obj.cooldownReadyAt[k]));
+               ready0 = Number(obj.cooldownReadyAt[k]);
+               // An elite-card cooldown can never legitimately exceed one full
+               // cooldown from load time. Clamp damaged and legacy timestamps.
+               if(isNaN(ready0) || ready0 <= now0)
+               {
+                  ready0 = 0;
+               }
+               else if(ready0 > now0 + LEVEL_COOLDOWN)
+               {
+                  ready0 = now0 + LEVEL_COOLDOWN;
+               }
+               this.cooldownReadyAt.push(ready0);
             }
             else
             {
@@ -200,6 +206,7 @@ package gameAll.data
             k++;
          }
          this.currentRunRewardB = true;
+         this.currentRunCardB = false;
       }
       
       public function isLevelCooling(index0:int) : Boolean
@@ -238,13 +245,18 @@ package gameAll.data
       
       public function hasFirstFree(index0:int) : Boolean
       {
-         return !Boolean(this.firstFreeUsed[index0]);
+         return index0 >= 0 && index0 < maxLevel && !Boolean(this.firstFreeUsed[index0]);
       }
       
       public function useFirstFree(index0:int) : *
       {
-         this.firstFreeUsed[index0] = true;
+         if(index0 >= 0 && index0 < maxLevel)
+         {
+            this.firstFreeUsed[index0] = true;
+            this.cooldownReadyAt[index0] = 0;
+         }
          this.currentRunRewardB = true;
+         this.currentRunCardB = false;
       }
       
       public function useChallengeCard() : Boolean
@@ -255,12 +267,14 @@ package gameAll.data
          }
          Game.gameData.propsItems.useItemsNum("elite_challenge_card",1);
          this.currentRunRewardB = true;
+         this.currentRunCardB = true;
          return true;
       }
       
       public function useNoReward() : *
       {
          this.currentRunRewardB = false;
+         this.currentRunCardB = false;
       }
       
       public function newDayCtrl() : *
@@ -282,6 +296,7 @@ package gameAll.data
          while(i < maxLevel)
          {
             this.firstFreeUsed.push(false);
+            this.cooldownReadyAt[i] = 0;
             i++;
          }
       }

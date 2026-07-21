@@ -160,7 +160,7 @@ package gameAll
          this.UIG.gamingUI.showState();
          if(this.LG.state == "extra")
          {
-            if(this.GD.extraData.currentRunRewardB)
+            if(this.GD.extraData.currentRunCardB)
             {
                this.GD.extraData.startLevelCooldown(this.LG.index);
             }
@@ -306,10 +306,6 @@ package gameAll
          if(this.LG.state == "extra")
          {
             bb0 = true;
-            if(this.GD.extraData.currentRunRewardB)
-            {
-               this.GD.extraData.startLevelCooldown(this.LG.index);
-            }
             score0 = Game.gameDefine.getGroupScore(int(this.GD.gameTime),this.LG.index);
             if(score0 > this.GD.extraData.getScore(this.LG.index))
             {
