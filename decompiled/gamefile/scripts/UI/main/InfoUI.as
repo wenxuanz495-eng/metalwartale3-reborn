@@ -364,7 +364,7 @@ package UI.main
          str4 += String(GD.GCoin) + " G币\n";
          str4 += String(GD.MCoin) + " M币\n";
          var dps00:Number = GD.getAllDps();
-         str4 += this.getColor(String(dps00),"#FFFF00");
+         str4 += this.getColor(String(Math.round(dps00)),"#FFFF00");
          if(dps00 > 500000000)
          {
             Game.uiGroup.zuobile("dps大于50000w");

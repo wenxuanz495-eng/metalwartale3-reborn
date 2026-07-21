@@ -192,7 +192,7 @@ package gameAll.data
          {
             mul2 = 1.5;
          }
-         return this.getBaseLife() * mul0 * s_mul0 * mul2;
+         return int(Math.round(this.getBaseLife() * mul0 * s_mul0 * mul2));
       }
       
       public function getNowDefence() : int
@@ -209,7 +209,7 @@ package gameAll.data
          {
             mul2 = 1.5;
          }
-         return this.getBaseDefence() * mul0 * s_mul0 * mul2;
+         return int(Math.round(this.getBaseDefence() * mul0 * s_mul0 * mul2));
       }
       
       public function getBaseLife() : int

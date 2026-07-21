@@ -636,15 +636,7 @@ package UI.research
          this.holeItemsBox.inData_byHole(aid0);
          this.chipHoleItems.inData_byItems(aid0.chipHole);
          Game.gameData.fleshAdd_byItems();
-         var dps0:Number = aid0.define.getAllDps();
-         if(dps0 >= 100)
-         {
-            dps0 = int(dps0);
-         }
-         else
-         {
-            dps0 = int(dps0 * 10) / 10;
-         }
+         var dps0:Number = Math.round(aid0.define.getAllDps());
          this.dps_txt.htmlText = "战斗力:<font color=\'#FFFF00\'>" + dps0 + "</font>";
       }
       

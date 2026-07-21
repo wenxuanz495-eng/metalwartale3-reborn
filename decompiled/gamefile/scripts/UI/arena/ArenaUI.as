@@ -160,7 +160,7 @@ package UI.arena
       {
          var GD:GameData = Game.gameData;
          this.name_txt.text = GD.playerName;
-         this.dps_txt.text = "战斗力：" + GD.getAllDps();
+         this.dps_txt.text = "战斗力：" + Math.round(GD.getAllDps());
          this.level_txt.text = "LV." + (GD.level + 1);
          GD.arenaData.nickname + "\n" + (GD.level + 1) + "级";
          var base_str0:String = "";

@@ -53,8 +53,8 @@ package UI.change
          str += this.getFontColor("品质：") + this.getColor(CarDataCreator.getColorCn(aid.color),carColor0) + "<br />";
          str += this.getFontColor("装备等级：") + aid.getNowInstallLevel() + "级" + nolevelStr + "<br />";
          str += this.getFontColor("战车等级：") + aid.getNowLevel() + "级" + "<br />";
-         str += this.getFontColor("当前耐久：") + aid.getNowLife() + "<br />";
-         str += this.getFontColor("当前防御：") + aid.getNowDefence() + "<br />";
+         str += this.getFontColor("当前耐久：") + int(aid.getNowLife()) + "<br />";
+         str += this.getFontColor("当前防御：") + int(aid.getNowDefence()) + "<br />";
          if(!noDefenceTypeB)
          {
             str += this.getFontColor("防御类型：") + HurtCount.getDefenceCn(aid.getDefenceType()) + "<br />";
@@ -83,16 +83,16 @@ package UI.change
          var str:String = "";
          str += this.getColor("积分：" + d0.score,"#FFFF00") + "<br />";
          var nolevelStr:String = this.getColor("(比你高)","#FF0000");
-         var dps0:Number = Game.gameData.getAllDps();
-         if(d0.extra.dps < dps0)
+         var dps0:Number = Math.round(Game.gameData.getAllDps());
+         if(Math.round(Number(d0.extra.dps)) < dps0)
          {
             nolevelStr = this.getColor("(比你低)","#00FF00");
          }
-         else if(d0.extra.dps == dps0)
+         else if(Math.round(Number(d0.extra.dps)) == dps0)
          {
             nolevelStr = this.getColor("(打平)","#00FFFF");
          }
-         str += this.getColor("战斗力：" + d0.extra.dps,"#FF66FF") + nolevelStr + "<br />";
+         str += this.getColor("战斗力：" + Math.round(Number(d0.extra.dps)),"#FF66FF") + nolevelStr + "<br />";
          str += this.getFontColor("耐久值：") + d0.extra.life + "<br />";
          str += this.getFontColor("防御值：") + d0.extra.defence;
          this.txt.htmlText = str;

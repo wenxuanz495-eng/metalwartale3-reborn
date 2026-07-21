@@ -86,13 +86,13 @@ package UI.change
       {
          if(num0 >= 100)
          {
-            return int(num0);
+            return int(Math.round(num0));
          }
          if(num0 >= 1)
          {
-            return int(num0 * 10) / 10;
+            return int(Math.round(num0));
          }
-         return int(num0 * 100) / 100;
+         return int(Math.round(num0));
       }
       
       public function inData_byDefine(define0:OneArmsDefine, specialType:String = "") : *
