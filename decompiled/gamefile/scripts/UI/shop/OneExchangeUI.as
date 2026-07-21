@@ -79,12 +79,6 @@ package UI.shop
       
       private var _timer:Timer = new Timer(1000);
       
-      private var _lastTime:Number = 0;
-      
-      private var _lastData:Number = 0;
-      
-      private var _cheatNum:int = 5;
-      
       private var _tempDT:DataTag = null;
       
       public function OneExchangeUI()
@@ -117,21 +111,6 @@ package UI.shop
       
       protected function onTimer(event:TimerEvent) : void
       {
-         var nnt:Number = new Date().time - this._lastData;
-         var ntt:Number = getTimer() - this._lastTime;
-         if(ntt - nnt > 10)
-         {
-            if(--this._cheatNum < 0)
-            {
-               this.txt_time.text = "请勿使用加速器,时间异常!";
-               return;
-            }
-         }
-         else
-         {
-            this._lastData = new Date().time;
-            this._lastTime = getTimer();
-         }
          if(this.GD.lastExchangeData == null)
          {
             return;
@@ -145,7 +124,7 @@ package UI.shop
          var nd:Date = Game.timeDate.getSaveDate.getDateClass();
          var nowTime:Number = getTimer() + nd.getTime();
          var decTime:Number = this.REFRESHTIME - (nowTime - data);
-         if(decTime < 0)
+         if(decTime <= 0)
          {
             decTime = 0;
             this.affterRefresh2();
@@ -586,50 +565,49 @@ package UI.shop
       private function freshData(issave:Boolean = true) : void
       {
          var ed:ExchangeData = null;
-         var ran:Number = NaN;
-         var ped:ExchangeData = null;
          var dataArr:Array = this.GDG.ExchangeItems.concat();
-         var z:int = 0;
          this._dateArr = [];
          var dtag:DataTag = null;
-         for(var i:int = 0; i <= dataArr.length; i++)
+         this.randomizeArray(dataArr);
+         var i:int = 0;
+         for(i = 0; i < dataArr.length && this._dateArr.length < this.ITEMMAX; i++)
          {
-            if(i == dataArr.length)
-            {
-               i = 0;
-               z++;
-               if(z > 2000)
-               {
-                  break;
-               }
-            }
             ed = dataArr[i];
-            if(this._dateArr.length >= this.ITEMMAX)
+            if(Boolean(ed) && ed.Proba >= Math.random())
             {
-               break;
-            }
-            if(Boolean(ed))
-            {
-               ran = Math.random();
-               if(ed.Proba >= ran)
-               {
-                  dtag = new DataTag();
-                  dtag.ed = ed;
-                  dtag.flag = 0;
-                  this._dateArr.push(dtag);
-               }
+               dtag = new DataTag();
+               dtag.ed = ed;
+               dtag.flag = 0;
+               this._dateArr.push(dtag);
             }
          }
-         var clen:int = this.ITEMMAX - this._dateArr.length;
-         for(i = 0; i < clen; i++)
+         // Fill any remaining slots from the same shuffled pool without duplicates.
+         for(i = 0; i < dataArr.length && this._dateArr.length < this.ITEMMAX; i++)
          {
-            ped = dataArr.pop();
-            dtag = new DataTag();
-            dtag.ed = ped;
-            dtag.flag = 0;
-            this._dateArr.push(dtag);
+            ed = dataArr[i];
+            if(Boolean(ed) && !this.containsExchangeData(ed))
+            {
+               dtag = new DataTag();
+               dtag.ed = ed;
+               dtag.flag = 0;
+               this._dateArr.push(dtag);
+            }
          }
          this.saveSeverTimeData(issave);
+      }
+
+      private function containsExchangeData(ed:ExchangeData) : Boolean
+      {
+         var dt:DataTag = null;
+         for(var i:int = 0; i < this._dateArr.length; i++)
+         {
+            dt = this._dateArr[i];
+            if(dt != null && dt.ed != null && dt.ed.Id == ed.Id)
+            {
+               return true;
+            }
+         }
+         return false;
       }
       
       private function saveSeverTimeData(issave:Boolean) : void
@@ -689,8 +667,6 @@ package UI.shop
          if(this._timer.running == false)
          {
             this._timer.start();
-            this._lastTime = getTimer();
-            this._lastData = new Date().time;
          }
       }
    }
