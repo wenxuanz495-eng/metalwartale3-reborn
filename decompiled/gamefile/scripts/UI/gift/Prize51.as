@@ -204,13 +204,13 @@ package UI.gift
       protected function exchange3(event:MouseEvent) : void
       {
          this._state = 3;
-         Game.uiGroup.checkTip.showCheck2("确定要兑换1个普通拆解器吗?",1,this.exchange_2);
+         Game.uiGroup.checkTip.showCheck2("确定要用10个儿童节爱心兑换1个普通拆解器吗?",1,this.exchange_2);
       }
       
       protected function exchange4(event:MouseEvent) : void
       {
          this._state = 4;
-         Game.uiGroup.checkTip.showCheck2("确定要兑换1个优质拆解器吗?",1,this.exchange_2);
+         Game.uiGroup.checkTip.showCheck2("确定要用25个儿童节爱心兑换1个优质拆解器吗?",1,this.exchange_2);
       }
       
       protected function exchange5(event:MouseEvent) : void
@@ -238,7 +238,7 @@ package UI.gift
          {
             case 1:
 
-               if(xuehua < 50)
+               if(xuehua < 10)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
                   return;
@@ -264,17 +264,17 @@ package UI.gift
                   return;
                }
                Game.gameData.propsItems.addItems("disassemble",1);
-               Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
+               Game.gameData.materialsItems.useItemsNum("ertongaixin",10);
                break;
             case 4:
 
-               if(xuehua < 50)
+               if(xuehua < 25)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
                   return;
                }
                Game.gameData.propsItems.addItems("disassemble_2",1);
-               Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
+               Game.gameData.materialsItems.useItemsNum("ertongaixin",25);
                break;
             case 5:
 

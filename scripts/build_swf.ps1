@@ -22,6 +22,7 @@ if (-not ((Test-Path $ffdecExe) -or (Test-Path $ffdecJar))) {
 if (-not $BaselineSwf) {
   $candidates = @(
     (Join-Path $RepoRoot "build\game.import.swf"),
+    (Join-Path $RepoRoot "runtime\game.swf"),
     "D:\superalloy\超合金离线优化海豹版1.2.2（内测）\game.swf",
     "D:\superalloy\超合金离线优化海豹版1.2\game.swf",
     (Join-Path $RepoRoot "swf\gamefile.swf")
