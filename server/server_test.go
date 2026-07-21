@@ -166,6 +166,110 @@ func TestSavePrimaryWritesBinaryJSONAndSQLite(t *testing.T) {
 	}
 }
 
+func TestSavePrimaryStripsGeneratedBlankRoleRegardlessOfName(t *testing.T) {
+	root := t.TempDir()
+	store := newSaveStore(root)
+	payload := map[string]any{
+		"localSaveVersion": 2,
+		"localSlots": map[string]any{
+			"$dense": []any{},
+			"2": map[string]any{
+				"data": map[string]any{
+					"playerName": "玩家自定义名字",
+					"level":      1,
+					"armsItems": map[string]any{"arr": []any{}},
+					"subItems":  map[string]any{"arr": []any{}},
+					"carItems":  map[string]any{"arr": []any{}},
+				},
+			},
+			"3": map[string]any{
+				"data": map[string]any{
+					"playerName": "秋实",
+					"level":      50,
+					"armsItems": map[string]any{"arr": []any{map[string]any{"id": "gun"}}},
+					"subItems":  map[string]any{"arr": []any{}},
+					"carItems":  map[string]any{"arr": []any{map[string]any{"id": "car"}}},
+				},
+			},
+		},
+	}
+	raw, err := encodeGamePayload(payload)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(raw, "test"); err != nil {
+		t.Fatalf("save with blank slot failed: %v", err)
+	}
+	saved, err := os.ReadFile(store.primaryPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	value, _, err := parseGamePayload(saved)
+	if err != nil {
+		t.Fatal(err)
+	}
+	game, ok := value.(map[string]any)
+	if !ok {
+		t.Fatalf("unexpected saved payload type: %T", value)
+	}
+	slots, ok := game["localSlots"].(map[string]any)
+	if !ok {
+		t.Fatalf("unexpected slots type: %T", game["localSlots"])
+	}
+	if _, exists := slots["2"]; exists {
+		t.Fatal("blank role slot was not stripped")
+	}
+	if _, exists := slots["3"]; !exists {
+		t.Fatal("valid role slot was stripped")
+	}
+}
+
+func TestSavePrimaryAllowsDefaultNameWhenRoleHasRealProgress(t *testing.T) {
+	root := t.TempDir()
+	store := newSaveStore(root)
+	payload := map[string]any{
+		"localSaveVersion": 2,
+		"localSlots": map[string]any{
+			"$dense": []any{},
+			"2": map[string]any{
+				"data": map[string]any{
+					"playerName": "4399小战士",
+					"level":      88,
+					"armsItems": map[string]any{"arr": []any{}},
+					"subItems":  map[string]any{"arr": []any{}},
+					"carItems":  map[string]any{"arr": []any{}},
+				},
+			},
+		},
+	}
+	raw, err := encodeGamePayload(payload)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(raw, "test"); err != nil {
+		t.Fatalf("valid default-name role was rejected: %v", err)
+	}
+}
+
+func TestSavePrimaryAllowsNewRoleWithStarterEquipment(t *testing.T) {
+	root := t.TempDir()
+	store := newSaveStore(root)
+	payload := map[string]any{
+		"playerName": "4399小战士",
+		"level":      0,
+		"armsItems": map[string]any{"arr": []any{map[string]any{"id": "starter"}}},
+		"subItems":  map[string]any{"arr": []any{}},
+		"carItems":  map[string]any{"arr": []any{map[string]any{"id": "starter-car"}}},
+	}
+	raw, err := encodeGamePayload(payload)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(raw, "test"); err != nil {
+		t.Fatalf("initialized new role was rejected: %v", err)
+	}
+}
+
 func TestGetPrimaryDoesNotConsultGlobalFlashSOL(t *testing.T) {
 	root := t.TempDir()
 	appData := t.TempDir()

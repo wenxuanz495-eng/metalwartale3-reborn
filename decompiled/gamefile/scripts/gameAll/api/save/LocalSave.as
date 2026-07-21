@@ -68,6 +68,7 @@ package gameAll.api.save
             "status":1,
             "data":gd
          };
+         this.stripBlankSlotsFromMemory();
          var container:Object = {
             "localSaveVersion":2,
             "localSlots":this.slots
@@ -231,6 +232,7 @@ package gameAll.api.save
       
       private function loadRoot(root:Object) : *
       {
+         var removedBlank:Boolean = false;
          this.slots = new Array(8);
          if(root != null && root.hasOwnProperty("localSlots") && root.localSlots is Array)
          {
@@ -243,6 +245,10 @@ package gameAll.api.save
                   if(source[i].data != null && !this.isGeneratedBlankData(source[i].data))
                   {
                      this.slots[i] = source[i];
+                  }
+                  else
+                  {
+                     removedBlank = true;
                   }
                }
                i++;
@@ -257,6 +263,25 @@ package gameAll.api.save
                "status":1,
                "data":root
             };
+         }
+         else if(root != null)
+         {
+            removedBlank = true;
+         }
+         if(removedBlank)
+         {
+            var cleanContainer:Object = {
+               "localSaveVersion":2,
+               "localSlots":this.slots
+            };
+            if(this.writeBusy)
+            {
+               this.queuedWriteData = cleanContainer;
+            }
+            else
+            {
+               this.startWriteServer(cleanContainer,[],[]);
+            }
          }
       }
       
@@ -312,13 +337,49 @@ package gameAll.api.save
          this.readLoader = null;
       }
       
+      private function stripBlankSlotsFromMemory() : *
+      {
+         var i:int = 0;
+         while(i < 8)
+         {
+            if(this.slots[i] != null)
+            {
+               if(this.slots[i].data == null || this.isGeneratedBlankData(this.slots[i].data))
+               {
+                  this.slots[i] = null;
+               }
+            }
+            i++;
+         }
+      }
+      
       private function isGeneratedBlankData(data:Object) : Boolean
       {
          if(data == null)
          {
             return true;
          }
-         return data.hasOwnProperty("playerName") && String(data.playerName) == "4399小战士";
+         var level:int = data.hasOwnProperty("level") ? int(data.level) : 0;
+         if(level > 1)
+         {
+            return false;
+         }
+         var noArms:Boolean = !data.hasOwnProperty("armsItems") || data.armsItems == null;
+         if(!noArms && data.armsItems.hasOwnProperty("arr") && data.armsItems.arr is Array)
+         {
+            noArms = (data.armsItems.arr as Array).length == 0;
+         }
+         var noSubs:Boolean = !data.hasOwnProperty("subItems") || data.subItems == null;
+         if(!noSubs && data.subItems.hasOwnProperty("arr") && data.subItems.arr is Array)
+         {
+            noSubs = (data.subItems.arr as Array).length == 0;
+         }
+         var noCars:Boolean = !data.hasOwnProperty("carItems") || data.carItems == null;
+         if(!noCars && data.carItems.hasOwnProperty("arr") && data.carItems.arr is Array)
+         {
+            noCars = (data.carItems.arr as Array).length == 0;
+         }
+         return noArms && noSubs && noCars;
       }
    }
 }

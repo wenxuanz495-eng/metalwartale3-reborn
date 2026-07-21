@@ -69,6 +69,13 @@ func (s *saveStore) savePrimary(raw []byte, source string) (map[string]any, erro
 	if err != nil {
 		return nil, err
 	}
+	payload, stripped := stripGeneratedBlankSave(payload)
+	if stripped {
+		raw, err = encodeGamePayload(payload)
+		if err != nil {
+			return nil, err
+		}
+	}
 	capturedAt := nowISO()
 	doc := map[string]any{
 		"exported_at":  capturedAt,
@@ -109,6 +116,152 @@ func (s *saveStore) savePrimary(raw []byte, source string) (map[string]any, erro
 		"ok": true, "source": source, "size": len(raw),
 		"primary": s.primaryPath, "json": s.jsonPath, "db": s.dbPath,
 	}, nil
+}
+
+func stripGeneratedBlankSave(payload any) (any, bool) {
+	root, ok := payload.(map[string]any)
+	if !ok {
+		return payload, false
+	}
+	if slots, exists := root["localSlots"]; exists {
+		cleaned, stripped := stripGeneratedBlankSlots(slots)
+		if stripped {
+			root["localSlots"] = cleaned
+			return root, true
+		}
+		return root, false
+	}
+	if isGeneratedBlankRole(root) {
+		return map[string]any{
+			"localSaveVersion": 2,
+			"localSlots":       make([]any, 8),
+		}, true
+	}
+	return root, false
+}
+
+func stripGeneratedBlankSlots(slots any) (any, bool) {
+	switch value := slots.(type) {
+	case []any:
+		stripped := false
+		out := make([]any, len(value))
+		copy(out, value)
+		for i, slot := range out {
+			if saveSlotContainsGeneratedBlank(slot) {
+				out[i] = nil
+				stripped = true
+			}
+		}
+		return out, stripped
+	case map[string]any:
+		stripped := false
+		out := make(map[string]any, len(value))
+		for key, slot := range value {
+			if key == "$dense" {
+				cleaned, changed := stripGeneratedBlankSlots(slot)
+				out[key] = cleaned
+				if changed {
+					stripped = true
+				}
+				continue
+			}
+			if saveSlotContainsGeneratedBlank(slot) {
+				stripped = true
+				continue
+			}
+			out[key] = slot
+		}
+		return out, stripped
+	default:
+		return slots, false
+	}
+}
+
+func saveSlotContainsGeneratedBlank(slot any) bool {
+	entry, ok := slot.(map[string]any)
+	if !ok || entry == nil {
+		return false
+	}
+	data, exists := entry["data"]
+	if !exists {
+		return false
+	}
+	role, ok := data.(map[string]any)
+	return ok && isGeneratedBlankRole(role)
+}
+
+func isGeneratedBlankRole(role map[string]any) bool {
+	if saveNumber(role["level"]) > 1 {
+		return false
+	}
+	// Only treat maps that look like character GameData. Name is ignored so
+	// renamed void slots are still removed, but generic objects are left alone.
+	_, hasPlayer := role["playerName"]
+	_, hasArms := role["armsItems"]
+	_, hasSubs := role["subItems"]
+	_, hasCars := role["carItems"]
+	if !hasPlayer && !hasArms && !hasSubs && !hasCars {
+		return false
+	}
+	return !saveCollectionHasItems(role["armsItems"]) &&
+		!saveCollectionHasItems(role["subItems"]) &&
+		!saveCollectionHasItems(role["carItems"])
+}
+
+func saveCollectionHasItems(collection any) bool {
+	if collection == nil {
+		return false
+	}
+	container, ok := collection.(map[string]any)
+	if !ok {
+		return true
+	}
+	items, exists := container["arr"]
+	if !exists || items == nil {
+		return false
+	}
+	switch value := items.(type) {
+	case []any:
+		return len(value) > 0
+	case map[string]any:
+		for key, item := range value {
+			if key == "$dense" {
+				if dense, ok := item.([]any); ok && len(dense) > 0 {
+					return true
+				}
+				continue
+			}
+			if item != nil {
+				return true
+			}
+		}
+		return false
+	default:
+		return true
+	}
+}
+
+func saveNumber(value any) float64 {
+	switch number := value.(type) {
+	case int:
+		return float64(number)
+	case int32:
+		return float64(number)
+	case int64:
+		return float64(number)
+	case uint:
+		return float64(number)
+	case uint32:
+		return float64(number)
+	case uint64:
+		return float64(number)
+	case float32:
+		return float64(number)
+	case float64:
+		return number
+	default:
+		return 0
+	}
 }
 
 func (s *saveStore) insertHistory(source, capturedAt string, raw, jsonText []byte) error {
