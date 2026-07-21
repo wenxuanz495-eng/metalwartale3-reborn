@@ -71,6 +71,11 @@ package UI.items
             this.showRandom();
             return;
          }
+         if(specialType.indexOf("offlineMCoin:") == 0)
+         {
+            this.showMCoinFast(specialType.split(":")[1]);
+            return;
+         }
          if(int(specialType) > 0)
          {
             this.showFast(define0,specialType);
@@ -111,6 +116,13 @@ package UI.items
             str0 += this.getFontColor(add0.getInfo(),"#FF99FF") + "\n";
          }
          this.txt.htmlText = str0;
+      }
+
+      public function showMCoinFast(value0:String) : *
+      {
+         this.title_txt.text = "直接获得M币";
+         this.titleTxt2.text = "";
+         this.txt.htmlText = "直接获得 " + value0 + " M币";
       }
       
       public function showFast(define0:ItemsDefine, specialType:String = "") : *

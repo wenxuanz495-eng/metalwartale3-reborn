@@ -223,6 +223,10 @@ package goods
       
       public function getFastUseB() : Boolean
       {
+         if(this.id == "mcoin_reward_card")
+         {
+            return true;
+         }
          if(this.id == "exp_card_directly")
          {
             return true;

@@ -274,7 +274,14 @@ package UI.items
          var bit:Bitmap = null;
          if(firstB && d0.getFastUseB())
          {
-            d0.specialType = d0.price + "";
+            if(d0.id == "mcoin_reward_card" || d0.name == "M币")
+            {
+               d0.specialType = "offlineMCoin:" + d0.price;
+            }
+            else
+            {
+               d0.specialType = d0.price + "";
+            }
          }
          this.itemsData = d0;
          this.setNum(d0.num);
@@ -291,7 +298,7 @@ package UI.items
          {
             mc = temp;
          }
-         if(d0.id == "mcoin_reward_card")
+         if(d0.id == "mcoin_reward_card" || d0.name == "M币")
          {
             mc.transform.colorTransform = new ColorTransform(1.25,0.7,0.15,1,60,22,0,0);
          }

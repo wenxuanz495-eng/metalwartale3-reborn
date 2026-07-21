@@ -1765,23 +1765,10 @@
 				<propId>1589</propId>
 				<propId2>1590</propId2>
 				<description>
-				需要稀有拆解器才能开启，开启后可以获得下列物品中的一个：{br}
-				G币 {font color="#FFFF00"}20万{/font} {br}
-				主武器 {font color="#FFFF00"}斯巴达{/font}{br}
-				副武器 {font color="#FFFF00"}黄金深渊{/font}{br}
-				超合金 {font color="#FFFF00"}10个{/font}{br}
-				超合金Z {font color="#FFFF00"}10个{/font}{br}
-				超合金X {font color="#FFFF00"}10个{/font}{br}
-				橙色芯片{font color="#FFFF00"}1个{/font}{br}
-				绿色芯片{font color="#FFFF00"}1个{/font}{br}
-				四级晶体{font color="#FFFF00"}1个{/font}{br}
-				五级晶体{font color="#FFFF00"}1个{/font}{br}
-				六级晶体{font color="#FFFF00"}1个{/font}{br}
-				20级芯片袋子{font color="#FFFF00"}1个{/font}{br}
-				40级芯片袋子{font color="#FFFF00"}1个{/font}{br}
-				60级芯片袋子{font color="#FFFF00"}1个{/font}{br}
-				80级芯片袋子{font color="#FFFF00"}1个{/font}{br}
-				100级芯片袋子{font color="#FFFF00"}1个{/font}{br}
+				固定获得：{font color="#FFFF00"}20万G币{/font}。{br}
+				固定获得：专家级至宗师级穿透器、聚束器、爆炸器各10个，品质分别随机。{br}
+				保底之外，再从原版卡池必定抽取1项：20万G币、三种超合金、橙/绿芯片、四至六级晶体、20至100级芯片袋之一。{br}
+				原版稀有武器：斯巴达（1.5%）、黄金深渊（1.5%）。{br}
 				</description>
 			</items>
 		

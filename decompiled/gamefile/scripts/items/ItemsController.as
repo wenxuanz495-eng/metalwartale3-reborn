@@ -110,7 +110,7 @@
                Game.uiGroup.checkTip.showCheck2("研发升级卡会在武器研发材料不足时自动提示使用，不能在背包中直接使用。",2);
                return;
             }
-            if(num0 > 1 && (d0.cardType == "drop_box" || d0.cardType == "drop_box2" || d0.cardType == "drop_box3"))
+            if(d0.cardType == "drop_box" || d0.cardType == "drop_box2" || d0.cardType == "drop_box3")
             {
                this.openCoreBatch(it0,father0,d0.cardType,num0);
                return;
@@ -493,29 +493,49 @@
          var d3:GoodsDefine = null;
          var aid0:ItemsData = null;
          var canAdd0:Boolean = false;
+         var fixedCoin0:int = this.getCoreFixedCoin(cardType0);
+         var fixedArr0:Array = null;
+         var fixed0:GoodsDefine = null;
+         var rewardOrder0:Array = [];
+         var rewardTotals0:Object = {};
+         var requiredMaterial0:Object = null;
+         var requiredProps0:Object = null;
+         var requiredMaterialNum0:int = 0;
+         var requiredPropsNum0:int = 0;
+         var n:* = undefined;
          while(opened0 < openNum0)
          {
             str0 = this.getCoreGift(cardType0);
             d3 = Game.goodsDefineGroup.getDefine_byStr3(str0,-1,true);
+            fixedArr0 = this.getCoreFixedMaterials(cardType0);
             canAdd0 = true;
+            requiredMaterial0 = {};
+            requiredProps0 = {};
+            requiredMaterialNum0 = 0;
+            requiredPropsNum0 = 0;
+            for(n in fixedArr0)
+            {
+               fixed0 = fixedArr0[n];
+               if(this.GD.materialsItems.getItemsByBase(fixed0.id) == null && !requiredMaterial0.hasOwnProperty(fixed0.id))
+               {
+                  requiredMaterial0[fixed0.id] = true;
+                  requiredMaterialNum0++;
+               }
+            }
             if(d3.type == "materials")
             {
-               if(this.GD.materialsItems.getSurplus() <= 0)
+               if(this.GD.materialsItems.getItemsByBase(d3.id) == null && !requiredMaterial0.hasOwnProperty(d3.id))
                {
-                  aid0 = this.GD.materialsItems.getItemsByBase(d3.id);
-                  if(aid0 == null)
-                  {
-                     canAdd0 = false;
-                     stopReason0 = "材料背包至少需要一个空位，剩余核心未消耗。";
-                  }
+                  requiredMaterial0[d3.id] = true;
+                  requiredMaterialNum0++;
                }
             }
             else if(d3.type == "props" && !d3.getFastUseB())
             {
-               if(this.GD.propsItems.getSurplus() <= 0 && this.GD.propsItems.getItemsByBase(d3.id) == null)
+               if(this.GD.propsItems.getItemsByBase(d3.id) == null)
                {
-                  canAdd0 = false;
-                  stopReason0 = "道具背包没有空位，剩余核心未消耗。";
+                  requiredProps0[d3.id] = true;
+                  requiredPropsNum0++;
                }
             }
             else if(d3.type == "sub" || d3.type == "arms")
@@ -531,11 +551,37 @@
                   stopReason0 = "武器库没有空位，剩余核心未消耗。";
                }
             }
+            if(requiredMaterialNum0 > this.GD.materialsItems.getSurplus())
+            {
+               canAdd0 = false;
+               stopReason0 = "材料背包空位不足，剩余核心未消耗。";
+            }
+            else if(requiredPropsNum0 > this.GD.propsItems.getSurplus())
+            {
+               canAdd0 = false;
+               stopReason0 = "道具背包没有空位，剩余核心未消耗。";
+            }
             if(!canAdd0)
             {
                break;
             }
+            this.GD.addCoin(fixedCoin0);
+            this.addCoreRewardSummary(rewardOrder0,rewardTotals0,"G币",fixedCoin0);
+            for(n in fixedArr0)
+            {
+               fixed0 = fixedArr0[n];
+               Game.uiGroup.addGift_byArr([fixed0],true,this.GD.level,false);
+               this.addCoreRewardSummary(rewardOrder0,rewardTotals0,fixed0.name,fixed0.num);
+            }
             Game.uiGroup.addGift_byArr([d3],true,this.GD.level,false);
+            if(d3.id == "GCoin_card_4")
+            {
+               this.addCoreRewardSummary(rewardOrder0,rewardTotals0,"G币",int(d3.price));
+            }
+            else
+            {
+               this.addCoreRewardSummary(rewardOrder0,rewardTotals0,d3.name,d3.num);
+            }
             father0.useItemsData(it0,1);
             this.GD.propsItems.useItemsNum(toolLabel0,1);
             opened0++;
@@ -548,7 +594,7 @@
             Game.uiGroup.infoUI.fleshData();
             Game.uiGroup.saveDataNoUI("批量开启战斗核心");
          }
-         var result0:String = "批量开启完成，共开启 " + opened0 + " 个战斗核心。";
+         var result0:String = opened0 > 0 ? "拆解获得：\n" + this.formatCoreRewardSummary(rewardOrder0,rewardTotals0) : "没有拆解战斗核心。";
          if(stopReason0 != "")
          {
             result0 += "\n" + stopReason0;
@@ -558,6 +604,68 @@
             result0 += "\n核心或拆解器数量不足。";
          }
          Game.uiGroup.checkTip.showCheck2(result0,2);
+      }
+
+      private function getCoreFixedCoin(cardType0:String) : int
+      {
+         if(cardType0 == "drop_box")
+         {
+            return 50000;
+         }
+         if(cardType0 == "drop_box2")
+         {
+            return 100000;
+         }
+         return 200000;
+      }
+
+      private function getCoreFixedMaterials(cardType0:String) : Array
+      {
+         var result0:Array = [];
+         var names0:Array = ["thorn","buncher","boom"];
+         var level0:int = 0;
+         var n:* = undefined;
+         if(cardType0 == "drop_box2")
+         {
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy,10",-1,true));
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy_Z,10",-1,true));
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy_X,10",-1,true));
+            return result0;
+         }
+         for(n in names0)
+         {
+            level0 = cardType0 == "drop_box" ? 2 + int(Math.random() * 3) : 5 + int(Math.random() * 3);
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials," + names0[n] + "_" + level0 + ",10",-1,true));
+         }
+         return result0;
+      }
+
+      private function addCoreRewardSummary(order0:Array, totals0:Object, name0:String, num0:int) : *
+      {
+         if(!totals0.hasOwnProperty(name0))
+         {
+            totals0[name0] = 0;
+            order0.push(name0);
+         }
+         totals0[name0] += num0;
+      }
+
+      private function formatCoreRewardSummary(order0:Array, totals0:Object) : String
+      {
+         var result0:String = "";
+         var name0:String = null;
+         var i:int = 0;
+         while(i < order0.length)
+         {
+            name0 = order0[i];
+            if(result0 != "")
+            {
+               result0 += i % 3 == 0 ? "\n" : "，";
+            }
+            result0 += name0 + "×" + totals0[name0];
+            i++;
+         }
+         return result0;
       }
       
       public function sellItems(it0:GoodsItemsData, father0:GoodsItemsDataGroup) : *

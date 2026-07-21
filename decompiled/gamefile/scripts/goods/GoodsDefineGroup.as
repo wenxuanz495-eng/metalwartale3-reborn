@@ -865,6 +865,7 @@ private function getCustomWeaponPrice(label0:String) : int
          else if(type0 == "MCoin")
          {
             d0 = this.getItemsDefine_byID("GCoin_card_4","props");
+            d0.id = "mcoin_reward_card";
             d0.name = "M币";
             d0.price = int(arr0[1]);
             d0.specialType = "offlineMCoin";
