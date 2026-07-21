@@ -219,11 +219,11 @@ package UI.gaming
             str0 += "\n" + this.getFontColor(cd0.getRequest(),"#FF66FF");
             if(cd0.state == "ing")
             {
-               if(this.GD.challengeTaskData.challengeFail == "timeout")
+               if(this.GD.challengeTaskData.getFail(cd0.index) == "timeout")
                {
                   str0 += this.getFontColor("（时间超出，未完成）","#FF0000");
                }
-               else if(this.GD.challengeTaskData.challengeFail == "died")
+               else if(this.GD.challengeTaskData.getFail(cd0.index) == "died")
                {
                   str0 += this.getFontColor("（死亡一次，未完成）","#FF0000");
                }

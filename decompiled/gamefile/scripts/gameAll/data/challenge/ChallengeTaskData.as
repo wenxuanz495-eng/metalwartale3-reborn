@@ -247,6 +247,8 @@ package gameAll.data.challenge
          if(td0 != null && td0.state == "ing")
          {
             td0.state = "complete";
+            this.failArr[index0] = "no";
+            this.challengeFail = "no";
             Game.gameData.livenessData.addTaskNum("challenge_task");
          }
          this.syncNowTask();

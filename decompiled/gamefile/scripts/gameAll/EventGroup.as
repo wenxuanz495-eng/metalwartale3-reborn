@@ -1524,7 +1524,7 @@ package gameAll
                      {
                         if(this.GD.newLevelData.levelPack == cd22.getPageName())
                         {
-                           if(b0.define.name == cd0.enemyName && b0.type == "boss")
+                           if((b0.define != null && String(cd0.enemyName) != "" && (String(b0.define.name) == String(cd0.enemyName) || String(b0.define.trueName) == String(cd0.enemyName))) && (b0.type == "boss" || b0.type == "champion" || b0.define.isBossB || b0.type != "soldier"))
                            {
                               if(this.GD.challengeTaskData.getFail(cd0.index) == "no")
                               {
