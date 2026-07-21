@@ -78,6 +78,10 @@ package UI.shop
       private var _dateArr:Array = [];
       
       private var _timer:Timer = new Timer(1000);
+
+      private var _clockWall:Number = 0;
+
+      private var _clockTick:int = 0;
       
       private var _tempDT:DataTag = null;
       
@@ -122,8 +126,14 @@ package UI.shop
             lstd = this.GD.lastExchangeData.split("_");
          }
          var data:Number = Number(lstd[0]);
-         var nd:Date = Game.timeDate.getSaveDate.getDateClass();
-         var nowTime:Number = getTimer() + nd.getTime();
+         var nowTime:Number = this.getStableTime();
+         // Migrate legacy zero-date/getTimer timestamps and impossible future timestamps.
+         if(data < 946684800000 || data > nowTime)
+         {
+            this.saveSeverTimeData(true);
+            lstd = this.GD.lastExchangeData.split("_");
+            data = Number(lstd[0]);
+         }
          var decTime:Number = this.REFRESHTIME - (nowTime - data);
          if(decTime <= 0)
          {
@@ -624,13 +634,33 @@ package UI.shop
             sarr.push(ed.Id + "|" + dtag.flag);
          }
          sstr = sarr.join(",");
-         var data:Number = Game.timeDate.getSaveDate.getDateClass().getTime();
-         var sdate:String = data + getTimer() + "_" + sstr;
+         var data:Number = this.getStableTime();
+         var sdate:String = data + "_" + sstr;
          this.GD.lastExchangeData = sdate;
          if(issave)
          {
             Game.uiGroup.saveDataNoUI();
          }
+      }
+
+      private function getStableTime() : Number
+      {
+         var wallTime:Number = new Date().time;
+         var tick:int = getTimer();
+         if(this._clockWall <= 0 || tick < this._clockTick)
+         {
+            this._clockWall = wallTime;
+            this._clockTick = tick;
+            return wallTime;
+         }
+         var monotonicTime:Number = this._clockWall + (tick - this._clockTick);
+         if(wallTime > monotonicTime)
+         {
+            this._clockWall = wallTime;
+            this._clockTick = tick;
+            return wallTime;
+         }
+         return monotonicTime;
       }
       
       private function randomizeArray(myArray:Array) : Array
