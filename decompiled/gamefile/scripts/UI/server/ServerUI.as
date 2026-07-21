@@ -111,10 +111,6 @@ package UI.server
       {
          var mc0:Sprite = null;
          this.gotoAndStop(1);
-         if(this.logo != null)
-         {
-            this.logo.visible = false;
-         }
          var sheet:StyleSheet = new StyleSheet();
          sheet.parseCSS("a:link {text-decoration:none;}a:hover {text-decoration:underline;color:#FFFF00;}a:active {text-decoration:none;}");
          this.txt1.styleSheet = sheet;
@@ -148,7 +144,7 @@ package UI.server
          addChild(this.producer_mc);
          addChild(this.intro_mc);
       }
-      
+
       private function createOfflineNotice() : Sprite
       {
          var box:Sprite = new Sprite();
