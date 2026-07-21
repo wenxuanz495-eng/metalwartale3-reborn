@@ -18,6 +18,7 @@ func main() {
 	host := flag.String("host", "127.0.0.1", "listen host")
 	port := flag.Int("port", 8765, "listen port")
 	exportOnly := flag.Bool("export-only", false, "export latest SOL and exit")
+	fixZeroCarAffixOnce := flag.Bool("fix-zero-car-affix-once", false, "one-time fix for cars whose random affix values are all zero")
 	rootFlag := flag.String("root", "", "static root; defaults to server.exe directory")
 	flag.Parse()
 
@@ -37,6 +38,12 @@ func main() {
 		fmt.Printf("%v\n", result)
 		return
 	}
+	if *fixZeroCarAffixOnce {
+		if err := runFixZeroCarAffixOnce(root); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 	if _, err := os.Stat(filepath.Join(root, "game.swf")); err != nil {
 		log.Fatalf("game.swf missing in %s", root)
 	}
@@ -50,7 +57,7 @@ func main() {
 	errs := make(chan error, 1)
 	go func() {
 		fmt.Println("============================================================")
-		fmt.Println("  超合金战记3 Go offline server")
+		fmt.Println("  Metal War Tale offline server")
 		fmt.Printf("  Static root : %s\n", root)
 		fmt.Printf("  Game URL    : %s\n", gameURL(*host, *port))
 		fmt.Printf("  Saves       : %s\n", store.saves)

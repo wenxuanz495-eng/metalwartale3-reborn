@@ -52,6 +52,10 @@ func (a *app) serveEditor(w http.ResponseWriter, r *http.Request, path string) b
 		a.editorSave(w, r)
 	case path == "/api/editor/backups" && r.Method == http.MethodGet:
 		a.editorBackups(w)
+	case path == "/api/editor/fix-zero-car-affix" && r.Method == http.MethodPost:
+		result, err := a.store.fixZeroCarAffixes("editor-fix-zero-car-affix")
+		a.sendResult(w, result, err)
+		return true
 	case path == "/api/editor/restore" && r.Method == http.MethodPost:
 		a.editorRestore(w, r)
 	default:
