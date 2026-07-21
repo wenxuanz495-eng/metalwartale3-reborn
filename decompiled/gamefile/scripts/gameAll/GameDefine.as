@@ -532,24 +532,24 @@ package gameAll
       
       public function getAchieve(num0:int) : int
       {
-         var num1:int = num0 + 1;
+         var rank0:int = Math.max(1,num0);
          if(num0 >= 24)
-         {
-            return 700000;
-         }
-         if(num0 >= 19)
          {
             return 600000;
          }
-         if(num0 >= 15)
+         if(num0 >= 19)
          {
             return 500000;
          }
+         if(num0 >= 15)
+         {
+            return 400000;
+         }
          if(num0 >= 14)
          {
-            return num1 * num1 * 500 + 380000;
+            return 300000;
          }
-         return num1 * num1 * 500;
+         return rank0 * rank0 * 500;
       }
       
       public function getAllAchieve(num0:int) : int
@@ -559,7 +559,7 @@ package gameAll
          var num1:int = num0 + 1;
          if(num0 >= 29)
          {
-            value0 = 9500000;
+            value0 = 8410000;
          }
          else
          {
