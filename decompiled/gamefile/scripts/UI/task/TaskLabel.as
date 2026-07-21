@@ -2,6 +2,7 @@ package UI.task
 {
    import UI.button.BasicButton;
    import flash.display.MovieClip;
+   import flash.events.MouseEvent;
    import flash.text.TextField;
    
    public class TaskLabel extends BasicButton
@@ -89,6 +90,35 @@ package UI.task
       public function setNowState(str0:String) : *
       {
          this.state_mc.gotoAndStop(str0);
+      }
+
+      // The timeline's generic hover/down frames contain a lock badge. That
+      // badge is not task state and must not follow the mouse between rows.
+      override protected function MOver(event:MouseEvent) : *
+      {
+         if(this.actived)
+         {
+            this.gotoAndStop(this.getLabel());
+            this.fleshTest();
+         }
+      }
+
+      override protected function MDown(event:MouseEvent) : *
+      {
+         if(this.actived)
+         {
+            this.gotoAndStop(this.getLabel());
+            this.fleshTest();
+         }
+      }
+
+      override protected function MUp(event:MouseEvent) : *
+      {
+         if(this.actived)
+         {
+            this.gotoAndStop(this.getLabel());
+            this.fleshTest();
+         }
       }
    }
 }
