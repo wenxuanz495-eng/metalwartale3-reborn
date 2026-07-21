@@ -11,18 +11,13 @@ $gameSwf = Join-Path $buildDir "game.swf"
 $savesDir = Join-Path $buildDir "saves"
 $modSrc = Join-Path $RepoRoot "runtime\modifier.html"
 $modDst = Join-Path $buildDir "modifier.html"
+$browserProfile = Join-Path $env:TEMP ("superalloy-modifier-profile-" + [guid]::NewGuid().ToString("N"))
 
-if (-not (Test-Path $serverExe)) {
-  throw "missing $serverExe`nPlease run build first: .\构建.bat"
-}
-if (-not (Test-Path $gameSwf)) {
-  throw "missing $gameSwf`nPlease run build first: .\构建.bat"
-}
-if (-not (Test-Path $modSrc)) {
-  throw "missing modifier page: $modSrc"
-}
+if (-not (Test-Path $serverExe)) { throw "missing $serverExe`nPlease run build first: .\build.bat" }
+if (-not (Test-Path $gameSwf)) { throw "missing $gameSwf`nPlease run build first: .\build.bat" }
+if (-not (Test-Path $modSrc)) { throw "missing modifier page: $modSrc" }
 
-New-Item -ItemType Directory -Force -Path $savesDir | Out-Null
+New-Item -ItemType Directory -Force -Path $savesDir, $browserProfile | Out-Null
 Copy-Item $modSrc $modDst -Force
 
 function Test-PortFree([int]$Port) {
@@ -37,6 +32,19 @@ if (-not (Test-PortFree $Port)) {
   }
 }
 
+function Resolve-Browser {
+  $candidates = @(
+    "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe",
+    "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe",
+    "$env:ProgramFiles\Google\Chrome\Application\chrome.exe",
+    "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe"
+  )
+  foreach ($c in $candidates) {
+    if ($c -and (Test-Path -LiteralPath $c)) { return $c }
+  }
+  return $null
+}
+
 Write-Host "========================================"
 Write-Host "Launch modifier"
 Write-Host "Page   : /modifier.html"
@@ -45,6 +53,7 @@ Write-Host "Server : $serverExe"
 Write-Host "Port   : $Port"
 Write-Host "========================================"
 Write-Host "Tip: fully exit the game before saving with modifier."
+Write-Host "Close the modifier window to stop server and auto-close this console."
 
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = $serverExe
@@ -52,6 +61,7 @@ $psi.Arguments = "--root `"$buildDir`" --port $Port"
 $psi.WorkingDirectory = $buildDir
 $psi.UseShellExecute = $false
 $serverProc = [System.Diagnostics.Process]::Start($psi)
+$browserProc = $null
 try {
   $ok = $false
   for ($i = 0; $i -lt 60; $i++) {
@@ -71,15 +81,35 @@ try {
     Write-Host "modifier.html unavailable, fallback to $url"
   }
 
-  Write-Host "Open: $url"
-  Start-Process $url
-  Write-Host ""
-  Write-Host "Modifier opened. Close this window after you finish; server will stop."
-  Write-Host "Press Enter to stop the local server..."
-  [void][System.Console]::ReadLine()
+  $browser = Resolve-Browser
+  if ($browser) {
+    Write-Host "Browser  : $browser"
+    Write-Host "Open     : $url"
+    $args = @(
+      "--user-data-dir=$browserProfile",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--new-window",
+      "--app=$url"
+    )
+    $browserProc = Start-Process -FilePath $browser -ArgumentList $args -PassThru
+    Wait-Process -Id $browserProc.Id
+  } else {
+    Write-Host "Open     : $url"
+    Write-Host "No Edge/Chrome found. Opened with default browser."
+    Write-Host "If the console does not auto-close, press Enter after finishing."
+    Start-Process $url
+    [void][System.Console]::ReadLine()
+  }
 }
 finally {
+  if ($browserProc -and -not $browserProc.HasExited) {
+    Stop-Process -Id $browserProc.Id -Force -ErrorAction SilentlyContinue
+  }
   if ($serverProc -and -not $serverProc.HasExited) {
     Stop-Process -Id $serverProc.Id -Force -ErrorAction SilentlyContinue
+  }
+  if (Test-Path -LiteralPath $browserProfile) {
+    Remove-Item -LiteralPath $browserProfile -Recurse -Force -ErrorAction SilentlyContinue
   }
 }

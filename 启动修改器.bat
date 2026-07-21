@@ -24,4 +24,11 @@ if not exist "runtime\modifier.html" (
   exit /b 1
 )
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\run_modifier.ps1"
-if errorlevel 1 pause
+set ERR=%ERRORLEVEL%
+if not "%ERR%"=="0" (
+  echo.
+  echo [ERROR] modifier failed, code=%ERR%
+  pause
+  exit /b %ERR%
+)
+exit /b 0

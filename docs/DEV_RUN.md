@@ -64,3 +64,9 @@ PowerShell：
 - 修改存档：`build/saves/game_save.bin`
 - 使用前请先完全退出游戏
 
+## 自动关闭 CMD
+
+- 游戏：关闭 Flash 播放器后，脚本结束，CMD 自动关闭
+- 修改器：关闭修改器浏览器窗口后，本地 server 停止，CMD 自动关闭
+- 仅在启动失败时才会 pause 等待查看错误
+

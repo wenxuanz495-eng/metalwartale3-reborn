@@ -18,4 +18,11 @@ if not exist "build\game.swf" (
   exit /b 1
 )
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\run_dev.ps1" -PlayerType release
-if errorlevel 1 pause
+set ERR=%ERRORLEVEL%
+if not "%ERR%"=="0" (
+  echo.
+  echo [ERROR] launch failed, code=%ERR%
+  pause
+  exit /b %ERR%
+)
+exit /b 0
