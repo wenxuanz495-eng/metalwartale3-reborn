@@ -74,11 +74,13 @@ package UI.task
          this.itemsBox.y = 255;
          this.addChild(this.itemsBox);
          this.no_btn.mouseEnabled = false;
-         this.no_btn.txt.text = "该任务本周次数使用完毕";
+         this.no_btn.txt.text = "该任务可无限重复完成";
          this.get_btn.addEventListener(MouseEvent.CLICK,this.startOneTask);
          this.giveup_btn.addEventListener(MouseEvent.CLICK,this.giveupNowTask);
          this.complete_btn.addEventListener(MouseEvent.CLICK,this.getGift);
          this.buy_btn.addEventListener(MouseEvent.CLICK,this.upUseNum);
+         this.buy_btn.visible = false;
+         this.buy_btn.mouseEnabled = false;
       }
       
       public function fleshData() : *
@@ -100,6 +102,7 @@ package UI.task
          var td0:CollectTaskDefine = this.cData.getTrueTask_byIndex(this.nowIndex);
          var cnName0:String = td0.targetItems;
          this.taskName_txt.htmlText = td0.getTitle();
+         this.taskNum_txt.text = "扫荡任务无冷却、无每日次数上限，可无限重复完成。";
          var str0:String = "";
          str0 += "关卡：" + this.getFontColor("任意关卡","#00FFFF");
          str0 += "\n任务：" + this.getFontColor("杀死 " + td0.targetNum + " 个敌人再来找我！","#00FFFF");
@@ -124,7 +127,8 @@ package UI.task
          }
          else if(td0.state == "over")
          {
-            this.showBtn("no");
+            td0.state = "no";
+            this.showBtn("get");
          }
          else if(td0.state == "ing")
          {
@@ -166,16 +170,11 @@ package UI.task
          }
          this.list.inData_byArr(list_arr0);
          this.list.showState(0);
-         if(!this.cData.buyB && this.list.arr[0].itemsData.state == "over")
-         {
-            this.buy_btn.mouseEnabled = true;
-            this.buy_btn.alpha = 1;
-         }
-         else
-         {
-            this.buy_btn.mouseEnabled = false;
-            this.buy_btn.alpha = 0.3;
-         }
+         // The original online UI sold one extra weekly attempt. Offline sweep
+         // tasks have no quota, so the purchase entry must remain unavailable.
+         this.buy_btn.visible = false;
+         this.buy_btn.mouseEnabled = false;
+         this.buy_btn.alpha = 0;
       }
       
       public function upUseNum(e:* = null) : *

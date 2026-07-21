@@ -1,6 +1,5 @@
 package gameAll.data.collect
 {
-   import data.StringDate;
    import data.TextWay;
    
    public class WeekTaskData
@@ -50,6 +49,12 @@ package gameAll.data.collect
          {
             d0 = new CollectTaskDefine();
             d0.state = obj.arr[m].state;
+            // Legacy saves used "over" as a daily/weekly exhausted state.
+            // Sweep tasks are now unlimited, so migrate it to available.
+            if(d0.state == "over")
+            {
+               d0.state = "no";
+            }
             this.arr[m] = d0;
             if(nowTask0 == null && d0.getNowB())
             {
@@ -75,6 +80,10 @@ package gameAll.data.collect
                d0 = new CollectTaskDefine();
             }
             d0.inData_byObj(arr1[n]);
+            if(d0.state == "over")
+            {
+               d0.state = "no";
+            }
             this.arr[n] = d0;
          }
       }
@@ -98,7 +107,11 @@ package gameAll.data.collect
       public function startOneTask(nowIndex:*) : *
       {
          this.nowTask = this.getTrueTask_byIndex(nowIndex);
-         this.nowTask.state = "ing";
+         if(this.nowTask != null)
+         {
+            this.nowTask.state = "ing";
+            this.nowNum = 0;
+         }
       }
       
       public function getTrueTask_byIndex(index0:int) : *
@@ -129,26 +142,10 @@ package gameAll.data.collect
       
       public function newDayCtrl() : *
       {
-         var cd0:int = 0;
-         var nd0:StringDate = Game.severTime.nowTime;
-         trace("当前时间：" + nd0.getStr());
-         trace("刷新日期：" + this.weekFleshDate);
-         var d0:StringDate = new StringDate();
-         if(this.weekFleshDate == "")
-         {
-            this.weekFleshDate = nd0.getStr();
-         }
-         d0.inData_byStr(this.weekFleshDate);
-         if(nd0.fullYear >= 2013)
-         {
-            cd0 = -nd0.compareDate(d0);
-            if(cd0 >= 7)
-            {
-               this.buyB = false;
-               this.newWeekCtrl();
-               this.weekFleshDate = nd0.getStr();
-            }
-         }
+         // No daily/weekly quota remains. Keep this method only for old save
+         // compatibility and normalize exhausted legacy states.
+         this.buyB = false;
+         this.newWeekCtrl();
       }
       
       public function newWeekCtrl() : *
