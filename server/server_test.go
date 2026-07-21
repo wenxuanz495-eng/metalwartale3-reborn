@@ -71,6 +71,53 @@ func TestParseRawDeflatedAMF3Payload(t *testing.T) {
 	}
 }
 
+func TestAMF3AssociativeArrayRegistersObjectBeforeChildren(t *testing.T) {
+	// Array object #0 has one associative object (#1), followed by a dense
+	// reference to object #1. Registering the array after its associative
+	// values incorrectly makes that reference resolve to the array itself.
+	r := newAMFReader([]byte{
+		0x09, 0x03, // inline array, one dense value
+		0x03, 'x', // associative key
+		0x0A, 0x0B, 0x01, 0x01, // inline empty dynamic object
+		0x01,       // end associative keys
+		0x0A, 0x02, // dense value: object reference #1
+	})
+	value, err := r.readAMF3()
+	if err != nil {
+		t.Fatal(err)
+	}
+	assoc, ok := value.(map[string]any)
+	if !ok {
+		t.Fatalf("expected associative array map, got %T", value)
+	}
+	dense, ok := assoc["$dense"].([]any)
+	if !ok || len(dense) != 1 {
+		t.Fatalf("expected one dense value, got %#v", assoc["$dense"])
+	}
+	if _, ok := assoc["x"].(map[string]any); !ok {
+		t.Fatalf("expected associative object, got %T", assoc["x"])
+	}
+	if _, ok := dense[0].(map[string]any); !ok {
+		t.Fatalf("object reference resolved to %T instead of object #1", dense[0])
+	}
+}
+
+func TestNormalizeCurrencyMirrors(t *testing.T) {
+	data := map[string]any{"GCoin": 123, "GCoin2": 1, "MCoin": 456, "MCoin2": 2}
+	root := map[string]any{"localSlots": []any{map[string]any{"data": data}}}
+	normalizeCurrencyMirrors(root)
+	if data["GCoin2"] != 123 || data["MCoin2"] != 456 {
+		t.Fatalf("currency mirrors were not synchronized: %#v", data)
+	}
+}
+
+func TestAMF3InvalidObjectReferenceReturnsError(t *testing.T) {
+	r := newAMFReader([]byte{0x09, 0x00}) // array reference #0 with no objects registered
+	if _, err := r.readAMF3(); err == nil {
+		t.Fatal("expected invalid object reference error")
+	}
+}
+
 func TestAMF0StrictArrayRejectsImpossibleLengthBeforeAllocating(t *testing.T) {
 	// AMF3 objects and AMF0 strict arrays both use marker 0x0a. Probing an
 	// AMF3 payload as AMF0 must reject its trait bytes as an impossible array

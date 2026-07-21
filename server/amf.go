@@ -269,6 +269,14 @@ func (r *amfReader) readAMF3String() (string, error) {
 	return s, nil
 }
 
+func (r *amfReader) readObjectReference(ref int) (any, error) {
+	idx := ref >> 1
+	if idx < 0 || idx >= len(r.objects) {
+		return nil, fmt.Errorf("invalid AMF3 object reference %d", idx)
+	}
+	return r.objects[idx], nil
+}
+
 func (r *amfReader) readAMF3() (any, error) {
 	t, err := r.u8()
 	if err != nil {
@@ -297,7 +305,7 @@ func (r *amfReader) readAMF3() (any, error) {
 			return nil, err
 		}
 		if ref&1 == 0 {
-			return r.objects[ref>>1], nil
+			return r.readObjectReference(ref)
 		}
 		ms, err := r.double()
 		if err != nil {
@@ -316,7 +324,7 @@ func (r *amfReader) readAMF3() (any, error) {
 			return nil, err
 		}
 		if ref&1 == 0 {
-			return r.objects[ref>>1], nil
+			return r.readObjectReference(ref)
 		}
 		v, err := r.take(ref >> 1)
 		if err != nil {
@@ -336,13 +344,19 @@ func (r *amfReader) readAMF3Array() (any, error) {
 		return nil, err
 	}
 	if ref&1 == 0 {
-		return r.objects[ref>>1], nil
+		return r.readObjectReference(ref)
 	}
 	denseLen := ref >> 1
 	if denseLen > maxAMFCollectionEntries {
 		return nil, fmt.Errorf("invalid AMF3 array length %d", denseLen)
 	}
+	// AMF3 registers an inline array before reading its associative and dense
+	// values. Register a placeholder now so every following object reference
+	// keeps the same index as Flash Player, including references created inside
+	// an associative array such as localSlots.
+	objectIndex := len(r.objects)
 	assoc := map[string]any{}
+	r.objects = append(r.objects, assoc)
 	for {
 		key, err := r.readAMF3String()
 		if err != nil {
@@ -361,7 +375,6 @@ func (r *amfReader) readAMF3Array() (any, error) {
 		return nil, fmt.Errorf("invalid AMF3 dense-array length %d with %d bytes remaining", denseLen, r.remaining())
 	}
 	arr := make([]any, 0, denseLen)
-	r.objects = append(r.objects, arr)
 	for range denseLen {
 		value, err := r.readAMF3()
 		if err != nil {
@@ -369,11 +382,12 @@ func (r *amfReader) readAMF3Array() (any, error) {
 		}
 		arr = append(arr, value)
 	}
-	r.objects[len(r.objects)-1] = arr
 	if len(assoc) == 0 {
+		r.objects[objectIndex] = arr
 		return arr, nil
 	}
 	assoc["$dense"] = arr
+	r.objects[objectIndex] = assoc
 	return assoc, nil
 }
 
@@ -383,7 +397,7 @@ func (r *amfReader) readAMF3Object() (any, error) {
 		return nil, err
 	}
 	if ref&1 == 0 {
-		return r.objects[ref>>1], nil
+		return r.readObjectReference(ref)
 	}
 	var traits amfTraits
 	if ref&3 == 1 {

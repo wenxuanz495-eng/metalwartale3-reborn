@@ -64,7 +64,6 @@ func (a *app) serveEditor(w http.ResponseWriter, r *http.Request, path string) b
 	return true
 }
 
-
 // normalizeEditorRoot forces localSlots into a plain 8-length array for the web editor.
 // AMF dense/associative maps are flattened so the modifier never sees mixed shapes.
 func normalizeEditorRoot(value any) any {
@@ -180,6 +179,7 @@ func (a *app) editorSave(w http.ResponseWriter, r *http.Request) {
 		a.sendJSON(w, map[string]any{"ok": false, "error": "存档根节点必须是对象"}, http.StatusBadRequest)
 		return
 	}
+	normalizeCurrencyMirrors(normalized)
 	if err := validateEditorValue(normalized, 0); err != nil {
 		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
 		return
@@ -207,6 +207,52 @@ func (a *app) editorSave(w http.ResponseWriter, r *http.Request) {
 	result["backup"] = backup
 	result["game_data"] = jsonSafe(roundTrip, 0)
 	a.sendJSON(w, result, http.StatusOK)
+}
+
+// normalizeCurrencyMirrors keeps the game's redundant currency fields in
+// sync. The primary values are authoritative; exposing both fields as
+// independent editor inputs allowed a valid-looking MB edit to leave MCoin2
+// stale and made old saves harder to diagnose.
+func normalizeCurrencyMirrors(value any) {
+	root, ok := value.(map[string]any)
+	if !ok {
+		return
+	}
+	slots, ok := root["localSlots"]
+	if !ok {
+		return
+	}
+	normalizeSlot := func(item any) {
+		slot, ok := item.(map[string]any)
+		if !ok || slot == nil {
+			return
+		}
+		data, ok := slot["data"].(map[string]any)
+		if !ok || data == nil {
+			return
+		}
+		if primary, exists := data["GCoin"]; exists {
+			data["GCoin2"] = primary
+		}
+		if primary, exists := data["MCoin"]; exists {
+			data["MCoin2"] = primary
+		}
+	}
+	switch typed := slots.(type) {
+	case []any:
+		for _, item := range typed {
+			normalizeSlot(item)
+		}
+	case map[string]any:
+		if dense, ok := typed["$dense"].([]any); ok {
+			for _, item := range dense {
+				normalizeSlot(item)
+			}
+		}
+		for index := 0; index < 8; index++ {
+			normalizeSlot(typed[fmt.Sprintf("%d", index)])
+		}
+	}
 }
 
 func (a *app) editorBackups(w http.ResponseWriter) {

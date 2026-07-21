@@ -65,8 +65,8 @@ const quickGroups=[
  {title:"玩家",fields:[
   ["玩家名称","playerName","text"],["人物等级","level","number"],["当前经验","nowExp","number"],["成就","achieve","number"]
  ]},
- {title:"货币",fields:[
-  ["G 币","GCoin","number"],["M 币","MCoin","number"],["备用 G 币","GCoin2","number"],["备用 M 币","MCoin2","number"]
+   {title:"货币（备用字段保存时自动同步）",fields:[
+   ["G 币","GCoin","number"],["M 币","MCoin","number"]
  ]},
  {title:"基础属性",fields:[
   ["基础耐久","baseLife","number"],["车身耐久","carLife","number"],["永久耐久","foreverLife","number"],["当前耐久","nowLife","number"]
