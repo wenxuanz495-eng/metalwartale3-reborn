@@ -267,9 +267,17 @@ package UI.gift
             if(child is TextField)
             {
                field = child as TextField;
+               if(field.text.indexOf("累计充值值礼包") >= 0)
+               {
+                  field.text = field.text.replace("累计充值值礼包","累计MB礼包");
+               }
+               if(field.text.indexOf("累计充值礼包") >= 0)
+               {
+                  field.text = field.text.replace("累计充值礼包","累计MB礼包");
+               }
                if(field.text.indexOf("累计充值奖励") >= 0)
                {
-                  field.text = field.text.replace("累计充值奖励","累计获得M币奖励");
+                  field.text = field.text.replace("累计充值奖励","累计MB礼包");
                }
                if(field.text.indexOf("1元=10M币") >= 0)
                {

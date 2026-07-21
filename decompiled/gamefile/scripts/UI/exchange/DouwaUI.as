@@ -8,6 +8,7 @@ package UI.exchange
    import flash.net.URLRequest;
    import flash.net.navigateToURL;
    import flash.text.TextField;
+   import flash.text.TextFieldType;
    
    public class DouwaUI extends Sprite
    {
@@ -31,12 +32,23 @@ package UI.exchange
       public function DouwaUI()
       {
          super();
-         this._btn.addEventListener(MouseEvent.CLICK,this.click);
-         this.goto_btn.addEventListener(MouseEvent.CLICK,this.gotoClick);
-         this.goto_btn2.addEventListener(MouseEvent.CLICK,this.gotoClick2);
-         this.goto_btn3.addEventListener(MouseEvent.CLICK,this.gotoClick3);
-         this.goto_btn4.addEventListener(MouseEvent.CLICK,this.gotoClick4);
+         this.disableCodeControls();
          this.return_btn.addEventListener(MouseEvent.CLICK,this.hide);
+      }
+
+      private function disableCodeControls() : *
+      {
+         var buttons:Array = [this._btn,this.goto_btn,this.goto_btn2,this.goto_btn3,this.goto_btn4];
+         var button0:SimpleButton = null;
+         this.code_txt.type = TextFieldType.DYNAMIC;
+         this.code_txt.selectable = false;
+         this.code_txt.mouseEnabled = false;
+         this.code_txt.text = "离线版已禁用兑换码";
+         for each(button0 in buttons)
+         {
+            button0.mouseEnabled = false;
+            button0.alpha = 0.35;
+         }
       }
       
       public function gotoClick(e:*) : *
@@ -61,8 +73,7 @@ package UI.exchange
       
       public function click(e:*) : *
       {
-         Game.payController.getStoreState(this.morePan);
-         Game.uiGroup.loadingUI.show();
+         Game.uiGroup.checkTip.showCheck2("离线版已禁用兑换码功能。",2);
       }
       
       public function morePan() : *

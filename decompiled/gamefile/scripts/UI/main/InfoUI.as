@@ -151,30 +151,12 @@ package UI.main
          var name0:String = event.target.name;
          if(name0 == "name_btn")
          {
-            if(Game.gameData.rankAdd.nameChangeNum > 0)
-            {
-               this.showChangeName();
-            }
-            else if(Game.gameData.MCoin < 5)
-            {
-               Game.uiGroup.checkTip.showCheck2("修改昵称需要5M币，\nM币不足，无法修改。",2);
-            }
-            else
-            {
-               Game.uiGroup.checkTip.showCheck2("修改昵称需要5M币，要继续吗？",1,this.showChangeName);
-            }
+            this.showChangeName();
          }
          else if(event.target is HeadBtn)
          {
             trace("修改头像！！");
-            if(Game.gameData.MCoin < 10)
-            {
-               Game.uiGroup.checkTip.showCheck2("修改头像需要10M币，\nM币不足，无法修改。",2);
-            }
-            else
-            {
-               Game.uiGroup.checkTip.showCheck2("修改头像需要10M币，要继续吗？",1,this.showChangeHead);
-            }
+            this.showChangeHead();
          }
          else if(name0 == "rank_btn")
          {
@@ -195,7 +177,7 @@ package UI.main
       {
          Game.uiGroup.loginUI.visible = true;
          Game.uiGroup.loginUI.showBox("head");
-         trace("修改头像，需要消耗10M币。");
+         trace("免费修改头像。");
       }
       
       private function showChangeName() : *
@@ -206,15 +188,7 @@ package UI.main
       
       private function affter_showChangeName() : *
       {
-         if(Game.gameData.rankAdd.nameChangeNum > 0)
-         {
-            this.changeNameYes();
-            --Game.gameData.rankAdd.nameChangeNum;
-         }
-         else
-         {
-            Game.payController.decMCoin(5,this.changeNameYes);
-         }
+         this.changeNameYes();
       }
       
       public function changeNameYes() : *
@@ -235,16 +209,12 @@ package UI.main
          var GD:GameData = Game.gameData;
          if(event.target == this.name_btn)
          {
-            str00 = "点击修改名称\n需要消耗5M币";
-            if(Game.gameData.rankAdd.nameChangeNum > 0)
-            {
-               str00 += "\n" + this.getColor("你有" + Game.gameData.rankAdd.nameChangeNum + "次免费修改的机会","#FFFF00");
-            }
+            str00 = "点击免费修改名称";
             this.tipBox.showText(str00);
          }
          else if(event.target == this.head_btn)
          {
-            this.tipBox.showText("点击修改头像\n需要消耗10M币");
+            this.tipBox.showText("点击免费修改头像\n未解锁头像需要50000 G币");
          }
          else if(event.target == this.rank_btn)
          {

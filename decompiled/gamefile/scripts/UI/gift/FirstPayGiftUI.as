@@ -5,8 +5,11 @@ package UI.gift
    import body.define.OneArmsDefine;
    import body.hero.CarDefine;
    import flash.display.SimpleButton;
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
+   import flash.text.TextField;
    import gameAll.data.ArmsItemsData;
    import gameAll.data.CarItemsData;
    import gameAll.data.car.CarDataCreator;
@@ -37,8 +40,38 @@ package UI.gift
       
       public function show(e:* = null) : *
       {
+         if(this.parent is DisplayObjectContainer)
+         {
+            this.replaceFirstPayText(this.parent as DisplayObjectContainer);
+         }
+         else
+         {
+            this.replaceFirstPayText(this);
+         }
          this.fleshData();
          this.visible = true;
+      }
+
+      private function replaceFirstPayText(container:DisplayObjectContainer) : void
+      {
+         var child:DisplayObject = null;
+         var field:TextField = null;
+         for(var i:int = 0; i < container.numChildren; i++)
+         {
+            child = container.getChildAt(i);
+            if(child is TextField)
+            {
+               field = child as TextField;
+               if(field.text.indexOf("首充礼包") >= 0)
+               {
+                  field.text = field.text.replace("首充礼包","新手礼包");
+               }
+            }
+            else if(child is DisplayObjectContainer)
+            {
+               this.replaceFirstPayText(child as DisplayObjectContainer);
+            }
+         }
       }
       
       public function hide(e:* = null) : *

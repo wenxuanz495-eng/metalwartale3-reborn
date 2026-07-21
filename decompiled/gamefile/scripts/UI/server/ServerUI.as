@@ -98,6 +98,8 @@ package UI.server
       private var notice_txt:TextField;
       
       private var noticeLoader:URLLoader;
+
+      private var gameNoticeLoader:URLLoader;
       
       public function ServerUI()
       {
@@ -109,10 +111,15 @@ package UI.server
       {
          var mc0:Sprite = null;
          this.gotoAndStop(1);
+         if(this.logo != null)
+         {
+            this.logo.visible = false;
+         }
          var sheet:StyleSheet = new StyleSheet();
          sheet.parseCSS("a:link {text-decoration:none;}a:hover {text-decoration:underline;color:#FFFF00;}a:active {text-decoration:none;}");
          this.txt1.styleSheet = sheet;
-         this.txt1.htmlText = this.str1.text;
+         this.txt1.htmlText = "本游戏开发，感谢@凉粉、@风水、@小熊、@愿原力与你同在、@客观、以及所有在内测群提供帮助的玩家们。";
+         this.loadGameNotice();
          this.versionNumber_txt.text = "超合金离线优化海豹版，1.2";
          this.producer_mc.visible = false;
          this.intro_mc.visible = false;
@@ -152,7 +159,7 @@ package UI.server
          this.notice_txt.wordWrap = true;
          this.notice_txt.selectable = false;
          this.notice_txt.defaultTextFormat = new TextFormat("_sans",13,65331,null,null,null,null,null,null,0,0,3,2);
-         this.notice_txt.text = "【离线优化海豹版 1.2·游玩说明】\n" + "1. 剧情关卡首次通关奖励M币，章节终章另有额外奖励。\n" + "2. 精英副本需要精英副本挑战卡；无卡挑战没有奖励和翻牌。\n" + "3. 挑战卡可从普通关卡结算翻牌，或日常、挑战、收集任务获得。\n" + "4. 精英副本固定奖励15～80M币，翻牌还有机会获得25M币。\n" + "5. 玩家副本奖励45M币，特殊副本奖励15M币。\n" + "6. 20级解锁星座武器后，12件武器均可各领取一次。\n" + "7. 每级升级所需经验大幅降低，回归玩家可更顺畅推进剧情。\n" + "8. 三类战斗核心爆率提高；拆解必得G币及对应保底材料。\n" + "9. 核心可选择使用全部，按对应拆解器数量批量拆解并消耗拆解器。\n" + "10. 成长礼包达到对应等级即可免费领取，不需要充值。\n" + "11. 累计充值礼包已改为累计获得M币礼包，历史累计达到档位即可领取。\n" + "12. 原首充礼包改为登录礼包，每个存档登录后可免费领取一次。";
+         this.notice_txt.text = "【超合金离线优化海豹版 1.2.4 内测更新】\n详细更新内容请查看游戏根目录的公告.txt。";
          box.addChild(this.notice_txt);
          return box;
       }
@@ -164,6 +171,44 @@ package UI.server
          this.noticeLoader.addEventListener(Event.COMPLETE,this.offlineNoticeLoaded);
          this.noticeLoader.addEventListener(IOErrorEvent.IO_ERROR,this.offlineNoticeLoadFailed);
          this.noticeLoader.load(new URLRequest("公告.txt?time=" + new Date().time));
+      }
+
+      private function loadGameNotice() : void
+      {
+         this.gameNoticeLoader = new URLLoader();
+         this.gameNoticeLoader.dataFormat = URLLoaderDataFormat.TEXT;
+         this.gameNoticeLoader.addEventListener(Event.COMPLETE,this.gameNoticeLoaded);
+         this.gameNoticeLoader.addEventListener(IOErrorEvent.IO_ERROR,this.gameNoticeLoadFailed);
+         this.gameNoticeLoader.load(new URLRequest("游戏公告.txt?time=" + new Date().time));
+      }
+
+      private function gameNoticeLoaded(event:Event) : void
+      {
+         var text0:String = String(this.gameNoticeLoader.data);
+         if(text0.length > 0 && text0.charCodeAt(0) == 65279)
+         {
+            text0 = text0.substr(1);
+         }
+         if(text0.length > 0)
+         {
+            this.txt1.htmlText = text0;
+         }
+         this.clearGameNoticeLoader();
+      }
+
+      private function gameNoticeLoadFailed(event:IOErrorEvent) : void
+      {
+         this.clearGameNoticeLoader();
+      }
+
+      private function clearGameNoticeLoader() : void
+      {
+         if(this.gameNoticeLoader != null)
+         {
+            this.gameNoticeLoader.removeEventListener(Event.COMPLETE,this.gameNoticeLoaded);
+            this.gameNoticeLoader.removeEventListener(IOErrorEvent.IO_ERROR,this.gameNoticeLoadFailed);
+            this.gameNoticeLoader = null;
+         }
       }
       
       private function offlineNoticeLoaded(event:Event) : void

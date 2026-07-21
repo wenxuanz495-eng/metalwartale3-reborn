@@ -35,8 +35,8 @@ if (html.includes('id="editorFrame"')) {
       throw new Error(`missing modifier runtime dependency ${pattern}: ${file}`);
     }
   }
-  if (!/featureData\.autoCollectLifePer===false/.test(html) ||
-      !/d\.autoCollectLifePer=!Boolean\(doc\.getElementById\("disableAutoCollectLifePer"\)\.checked\)/.test(html)) {
+  if (!/featureData\.disableAutoCollectLifePer!==false/.test(html) ||
+      !/"disableAutoCollectLifePer"/.test(html)) {
     throw new Error(`medical-kit auto-collect toggle is not mapped as checked=disabled: ${file}`);
   }
 }

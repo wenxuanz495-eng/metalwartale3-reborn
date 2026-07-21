@@ -597,10 +597,9 @@ package items
          var bag0:* = null;
          if(items0.label == "add")
          {
-            // Whitelist: medical kit(lifePer) auto-collect can be disabled by modifier.
             if(items0.addType == "lifePer")
             {
-               return this.GD.autoCollectLifePer !== false;
+               return !this.GD.disableAutoCollectLifePer;
             }
             return true;
          }

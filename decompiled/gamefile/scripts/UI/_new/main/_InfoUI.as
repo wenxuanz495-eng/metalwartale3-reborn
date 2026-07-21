@@ -135,7 +135,7 @@ package UI._new.main
          base_str0 += "军衔 " + this.GD.playerRank + "\n";
          base_str0 += "称号 " + this.GD.honorData.getNowHonorName() + "\n";
          this.baseInfo_txt.text = base_str0;
-         this.dps_txt.text = "战斗力 " + this.GD.getAllDps() + "";
+         this.dps_txt.text = "战斗力 " + Math.round(this.GD.getAllDps()) + "";
          var num_str0:String = "";
          num_str0 += "经验 " + int(this.GD.nowExp) + "/" + int(this.GD.maxExp) + "\n";
          num_str0 += "功勋 " + int(this.GD.allAchieve) + "/" + int(Game.gameDefine.getAllAchieve(this.GD.rankLevel)) + "\n";

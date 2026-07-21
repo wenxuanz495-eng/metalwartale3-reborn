@@ -370,10 +370,6 @@ package UI.shop
                this.price_txt.htmlText = this.price_txt.htmlText + spaceStr0 + "<font color=\'#FFFFFF\'>" + this.swapToWan(int(p00 / (1 - this.itemsData.discount))) + "</font>";
             }
          }
-         else if(discount == -1000)
-         {
-            this.price_txt.text = "?????";
-         }
          var d0:* = this.itemsData;
          if(discount == -100 && d0.priceType == "Mprice")
          {

@@ -1,6 +1,8 @@
 package UI._new.main
 {
    import UI.main.MainUI;
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
@@ -88,6 +90,44 @@ package UI._new.main
          this.startSaveDelay();
          this.firstGift_y = this.firstPayGift_btn.y;
          this.conArms_y = this.conChoose_btn.y;
+         this.replaceButtonText(this.firstPayGift_btn,["首充礼包"],"新手礼包");
+         this.replaceButtonText(this.allGift_btn,["累计充值值奖励","累计充值值礼包","累计充值奖励","累计充值奖励","累计充值礼包"],"累计MB礼包");
+      }
+
+      private function replaceButtonText(button:SimpleButton, oldValues:Array, newValue:String) : void
+      {
+         this.replaceDisplayText(button.upState,oldValues,newValue);
+         this.replaceDisplayText(button.overState,oldValues,newValue);
+         this.replaceDisplayText(button.downState,oldValues,newValue);
+         this.replaceDisplayText(button.hitTestState,oldValues,newValue);
+      }
+
+      private function replaceDisplayText(display:DisplayObject, oldValues:Array, newValue:String) : void
+      {
+         var field:TextField = display as TextField;
+         var container:DisplayObjectContainer = null;
+         var oldValue:String = null;
+         var i:int = 0;
+         if(field != null)
+         {
+            for each(oldValue in oldValues)
+            {
+               if(field.text.indexOf(oldValue) >= 0)
+               {
+                  field.text = field.text.replace(oldValue,newValue);
+               }
+            }
+            return;
+         }
+         container = display as DisplayObjectContainer;
+         if(container != null)
+         {
+            while(i < container.numChildren)
+            {
+               this.replaceDisplayText(container.getChildAt(i),oldValues,newValue);
+               i++;
+            }
+         }
       }
       
       public function initEvent(mainUI:MainUI) : *
