@@ -77,7 +77,10 @@ package UI.arena
          this.highBox.define = this.highDefine;
          this.highBox.pageBox.visible = false;
          this.highBox.pageBox.maxPage = 1;
-         this.refreshLocalOpponents();
+         // Do NOT generate local opponents during UI construction.
+         // At boot time the player may have no equipped car yet; that used to freeze loading at "音效数据 100%".
+         this.localOpponents = [];
+         this.highBox.data_arr = [];
          this.addNum_btn.addEventListener(MouseEvent.CLICK,this.addNumFun);
          this.mustM0 = TextWay.toCode("10");
          this.highBox.addEventListener(ClickEvent.ON_OVER,this.barOver);
@@ -133,6 +136,10 @@ package UI.arena
 
       private function fleshOpponentStates() : *
       {
+         if(this.localOpponents == null)
+         {
+            this.localOpponents = [];
+         }
          var n:* = undefined;
          var bar0:ArenArivalBar = null;
          var highBar:ArenaHighBar = null;

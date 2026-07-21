@@ -320,8 +320,12 @@ package net
                trace("加载swf错误: " + sl.url + " " + event);
                if(sl.loadcount <= 0)
                {
-                  this.baifenText = "加载swf失败：" + sl.url;
-                  return;
+                  // Keep loading queue alive. Historical bug: a single failed SWF
+                  // (often sound.swf under flaky path) froze the boot screen at 100%.
+                  this.baifenText = "加载swf失败，已跳过：" + sl.url;
+                  trace("加载swf最终失败并跳过: " + sl.url);
+                  this._startLoad();
+                  break;
                }
                --sl.loadcount;
                this.waiting_arr.push(sl);

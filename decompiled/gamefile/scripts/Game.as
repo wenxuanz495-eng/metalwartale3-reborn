@@ -545,7 +545,10 @@ package
          save_api.init();
          SG.addMusic(swfLoaderManager.getResource("Decisions","Decisions"),"Decisions");
          this.music = SG.getMusic("Decisions");
-         this.music.play(10000);
+         if(this.music != null)
+         {
+            this.music.play(10000);
+         }
          gameData.levelsMax = gameDefine.levelsMax;
          gameDefine.drop.inData_byXML(XML(textLoaderManager.getResource("drop").data));
          gameDefine.drop.test();
@@ -578,8 +581,21 @@ package
          uiGroup.init();
          IC.init();
          var soundMustData_swf:* = swfLoaderManager.getResource("sound","MustSoundData");
-         var soundArr:Array = soundMustData_swf.soundMustArr;
-         var musicArr:Array = soundMustData_swf.musicMustArr;
+         var soundArr:Array = null;
+         var musicArr:Array = null;
+         if(soundMustData_swf != null)
+         {
+            soundArr = soundMustData_swf.soundMustArr;
+            musicArr = soundMustData_swf.musicMustArr;
+         }
+         if(soundArr == null)
+         {
+            soundArr = [];
+         }
+         if(musicArr == null)
+         {
+            musicArr = [];
+         }
          SG.addMusicList(musicArr);
          SG.addSoundList(soundArr);
          BG.init();

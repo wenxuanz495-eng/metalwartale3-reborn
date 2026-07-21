@@ -174,6 +174,10 @@ package gameAll.data
          var heads:Array = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15"];
          var base:HighArena_ExtraData = Game.gameData.getHighArena_ExtraData();
          var result:Array = [];
+         if(base == null)
+         {
+            base = new HighArena_ExtraData();
+         }
          var arms0:Array = base.arms != null && base.arms.length > 0 ? base.arms : ["soya_lv1"];
          var sub0:Array = base.sub != null && base.sub.length > 0 ? base.sub : ["highEnergy_lv2"];
          var car0:String = base.car != null && base.car != "" ? base.car : "beetle";

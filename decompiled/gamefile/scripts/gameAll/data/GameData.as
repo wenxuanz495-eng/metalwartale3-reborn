@@ -1048,9 +1048,16 @@
       public function getHighArena_ExtraData() : HighArena_ExtraData
       {
          var d0:HighArena_ExtraData = new HighArena_ExtraData();
-         d0.arms = this.armsItems.getEquipList();
-         d0.sub = this.subItems.getEquipList();
-         d0.car = this.carItems.equArr[0].baseLabel;
+         d0.arms = this.armsItems != null ? this.armsItems.getEquipList() : [];
+         d0.sub = this.subItems != null ? this.subItems.getEquipList() : [];
+         if(this.carItems != null && this.carItems.equArr != null && this.carItems.equArr.length > 0 && this.carItems.equArr[0] != null)
+         {
+            d0.car = this.carItems.equArr[0].baseLabel;
+         }
+         else
+         {
+            d0.car = "beetle";
+         }
          d0.skill = this.skillLevel;
          d0.group = this.groupData.name;
          d0.name = this.playerName;
