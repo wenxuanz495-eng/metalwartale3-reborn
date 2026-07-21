@@ -324,7 +324,7 @@ package net
                   // (often sound.swf under flaky path) froze the boot screen at 100%.
                   this.baifenText = "加载swf失败，已跳过：" + sl.url;
                   trace("加载swf最终失败并跳过: " + sl.url);
-                  ClientErrorLog.report("swf-load", "load failed: " + sl.url, "", sl.info);
+                  try{ Game.reportClientError("swf-load","load failed: " + sl.url,"",sl.info); }catch(eLog:*){}
                   this._startLoad();
                   break;
                }

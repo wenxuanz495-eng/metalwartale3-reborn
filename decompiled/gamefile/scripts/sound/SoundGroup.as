@@ -38,6 +38,11 @@ package sound
       
       public function addSound(_sound:Sound, _label:String) : *
       {
+         if(_sound == null)
+         {
+            trace("跳过空音效：" + _label);
+            return;
+         }
          var s0:OneSound = new OneSound(_sound,_label);
          this.arr.push(s0);
       }
@@ -69,6 +74,11 @@ package sound
       
       public function addMusic(_sound:Sound, _label:String) : *
       {
+         if(_sound == null)
+         {
+            trace("跳过空音乐：" + _label);
+            return;
+         }
          var s0:OneMusic = new OneMusic(_sound,_label);
          this.arr2.push(s0);
       }

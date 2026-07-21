@@ -22,16 +22,32 @@ package sound
          super();
          this.s = _sound;
          this.label = _label;
-         this.length = this.s.length;
+         // Boot freeze fix: resource may be null even when progress shows 100%.
+         if(this.s != null)
+         {
+            this.length = this.s.length;
+         }
+         else
+         {
+            this.length = 0;
+         }
       }
       
       public function play(_loopNum:int = 1, _v0:Number = 1) : *
       {
+         if(this.s == null)
+         {
+            return;
+         }
          this.SC = this.s.play(0,_loopNum,new SoundTransform(_v0));
       }
       
       public function getPlayB() : Boolean
       {
+         if(this.s == null)
+         {
+            return false;
+         }
          if(this.SC is SoundChannel)
          {
             if(this.SC.position < this.length)
@@ -52,4 +68,3 @@ package sound
       }
    }
 }
-

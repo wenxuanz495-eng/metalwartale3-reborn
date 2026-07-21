@@ -22,6 +22,12 @@ package
    import flash.display.Stage;
    import flash.display.StageScaleMode;
    import flash.events.Event;
+   import flash.utils.getTimer;
+   import flash.events.IOErrorEvent;
+   import flash.events.SecurityErrorEvent;
+   import flash.net.URLLoader;
+   import flash.net.URLRequest;
+   import flash.net.URLRequestMethod;
    import flash.events.KeyboardEvent;
    import flash.events.MouseEvent;
    import flash.events.TimerEvent;
@@ -57,7 +63,6 @@ package
    import items.ItemsController;
    import items.ItemsDefineGroup;
    import items.ItemsGroup;
-   import net.ClientErrorLog;
    import net.SWFLoaderManager;
    import net.TextLoaderManager;
    import other.XTimer;
@@ -378,6 +383,7 @@ package
          high_api = new High_API();
          this.copyright = new Copyright(this);
          stage.stageFocusRect = false;
+         this.installClientErrorReporting();
          this.logoMc.clickMc.addEventListener(MouseEvent.CLICK,this.gotoDuchy);
          stage0 = this.stage;
          addChildAt(gameSprite,0);
@@ -543,6 +549,9 @@ package
       {
          var testMc0:Sprite = null;
          swfLoaderManager.removeEventListener(Event.COMPLETE,this.uiLoader_complete);
+         try
+         {
+            Game.reportClientError("boot-step","uiLoader_complete start");
          save_api.init();
          SG.addMusic(swfLoaderManager.getResource("Decisions","Decisions"),"Decisions");
          this.music = SG.getMusic("Decisions");
@@ -646,12 +655,38 @@ package
             this.addChild(testMc0);
          }
          save_api.game_init();
+            Game.reportClientError("boot-step","uiLoader_complete done");
+         }
+         catch(bootErr:*)
+         {
+            var bootMsg:String = "uiLoader_complete failed: " + bootErr;
+            var bootStack:String = "";
+            try
+            {
+               if(bootErr != null && bootErr.hasOwnProperty("getStackTrace") && bootErr.getStackTrace is Function)
+               {
+                  bootStack = String(bootErr.getStackTrace());
+               }
+            }
+            catch(e3:*)
+            {
+            }
+            Game.reportClientError("boot-fail",bootMsg,bootStack);
+            try
+            {
+               this.removeEventListener(Event.ENTER_FRAME,this.loaderShowTimer);
+               faseUI.hideLoaderBar();
+               uiGroup.show("fase");
+            }
+            catch(e4:*)
+            {
+            }
+         }
       }
       
       public function addSaveEvent() : *
       {
-         this.installClientErrorReporting();
-         stage.addEventListener("multipleError",payController.multipleErrorHandler,false,0,true);
+                  stage.addEventListener("multipleError",payController.multipleErrorHandler,false,0,true);
          stage.addEventListener("StoreStateEvent",payController.getStoreStateHandler,false,0,true);
          stage.addEventListener(PayEvent.LOG,payController.onPayEventHandler,false,0,true);
          stage.addEventListener("usePayApi",payController.onPayEventHandler,false,0,true);
@@ -934,6 +969,75 @@ package
             }
          }
       }
+      private static var lastClientErrorMsg:String = "";
+      
+      private static var lastClientErrorAt:int = 0;
+      
+      public static function reportClientError(kind:String, message:String, stack:String = "", extra:String = "") : *
+      {
+         var now:int = 0;
+         var req:URLRequest = null;
+         var loader:URLLoader = null;
+         var body:String = null;
+         try
+         {
+            if(message == null)
+            {
+               message = "";
+            }
+            if(stack == null)
+            {
+               stack = "";
+            }
+            if(kind == null || kind == "")
+            {
+               kind = "error";
+            }
+            now = getTimer();
+            if(message == lastClientErrorMsg && now - lastClientErrorAt < 1500)
+            {
+               return;
+            }
+            lastClientErrorMsg = message;
+            lastClientErrorAt = now;
+            body = "{\"kind\":\"" + escapeClientLog(kind) + "\",\"message\":\"" + escapeClientLog(message) + "\",\"stack\":\"" + escapeClientLog(stack) + "\",\"extra\":\"" + escapeClientLog(extra) + "\",\"time\":" + now + "}";
+            req = new URLRequest("api/client-log");
+            req.method = URLRequestMethod.POST;
+            req.contentType = "application/json; charset=utf-8";
+            req.data = body;
+            loader = new URLLoader();
+            loader.addEventListener(IOErrorEvent.IO_ERROR,ignoreClientLog);
+            loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,ignoreClientLog);
+            loader.addEventListener(Event.COMPLETE,ignoreClientLog);
+            loader.load(req);
+         }
+         catch(e:*)
+         {
+         }
+      }
+      
+      private static function escapeClientLog(value:String) : String
+      {
+         if(value == null)
+         {
+            return "";
+         }
+         value = value.split("\\").join("\\\\");
+         value = value.split("\"").join("\\\"");
+         value = value.split("\r").join("\\r");
+         value = value.split("\n").join("\\n");
+         value = value.split("\t").join("\\t");
+         if(value.length > 4000)
+         {
+            value = value.substr(0,4000);
+         }
+         return value;
+      }
+      
+      private static function ignoreClientLog(e:Event = null) : *
+      {
+      }
+      
       private function installClientErrorReporting() : *
       {
          try
@@ -946,7 +1050,7 @@ package
          catch(e:*)
          {
          }
-         ClientErrorLog.report("boot","client error reporting ready");
+         Game.reportClientError("boot","client error reporting ready");
       }
       
       private function onUncaughtClientError(e:*) : *
@@ -976,7 +1080,7 @@ package
             {
                msg = String(e);
             }
-            ClientErrorLog.report("uncaught",msg,stack);
+            Game.reportClientError("uncaught",msg,stack);
             if(e != null && e.hasOwnProperty("preventDefault"))
             {
                e.preventDefault();
