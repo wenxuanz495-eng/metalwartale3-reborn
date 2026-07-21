@@ -6,7 +6,6 @@ package UI.gift
    import flash.display.Sprite;
    import flash.events.MouseEvent;
    import flash.text.TextField;
-   import flash.text.TextFormat;
    import gameAll.data.LivenessData;
    import gameAll.define.liveness.LivenessGiftDefine;
    import gameAll.define.liveness.LivenessTaskDefine;
@@ -41,10 +40,6 @@ package UI.gift
       public var gift_4:LivenessGiftBox;
       
       public var gift_5:LivenessGiftBox;
-
-      private var refresh_btn:Sprite;
-
-      private var refresh_txt:TextField;
       
       public function LivenessUI()
       {
@@ -60,31 +55,7 @@ package UI.gift
          }
          this.liveData = Game.gameData.livenessData;
          this.return_btn.addEventListener(MouseEvent.CLICK,this.hide);
-         this.createRefreshButton();
          this.init_LivenessGift();
-      }
-
-      private function createRefreshButton() : *
-      {
-         this.refresh_btn = new Sprite();
-         this.refresh_btn.x = 625;
-         this.refresh_btn.y = 82;
-         this.refresh_btn.buttonMode = true;
-         this.refresh_btn.mouseChildren = false;
-         this.refresh_btn.graphics.beginFill(2119953,1);
-         this.refresh_btn.graphics.lineStyle(2,16763904,1);
-         this.refresh_btn.graphics.drawRoundRect(0,0,112,32,6,6);
-         this.refresh_btn.graphics.endFill();
-         this.refresh_txt = new TextField();
-         this.refresh_txt.defaultTextFormat = new TextFormat("_sans",15,16777215,true,null,null,null,null,"center");
-         this.refresh_txt.width = 112;
-         this.refresh_txt.height = 24;
-         this.refresh_txt.y = 6;
-         this.refresh_txt.text = "刷新活跃度";
-         this.refresh_btn.addChild(this.refresh_txt);
-         this.refresh_btn.addEventListener(MouseEvent.CLICK,this.askRefreshLiveness);
-         this.addChild(this.refresh_btn);
-         this.refresh_btn.visible = false;
       }
       
       public function fleshData() : *
@@ -92,7 +63,6 @@ package UI.gift
          this.fleshLivenessValue();
          this.fleshLivenessGift();
          this.fleshTask();
-         this.refresh_btn.visible = this.liveData.value >= LivenessData.max;
       }
       
       public function fleshTask() : *
@@ -156,24 +126,6 @@ package UI.gift
          this.light_mc.x = this.baifen_bar.x + this.baifen_bar.width;
       }
 
-      private function askRefreshLiveness(event:MouseEvent) : *
-      {
-         if(this.liveData.value < LivenessData.max)
-         {
-            return;
-         }
-         Game.uiGroup.checkTip.showCheck("刷新后活跃度、任务进度和礼包领取状态都会重置，未领取奖励也会消失。是否继续？",this.confirmRefreshLiveness);
-      }
-
-      private function confirmRefreshLiveness() : *
-      {
-         if(this.liveData.refreshAfterFull())
-         {
-            this.fleshData();
-            Game.uiGroup.saveDataNoUI();
-         }
-      }
-      
       private function init_LivenessGift() : *
       {
          var n:* = undefined;
@@ -209,6 +161,7 @@ package UI.gift
             Game.uiGroup.addGift_byArr(arr1,true);
             this.liveData.getGift_byIndex(event.index);
             this.fleshData();
+            Game.uiGroup.saveDataNoUI();
          }
          else
          {

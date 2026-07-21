@@ -77,12 +77,15 @@ package gameAll.data
          this.taskNumArr = arr0;
       }
       
-      public function newDayCtrl() : *
+      public function newDayCtrl(countLogin:Boolean = true) : *
       {
          this.value = 0;
          this.initGiftGet();
          this.initTaskNum();
-         this.addTaskNum("login");
+         if(countLogin)
+         {
+            this.addTaskNum("login");
+         }
       }
       
       public function inData_byObj(obj:Object) : *
@@ -140,21 +143,25 @@ package gameAll.data
          }
       }
       
-      public function getGift_byIndex(index0:int) : *
+      public function getGift_byIndex(index0:int) : Boolean
       {
          this.giftGetB[index0] = true;
-      }
-      
-      public function refreshAfterFull() : Boolean
-      {
          if(this.value < max)
          {
             return false;
          }
-         this.value = 0;
-         this.initGiftGet();
-         this.initTaskNum();
-         this.addTaskNum("login");
+         var i:int = 0;
+         while(i < giftNum)
+         {
+            if(!Boolean(this.giftGetB[i]))
+            {
+               return false;
+            }
+            i++;
+         }
+         // Reuse the daily reset path, but do not count login again in the
+         // same session. The new cycle must visibly start at 0 liveness.
+         this.newDayCtrl(false);
          return true;
       }
       
