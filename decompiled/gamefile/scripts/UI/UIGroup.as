@@ -775,10 +775,13 @@ package UI
             else if(str == "extra" || str == "weekExtra" || str == "specialExtra" || str == "returnExtra" || str == "explore")
             {
                this.extraUI.visible = true;
-               this.extraUI.fleshData();
                if(str == "extra" || str == "weekExtra" || str == "specialExtra")
                {
                   this.extraUI.showLabel(str);
+               }
+               else
+               {
+                  this.extraUI.fleshData();
                }
             }
             else if(str == "rank")

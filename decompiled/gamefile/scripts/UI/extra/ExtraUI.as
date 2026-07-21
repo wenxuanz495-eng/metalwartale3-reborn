@@ -30,6 +30,8 @@ package UI.extra
       public var weekExtraData:WeekExtraData;
       
       private var cooldownTimer:Timer = new Timer(1000);
+
+      private var refreshStateKey:String = "";
       
       public var specialExtraData:SpecialExtraData;
       
@@ -93,41 +95,60 @@ package UI.extra
          {
             return;
          }
-         // Always refresh when panel is open so 0-second cooldowns unlock immediately.
-         this.fleshData();
+         // Cooldown polling must not restart the panel fade animation every second.
+         this.fleshData(false);
       }
-      
-      public function fleshData() : *
+
+      public function fleshData(playTweenB:Boolean = true) : *
       {
-         this.levelBox.hideAllNum();
          if(this.extraState == "extra")
          {
-            this.fleshExtraData();
+            this.fleshExtraData(playTweenB);
          }
          else if(this.extraState == "weekExtra")
          {
-            this.fleshWeekExtraData();
+            this.fleshWeekExtraData(playTweenB);
          }
          else if(this.extraState == "specialExtra")
          {
-            this.levelBox.setAllState2(this.specialExtraData.getUnlockArr());
-            this.levelBox.setNumArr(this.specialExtraData.getNumArr());
-            this.levelBox.playTween();
+            this.refreshLevelBox(this.specialExtraData.getUnlockArr(),this.specialExtraData.getNumArr(),playTweenB);
          }
       }
-      
-      public function fleshExtraData() : *
+
+      public function fleshExtraData(playTweenB:Boolean = true) : *
       {
          this.extraData.nowDiff = 0;
          this.extraData.fleshUnlock();
-         this.levelBox.setAllState2(this.extraData.allState[this.extraData.nowDiff]);
-         this.levelBox.playTween();
+         this.refreshLevelBox(this.extraData.allState[this.extraData.nowDiff],null,playTweenB);
       }
-      
-      public function fleshWeekExtraData() : *
+
+      public function fleshWeekExtraData(playTweenB:Boolean = true) : *
       {
-         this.levelBox.setAllState2(this.weekExtraData.getUnlockArr());
-         this.levelBox.playTween();
+         this.refreshLevelBox(this.weekExtraData.getUnlockArr(),null,playTweenB);
+      }
+
+      private function refreshLevelBox(stateArr0:Array, numArr0:Array, playTweenB:Boolean) : *
+      {
+         var stateKey0:String = this.extraState + "|" + stateArr0.join(",") + "|";
+         if(numArr0 != null)
+         {
+            stateKey0 += numArr0.join(",");
+         }
+         if(!playTweenB && stateKey0 == this.refreshStateKey)
+         {
+            return;
+         }
+         this.refreshStateKey = stateKey0;
+         this.levelBox.hideAllNum();
+         this.levelBox.setAllState2(stateArr0);
+         if(numArr0 != null)
+         {
+            this.levelBox.setNumArr(numArr0);
+         }
+         if(playTweenB)
+         {
+            this.levelBox.playTween();
+         }
       }
       
       private function difficultClick(event:ClickEvent) : *
