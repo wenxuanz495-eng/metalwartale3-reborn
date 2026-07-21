@@ -242,6 +242,7 @@
          this.maxAchieve = 0;
          this.maxExp = 0;
          this.subItems.equMaxNum = 8;
+         this.propsItems.bagMaxNum = 144;
       }
       
       public static function getDiffName(diff0:int) : String
@@ -443,6 +444,10 @@
          this.carItems.inData_byObj(obj.carItems);
          this.materialsItems.inData_byObj(obj.materialsItems);
          this.propsItems.inData_byObj(obj.propsItems);
+         if(this.propsItems.bagMaxNum < 144)
+         {
+            this.propsItems.bagMaxNum = 144;
+         }
          this.migrateClaimedLevelGiftWeapons();
          this.playerData.inData_byObj(obj.playerData);
          this.rankAdd.inData_byObj(obj.rankAdd);

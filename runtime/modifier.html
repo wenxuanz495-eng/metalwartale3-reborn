@@ -83,6 +83,25 @@ async function api(path,options={},retry=2){
   }
   throw lastErr;
 }
+let __lastApiErrorAt=0;
+function showApiError(err){
+  const msg=String(err&&err.message||err||"未知错误");
+  const now=Date.now();
+  if(now-__lastApiErrorAt<1200 && /无法连接本地修改器服务|Failed to fetch/i.test(msg)) return;
+  __lastApiErrorAt=now;
+  alert(msg);
+}
+function countCard(saveSlot){const arr=saveSlot?.data?.propsItems?.arr;if(!Array.isArray(arr))return 0;const item=arr.find(x=>x&&x.name==="research_upgrade_card");return item?Number(item.nowNum||0):0}
+function countEliteCard(saveSlot){const arr=saveSlot?.data?.propsItems?.arr;if(!Array.isArray(arr))return 0;const item=arr.find(x=>x&&x.name==="elite_challenge_card");return item?Number(item.nowNum||0):0}
+function ensureNewLevelData(d){
+  if(!d.newLevelData || typeof d.newLevelData !== "object"){
+    d.newLevelData = {levelPack:"p1",p1:{levelsMax:60,lockNum:1},p2:{levelsMax:60,lockNum:0},scoreObj:{}};
+  }
+  if(!d.newLevelData.p1) d.newLevelData.p1 = {levelsMax:60,lockNum:1};
+  if(!d.newLevelData.p2) d.newLevelData.p2 = {levelsMax:60,lockNum:0};
+  if(!d.newLevelData.scoreObj || typeof d.newLevelData.scoreObj !== "object") d.newLevelData.scoreObj = {};
+  return d.newLevelData;
+}
 function freeHeartLabel(lv){
   if(!lv) return "未开始";
   if(lv.chapter === "序章") return "序章 " + lv.name;
@@ -161,7 +180,18 @@ function buildStoryProgressOptions(selectedIndex){
   return html;
 }
 async function loadEditor(index){
- const response=await fetch("/editor");let html=await response.text();
+ let response,html;
+ for(let i=0;i<3;i++){
+  try{
+   response=await fetch("/editor");
+   if(!response.ok) throw new Error("HTTP "+response.status);
+   html=await response.text();
+   break;
+  }catch(err){
+   if(i===2) throw new Error("无法加载修改器页面 /editor。请保持启动修改器黑窗口不要关。");
+   await new Promise(r=>setTimeout(r,250*(i+1)));
+  }
+ }
  html=html.replace("let data=null, dirty=false;","let data=null, rootData=null, slotIndex="+Number(index)+", dirty=false;");
  html=html.replace('const result=await api("/api/editor/data");data=result.game_data;dirty=false;','const result=await api("/api/editor/data");rootData=result.game_data;data=rootData.localSlots[slotIndex].data;dirty=false;');
  html=html.replace('body:JSON.stringify({game_data:data})','body:JSON.stringify({game_data:(rootData.localSlots[slotIndex].data=data,rootData)})');
