@@ -111,14 +111,15 @@ package UI.shop
       
       protected function onTimer(event:TimerEvent) : void
       {
-         if(this.GD.lastExchangeData == null)
+         var lstd:Array = null;
+         if(this.GD.lastExchangeData != null)
          {
-            return;
+            lstd = this.GD.lastExchangeData.split("_");
          }
-         var lstd:Array = this.GD.lastExchangeData.split("_");
-         if(lstd.length != 2)
+         if(lstd == null || lstd.length != 2 || isNaN(Number(lstd[0])))
          {
-            return;
+            this.freshData();
+            lstd = this.GD.lastExchangeData.split("_");
          }
          var data:Number = Number(lstd[0]);
          var nd:Date = Game.timeDate.getSaveDate.getDateClass();
@@ -648,6 +649,10 @@ package UI.shop
       public function showBox_byLabel() : *
       {
          this.sib.visible = true;
+         if(this._timer.running == false)
+         {
+            this._timer.start();
+         }
          if(this.GDG.ExchangeItems.length == 0)
          {
             this.noGoodsShow.visible = true;
@@ -657,6 +662,7 @@ package UI.shop
          {
             this.freshData(false);
             this.showByData();
+            this.onTimer(null);
             return;
          }
          else
@@ -664,10 +670,7 @@ package UI.shop
             this.noGoodsShow.visible = false;
          }
          this.fleshAll();
-         if(this._timer.running == false)
-         {
-            this._timer.start();
-         }
+         this.onTimer(null);
       }
    }
 }
