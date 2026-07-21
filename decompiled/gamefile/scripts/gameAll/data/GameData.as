@@ -113,6 +113,8 @@
       public var _rankLevel:int = 0;
       
       public var maxRankLevel:int = 29;
+
+      public var achieveCurveVersion:int = 2;
       
       public var playerName:String = "4399小战士";
       
@@ -326,12 +328,18 @@
          var pro0:String = null;
          var name2:String = null;
          var tt:int = 0;
+         var loadedAchieveCurveVersion:int = obj.hasOwnProperty("achieveCurveVersion") ? int(obj.achieveCurveVersion) : 1;
          var pro_arr:Array = ["tutorial","levelsLock","nowSkillNum","foreverLife","nowLife","baseDefence","foreverDefence","level","nowArmsIndex","nowExp","achieve","allAchieve","GCoin","MCoin","score","playerRank","playerName","rankLevel","headLabel","unlockedHeads","lastExchangeData","growVip"];
          for(n in pro_arr)
          {
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
+         if(loadedAchieveCurveVersion < 2)
+         {
+            this.migrateAchieveCurveV2();
+         }
+         this.achieveCurveVersion = 2;
          this.nowDifficult = 0;
          this.nowGameLevel = 0;
          v00 = Number(this.saveDataVersion.split(" ")[0]);
@@ -609,6 +617,45 @@
          this.maxAchieve = Game.gameDefine.getAchieve(this.rankLevel);
          this.rankAdd.inData_byLevel(this.rankLevel);
          this.playerRank = Game.gameDefine.getRankName(this.rankLevel);
+      }
+
+      private function migrateAchieveCurveV2() : *
+      {
+         var oldMax:Number = this.getLegacyAchieveMax(this.rankLevel);
+         var newMax:Number = Game.gameDefine.getAchieve(this.rankLevel);
+         var oldValue:Number = Number(this.achieve);
+         if(this.rankLevel >= this.maxRankLevel || oldMax <= 0 || newMax <= 0)
+         {
+            return;
+         }
+         if(isNaN(oldValue) || oldValue < 0)
+         {
+            oldValue = 0;
+         }
+         oldValue = Math.min(oldValue,oldMax);
+         this.achieve = Math.max(0,Math.min(newMax - 1,Math.floor(oldValue / oldMax * newMax)));
+      }
+
+      private function getLegacyAchieveMax(rank0:int) : Number
+      {
+         var level1:int = rank0 + 1;
+         if(rank0 >= 24)
+         {
+            return 700000;
+         }
+         if(rank0 >= 19)
+         {
+            return 600000;
+         }
+         if(rank0 >= 15)
+         {
+            return 500000;
+         }
+         if(rank0 >= 14)
+         {
+            return level1 * level1 * 500 + 380000;
+         }
+         return level1 * level1 * 500;
       }
       
       public function getAllDps() : Number
