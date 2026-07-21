@@ -166,6 +166,121 @@ func TestSavePrimaryWritesBinaryJSONAndSQLite(t *testing.T) {
 	}
 }
 
+func testCharacterSave(t *testing.T, name string) []byte {
+	t.Helper()
+	raw, err := encodeGamePayload(map[string]any{
+		"localSaveVersion": 2,
+		"localSlots": []any{
+			nil,
+			nil,
+			map[string]any{
+				"index": 2,
+				"data": map[string]any{
+					"playerName": name,
+					"level":      50,
+					"armsItems":  map[string]any{"arr": []any{map[string]any{"name": "soya_lv1"}}},
+					"subItems":   map[string]any{"arr": []any{}},
+					"carItems":   map[string]any{"arr": []any{}},
+				},
+			},
+		},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	return raw
+}
+
+func TestSavePrimaryRejectsCharacterSlotLoss(t *testing.T) {
+	store := newSaveStore(t.TempDir())
+	original := testCharacterSave(t, "survivor")
+	if _, err := store.savePrimary(original, "fixture"); err != nil {
+		t.Fatal(err)
+	}
+	empty, err := encodeGamePayload(map[string]any{
+		"localSaveVersion": 2,
+		"localSlots":       make([]any, 8),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(empty, "go-primary"); err == nil {
+		t.Fatal("destructive empty save was accepted")
+	}
+	got, err := store.getPrimary()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, original) {
+		t.Fatal("primary changed after rejected destructive save")
+	}
+}
+
+func TestGetPrimaryRecoversInterruptedReplacement(t *testing.T) {
+	store := newSaveStore(t.TempDir())
+	original := testCharacterSave(t, "recover-me")
+	if _, err := store.savePrimary(original, "fixture"); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Rename(store.primaryPath, store.backupPath); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(store.primaryPath+".tmp", testCharacterSave(t, "newer-but-uncommitted"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	got, err := store.getPrimary()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, original) {
+		t.Fatal("last-good save was not restored")
+	}
+}
+
+func TestGetPrimaryRecoversCorruptPrimaryFromLastGood(t *testing.T) {
+	store := newSaveStore(t.TempDir())
+	good := testCharacterSave(t, "last-good")
+	if err := os.MkdirAll(store.saves, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(store.primaryPath, []byte("truncated"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(store.backupPath, good, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	got, err := store.getPrimary()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(got, good) {
+		t.Fatal("corrupt primary was not recovered from last-good")
+	}
+	matches, err := filepath.Glob(store.primaryPath + ".corrupt-*")
+	if err != nil || len(matches) != 1 {
+		t.Fatalf("corrupt primary was not preserved: matches=%v err=%v", matches, err)
+	}
+}
+
+func TestSavePrimaryKeepsPreviousLastGoodCopy(t *testing.T) {
+	store := newSaveStore(t.TempDir())
+	first := testCharacterSave(t, "first")
+	second := testCharacterSave(t, "second")
+	if _, err := store.savePrimary(first, "fixture"); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(second, "go-primary"); err != nil {
+		t.Fatal(err)
+	}
+	backup, err := os.ReadFile(store.backupPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(backup, first) {
+		t.Fatal("last-good copy does not contain previous primary")
+	}
+}
+
 func TestSavePrimaryStripsGeneratedBlankRoleRegardlessOfName(t *testing.T) {
 	root := t.TempDir()
 	store := newSaveStore(root)
@@ -177,18 +292,18 @@ func TestSavePrimaryStripsGeneratedBlankRoleRegardlessOfName(t *testing.T) {
 				"data": map[string]any{
 					"playerName": "玩家自定义名字",
 					"level":      1,
-					"armsItems": map[string]any{"arr": []any{}},
-					"subItems":  map[string]any{"arr": []any{}},
-					"carItems":  map[string]any{"arr": []any{}},
+					"armsItems":  map[string]any{"arr": []any{}},
+					"subItems":   map[string]any{"arr": []any{}},
+					"carItems":   map[string]any{"arr": []any{}},
 				},
 			},
 			"3": map[string]any{
 				"data": map[string]any{
 					"playerName": "秋实",
 					"level":      50,
-					"armsItems": map[string]any{"arr": []any{map[string]any{"id": "gun"}}},
-					"subItems":  map[string]any{"arr": []any{}},
-					"carItems":  map[string]any{"arr": []any{map[string]any{"id": "car"}}},
+					"armsItems":  map[string]any{"arr": []any{map[string]any{"id": "gun"}}},
+					"subItems":   map[string]any{"arr": []any{}},
+					"carItems":   map[string]any{"arr": []any{map[string]any{"id": "car"}}},
 				},
 			},
 		},
@@ -235,9 +350,9 @@ func TestSavePrimaryAllowsDefaultNameWhenRoleHasRealProgress(t *testing.T) {
 				"data": map[string]any{
 					"playerName": "4399小战士",
 					"level":      88,
-					"armsItems": map[string]any{"arr": []any{}},
-					"subItems":  map[string]any{"arr": []any{}},
-					"carItems":  map[string]any{"arr": []any{}},
+					"armsItems":  map[string]any{"arr": []any{}},
+					"subItems":   map[string]any{"arr": []any{}},
+					"carItems":   map[string]any{"arr": []any{}},
 				},
 			},
 		},
@@ -257,9 +372,9 @@ func TestSavePrimaryAllowsNewRoleWithStarterEquipment(t *testing.T) {
 	payload := map[string]any{
 		"playerName": "4399小战士",
 		"level":      0,
-		"armsItems": map[string]any{"arr": []any{map[string]any{"id": "starter"}}},
-		"subItems":  map[string]any{"arr": []any{}},
-		"carItems":  map[string]any{"arr": []any{map[string]any{"id": "starter-car"}}},
+		"armsItems":  map[string]any{"arr": []any{map[string]any{"id": "starter"}}},
+		"subItems":   map[string]any{"arr": []any{}},
+		"carItems":   map[string]any{"arr": []any{map[string]any{"id": "starter-car"}}},
 	}
 	raw, err := encodeGamePayload(payload)
 	if err != nil {

@@ -84,10 +84,10 @@ $root = Resolve-GameRoot -startDir $scriptDir
 Write-Host "游戏根目录: $root"
 
 $enginePath = @(
-  (Join-Path $root "modifier-engine.exe"),
   (Join-Path $root "server.exe"),
-  (Join-Path $scriptDir "modifier-engine.exe"),
-  (Join-Path $scriptDir "server.exe")
+  (Join-Path $root "modifier-engine.exe"),
+  (Join-Path $scriptDir "server.exe"),
+  (Join-Path $scriptDir "modifier-engine.exe")
 ) | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
 
 $modifierPath = Join-Path $root "modifier.html"

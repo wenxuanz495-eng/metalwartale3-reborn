@@ -5,8 +5,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -17,6 +20,7 @@ type saveStore struct {
 	root        string
 	saves       string
 	primaryPath string
+	backupPath  string
 	jsonPath    string
 	dbPath      string
 	mu          sync.Mutex
@@ -28,6 +32,7 @@ func newSaveStore(root string) *saveStore {
 		root:        root,
 		saves:       saves,
 		primaryPath: filepath.Join(saves, "game_save.bin"),
+		backupPath:  filepath.Join(saves, "game_save.last-good.bin"),
 		jsonPath:    filepath.Join(saves, "yagao.json"),
 		dbPath:      filepath.Join(saves, "saves.db"),
 	}
@@ -98,12 +103,33 @@ func (s *saveStore) savePrimary(raw []byte, source string) (map[string]any, erro
 	if err := s.init(); err != nil {
 		return nil, err
 	}
-	tmp := s.primaryPath + ".tmp"
-	if err := os.WriteFile(tmp, raw, 0o644); err != nil {
+	if err := s.recoverPrimaryLocked(); err != nil {
 		return nil, err
 	}
-	_ = os.Remove(s.primaryPath)
-	if err := os.Rename(tmp, s.primaryPath); err != nil {
+	if currentRaw, readErr := os.ReadFile(s.primaryPath); readErr == nil {
+		currentPayload, _, parseErr := parseGamePayload(currentRaw)
+		if parseErr != nil {
+			return nil, fmt.Errorf("current primary save is invalid: %w", parseErr)
+		}
+		if !strings.HasPrefix(source, "editor-restore:") {
+			currentRoles := countCharacterSlots(currentPayload)
+			incomingRoles := countCharacterSlots(payload)
+			if currentRoles > 0 && incomingRoles < currentRoles {
+				return nil, fmt.Errorf("refusing destructive save: character slots would decrease from %d to %d", currentRoles, incomingRoles)
+			}
+		}
+	} else if !errors.Is(readErr, os.ErrNotExist) {
+		return nil, readErr
+	}
+	tmp := s.primaryPath + ".tmp"
+	if err := writeFileDurable(tmp, raw); err != nil {
+		return nil, err
+	}
+	if _, _, err := parseGamePayload(raw); err != nil {
+		_ = os.Remove(tmp)
+		return nil, fmt.Errorf("temporary save verification failed: %w", err)
+	}
+	if err := s.replacePrimaryLocked(tmp); err != nil {
 		return nil, err
 	}
 	if err := os.WriteFile(s.jsonPath, pretty, 0o644); err != nil {
@@ -116,6 +142,155 @@ func (s *saveStore) savePrimary(raw []byte, source string) (map[string]any, erro
 		"ok": true, "source": source, "size": len(raw),
 		"primary": s.primaryPath, "json": s.jsonPath, "db": s.dbPath,
 	}, nil
+}
+
+func writeFileDurable(path string, data []byte) error {
+	file, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0o644)
+	if err != nil {
+		return err
+	}
+	if _, err = file.Write(data); err == nil {
+		err = file.Sync()
+	}
+	closeErr := file.Close()
+	if err != nil {
+		return err
+	}
+	return closeErr
+}
+
+func (s *saveStore) replacePrimaryLocked(tmp string) error {
+	if _, err := os.Stat(s.primaryPath); errors.Is(err, os.ErrNotExist) {
+		return os.Rename(tmp, s.primaryPath)
+	} else if err != nil {
+		return err
+	}
+	if err := os.Remove(s.backupPath); err != nil && !errors.Is(err, os.ErrNotExist) {
+		return fmt.Errorf("cannot rotate last-good save: %w", err)
+	}
+	if err := os.Rename(s.primaryPath, s.backupPath); err != nil {
+		return fmt.Errorf("cannot preserve current save: %w", err)
+	}
+	if err := os.Rename(tmp, s.primaryPath); err != nil {
+		restoreErr := os.Rename(s.backupPath, s.primaryPath)
+		if restoreErr != nil {
+			return fmt.Errorf("cannot install new save: %v; automatic rollback also failed: %v; last-good path: %s", err, restoreErr, s.backupPath)
+		}
+		return fmt.Errorf("cannot install new save; previous save restored: %w", err)
+	}
+	return nil
+}
+
+func (s *saveStore) recoverPrimaryLocked() error {
+	if raw, err := os.ReadFile(s.primaryPath); err == nil {
+		if _, _, parseErr := parseGamePayload(raw); parseErr == nil {
+			return nil
+		} else {
+			for _, candidate := range []string{s.backupPath, s.primaryPath + ".tmp"} {
+				candidateRaw, candidateErr := os.ReadFile(candidate)
+				if candidateErr != nil {
+					continue
+				}
+				if _, _, candidateParseErr := parseGamePayload(candidateRaw); candidateParseErr != nil {
+					continue
+				}
+				corruptPath := s.primaryPath + ".corrupt-" + time.Now().Format("20060102-150405.000000000")
+				if err := os.Rename(s.primaryPath, corruptPath); err != nil {
+					return fmt.Errorf("preserve corrupt primary save: %w", err)
+				}
+				if err := os.Rename(candidate, s.primaryPath); err != nil {
+					_ = os.Rename(corruptPath, s.primaryPath)
+					return fmt.Errorf("restore valid save over corrupt primary: %w", err)
+				}
+				return nil
+			}
+			return fmt.Errorf("primary save is invalid and no valid recovery copy exists: %w", parseErr)
+		}
+	} else if !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+	if raw, err := os.ReadFile(s.backupPath); err == nil {
+		if _, _, parseErr := parseGamePayload(raw); parseErr != nil {
+			return fmt.Errorf("last-good save is invalid: %w", parseErr)
+		}
+		if err := os.Rename(s.backupPath, s.primaryPath); err != nil {
+			return fmt.Errorf("restore last-good save: %w", err)
+		}
+		return nil
+	} else if !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+	tmp := s.primaryPath + ".tmp"
+	if raw, err := os.ReadFile(tmp); err == nil {
+		if _, _, parseErr := parseGamePayload(raw); parseErr != nil {
+			return fmt.Errorf("orphan temporary save is invalid: %w", parseErr)
+		}
+		if err := os.Rename(tmp, s.primaryPath); err != nil {
+			return fmt.Errorf("recover temporary save: %w", err)
+		}
+	} else if !errors.Is(err, os.ErrNotExist) {
+		return err
+	}
+	return nil
+}
+
+func countCharacterSlots(payload any) int {
+	root, ok := payload.(map[string]any)
+	if !ok || root == nil {
+		return 0
+	}
+	if slots, exists := root["localSlots"]; exists {
+		return countCharactersInSlots(slots)
+	}
+	if looksLikeCharacterRole(root) {
+		return 1
+	}
+	return 0
+}
+
+func countCharactersInSlots(slots any) int {
+	count := 0
+	seen := map[string]bool{}
+	countSlot := func(key string, slot any) {
+		if seen[key] {
+			return
+		}
+		seen[key] = true
+		entry, ok := slot.(map[string]any)
+		if !ok || entry == nil {
+			return
+		}
+		role, ok := entry["data"].(map[string]any)
+		if ok && looksLikeCharacterRole(role) && !isGeneratedBlankRole(role) {
+			count++
+		}
+	}
+	switch value := slots.(type) {
+	case []any:
+		for index, slot := range value {
+			countSlot(strconv.Itoa(index), slot)
+		}
+	case map[string]any:
+		if dense, ok := value["$dense"].([]any); ok {
+			for index, slot := range dense {
+				countSlot(strconv.Itoa(index), slot)
+			}
+		}
+		for key, slot := range value {
+			if key != "$dense" {
+				countSlot(key, slot)
+			}
+		}
+	}
+	return count
+}
+
+func looksLikeCharacterRole(role map[string]any) bool {
+	_, hasPlayer := role["playerName"]
+	_, hasArms := role["armsItems"]
+	_, hasSubs := role["subItems"]
+	_, hasCars := role["carItems"]
+	return hasPlayer || hasArms || hasSubs || hasCars
 }
 
 func stripGeneratedBlankSave(payload any) (any, bool) {
@@ -289,6 +464,14 @@ func (s *saveStore) insertHistory(source, capturedAt string, raw, jsonText []byt
 }
 
 func (s *saveStore) getPrimary() ([]byte, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if err := os.MkdirAll(s.saves, 0o755); err != nil {
+		return nil, err
+	}
+	if err := s.recoverPrimaryLocked(); err != nil {
+		return nil, err
+	}
 	return os.ReadFile(s.primaryPath)
 }
 

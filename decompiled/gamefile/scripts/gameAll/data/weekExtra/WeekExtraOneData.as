@@ -38,6 +38,13 @@ package gameAll.data.weekExtra
       public function fleshDefine() : *
       {
          this.define = Game.gameDefine.weekExtra.getDefine(this.id);
+         // Legacy saves only persisted winB. After readyAt was introduced,
+         // winB=true plus readyAt=0 became a permanent "cooldown 0 seconds".
+         if(this.winB && this.readyAt <= 0)
+         {
+            this.winB = false;
+            this.nowLife = this.define.maxLife;
+         }
          if(this.nowLife > this.define.maxLife)
          {
             this.nowLife = this.define.maxLife;
