@@ -83,12 +83,12 @@ try {
       "-onerror", "abort",
       "-importScript", $BaselineSwf, $out, $scriptsDir
     )
-    $p = Start-Process -FilePath $java -ArgumentList $argList -NoNewWindow -PassThru -Wait -RedirectStandardOutput $log -RedirectStandardError $err
-    $exitCode = $p.ExitCode
+    & $java @argList 1> $log 2> $err
+    $exitCode = $LASTEXITCODE
   } else {
     Write-Host "Using ffdec-cli.exe"
-    $p = Start-Process -FilePath $ffdecExe -ArgumentList @("-onerror","abort","-importScript",$BaselineSwf,$out,$scriptsDir) -NoNewWindow -PassThru -Wait -RedirectStandardOutput $log -RedirectStandardError $err
-    $exitCode = $p.ExitCode
+    & $ffdecExe -onerror abort -importScript $BaselineSwf $out $scriptsDir 1> $log 2> $err
+    $exitCode = $LASTEXITCODE
   }
 } finally {
   Pop-Location

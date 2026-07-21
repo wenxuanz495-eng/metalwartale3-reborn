@@ -310,15 +310,17 @@ package net
       private function loadErrorHandler(event:IOErrorEvent) : *
       {
          var sl:SWFLoader = null;
-         this.baifenText = "加载swf错误" + event.toString();
-         trace("加载swf错误: " + event);
          for(var i:int = 0; i < this._nowLoadingArr.length; i++)
          {
             sl = this._nowLoadingArr[i];
             if(sl.contentLoaderInfo == event.target)
             {
+               this._nowLoadingArr.splice(i,1);
+               this.baifenText = "加载swf错误，正在重试：" + sl.url;
+               trace("加载swf错误: " + sl.url + " " + event);
                if(sl.loadcount <= 0)
                {
+                  this.baifenText = "加载swf失败：" + sl.url;
                   return;
                }
                --sl.loadcount;

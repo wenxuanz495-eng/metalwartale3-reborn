@@ -11,6 +11,8 @@ package gameAll.data.weekExtra
       private var _nowLife:String = "";
       
       public var winB:Boolean = false;
+
+      public var readyAt:Number = 0;
       
       public var define:WeekExtraOneDefine = null;
       
@@ -30,6 +32,7 @@ package gameAll.data.weekExtra
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
+         this.readyAt = obj.hasOwnProperty("readyAt") ? Number(obj.readyAt) : 0;
       }
       
       public function fleshDefine() : *
