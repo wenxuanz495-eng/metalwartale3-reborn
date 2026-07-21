@@ -443,6 +443,7 @@
          this.carItems.inData_byObj(obj.carItems);
          this.materialsItems.inData_byObj(obj.materialsItems);
          this.propsItems.inData_byObj(obj.propsItems);
+         this.migrateClaimedLevelGiftWeapons();
          this.playerData.inData_byObj(obj.playerData);
          this.rankAdd.inData_byObj(obj.rankAdd);
          if(fleshB)
@@ -462,6 +463,29 @@
                return;
             }
             this.subItems.addItems("cutter_gold_lv1",true);
+         }
+      }
+
+      private function migrateClaimedLevelGiftWeapons() : *
+      {
+         var need2013:Boolean = this.giftData.getLevelUnlock(0) == 1 && !(this.armsItems.getItemsByBase("snow",false) is ArmsItemsData);
+         var needSparta:Boolean = this.giftData.getLevelUnlock(1) == 1 && !(this.armsItems.getItemsByBase("arc",false) is ArmsItemsData);
+         var needed:int = int(need2013) + int(needSparta);
+         if(needed <= 0)
+         {
+            return;
+         }
+         if(this.armsItems.getSurplus() < needed)
+         {
+            this.armsItems.bagMaxNum = this.armsItems.arr.length + needed;
+         }
+         if(need2013)
+         {
+            this.armsItems.addItems("snow_lv1",true);
+         }
+         if(needSparta)
+         {
+            this.armsItems.addItems("arc_lv1",true);
          }
       }
       
