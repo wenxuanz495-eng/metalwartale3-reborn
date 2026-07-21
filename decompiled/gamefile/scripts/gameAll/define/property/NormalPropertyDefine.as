@@ -51,25 +51,32 @@ package gameAll.define.property
          var n:* = undefined;
          var d0:NormalPropertyLevelDefine = null;
          var value0:Number = NaN;
-         var _loc6_:int = 0;
-         var _loc7_:* = this.levelArr;
-         do
+         if(this.levelArr == null || this.levelArr.length == 0)
          {
-            for(n in _loc7_)
-            {
-               d0 = this.levelArr[n];
-               if(lv0 >= d0.minLevel && lv0 <= d0.maxLevel)
-               {
-                  break;
-               }
-               if(n == 0 && lv0 < d0.minLevel)
-               {
-                  break;
-               }
-            }
             return 0;
          }
-         while(!(n == this.levelArr.length - 1 && lv0 > d0.maxLevel));
+         // FFDec previously rewrote this method into a do/while that always returned 0
+         // after finding the level band, so vehicle random affixes became "xxx +0%".
+         for(n in this.levelArr)
+         {
+            d0 = this.levelArr[n];
+            if(lv0 >= d0.minLevel && lv0 <= d0.maxLevel)
+            {
+               break;
+            }
+            if(n == 0 && lv0 < d0.minLevel)
+            {
+               break;
+            }
+            if(n == this.levelArr.length - 1 && lv0 > d0.maxLevel)
+            {
+               break;
+            }
+         }
+         if(d0 == null)
+         {
+            return 0;
+         }
          value0 = d0.minValue + (d0.maxValue - d0.minValue) * Math.random();
          if(maxB)
          {
@@ -79,4 +86,3 @@ package gameAll.define.property
       }
    }
 }
-
