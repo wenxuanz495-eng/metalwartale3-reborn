@@ -18,3 +18,30 @@ func TestEditorPageExposesSlotProtocol(t *testing.T) {
 		}
 	}
 }
+
+func TestNormalizeEditorRootFlattensDenseSlots(t *testing.T) {
+	root := map[string]any{
+		"localSlots": map[string]any{
+			"$dense": []any{},
+			"0":      map[string]any{"data": map[string]any{"playerName": "A"}},
+			"2":      map[string]any{"data": map[string]any{"playerName": "C"}},
+		},
+	}
+	out := normalizeEditorRoot(root).(map[string]any)
+	slots, ok := out["localSlots"].([]any)
+	if !ok {
+		t.Fatalf("localSlots not array: %T", out["localSlots"])
+	}
+	if len(slots) != 8 {
+		t.Fatalf("want 8 slots, got %d", len(slots))
+	}
+	if slots[0].(map[string]any)["data"].(map[string]any)["playerName"] != "A" {
+		t.Fatalf("slot0 missing")
+	}
+	if slots[1] != nil {
+		t.Fatalf("slot1 should be nil")
+	}
+	if slots[2].(map[string]any)["data"].(map[string]any)["playerName"] != "C" {
+		t.Fatalf("slot2 missing")
+	}
+}

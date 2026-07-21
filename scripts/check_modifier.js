@@ -25,6 +25,8 @@ if (html.includes('id="editorFrame"')) {
     /function\s+indexedValue\s*\(/,
     /function\s+saveSlotEntries\s*\(/,
     /function\s+saveSlotAt\s*\(/,
+    /function\s+normalizeLocalSlots\s*\(/,
+    /function\s+waitEditorFrameReady\s*\(/,
     /function\s+ensureNewLevelData\s*\(/,
     /const\s+slotMarker\s*=\s*['"]const EDITOR_SLOT_INDEX=-1;/,
   ];
@@ -35,4 +37,7 @@ if (html.includes('id="editorFrame"')) {
   }
 }
 
-console.log(`[OK] modifier JavaScript: ${file}`);
+if (/gameData\.localSlots\s*\[/.test(html)) {
+    throw new Error('fragile localSlots indexing found in ' + file);
+  }
+  console.log(`[OK] modifier JavaScript: ${file}`);

@@ -64,6 +64,41 @@ func (a *app) serveEditor(w http.ResponseWriter, r *http.Request, path string) b
 	return true
 }
 
+
+// normalizeEditorRoot forces localSlots into a plain 8-length array for the web editor.
+// AMF dense/associative maps are flattened so the modifier never sees mixed shapes.
+func normalizeEditorRoot(value any) any {
+	root, ok := value.(map[string]any)
+	if !ok || root == nil {
+		return value
+	}
+	slots, exists := root["localSlots"]
+	if !exists {
+		return root
+	}
+	out := make([]any, 8)
+	switch typed := slots.(type) {
+	case []any:
+		for i := 0; i < 8 && i < len(typed); i++ {
+			out[i] = typed[i]
+		}
+	case map[string]any:
+		if dense, ok := typed["$dense"].([]any); ok {
+			for i := 0; i < 8 && i < len(dense); i++ {
+				out[i] = dense[i]
+			}
+		}
+		for i := 0; i < 8; i++ {
+			if item, ok := typed[fmt.Sprintf("%d", i)]; ok {
+				out[i] = item
+			}
+		}
+	default:
+		return root
+	}
+	root["localSlots"] = out
+	return root
+}
 func sameOriginEditorRequest(r *http.Request) bool {
 	origin := r.Header.Get("Origin")
 	if origin == "" {
@@ -91,6 +126,7 @@ func (a *app) editorData(w http.ResponseWriter) {
 		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
 		return
 	}
+	value = normalizeEditorRoot(value)
 	a.sendJSON(w, map[string]any{
 		"ok":        true,
 		"game_data": jsonSafe(value, 0),
