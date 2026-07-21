@@ -4,7 +4,6 @@ package UI.server
    import data.StringDate;
    import flash.display.MovieClip;
    import flash.display.DisplayObject;
-   import flash.display.DisplayObjectContainer;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
    import flash.events.Event;
@@ -113,7 +112,7 @@ package UI.server
       {
          var mc0:Sprite = null;
          this.gotoAndStop(1);
-         this.hideLegacyNewBadge(this);
+         this.hideMainMenuNoticeBadge();
          var sheet:StyleSheet = new StyleSheet();
          sheet.parseCSS("a:link {text-decoration:none;}a:hover {text-decoration:underline;color:#FFFF00;}a:active {text-decoration:none;}");
          this.txt1.styleSheet = sheet;
@@ -148,26 +147,17 @@ package UI.server
          addChild(this.intro_mc);
       }
 
-      private function hideLegacyNewBadge(container:DisplayObjectContainer) : void
+      private function hideMainMenuNoticeBadge() : void
       {
          var i:int = 0;
          var child:DisplayObject = null;
-         var field:TextField = null;
-         while(i < container.numChildren)
+         while(i < this.numChildren)
          {
-            child = container.getChildAt(i);
-            if(child is TextField)
+            child = this.getChildAt(i);
+            if(Math.abs(child.x - 425) < 1 && Math.abs(child.y - 153) < 1 && child.width >= 20 && child.width <= 35 && child.height >= 20 && child.height <= 35)
             {
-               field = child as TextField;
-               if(field.text == "新" && field.parent != null)
-               {
-                  field.parent.visible = false;
-                  return;
-               }
-            }
-            else if(child is DisplayObjectContainer)
-            {
-               this.hideLegacyNewBadge(child as DisplayObjectContainer);
+               child.visible = false;
+               return;
             }
             i++;
          }
