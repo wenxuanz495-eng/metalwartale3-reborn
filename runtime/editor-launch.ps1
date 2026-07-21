@@ -13,18 +13,14 @@ if ($PSScriptRoot) {
 function Stop-RootServers([string]$gameRoot) {
   $rootFull = [System.IO.Path]::GetFullPath($gameRoot).TrimEnd("\")
   $killed = 0
-  Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
-    $_.Name -match '^(server|modifier-engine)\.exe$' -and $_.CommandLine
-  } | ForEach-Object {
-    $cmd = [string]$_.CommandLine
+  Get-Process -Name "server", "modifier-engine" -ErrorAction SilentlyContinue | ForEach-Object {
     $exe = ""
-    try { $exe = [string]$_.ExecutablePath } catch {}
-    $hit = $cmd.Contains($rootFull) -or ($exe -and $exe.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase))
-    if ($hit) {
+    try { $exe = [string]$_.Path } catch {}
+    if ($exe -and $exe.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
       try {
-        Stop-Process -Id $_.ProcessId -Force -ErrorAction Stop
+        Stop-Process -Id $_.Id -Force -ErrorAction Stop
         $script:killed++
-        Write-Host ("已清理后台进程 PID={0} {1}" -f $_.ProcessId, $_.Name)
+        Write-Host ("已清理后台进程 PID={0} {1}" -f $_.Id, $_.ProcessName)
       } catch {}
     }
   }
@@ -207,16 +203,22 @@ try {
     $browserProcess = Start-Process -FilePath $edgePath `
       -ArgumentList @("--app=$modifierUrl", "--user-data-dir=$browserProfile", "--no-first-run", "--disable-background-mode", "--new-window") `
       -PassThru
-    if ($browserProcess) {
-      try { Wait-Process -Id $browserProcess.Id } catch {}
-    }
-
-    # Edge may hand the app window to a child using the same profile.
+    # Edge/Chrome may hand the app window to a child. Wait for a visible
+    # profile window, not background helpers which can outlive the window.
+    $windowSeen = $false
     $waitRounds = 0
     while ($waitRounds -lt 1200) {
       $alive = Get-CimInstance Win32_Process -Filter "Name='msedge.exe' OR Name='chrome.exe'" -ErrorAction SilentlyContinue |
         Where-Object { $_.CommandLine -and $_.CommandLine.Contains($browserProfile) }
-      if (-not $alive) { break }
+      $visible = @($alive | ForEach-Object {
+        Get-Process -Id $_.ProcessId -ErrorAction SilentlyContinue
+      } | Where-Object { $_.MainWindowHandle -ne 0 })
+      if ($visible.Count -gt 0) {
+        $windowSeen = $true
+      }
+      elseif ($windowSeen -or $waitRounds -ge 40) {
+        break
+      }
       Start-Sleep -Milliseconds 500
       $waitRounds++
     }
@@ -239,6 +241,9 @@ finally {
   [void](Stop-RootServers -gameRoot $root)
 
   if ($browserProfile) {
+    Get-CimInstance Win32_Process -Filter "Name='msedge.exe' OR Name='chrome.exe'" -ErrorAction SilentlyContinue |
+      Where-Object { $_.CommandLine -and $_.CommandLine.Contains($browserProfile) } |
+      ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
     $resolvedProfile = [System.IO.Path]::GetFullPath($browserProfile)
     $resolvedTemp = [System.IO.Path]::GetFullPath([System.IO.Path]::GetTempPath())
     if ($resolvedProfile.StartsWith($resolvedTemp) -and (Split-Path -Leaf $resolvedProfile).StartsWith("superalloy-modifier-") -and (Test-Path -LiteralPath $resolvedProfile)) {

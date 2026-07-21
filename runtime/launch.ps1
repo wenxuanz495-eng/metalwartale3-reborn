@@ -17,18 +17,14 @@ $gameUrl = $null
 function Stop-RootServers([string]$gameRoot) {
   $rootFull = [System.IO.Path]::GetFullPath($gameRoot).TrimEnd("\")
   $killed = 0
-  Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
-    $_.Name -match '^(server|modifier-engine)\.exe$' -and $_.CommandLine
-  } | ForEach-Object {
-    $cmd = [string]$_.CommandLine
+  Get-Process -Name "server", "modifier-engine" -ErrorAction SilentlyContinue | ForEach-Object {
     $exe = ""
-    try { $exe = [string]$_.ExecutablePath } catch {}
-    $hit = $cmd.Contains($rootFull) -or ($exe -and $exe.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase))
-    if ($hit) {
+    try { $exe = [string]$_.Path } catch {}
+    if ($exe -and $exe.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
       try {
-        Stop-Process -Id $_.ProcessId -Force -ErrorAction Stop
+        Stop-Process -Id $_.Id -Force -ErrorAction Stop
         $script:killed++
-        Write-Host ("已清理后台进程 PID={0} {1}" -f $_.ProcessId, $_.Name)
+        Write-Host ("已清理后台进程 PID={0} {1}" -f $_.Id, $_.ProcessName)
       } catch {}
     }
   }
@@ -37,16 +33,45 @@ function Stop-RootServers([string]$gameRoot) {
 
 function Stop-RootPlayers([string]$gameRoot, [string]$urlHint) {
   $rootFull = [System.IO.Path]::GetFullPath($gameRoot).TrimEnd("\")
-  Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
-    $_.Name -match '^(FlashPlayer|flashplayer.*)\.exe$' -and $_.CommandLine
+  Get-Process -ErrorAction SilentlyContinue | Where-Object {
+    $_.ProcessName -match '^(FlashPlayer|flashplayer.*)$'
   } | ForEach-Object {
-    $cmd = [string]$_.CommandLine
-    if ($cmd.Contains($rootFull) -or ($urlHint -and $cmd.Contains($urlHint))) {
+    $exe = ""
+    try { $exe = [string]$_.Path } catch {}
+    if ($exe -and $exe.StartsWith($rootFull, [System.StringComparison]::OrdinalIgnoreCase)) {
       try {
-        Stop-Process -Id $_.ProcessId -Force -ErrorAction Stop
-        Write-Host ("已清理播放器残留 PID={0}" -f $_.ProcessId)
+        Stop-Process -Id $_.Id -Force -ErrorAction Stop
+        Write-Host ("已清理播放器残留 PID={0}" -f $_.Id)
       } catch {}
     }
+  }
+}
+
+function Wait-GameWindow([System.Diagnostics.Process]$process) {
+  $windowSeen = $false
+  $missingRounds = 0
+  $startupRounds = 0
+  while (-not $process.HasExited) {
+    try { $process.Refresh() } catch { break }
+    if ($process.MainWindowHandle -ne 0) {
+      $windowSeen = $true
+      $missingRounds = 0
+    }
+    elseif ($windowSeen) {
+      $missingRounds++
+      if ($missingRounds -ge 8) { break }
+    }
+    else {
+      $startupRounds++
+      if ($startupRounds -ge 120) {
+        throw "Flash 播放器进程已启动，但 30 秒内没有创建游戏窗口。"
+      }
+    }
+    Start-Sleep -Milliseconds 250
+  }
+  if (-not $process.HasExited) {
+    Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+    try { [void]$process.WaitForExit(3000) } catch {}
   }
 }
 
@@ -136,20 +161,7 @@ try {
   Write-Host "Please keep this window open until you quit the game."
   $player = Start-Process -FilePath $playerPath -ArgumentList @($gameUrl) -WorkingDirectory $root -PassThru
   if ($player) {
-    Wait-Process -Id $player.Id
-  }
-
-  # Some Flash builds hand off to another process; wait briefly for any same-root player.
-  $waitRounds = 0
-  while ($waitRounds -lt 40) {
-    $alive = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
-      $_.Name -match '^(FlashPlayer|flashplayer.*)\.exe$' -and $_.CommandLine -and (
-        $_.CommandLine.Contains($root) -or $_.CommandLine.Contains($gameUrl)
-      )
-    }
-    if (-not $alive) { break }
-    Start-Sleep -Milliseconds 250
-    $waitRounds++
+    Wait-GameWindow -process $player
   }
 }
 finally {
@@ -157,7 +169,7 @@ finally {
   if ($null -ne $serverProcess -and -not $serverProcess.HasExited) {
     try {
       Stop-Process -Id $serverProcess.Id -Force -ErrorAction SilentlyContinue
-      $serverProcess.WaitForExit()
+      [void]$serverProcess.WaitForExit(3000)
     } catch {}
   }
   Stop-RootPlayers -gameRoot $root -urlHint $gameUrl
