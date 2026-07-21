@@ -235,6 +235,12 @@ package UI.server
          if(this.notice_txt != null && text0.length > 0)
          {
             this.notice_txt.text = text0;
+            this.notice_txt.height = this.notice_txt.textHeight + 6;
+            if(this.sBar != null && this.context_mc != null)
+            {
+               this.sBar.setTarget(this.context_mc,false);
+               this.sBar.setPer(0);
+            }
          }
          this.clearNoticeLoader();
       }
