@@ -57,3 +57,10 @@ PowerShell：
 - 权威目录：`build/saves`
 - 快捷打开：`打开存档目录.bat` / `open-saves.bat`
 
+## 修改器
+
+- `启动修改器.bat` / `start-modifier.bat`
+- 启动本地 server，并打开 `/modifier.html`
+- 修改存档：`build/saves/game_save.bin`
+- 使用前请先完全退出游戏
+
