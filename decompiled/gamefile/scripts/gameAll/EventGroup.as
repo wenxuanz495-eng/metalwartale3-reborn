@@ -1564,10 +1564,10 @@ package gameAll
             }
          }
          this.UIG.gamingUI.fleshTaskBox();
-         var tttr:Number = 0.01;
+         var tttr:Number = 0.03; // Children's Day heart drop *3
          if(Game.getTest())
          {
-            tttr = 0.05;
+            tttr = 0.15;
          }
          if(Math.random() < tttr)
          {

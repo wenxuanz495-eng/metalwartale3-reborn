@@ -80,18 +80,13 @@ package UI.gift
          this.mc_box.btn_4.addEventListener(MouseEvent.CLICK,this.exchange4);
          this.mc_box.btn_5.addEventListener(MouseEvent.CLICK,this.exchange5);
          this.mc_box.btn_6.addEventListener(MouseEvent.CLICK,this.exchange6);
-         var hasc1:int = 1 - Game.gameData.giftData.GetPrize51ByID(1);
-         this.mc_box["txt_icount_" + 1].text = hasc1 + "次";
-         var hasc2:int = 1 - Game.gameData.giftData.GetPrize51ByID(2);
-         this.mc_box["txt_icount_" + 2].text = hasc2 + "次";
-         var hasc3:int = 4 - Game.gameData.giftData.GetPrize51ByID(3);
-         this.mc_box["txt_icount_" + 3].text = hasc3 + "次";
-         var hasc4:int = 4 - Game.gameData.giftData.GetPrize51ByID(4);
-         this.mc_box["txt_icount_" + 4].text = hasc4 + "次";
-         var hasc5:int = 4 - Game.gameData.giftData.GetPrize51ByID(5);
-         this.mc_box["txt_icount_" + 5].text = hasc5 + "次";
-         var hasc6:int = 4 - Game.gameData.giftData.GetPrize51ByID(6);
-         this.mc_box["txt_icount_" + 6].text = hasc6 + "次";
+         // Offline: Children's Day exchange has no daily limited counts.
+         this.mc_box["txt_icount_" + 1].text = "无限";
+         this.mc_box["txt_icount_" + 2].text = "无限";
+         this.mc_box["txt_icount_" + 3].text = "无限";
+         this.mc_box["txt_icount_" + 4].text = "无限";
+         this.mc_box["txt_icount_" + 5].text = "无限";
+         this.mc_box["txt_icount_" + 6].text = "无限";
       }
       
       private function Init_2() : void
@@ -242,12 +237,7 @@ package UI.gift
          switch(this._state)
          {
             case 1:
-               hasc1 = 1 - Game.gameData.giftData.GetPrize51ByID(this._state);
-               if(hasc1 <= 0)
-               {
-                  Game.uiGroup.checkTip.showCheck2("您今日兑换机会已经用完,明天再来吧!",1);
-                  return;
-               }
+
                if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
@@ -257,12 +247,7 @@ package UI.gift
                Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 2:
-               hasc1 = 1 - Game.gameData.giftData.GetPrize51ByID(this._state);
-               if(hasc1 <= 0)
-               {
-                  Game.uiGroup.checkTip.showCheck2("您今日兑换机会已经用完,明天再来吧!",1);
-                  return;
-               }
+
                if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
@@ -272,12 +257,7 @@ package UI.gift
                Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 3:
-               hasc1 = 4 - Game.gameData.giftData.GetPrize51ByID(this._state);
-               if(hasc1 <= 0)
-               {
-                  Game.uiGroup.checkTip.showCheck2("您今日兑换机会已经用完,明天再来吧!",1);
-                  return;
-               }
+
                if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
@@ -287,12 +267,7 @@ package UI.gift
                Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 4:
-               hasc1 = 4 - Game.gameData.giftData.GetPrize51ByID(this._state);
-               if(hasc1 <= 0)
-               {
-                  Game.uiGroup.checkTip.showCheck2("您今日兑换机会已经用完,明天再来吧!",1);
-                  return;
-               }
+
                if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
@@ -302,12 +277,7 @@ package UI.gift
                Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 5:
-               hasc1 = 4 - Game.gameData.giftData.GetPrize51ByID(this._state);
-               if(hasc1 <= 0)
-               {
-                  Game.uiGroup.checkTip.showCheck2("您今日兑换机会已经用完,明天再来吧!",1);
-                  return;
-               }
+
                if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
@@ -317,12 +287,7 @@ package UI.gift
                Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
                break;
             case 6:
-               hasc1 = 4 - Game.gameData.giftData.GetPrize51ByID(this._state);
-               if(hasc1 <= 0)
-               {
-                  Game.uiGroup.checkTip.showCheck2("您今日兑换机会已经用完,明天再来吧!",1);
-                  return;
-               }
+
                if(xuehua < 50)
                {
                   Game.uiGroup.checkTip.showCheck2("您的儿童节爱心数量不足!",1);
@@ -331,7 +296,7 @@ package UI.gift
                Game.gameData.materialsItems.addItems("purple_crystal_6",1);
                Game.gameData.materialsItems.useItemsNum("ertongaixin",50);
          }
-         Game.gameData.giftData.AddPrize51ByID(this._state);
+
          Game.uiGroup.checkTip.showCheck2("兑换成功!",1);
          this.init();
          this.Init_1();

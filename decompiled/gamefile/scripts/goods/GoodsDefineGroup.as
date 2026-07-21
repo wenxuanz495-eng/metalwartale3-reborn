@@ -204,6 +204,7 @@
          }
          this.addCustomGoods();
          this.addLegacyGoods();
+         this.ensureChildrensDayShopGoods();
          for(n in nameArr)
          {
             name0 = nameArr[n];
@@ -223,7 +224,87 @@
          this.Earms = this.inArr(this.Earms,this.Esub);
       }
 
-      private function getCustomWeaponPrice(label0:String) : int
+      
+      private function ensureChildrensDayShopGoods() : *
+      {
+         var snow:GoodsDefine = null;
+         var heart:GoodsDefine = null;
+         var spring:GoodsDefine = null;
+         var labor:GoodsDefine = null;
+         // Snow: 1 Children's Day heart -> 1 snow, quantity selectable in shop UI.
+         if(this.findGoods_inArr(this.materials,"xuehua") == null)
+         {
+            snow = this.getItemsDefine_byID("xuehua","materials","Mprice");
+            if(snow is GoodsDefine)
+            {
+               snow.Mprice = 0;
+               snow.price = 0;
+               snow.num = 1;
+               snow.baseNum = 1;
+               snow.specialType = "heartBarter1";
+               this.materials.push(snow);
+            }
+         }
+         // Optional reverse entry not required.
+         if(this.findGoods_inArr(this.materials,"ertongaixin") == null)
+         {
+            heart = this.getItemsDefine_byID("ertongaixin","materials","Mprice");
+            if(heart is GoodsDefine)
+            {
+               heart.Mprice = 0;
+               heart.price = 0;
+               heart.num = 1;
+               heart.baseNum = 1;
+               heart.specialType = "heartBarter1";
+               this.materials.push(heart);
+            }
+         }
+         // New Year blessing / Labor medal: 1 Children's Day heart each.
+         if(this.findGoods_inArr(this.materials,"xinchunsongfu") == null)
+         {
+            spring = this.getItemsDefine_byID("xinchunsongfu","materials","Mprice");
+            if(spring is GoodsDefine)
+            {
+               spring.Mprice = 0;
+               spring.price = 0;
+               spring.num = 1;
+               spring.baseNum = 1;
+               spring.specialType = "heartPrice1";
+               this.materials.push(spring);
+            }
+         }
+         if(this.findGoods_inArr(this.materials,"laodongjie") == null)
+         {
+            labor = this.getItemsDefine_byID("laodongjie","materials","Mprice");
+            if(labor is GoodsDefine)
+            {
+               labor.Mprice = 0;
+               labor.price = 0;
+               labor.num = 1;
+               labor.baseNum = 1;
+               labor.specialType = "heartPrice1";
+               this.materials.push(labor);
+            }
+         }
+         // Keep Mmaterials in sync for fallback materials tab.
+         if(this.Mmaterials != null)
+         {
+            if(this.findGoods_inArr(this.Mmaterials,"xuehua") == null && this.findGoods_inArr(this.materials,"xuehua") != null)
+            {
+               this.Mmaterials.push(this.findGoods_inArr(this.materials,"xuehua"));
+            }
+            if(this.findGoods_inArr(this.Mmaterials,"xinchunsongfu") == null && this.findGoods_inArr(this.materials,"xinchunsongfu") != null)
+            {
+               this.Mmaterials.push(this.findGoods_inArr(this.materials,"xinchunsongfu"));
+            }
+            if(this.findGoods_inArr(this.Mmaterials,"laodongjie") == null && this.findGoods_inArr(this.materials,"laodongjie") != null)
+            {
+               this.Mmaterials.push(this.findGoods_inArr(this.materials,"laodongjie"));
+            }
+         }
+      }
+
+private function getCustomWeaponPrice(label0:String) : int
       {
          var seed:int = 0;
          var i:int = 0;

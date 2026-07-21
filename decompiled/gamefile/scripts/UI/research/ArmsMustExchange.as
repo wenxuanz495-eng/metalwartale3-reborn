@@ -304,11 +304,12 @@ package UI.research
             }
             else if(d0.name == "xinchunsongfu")
             {
-               m0 += 5 * d0.nowNum;
+               // Priced as 1 Children's Day heart each in shop; research auto-fill no longer burns high MB.
+               m0 += 0 * d0.nowNum;
             }
             else if(d0.name == "laodongjie")
             {
-               m0 += 5 * d0.nowNum;
+               m0 += 0 * d0.nowNum;
             }
             else if(d0.name == "superalloy_Z")
             {

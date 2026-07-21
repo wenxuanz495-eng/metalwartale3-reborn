@@ -255,7 +255,7 @@ package UI.shop
          var spaceStr0:String = null;
          var i:int = 0;
          var sourceId:String = null;
-         if(this.itemsData.id == "xuehua" || this.itemsData.id == "ertongaixin")
+         if(this.itemsData.id == "xuehua" || this.itemsData.id == "ertongaixin" || this.itemsData.specialType == "heartBarter1")
          {
             for(n in this.money_icon_arr)
             {
@@ -263,8 +263,8 @@ package UI.shop
                this.price_txt_arr[n].visible = false;
             }
             this.price_txt_arr[0].visible = true;
-            this.price_txt_arr[0].text = "1:1";
-            sourceId = this.itemsData.id == "xuehua" ? "ertongaixin" : "xuehua";
+            this.price_txt_arr[0].text = "1爱心";
+            sourceId = this.itemsData.id == "xuehua" || this.itemsData.specialType == "heartBarter1" ? "ertongaixin" : "xuehua";
             if(Game.gameData.materialsItems.getNumByBase(sourceId) > 0)
             {
                this.setState("fill");
@@ -273,7 +273,28 @@ package UI.shop
             else
             {
                this.setState("noMoney");
-               this.buy_btn2.txt.text = "材料不足";
+               this.buy_btn2.txt.text = "爱心不足";
+            }
+            return;
+         }
+         if(this.itemsData.id == "xinchunsongfu" || this.itemsData.id == "laodongjie" || this.itemsData.specialType == "heartPrice1")
+         {
+            for(n in this.money_icon_arr)
+            {
+               this.money_icon_arr[n].visible = false;
+               this.price_txt_arr[n].visible = false;
+            }
+            this.price_txt_arr[0].visible = true;
+            this.price_txt_arr[0].text = "1爱心";
+            if(Game.gameData.materialsItems.getNumByBase("ertongaixin") > 0)
+            {
+               this.setState("fill");
+               this.buy_btn.setText("兑换");
+            }
+            else
+            {
+               this.setState("noMoney");
+               this.buy_btn2.txt.text = "爱心不足";
             }
             return;
          }

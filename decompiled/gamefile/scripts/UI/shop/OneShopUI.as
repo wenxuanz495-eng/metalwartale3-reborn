@@ -209,9 +209,21 @@
          var numRepeatB:Boolean = false;
          var surplusNum:int = 0;
          this.nowBuyGoods = d0.copy();
-         if(d0.id == "xuehua" || d0.id == "ertongaixin")
+         if(d0.id == "xuehua" || d0.id == "ertongaixin" || d0.specialType == "heartBarter1")
          {
-            this.showMaterialBarter(d0.id);
+            // Prefer buying snow with Children's Day hearts.
+            if(d0.id == "ertongaixin")
+            {
+               // Keep reverse barter available, but shop entry is mainly for snow.
+               this.showMaterialBarter(d0.id);
+               return;
+            }
+            this.showMaterialBarter("xuehua");
+            return;
+         }
+         if(d0.id == "xinchunsongfu" || d0.id == "laodongjie" || d0.specialType == "heartPrice1")
+         {
+            this.showHeartPriceBuy(d0);
             return;
          }
          var numB0:Boolean = false;
@@ -338,6 +350,48 @@
          }
       }
       
+      private function showHeartPriceBuy(d0:GoodsDefine) : *
+      {
+         var heartNum:int = this.GD.materialsItems.getNumByBase("ertongaixin");
+         var itemName:String = d0.name != null && d0.name != "" ? d0.name : d0.id;
+         if(heartNum < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2("没有可用于兑换的儿童节爱心。",2);
+            return;
+         }
+         this.nowBuyGoods = d0.copy();
+         Game.uiGroup.checkTip.showBarterCheck("儿童节爱心",itemName,heartNum,this.yesHeartPriceBuySelected);
+      }
+
+      private function yesHeartPriceBuySelected() : *
+      {
+         this.heartPriceBuy(Game.uiGroup.checkTip.getSelectedNum());
+      }
+
+      private function heartPriceBuy(exchangeNum:int) : *
+      {
+         var d0:GoodsDefine = this.nowBuyGoods;
+         var heartNum:int = this.GD.materialsItems.getNumByBase("ertongaixin");
+         var itemName:String = d0 != null && d0.name != null && d0.name != "" ? d0.name : (d0 != null ? d0.id : "");
+         if(d0 == null || exchangeNum < 1 || heartNum < exchangeNum)
+         {
+            Game.uiGroup.checkTip.showCheck2("儿童节爱心数量不足。",2);
+            return;
+         }
+         if(this.GD.materialsItems.getItemsByBase(d0.id) == null && this.GD.materialsItems.getSurplus() <= 0)
+         {
+            Game.uiGroup.checkTip.showCheck2("材料背包没有空位，无法完成兑换。",2);
+            return;
+         }
+         // 1 Children's Day heart -> 1 item.
+         this.GD.materialsItems.useItemsNum("ertongaixin",exchangeNum);
+         this.GD.materialsItems.addItems(d0.id,exchangeNum);
+         Game.uiGroup.checkTip.showCheck2("兑换成功：" + exchangeNum + "个儿童节爱心 → " + exchangeNum + "个" + itemName + "。",2);
+         Game.uiGroup.saveDataNoUI();
+         this.fleshAll();
+         Game.uiGroup.infoUI.fleshData();
+      }
+
       private function showMaterialBarter(targetId:String) : *
       {
          var sourceId:String = targetId == "xuehua" ? "ertongaixin" : "xuehua";
