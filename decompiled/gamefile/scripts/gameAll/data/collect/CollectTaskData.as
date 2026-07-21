@@ -7,7 +7,7 @@ package gameAll.data.collect
       
       public static const CARD_COOLDOWN:Number = 600000;
       
-      public static const TASK_COOLDOWN:Number = 0;
+      public static const TASK_COOLDOWN:Number = 900000;
       
       public var pro_arr:Array = [];
       
@@ -184,11 +184,10 @@ package gameAll.data.collect
          var td0:CollectTaskDefine = this.getTrueTask_byIndex(index0);
          if(td0 != null)
          {
-            // Offline collect/sweep: claim then re-accept immediately.
-            td0.state = "no";
-            this.taskReadyAt[index0] = 0;
+            td0.state = "over";
+            this.taskReadyAt[index0] = Game.gameData.modNoTaskCooldown ? 0 : new Date().time + TASK_COOLDOWN;
             ++this.roundCompleted;
-            if(this.getCoolingNum() >= this.arr.length)
+            if(Game.gameData.modNoTaskCooldown || this.getCoolingNum() >= this.arr.length)
             {
                this.refreshRound();
             }

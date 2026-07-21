@@ -136,6 +136,29 @@ func TestNormalizeAMFSparseArrayMap(t *testing.T) {
 	}
 }
 
+func TestPrepareLivenessForSlot(t *testing.T) {
+	liveness := map[string]any{"value": 40, "taskNumArr": []any{1}, "giftGetB": []any{true}}
+	root := map[string]any{"localSlots": []any{nil, nil, map[string]any{"data": map[string]any{"livenessData": liveness}}}}
+	if err := prepareLivenessForSlot(root, 2); err != nil {
+		t.Fatal(err)
+	}
+	if liveness["value"] != 100 {
+		t.Fatalf("expected 100 liveness, got %#v", liveness["value"])
+	}
+	if tasks, ok := liveness["taskNumArr"].([]any); !ok || len(tasks) != 7 {
+		t.Fatalf("expected seven completed tasks, got %#v", liveness["taskNumArr"])
+	}
+	if gifts, ok := liveness["giftGetB"].([]any); !ok || len(gifts) != 5 {
+		t.Fatalf("expected five unclaimed gifts, got %#v", liveness["giftGetB"])
+	} else {
+		for _, gift := range gifts {
+			if gift != false {
+				t.Fatalf("expected all gifts unclaimed, got %#v", gifts)
+			}
+		}
+	}
+}
+
 func TestAMF0StrictArrayRejectsImpossibleLengthBeforeAllocating(t *testing.T) {
 	// AMF3 objects and AMF0 strict arrays both use marker 0x0a. Probing an
 	// AMF3 payload as AMF0 must reject its trait bytes as an impossible array

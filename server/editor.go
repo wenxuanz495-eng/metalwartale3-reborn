@@ -24,6 +24,10 @@ type editorRestoreRequest struct {
 	Name string `json:"name"`
 }
 
+type editorSlotRequest struct {
+	Index int `json:"index"`
+}
+
 type editorBackup struct {
 	Name      string `json:"name"`
 	Size      int64  `json:"size"`
@@ -57,12 +61,105 @@ func (a *app) serveEditor(w http.ResponseWriter, r *http.Request, path string) b
 		result, err := a.store.fixZeroCarAffixes("editor-fix-zero-car-affix")
 		a.sendResult(w, result, err)
 		return true
+	case path == "/api/editor/prepare-liveness" && r.Method == http.MethodPost:
+		a.editorPrepareLiveness(w, r)
 	case path == "/api/editor/restore" && r.Method == http.MethodPost:
 		a.editorRestore(w, r)
 	default:
 		http.NotFound(w, r)
 	}
 	return true
+}
+
+func prepareLivenessForSlot(value any, index int) error {
+	root, ok := value.(map[string]any)
+	if !ok || root == nil {
+		return errors.New("存档根节点无效")
+	}
+	slots, ok := root["localSlots"].([]any)
+	if !ok || index < 0 || index >= len(slots) {
+		return errors.New("存档槽位无效")
+	}
+	slot, ok := slots[index].(map[string]any)
+	if !ok || slot == nil {
+		return errors.New("所选槽位没有角色")
+	}
+	data, ok := slot["data"].(map[string]any)
+	if !ok || data == nil {
+		return errors.New("角色数据不完整")
+	}
+	liveness, ok := data["livenessData"].(map[string]any)
+	if !ok || liveness == nil {
+		liveness = map[string]any{}
+		data["livenessData"] = liveness
+	}
+	liveness["value"] = 100
+	liveness["taskNumArr"] = []any{-1, -1, -1, -1, -1, -1, -1}
+	liveness["giftGetB"] = []any{false, false, false, false, false}
+	if _, exists := liveness["firstGetB"]; !exists {
+		liveness["firstGetB"] = false
+	}
+	if _, exists := liveness["newGiftGetB"]; !exists {
+		liveness["newGiftGetB"] = false
+	}
+	if _, exists := liveness["upgradeGiftGetB"]; !exists {
+		liveness["upgradeGiftGetB"] = false
+	}
+	if _, exists := liveness["boughtArr"]; !exists {
+		liveness["boughtArr"] = []any{}
+	}
+	return nil
+}
+
+func (a *app) editorPrepareLiveness(w http.ResponseWriter, r *http.Request) {
+	var request editorSlotRequest
+	if err := decodeEditorJSON(w, r, &request); err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+		return
+	}
+	currentRaw, err := a.store.getPrimary()
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusNotFound)
+		return
+	}
+	current, _, err := parseGamePayload(currentRaw)
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	current = normalizeEditorRoot(current)
+	if err := prepareLivenessForSlot(current, request.Index); err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+		return
+	}
+	normalizeCurrencyMirrors(current)
+	if err := validateEditorValue(current, 0); err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+		return
+	}
+	encoded, err := encodeGamePayload(current)
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	roundTrip, _, err := parseGamePayload(encoded)
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": "写入前自检失败: " + err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	backup, err := a.store.createEditorBackup(currentRaw, "before-liveness-test")
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": "备份失败: " + err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	result, err := a.store.savePrimary(encoded, "editor-liveness-test")
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	result["backup"] = backup
+	result["game_data"] = jsonSafe(roundTrip, 0)
+	a.sendJSON(w, result, http.StatusOK)
 }
 
 // normalizeAMFArrayMaps restores sparse/associative AMF arrays whose only

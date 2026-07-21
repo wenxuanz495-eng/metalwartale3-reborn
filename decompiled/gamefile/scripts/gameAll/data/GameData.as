@@ -577,16 +577,11 @@
       public function newDayCtrl() : *
       {
          this.rankAdd.newDayCtrl();
-         this.taskData.newDayCtrl();
          this.giftData.newDayCtrl();
          this.extraData.newDayCtrl();
-         this.challengeTaskData.newDayCtrl();
-         this.collectTaskData.newDayCtrl();
          this.specialExtraData.newDayCtrl();
-         this.livenessData.newDayCtrl();
          this.arenaData.newDayCtrl();
          this.vipData.newDayCtrl();
-         this.weekTaskData.newDayCtrl();
          this.weekExtraData.newDayCtrl();
       }
       

@@ -122,7 +122,7 @@ package gameAll.data.collect
       
       public function getGiftNowTask() : *
       {
-         this.nowTask.state = "over";
+         this.nowTask.state = "no";
          this.nowTask = null;
          this.nowNum = 0;
       }
