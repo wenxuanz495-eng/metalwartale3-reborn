@@ -148,11 +148,12 @@ package gameAll.data.challenge
          {
             return false;
          }
-         // Cooldown must fully expire before a finished task becomes startable again.
+         // Any remaining cooldown blocks accept, even if state already flipped to "no".
          if(this.getCooldownSeconds(index0) > 0)
          {
             return false;
          }
+         // Only pure idle tasks can be accepted.
          if(td0.state == "no")
          {
             return true;
@@ -162,10 +163,8 @@ package gameAll.data.challenge
       
       public function getCooldownSeconds(index0:int) : int
       {
-         if(Game.gameData.modNoTaskCooldown)
-         {
-            return 0;
-         }
+         // Challenge tasks always use their own 30-minute cooldown.
+         // modNoTaskCooldown no longer bypasses challenge tasks.
          this.refreshTask(index0);
          var ready:Number = Number(this.taskReadyAt[index0]);
          if(isNaN(ready) || ready <= 0)
@@ -212,19 +211,9 @@ package gameAll.data.challenge
          if(td0 != null)
          {
             td0.state = "over";
-            // Always stamp a per-task cooldown unless modifier explicitly disables it.
-            if(Game.gameData.modNoTaskCooldown)
-            {
-               this.taskReadyAt[index0] = 0;
-               td0.state = "no";
-            }
-            else
-            {
-               this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
-            }
+            // Always stamp per-task cooldown after claim (30 minutes).
+            this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
             ++this.roundCompleted;
-            // Do NOT wipe other tasks' cooldowns when 3 claims finish.
-            // Only reset the cycle counter; each task still waits its own 30 minutes.
             if(this.roundCompleted >= 3)
             {
                this.roundCompleted = 0;
@@ -240,20 +229,10 @@ package gameAll.data.challenge
          {
             return;
          }
-         if(Game.gameData.modNoTaskCooldown)
-         {
-            if(td0.state == "over")
-            {
-               td0.state = "no";
-               this.taskReadyAt[index0] = 0;
-            }
-            return;
-         }
          var ready:Number = Number(this.taskReadyAt[index0]);
          if(td0.state == "over")
          {
-            // Missing/invalid ready timestamp used to unlock immediately (isNaN path).
-            // Re-apply cooldown instead of free unlock.
+            // Missing/invalid ready timestamp must NOT unlock immediately.
             if(isNaN(ready) || ready <= 0)
             {
                this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
@@ -303,6 +282,12 @@ package gameAll.data.challenge
             td0.state = "complete";
             this.failArr[index0] = "no";
             this.challengeFail = "no";
+            // Start cooldown immediately on kill-complete, so the slot cannot be re-accepted.
+            var readyNow:Number = Number(this.taskReadyAt[index0]);
+            if(isNaN(readyNow) || readyNow < new Date().time)
+            {
+               this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
+            }
             Game.gameData.livenessData.addTaskNum("challenge_task");
          }
          this.syncNowTask();

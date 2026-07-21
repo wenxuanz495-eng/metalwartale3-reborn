@@ -177,6 +177,7 @@ package UI.task
          }
          else if(td0.state == "complete")
          {
+            // Can claim reward; cooldown already started on boss kill.
             this.showBtn("complete");
          }
          this.gotoLevel_btn.alpha = 1;
