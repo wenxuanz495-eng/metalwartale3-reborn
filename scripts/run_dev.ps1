@@ -10,6 +10,29 @@ param(
 $ErrorActionPreference = "Stop"
 . (Join-Path $PSScriptRoot "go_env.ps1")
 
+function Stop-RootServers([string]$rootPath, [string]$serverExePath) {
+  $rootFull = [System.IO.Path]::GetFullPath($rootPath).TrimEnd('\')
+  $exeFull = $null
+  if ($serverExePath -and (Test-Path -LiteralPath $serverExePath)) {
+    $exeFull = [System.IO.Path]::GetFullPath($serverExePath)
+  }
+  Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object {
+    $_.Name -eq 'server.exe' -and $_.CommandLine
+  } | ForEach-Object {
+    $cmd = [string]$_.CommandLine
+    $matchRoot = $cmd.Contains($rootFull)
+    $matchExe = $false
+    if ($exeFull) { $matchExe = $cmd.Contains($exeFull) }
+    if ($matchRoot -or $matchExe) {
+      try {
+        Stop-Process -Id $_.ProcessId -Force -ErrorAction Stop
+        Write-Host ("Cleaned leftover server PID={0}" -f $_.ProcessId)
+      } catch {}
+    }
+  }
+}
+
+
 $buildDir = Join-Path $RepoRoot "build"
 $swfDir = Join-Path $RepoRoot "swf"
 $sealDir = "D:\superalloy\超合金离线优化海豹版1.2"
@@ -103,6 +126,9 @@ Write-Host "Starting self-built server on $Port"
 Write-Host "Static root: $buildDir"
 Write-Host "Saves      : $saves"
 
+Stop-RootServers -rootPath $buildDir -serverExePath $serverExe
+Start-Sleep -Milliseconds 200
+
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = $serverExe
 $psi.Arguments = "--root `"$buildDir`" --port $Port"
@@ -127,4 +153,6 @@ finally {
   if ($serverProc -and -not $serverProc.HasExited) {
     Stop-Process -Id $serverProc.Id -Force -ErrorAction SilentlyContinue
   }
+  # Hard clean leftovers bound to this build root.
+  Stop-RootServers -rootPath $buildDir -serverExePath $serverExe
 }
