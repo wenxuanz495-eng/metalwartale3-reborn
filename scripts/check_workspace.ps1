@@ -33,5 +33,14 @@ if ((Split-Path -Leaf $RepoRoot) -ne "metalwartale3-reborn.git") {
   Write-Host "[WARN] Repo folder name is not metalwartale3-reborn.git: $RepoRoot"
 }
 
+$node = Get-Command node -ErrorAction SilentlyContinue
+$modifier = Join-Path $RepoRoot "runtime\modifier.html"
+if ($node -and (Test-Path -LiteralPath $modifier)) {
+  & $node.Source (Join-Path $PSScriptRoot "check_modifier.js") $modifier
+  if ($LASTEXITCODE -ne 0) { $failed = $true }
+} else {
+  Write-Host "[WARN] Modifier JavaScript check skipped (node or modifier.html missing)."
+}
+
 if ($failed) { exit 1 }
 Write-Host "Workspace OK."
