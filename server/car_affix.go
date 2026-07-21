@@ -25,8 +25,16 @@ var carColorPropCount = map[string][2]int{
 	"yellow": {3, 5},
 	"orange": {5, 7},
 	"green":  {7, 7},
-	// purple uses same count as green in CarDataCreator colorNumArr index 5
 	"purple": {7, 7},
+}
+
+func isPercentKey(key string) bool {
+	for _, k := range carAffixPercentKeys {
+		if k == key {
+			return true
+		}
+	}
+	return false
 }
 
 func isNumericZero(v any) bool {
@@ -75,7 +83,6 @@ func carAffixLevel(car map[string]any) int {
 			return n
 		}
 	}
-	// fallback: try upgrade-based estimate from common fields
 	if v, ok := car["upgradeNum"]; ok {
 		n := int(saveNumber(v))
 		if n >= 0 {
@@ -96,6 +103,54 @@ func expectedPropCount(color string) (int, int) {
 	return 2, 4
 }
 
+// roundPercentRatio stores percent as n/100 so UI (value*100) shows integer percent.
+// Example: 0.0758 -> 0.08 -> displays as 8%.
+func roundPercentRatio(v float64) float64 {
+	if v <= 0 {
+		return 0
+	}
+	// Round to integer percentage points.
+	pct := math.Round(v * 100)
+	if pct < 1 && v > 0 {
+		pct = 1
+	}
+	return pct / 100
+}
+
+func roundLifeValue(v float64) float64 {
+	if v <= 0 {
+		return 0
+	}
+	return math.Round(v)
+}
+
+func valueNeedsRounding(key string, v any) bool {
+	n := saveNumber(v)
+	if isPercentKey(key) {
+		// Already integer percent points?
+		rounded := roundPercentRatio(n)
+		return math.Abs(n-rounded) > 1e-9
+	}
+	if key == "life_value" {
+		return math.Abs(n-math.Round(n)) > 1e-9
+	}
+	// Unknown numeric key: round to 2 decimals if messy.
+	rounded := math.Round(n*100) / 100
+	return math.Abs(n-rounded) > 1e-9
+}
+
+func extraNeedsRounding(extra map[string]any) bool {
+	if extra == nil || len(extra) == 0 {
+		return false
+	}
+	for k, v := range extra {
+		if valueNeedsRounding(k, v) {
+			return true
+		}
+	}
+	return false
+}
+
 func carNeedsZeroAffixFix(car map[string]any) bool {
 	if car == nil {
 		return false
@@ -104,41 +159,52 @@ func carNeedsZeroAffixFix(car map[string]any) bool {
 	minCount, _ := expectedPropCount(color)
 	extra, _ := car["extraObj"].(map[string]any)
 	if extra == nil {
-		// Non-white cars should have random affixes; empty is broken.
 		return minCount > 0
 	}
 	if len(extra) == 0 {
 		return minCount > 0
 	}
-	// Has keys but every value is 0 => the FFDec getRandomValue bug.
-	return allExtraValuesZero(extra)
+	if allExtraValuesZero(extra) {
+		return true
+	}
+	// Also clean previously repaired values that still contain long decimals.
+	return extraNeedsRounding(extra)
 }
 
 func randomPercent(lv int, rng *rand.Rand) float64 {
 	if lv < 1 {
 		lv = 1
 	}
-	minV := 0.01 + float64(lv)*0.003
-	maxV := 0.06 + float64(lv)*0.012
-	if maxV > 0.55 {
-		maxV = 0.55
+	// Integer percent points, scaled by level roughly.
+	minPct := 2 + lv/2
+	maxPct := 8 + lv*2
+	if maxPct > 55 {
+		maxPct = 55
 	}
-	if maxV < minV {
-		maxV = minV
+	if maxPct < minPct {
+		maxPct = minPct
 	}
-	v := minV + rng.Float64()*(maxV-minV)
-	// 4 decimals, similar to game percent display
-	return math.Round(v*10000) / 10000
+	pct := minPct
+	if maxPct > minPct {
+		pct = minPct + rng.Intn(maxPct-minPct+1)
+	}
+	return float64(pct) / 100
 }
 
 func randomLifeValue(lv int, rng *rand.Rand) float64 {
 	if lv < 1 {
 		lv = 1
 	}
-	minV := float64(80 * lv)
-	maxV := float64(900 * lv)
-	v := minV + rng.Float64()*(maxV-minV)
-	return math.Round(v)
+	minV := 80 * lv
+	maxV := 900 * lv
+	if maxV < minV {
+		maxV = minV
+	}
+	v := minV
+	if maxV > minV {
+		v = minV + rng.Intn(maxV-minV+1)
+	}
+	return float64(v)
 }
 
 func pickPropCount(color string, rng *rand.Rand) int {
@@ -147,6 +213,35 @@ func pickPropCount(color string, rng *rand.Rand) int {
 		return minC
 	}
 	return minC + rng.Intn(maxC-minC+1)
+}
+
+func roundExistingAffixes(car map[string]any) (map[string]any, bool) {
+	extra, _ := car["extraObj"].(map[string]any)
+	if extra == nil || len(extra) == 0 {
+		return extra, false
+	}
+	changed := false
+	out := make(map[string]any, len(extra))
+	for k, v := range extra {
+		n := saveNumber(v)
+		var nv float64
+		if isPercentKey(k) {
+			nv = roundPercentRatio(n)
+		} else if k == "life_value" {
+			nv = roundLifeValue(n)
+		} else {
+			nv = math.Round(n*100) / 100
+		}
+		if math.Abs(n-nv) > 1e-9 {
+			changed = true
+		}
+		// Keep integers as int-like floats is fine for AMF/JSON.
+		out[k] = nv
+	}
+	if changed {
+		car["extraObj"] = out
+	}
+	return out, changed
 }
 
 func rerollCarAffixes(car map[string]any, rng *rand.Rand) map[string]any {
@@ -161,7 +256,6 @@ func rerollCarAffixes(car map[string]any, rng *rand.Rand) map[string]any {
 		car["color"] = color
 	}
 
-	// Prefer reusing existing keys if present (keeps original rolled property types).
 	extra, _ := car["extraObj"].(map[string]any)
 	keys := make([]string, 0)
 	if extra != nil {
@@ -206,7 +300,6 @@ func iterCarMaps(group any, visit func(map[string]any)) {
 				}
 			}
 		case map[string]any:
-			// AMF dense-like map
 			for k, item := range arr {
 				if k == "$dense" {
 					if dense, ok := item.([]any); ok {
@@ -224,6 +317,20 @@ func iterCarMaps(group any, visit func(map[string]any)) {
 			}
 		}
 	}
+}
+
+func carDisplayName(car map[string]any) string {
+	name, _ := car["cnName"].(string)
+	if name == "" {
+		name, _ = car["name"].(string)
+	}
+	if name == "" {
+		name, _ = car["baseLabel"].(string)
+	}
+	if name == "" {
+		name = "?"
+	}
+	return name
 }
 
 func fixZeroCarAffixesInPayload(payload any, rng *rand.Rand) (any, int, []string) {
@@ -246,20 +353,28 @@ func fixZeroCarAffixesInPayload(payload any, rng *rand.Rand) (any, int, []string
 			if !carNeedsZeroAffixFix(car) {
 				return
 			}
+			extra, _ := car["extraObj"].(map[string]any)
 			beforeKeys := 0
-			if eo, ok := car["extraObj"].(map[string]any); ok {
-				beforeKeys = len(eo)
+			if extra != nil {
+				beforeKeys = len(extra)
 			}
+			name := carDisplayName(car)
+
+			// Non-zero but messy decimals: round only, keep property set.
+			if extra != nil && len(extra) > 0 && !allExtraValuesZero(extra) && extraNeedsRounding(extra) {
+				out, changed := roundExistingAffixes(car)
+				if changed {
+					fixed++
+					details = append(details, fmt.Sprintf("%s car=%s color=%v affix=%v rounded keys=%d",
+						label, name, car["color"], car["affixLevel"], len(out)))
+				}
+				return
+			}
+
+			// Zero / empty affix: re-roll clean integer-friendly values.
 			out := rerollCarAffixes(car, rng)
 			fixed++
-			name, _ := car["cnName"].(string)
-			if name == "" {
-				name, _ = car["name"].(string)
-			}
-			if name == "" {
-				name, _ = car["baseLabel"].(string)
-			}
-			details = append(details, fmt.Sprintf("%s car=%s color=%v affix=%v keys %d->%d",
+			details = append(details, fmt.Sprintf("%s car=%s color=%v affix=%v reroll keys %d->%d",
 				label, name, car["color"], car["affixLevel"], beforeKeys, len(out)))
 		})
 	}
@@ -301,7 +416,6 @@ func fixZeroCarAffixesInPayload(payload any, rng *rand.Rand) (any, int, []string
 		return root, fixed, details
 	}
 
-	// top-level role payload
 	fixRole(root, "root")
 	return root, fixed, details
 }
@@ -321,7 +435,7 @@ func (s *saveStore) fixZeroCarAffixes(source string) (map[string]any, error) {
 		return map[string]any{
 			"ok":      true,
 			"fixed":   0,
-			"message": "没有发现属性全为0的战车，无需修复。",
+			"message": "没有发现需要处理的战车（全0或长小数）。",
 			"details": details,
 		}, nil
 	}
@@ -335,7 +449,7 @@ func (s *saveStore) fixZeroCarAffixes(source string) (map[string]any, error) {
 	}
 	result["fixed"] = count
 	result["details"] = details
-	result["message"] = fmt.Sprintf("已重roll %d 辆属性为0的战车。", count)
+	result["message"] = fmt.Sprintf("已处理 %d 辆战车：全0属性重roll为整数百分比，长小数四舍五入清理。", count)
 	return result, nil
 }
 
@@ -346,7 +460,7 @@ func runFixZeroCarAffixOnce(root string) error {
 	}
 	flagPath := filepath.Join(store.saves, "zero_car_affix_fixed.flag")
 	if _, err := os.Stat(flagPath); err == nil {
-		return fmt.Errorf("一键修复只能使用一次。如需再次修复，请打开修改器使用“重roll属性为0的战车”。")
+		return fmt.Errorf("一键修复只能使用一次。如需再次修复/四舍五入清理，请打开修改器使用“重roll属性为0的战车”。")
 	}
 	result, err := store.fixZeroCarAffixes("fix-zero-car-affix-once")
 	if err != nil {
@@ -358,7 +472,6 @@ func runFixZeroCarAffixOnce(root string) error {
 			fmt.Println(" -", d)
 		}
 	}
-	// mark one-time used even when fixed=0, to keep "only once" semantics for the bat tool
 	_ = os.WriteFile(flagPath, []byte(nowISO()+"\n"), 0o644)
 	fmt.Println("已标记一键修复已使用：", flagPath)
 	return nil

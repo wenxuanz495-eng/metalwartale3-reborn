@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"math/rand"
 	"testing"
 )
@@ -59,7 +60,67 @@ func TestFixZeroCarAffixesRerollsOnlyZeroCars(t *testing.T) {
 	if allExtraValuesZero(bad) {
 		t.Fatalf("bad car still zero: %#v", bad)
 	}
+	// reroll uses integer percent points
+	for k, v := range bad {
+		n := saveNumber(v)
+		if k == "life_value" {
+			if math.Abs(n-math.Round(n)) > 1e-9 {
+				t.Fatalf("life_value not int: %v", n)
+			}
+			continue
+		}
+		// percent ratio should be n/100
+		if math.Abs(n*100-math.Round(n*100)) > 1e-9 {
+			t.Fatalf("percent not integer points: %s=%v", k, n)
+		}
+	}
 	if good["allAdd"] != 0.12 {
 		t.Fatalf("good car changed: %#v", good)
+	}
+}
+
+func TestRoundLongDecimalCarAffixes(t *testing.T) {
+	rng := rand.New(rand.NewSource(2))
+	payload := map[string]any{
+		"localSaveVersion": 2,
+		"localSlots": map[string]any{
+			"2": map[string]any{
+				"data": map[string]any{
+					"carItems": map[string]any{
+						"arr": []any{
+							map[string]any{
+								"cnName":     "长小数车",
+								"color":      "green",
+								"affixLevel": 7,
+								"extraObj": map[string]any{
+									"allAdd":     0.0758,
+									"attackAdd":  0.0377,
+									"life_value": 4655.2,
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+	}
+	out, fixed, details := fixZeroCarAffixesInPayload(payload, rng)
+	if fixed != 1 {
+		t.Fatalf("fixed=%d want 1 details=%v", fixed, details)
+	}
+	root := out.(map[string]any)
+	slots := root["localSlots"].(map[string]any)
+	role := slots["2"].(map[string]any)["data"].(map[string]any)
+	arr := role["carItems"].(map[string]any)["arr"].([]any)
+	eo := arr[0].(map[string]any)["extraObj"].(map[string]any)
+	// 0.0758 -> 0.08, 0.0377 -> 0.04, 4655.2 -> 4655
+	if math.Abs(saveNumber(eo["allAdd"])-0.08) > 1e-9 {
+		t.Fatalf("allAdd=%v want 0.08", eo["allAdd"])
+	}
+	if math.Abs(saveNumber(eo["attackAdd"])-0.04) > 1e-9 {
+		t.Fatalf("attackAdd=%v want 0.04", eo["attackAdd"])
+	}
+	if math.Abs(saveNumber(eo["life_value"])-4655) > 1e-9 {
+		t.Fatalf("life_value=%v want 4655", eo["life_value"])
 	}
 }

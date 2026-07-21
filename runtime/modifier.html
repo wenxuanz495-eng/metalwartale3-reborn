@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
@@ -177,7 +177,7 @@ async function loadEditor(index){
  const vipBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>VIP 等级开关</strong><p class="status" style="margin:8px 0 10px">直接设置当前存档是否拥有青铜/白银/黄金/钻石 VIP。高等级会覆盖低等级。选择“无 VIP”可清空。离线模式按永久 VIP 写入。</p><div class="toolbar"><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="0" '+(vipRank===0?'checked':'')+'>无 VIP</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="1" '+(vipRank===1?'checked':'')+'>青铜</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="2" '+(vipRank===2?'checked':'')+'>白银</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="3" '+(vipRank===3?'checked':'')+'>黄金</label><label style="display:flex;align-items:center;gap:8px"><input type="radio" name="vipRank" value="4" '+(vipRank===4?'checked':'')+'>钻石</label></div></div>';
  const selectedCleared=detectClearedLevelIndex(featureData);
  const storyOptions=buildStoryProgressOptions(selectedCleared);
- const carZeroBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>战车属性为零修复</strong><p class="status" style="margin:8px 0 10px">只处理随机词条存在但数值全为0的战车。正常非0属性战车不会改动。可多次使用。</p><div class="toolbar"><button type="button" onclick="parent.fixZeroCarAffix()">重roll属性为0的战车</button></div></div>';
+ const carZeroBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>战车属性为零修复</strong><p class="status" style="margin:8px 0 10px">处理：1) 全0属性重roll为整数百分比；2) 已有长小数属性四舍五入清理。正常干净属性不改。可多次使用。</p><div class="toolbar"><button type="button" onclick="parent.fixZeroCarAffix()">修复0属性/四舍五入长小数</button></div></div>';
   const chapterBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>剧情进度测试（自由之心）</strong><p class="status" style="margin:8px 0 10px">精确到每一关：选择“已通关到某关”后，该关及之前视为通关，下一关解锁，后续关卡锁定。目前仅支持自由之心，不含月球危机。不会改等级、物品或VIP。</p><div class="toolbar"><select id="chapterProgressSelect" style="min-width:360px;max-width:100%">'+storyOptions+'</select></div></div>';
  html=html.replace('</main>','<section id="specialFeatures" class="panel"><div class="card"><h2>特殊功能</h2><p class="status">开关只作用于当前选中的存档。修改前请先退出游戏。</p>'+featureHtml+vipBox+chapterBox+carZeroBox+'<div class="toolbar"><button onclick="parent.saveSpecialFeatures()">保存特殊功能设置</button><button onclick="parent.saveChapterProgress()">保存剧情进度</button></div></div></section></main>');
  editorFrame.srcdoc=html;
