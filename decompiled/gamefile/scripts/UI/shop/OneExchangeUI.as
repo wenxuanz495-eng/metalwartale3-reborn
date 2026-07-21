@@ -155,7 +155,7 @@ package UI.shop
             decTime = this.REFRESHTIME;
          }
          this.txt_time.text = "刷新剩余时间: " + int(decTime / 1000 / 60) + "分" + int(decTime / 1000 % 60) + "秒";
-         this.noGoodsShow.txt.text = "第一批货物将在" + int(decTime / 1000 / 60) + "分钟后运达";
+         // No more first-batch wait message; stock is available on first open.
       }
       
       protected function onClick(event:MouseEvent) : void
@@ -204,9 +204,11 @@ package UI.shop
       {
          var nd:Date = Game.timeDate.getSaveDate.getDateClass();
          var nowTime:Number = getTimer() + nd.getTime();
-         if(this.GD.lastExchangeData == null)
+         // First enter / empty placeholder: always generate goods immediately.
+         // Old logic wrote an empty stock string and forced a wait ("第一批货物运达").
+         if(this.GD.lastExchangeData == null || this.isEmptyExchangePlaceholder(this.GD.lastExchangeData))
          {
-            this.GD.lastExchangeData = nowTime + "_0|0,0|0,0|0,0|0,0|0,0|0";
+            return true;
          }
          var lstd:Array = this.GD.lastExchangeData.split("_");
          if(lstd.length != 2)
@@ -220,6 +222,26 @@ package UI.shop
          }
          return true;
       }
+
+      private function isEmptyExchangePlaceholder(data0:String) : Boolean
+      {
+         if(data0 == null || data0 == "")
+         {
+            return true;
+         }
+         // Matches old first-open empty payload: time + "_0|0,0|0,..."
+         if(data0.indexOf("0|0,0|0,0|0,0|0,0|0,0|0") >= 0)
+         {
+            return true;
+         }
+         if(data0.indexOf("_0|0,") >= 0 && data0.split(",").length <= 8)
+         {
+            // still treat pure empty flags as empty
+            var body:String = data0.split("_").length > 1 ? data0.split("_")[1] : data0;
+            return body.replace(/0|\|/g,"").replace(/,/g,"") == "";
+         }
+         return false;
+      }
       
       public function fleshAll() : *
       {
@@ -230,6 +252,11 @@ package UI.shop
          else
          {
             this.getData();
+            // Recover old empty "waiting for first stock" saves.
+            if(this._dateArr == null || this._dateArr.length == 0 || this.isEmptyExchangePlaceholder(this.GD.lastExchangeData))
+            {
+               this.freshData();
+            }
          }
          this.showByData();
       }
@@ -643,10 +670,16 @@ package UI.shop
       public function showBox_byLabel() : *
       {
          this.sib.visible = true;
-         if(this.GDG.ExchangeItems.length == 0 || this.GD.lastExchangeData == null || this.GD.lastExchangeData.indexOf("0|0,0|0,0|0,0|0,0|0,0|0") > 0)
+         if(this.GDG.ExchangeItems.length == 0)
          {
             this.noGoodsShow.visible = true;
             this.noGoodsShow.txt.text = "暂无兑换物品!";
+         }
+         else if(this.isEmptyExchangePlaceholder(this.GD.lastExchangeData))
+         {
+            this.freshData(false);
+            this.showByData();
+            return;
          }
          else
          {
