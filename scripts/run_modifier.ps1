@@ -76,7 +76,10 @@ Write-Host "Server : $serverExe"
 Write-Host "Port   : $Port"
 Write-Host "========================================"
 Write-Host "Tip: fully exit the game before saving with modifier."
-Write-Host "Close the modifier window to stop server and auto-close this console."
+Write-Host "Important:"
+Write-Host "1) Fully exit the game before using the modifier."
+Write-Host "2) Keep this black console open while editing."
+Write-Host "3) Close the modifier window to stop server and auto-close console."
 
 Stop-RootServers -rootPath $buildDir -serverExePath $serverExe
 Start-Sleep -Milliseconds 200
@@ -110,7 +113,13 @@ try {
   $browser = Resolve-Browser
   if ($browser) {
     Write-Host "Browser  : $browser"
-    Write-Host "Open     : $url"
+    try {
+    Invoke-WebRequest "http://127.0.0.1:$Port/api/editor/data" -UseBasicParsing -TimeoutSec 3 | Out-Null
+  } catch {
+    throw "editor API not ready: $($_.Exception.Message)"
+  }
+
+  Write-Host "Open     : $url"
     $args = @(
       "--user-data-dir=$browserProfile",
       "--no-first-run",
