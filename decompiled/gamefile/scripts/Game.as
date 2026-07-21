@@ -57,6 +57,7 @@ package
    import items.ItemsController;
    import items.ItemsDefineGroup;
    import items.ItemsGroup;
+   import net.ClientErrorLog;
    import net.SWFLoaderManager;
    import net.TextLoaderManager;
    import other.XTimer;
@@ -649,6 +650,7 @@ package
       
       public function addSaveEvent() : *
       {
+         this.installClientErrorReporting();
          stage.addEventListener("multipleError",payController.multipleErrorHandler,false,0,true);
          stage.addEventListener("StoreStateEvent",payController.getStoreStateHandler,false,0,true);
          stage.addEventListener(PayEvent.LOG,payController.onPayEventHandler,false,0,true);
@@ -932,6 +934,59 @@ package
             }
          }
       }
+      private function installClientErrorReporting() : *
+      {
+         try
+         {
+            if(this.loaderInfo != null && this.loaderInfo.hasOwnProperty("uncaughtErrorEvents"))
+            {
+               this.loaderInfo["uncaughtErrorEvents"].addEventListener("uncaughtError",this.onUncaughtClientError);
+            }
+         }
+         catch(e:*)
+         {
+         }
+         ClientErrorLog.report("boot","client error reporting ready");
+      }
+      
+      private function onUncaughtClientError(e:*) : *
+      {
+         var err:* = undefined;
+         var msg:String = "";
+         var stack:String = "";
+         try
+         {
+            if(e != null && e.hasOwnProperty("error"))
+            {
+               err = e.error;
+            }
+            if(err != null)
+            {
+               msg = String(err);
+               if(err.hasOwnProperty("getStackTrace") && err.getStackTrace is Function)
+               {
+                  stack = String(err.getStackTrace());
+               }
+               else if(err.hasOwnProperty("message"))
+               {
+                  msg = String(err.message);
+               }
+            }
+            else
+            {
+               msg = String(e);
+            }
+            ClientErrorLog.report("uncaught",msg,stack);
+            if(e != null && e.hasOwnProperty("preventDefault"))
+            {
+               e.preventDefault();
+            }
+         }
+         catch(e2:*)
+         {
+         }
+      }
+
    }
 }
 

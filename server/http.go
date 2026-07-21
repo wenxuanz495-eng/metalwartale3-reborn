@@ -49,6 +49,8 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 		a.sendBytes(w, []byte(indexHTML), "text/html; charset=utf-8", http.StatusOK)
 	case r.Method == http.MethodGet && path == "/crossdomain.xml":
 		a.sendBytes(w, []byte(crossDomain), "text/xml; charset=utf-8", http.StatusOK)
+	case r.Method == http.MethodGet && path == "/api/client-logs":
+		a.clientLogList(w, r)
 	case r.Method == http.MethodGet && path == "/api/status":
 		a.sendJSON(w, map[string]any{
 			"ok": true, "backend": "go", "game": "/game.swf",
@@ -93,6 +95,8 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		a.sendJSON(w, result, http.StatusOK)
+	case r.Method == http.MethodPost && path == "/api/client-log":
+		a.clientLog(w, r)
 	case strings.HasPrefix(path, "/api/4399/") || strings.Contains(path, "save.api"):
 		a.mock4399(w, r, path)
 	case r.Method == http.MethodGet || r.Method == http.MethodHead:
@@ -232,6 +236,104 @@ const indexHTML = `<!DOCTYPE html>
 <script>document.getElementById('url').textContent=location.origin+'/game.swf';</script>
 </body></html>`
 
+
+func (a *app) clientLog(w http.ResponseWriter, r *http.Request) {
+	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 64*1024+1))
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+		return
+	}
+	kind := "error"
+	message := strings.TrimSpace(string(body))
+	stack := ""
+	extra := ""
+	var payload map[string]any
+	if json.Unmarshal(body, &payload) == nil {
+		if v, ok := payload["kind"].(string); ok && strings.TrimSpace(v) != "" {
+			kind = strings.TrimSpace(v)
+		}
+		if v, ok := payload["message"].(string); ok {
+			message = strings.TrimSpace(v)
+		}
+		if v, ok := payload["stack"].(string); ok {
+			stack = strings.TrimSpace(v)
+		}
+		if v, ok := payload["extra"].(string); ok {
+			extra = strings.TrimSpace(v)
+		}
+	}
+	if message == "" {
+		message = "(empty client error)"
+	}
+	// Console output for black window / server console.
+	log.Printf("[client-error] kind=%s message=%s extra=%s", kind, message, extra)
+	if stack != "" {
+		log.Printf("[client-error-stack]\n%s", stack)
+	}
+	// Persist for later diagnosis.
+	if err := a.appendClientLog(kind, message, stack, extra); err != nil {
+		log.Printf("[client-error] write log file failed: %v", err)
+	}
+	a.sendJSON(w, map[string]any{"ok": true}, http.StatusOK)
+}
+
+func (a *app) clientLogList(w http.ResponseWriter, r *http.Request) {
+	path := a.clientLogPath()
+	data, err := os.ReadFile(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			a.sendJSON(w, map[string]any{"ok": true, "path": path, "lines": []string{}}, http.StatusOK)
+			return
+		}
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	raw := strings.ReplaceAll(string(data), "\r\n", "\n")
+	lines := strings.Split(strings.TrimRight(raw, "\n"), "\n")
+	if len(lines) == 1 && lines[0] == "" {
+		lines = []string{}
+	}
+	// return last 200 lines
+	if len(lines) > 200 {
+		lines = lines[len(lines)-200:]
+	}
+	a.sendJSON(w, map[string]any{"ok": true, "path": path, "lines": lines}, http.StatusOK)
+}
+
+func (a *app) clientLogPath() string {
+	return filepath.Join(a.store.saves, "client_errors.log")
+}
+
+func (a *app) appendClientLog(kind, message, stack, extra string) error {
+	if err := os.MkdirAll(a.store.saves, 0o755); err != nil {
+		return err
+	}
+	f, err := os.OpenFile(a.clientLogPath(), os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	line := fmt.Sprintf("%s\tkind=%s\tmessage=%s", time.Now().Format(time.RFC3339), sanitizeLogField(kind), sanitizeLogField(message))
+	if extra != "" {
+		line += "\textra=" + sanitizeLogField(extra)
+	}
+	if stack != "" {
+		line += "\tstack=" + sanitizeLogField(stack)
+	}
+	line += "\n"
+	_, err = f.WriteString(line)
+	return err
+}
+
+func sanitizeLogField(v string) string {
+	v = strings.ReplaceAll(v, "\r", "\\r")
+	v = strings.ReplaceAll(v, "\n", "\\n")
+	v = strings.ReplaceAll(v, "\t", " ")
+	if len(v) > 4000 {
+		v = v[:4000]
+	}
+	return v
+}
 func logRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		log.Printf("[http] %s %s", r.Method, r.URL.RequestURI())

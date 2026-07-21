@@ -621,26 +621,44 @@ package items
          return bag0.getSurplus() > 0;
       }
 
+      private function settleMagnetPhysics(items0:ItemsBody) : *
+      {
+         // Kill bounce/float physics so fast loot no longer floats mid-air.
+         items0.magnetB = true;
+         items0.mot.settleForMagnet();
+      }
+
       private function attractToHero(items0:ItemsBody) : *
       {
-         var dx:Number = this.hero.MX - items0.mot.x0;
-         var dy:Number = this.hero.MY - items0.mot.y0;
-         var distance:Number = Math.sqrt(dx * dx + dy * dy);
-         if(distance <= 1)
+         var dx:Number = NaN;
+         var dy:Number = NaN;
+         var distance:Number = NaN;
+         var speed:Number = NaN;
+         var groundY:Number = NaN;
+         this.settleMagnetPhysics(items0);
+         dx = this.hero.MX - items0.mot.x0;
+         dy = this.hero.MY - items0.mot.y0;
+         distance = Math.sqrt(dx * dx + dy * dy);
+         // Active absorb: close enough => pick up immediately, no waiting for floor bounce.
+         if(distance <= 48)
          {
+            this.useItemsBody(items0);
             return;
          }
-         var speed:Number = Math.min(32,Math.max(8,distance * 0.12));
-         var moveX:Number = dx;
-         var moveY:Number = dy;
-         if(distance > speed)
+         speed = Math.min(22,Math.max(10,distance * 0.1));
+         if(distance > 0)
          {
-            moveX = dx / distance * speed;
-            moveY = dy / distance * speed;
+            items0.mot.x0 += dx / distance * speed;
+            items0.mot.y2 += dy / distance * speed;
          }
-         items0.mot.x0 += moveX;
-         items0.mot.y0 += moveY;
-         items0.mot.y2 += moveY;
+         // Keep on/near ground under current X to avoid mid-air stuck.
+         groundY = Game.BGHit.getMinY(items0.mot.x0) - 20;
+         if(items0.mot.y2 > groundY)
+         {
+            items0.mot.y2 = groundY;
+         }
+         items0.mot.minY = groundY;
+         items0.mot.y0 = items0.mot.y2;
          items0.img.x = items0.mot.x0;
          items0.img.y = items0.mot.y0;
       }
@@ -652,10 +670,14 @@ package items
          for(n in this.arr)
          {
             items0 = this.arr[n];
-            items0.bodyTimer();
             if(items0.die == 0 && this.hero.die == 0 && this.canAutoCollect(items0))
             {
+               // Active magnet path: skip normal floating physics.
                this.attractToHero(items0);
+            }
+            else
+            {
+               items0.bodyTimer();
             }
          }
          if(this.hero.die == 0)

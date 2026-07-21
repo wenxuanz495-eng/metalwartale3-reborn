@@ -23,9 +23,9 @@ package items
       
       public var y2:Number = 0;
       
-      private var vx:Number = 0;
+      public var vx:Number = 0;
       
-      private var vy:Number = 0;
+      public var vy:Number = 0;
       
       public var ax:Number = 0;
       
@@ -44,6 +44,15 @@ package items
          super();
       }
       
+      public function settleForMagnet() : *
+      {
+         this.vx = 0;
+         this.vy = 0;
+         this.ay = 0;
+         this.jumpNum = 3;
+         this.range = 0;
+      }
+
       public function shoot(v0:Number, ra0:Number) : *
       {
          this.vx = Math.cos(ra0) * v0;
