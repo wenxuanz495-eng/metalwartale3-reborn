@@ -124,12 +124,18 @@ package gameAll.data.challenge
       
       public function startOneTask(nowIndex:*) : *
       {
-         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(nowIndex);
+         var idx:int = int(nowIndex);
+         if(!this.canStart(idx))
+         {
+            return;
+         }
+         var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(idx);
          if(td0 != null && td0.state == "no")
          {
             td0.state = "ing";
-            this.failArr[int(nowIndex)] = "no";
-            Game.gameData.taskData.reserveChallengeCard("challenge",int(nowIndex));
+            this.failArr[idx] = "no";
+            this.challengeFail = "no";
+            Game.gameData.taskData.reserveChallengeCard("challenge",idx);
          }
          this.syncNowTask();
       }
@@ -138,6 +144,15 @@ package gameAll.data.challenge
       {
          var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
          this.refreshTask(index0);
+         if(td0 == null)
+         {
+            return false;
+         }
+         // Cooldown must fully expire before a finished task becomes startable again.
+         if(this.getCooldownSeconds(index0) > 0)
+         {
+            return false;
+         }
          if(td0.state == "no")
          {
             return true;
@@ -152,7 +167,12 @@ package gameAll.data.challenge
             return 0;
          }
          this.refreshTask(index0);
-         return Math.max(0,Math.ceil((Number(this.taskReadyAt[index0]) - new Date().time) / 1000));
+         var ready:Number = Number(this.taskReadyAt[index0]);
+         if(isNaN(ready) || ready <= 0)
+         {
+            return 0;
+         }
+         return Math.max(0,Math.ceil((ready - new Date().time) / 1000));
       }
       
       public function giveupNowTask() : *
@@ -192,11 +212,22 @@ package gameAll.data.challenge
          if(td0 != null)
          {
             td0.state = "over";
-            this.taskReadyAt[index0] = Game.gameData.modNoTaskCooldown ? 0 : new Date().time + TASK_COOLDOWN;
-            ++this.roundCompleted;
-            if(Game.gameData.modNoTaskCooldown || this.roundCompleted >= 3)
+            // Always stamp a per-task cooldown unless modifier explicitly disables it.
+            if(Game.gameData.modNoTaskCooldown)
             {
-               this.refreshRound();
+               this.taskReadyAt[index0] = 0;
+               td0.state = "no";
+            }
+            else
+            {
+               this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
+            }
+            ++this.roundCompleted;
+            // Do NOT wipe other tasks' cooldowns when 3 claims finish.
+            // Only reset the cycle counter; each task still waits its own 30 minutes.
+            if(this.roundCompleted >= 3)
+            {
+               this.roundCompleted = 0;
             }
          }
          this.syncNowTask();
@@ -205,11 +236,34 @@ package gameAll.data.challenge
       private function refreshTask(index0:int) : *
       {
          var td0:ChallengeTaskDefine = this.getTrueTask_byIndex(index0);
-         var ready:Number = Number(this.taskReadyAt[index0]);
-         if(td0 != null && td0.state == "over" && (Game.gameData.modNoTaskCooldown || isNaN(ready) || new Date().time >= ready))
+         if(td0 == null)
          {
-            td0.state = "no";
-            this.taskReadyAt[index0] = 0;
+            return;
+         }
+         if(Game.gameData.modNoTaskCooldown)
+         {
+            if(td0.state == "over")
+            {
+               td0.state = "no";
+               this.taskReadyAt[index0] = 0;
+            }
+            return;
+         }
+         var ready:Number = Number(this.taskReadyAt[index0]);
+         if(td0.state == "over")
+         {
+            // Missing/invalid ready timestamp used to unlock immediately (isNaN path).
+            // Re-apply cooldown instead of free unlock.
+            if(isNaN(ready) || ready <= 0)
+            {
+               this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
+               return;
+            }
+            if(new Date().time >= ready)
+            {
+               td0.state = "no";
+               this.taskReadyAt[index0] = 0;
+            }
          }
       }
       

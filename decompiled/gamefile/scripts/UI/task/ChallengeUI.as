@@ -107,7 +107,7 @@ package UI.task
          var level_str:String = d0.name;
          this.taskName_txt.htmlText = "击杀" + td0.enemyName;
          var str0:String = "";
-         this.taskNum_txt.text = "挑战任务可同时接取；单项冷却30分钟，完成3项立即刷新；剩余：" + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex));
+         this.taskNum_txt.text = "挑战任务可同时接取；单项冷却30分钟；冷却中不可再次接取；剩余：" + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex));
          str0 += "关卡：" + this.getFontColor(page_str + " > " + diff_str + " > " + level_str.replace(" ",""),"#00FFFF");
          var diff0:int = td0.targetDiff;
          var level0:int = td0.targetLevel;
@@ -149,7 +149,15 @@ package UI.task
          }
          if(td0.state == "no")
          {
-            this.showBtn("get");
+            if(this.cData.getCooldownSeconds(this.nowIndex) > 0)
+            {
+               this.setNoButtonText("冷却中 " + this.formatCooldown(this.cData.getCooldownSeconds(this.nowIndex)));
+               this.showBtn("no");
+            }
+            else
+            {
+               this.showBtn("get");
+            }
          }
          else if(td0.state == "over")
          {
@@ -245,7 +253,22 @@ package UI.task
       public function startOneTask(e:* = null) : *
       {
          var td0:ChallengeTaskDefine = this.cData.getTrueTask_byIndex(this.nowIndex);
-         if(td0 != null && td0.state == "no")
+         if(td0 == null)
+         {
+            return;
+         }
+         // Enforce cooldown: cannot accept while this task is still cooling down.
+         if(!this.cData.canStart(this.nowIndex))
+         {
+            var left0:int = this.cData.getCooldownSeconds(this.nowIndex);
+            if(left0 > 0)
+            {
+               Game.uiGroup.checkTip.showTip("任务冷却中，剩余 " + this.formatCooldown(left0),2);
+            }
+            this.fleshData();
+            return;
+         }
+         if(td0.state == "no")
          {
             this.cData.startOneTask(this.nowIndex);
             this.fleshData();
