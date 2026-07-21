@@ -145,7 +145,7 @@ package UI.extra
                if(this.extraData.hasFirstFree(index0))
                {
                   this.extraData.useFirstFree(index0);
-                  Game.uiGroup.checkTip.showTip("使用该副本首次解锁赠送的免费挑战机会。",1);
+                  Game.uiGroup.checkTip.showTip("使用该精英副本今日免费挑战机会。",1);
                   this.gotoExtra();
                }
                else if(this.extraData.useChallengeCard())
@@ -282,7 +282,7 @@ package UI.extra
             str0 += "\n" + "今日剩余次数： " + StringToDefine.getFontColor(num0,color0) + " 次";
             if(this.extraState == "extra")
             {
-               str0 += "\n首次解锁赠送：" + (this.extraData.hasFirstFree(event.index) ? "1次" : "已使用");
+               str0 += "\n今日免费次数：" + (this.extraData.hasFirstFree(event.index) ? "1次" : "已使用");
                str0 += "\n挑战卡：" + Game.gameData.propsItems.getNumByBase("elite_challenge_card") + "张";
                if(this.extraData.isLevelCooling(event.index))
                {

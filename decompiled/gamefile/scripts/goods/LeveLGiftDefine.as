@@ -69,6 +69,18 @@ package goods
             }
             this.ItemArr.push(sDataInfo);
          }
+         var level1:LevelGiftData = this.getItemById(1);
+         if(level1 != null && level1.Group.indexOf("2013") < 0)
+         {
+            level1.Group.push("2013");
+            level1.Num.push("1");
+         }
+         var level10:LevelGiftData = this.getItemById(2);
+         if(level10 != null && level10.Group.indexOf("斯巴达") < 0)
+         {
+            level10.Group.push("斯巴达");
+            level10.Num.push("1");
+         }
       }
       
       public function getItemArrCopy() : Array

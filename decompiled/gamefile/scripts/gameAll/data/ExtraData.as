@@ -267,6 +267,7 @@ package gameAll.data
       {
          var n:* = undefined;
          var m:* = undefined;
+         var i:int = 0;
          for(n in this.allState)
          {
             for(m in this.allState[n])
@@ -277,6 +278,12 @@ package gameAll.data
          this.fleshUnlock();
          this.buyNum = 0;
          this.juneB = this.maxJuneNum;
+         this.firstFreeUsed = [];
+         while(i < maxLevel)
+         {
+            this.firstFreeUsed.push(false);
+            i++;
+         }
       }
       
       public function fleshUnlock() : *
