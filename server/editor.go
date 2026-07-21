@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -64,9 +65,64 @@ func (a *app) serveEditor(w http.ResponseWriter, r *http.Request, path string) b
 	return true
 }
 
+// normalizeAMFArrayMaps restores sparse/associative AMF arrays whose only
+// associative keys are numeric indexes. Without this conversion an editor
+// round trip writes them back as plain objects, and Flash code using `is Array`
+// silently discards legacy cooldown and task state.
+func normalizeAMFArrayMaps(value any, depth int) any {
+	if depth > 64 {
+		return value
+	}
+	switch typed := value.(type) {
+	case []any:
+		for index, item := range typed {
+			typed[index] = normalizeAMFArrayMaps(item, depth+1)
+		}
+		return typed
+	case map[string]any:
+		dense, hasDense := typed["$dense"].([]any)
+		if hasDense {
+			maxIndex := len(dense) - 1
+			numeric := true
+			indexes := make(map[int]any)
+			for key, item := range typed {
+				if key == "$dense" {
+					continue
+				}
+				index, err := strconv.Atoi(key)
+				if err != nil || index < 0 {
+					numeric = false
+					break
+				}
+				indexes[index] = item
+				if index > maxIndex {
+					maxIndex = index
+				}
+			}
+			if numeric {
+				result := make([]any, maxIndex+1)
+				for index, item := range dense {
+					result[index] = normalizeAMFArrayMaps(item, depth+1)
+				}
+				for index, item := range indexes {
+					result[index] = normalizeAMFArrayMaps(item, depth+1)
+				}
+				return result
+			}
+		}
+		for key, item := range typed {
+			typed[key] = normalizeAMFArrayMaps(item, depth+1)
+		}
+		return typed
+	default:
+		return value
+	}
+}
+
 // normalizeEditorRoot forces localSlots into a plain 8-length array for the web editor.
 // AMF dense/associative maps are flattened so the modifier never sees mixed shapes.
 func normalizeEditorRoot(value any) any {
+	value = normalizeAMFArrayMaps(value, 0)
 	root, ok := value.(map[string]any)
 	if !ok || root == nil {
 		return value
@@ -179,6 +235,7 @@ func (a *app) editorSave(w http.ResponseWriter, r *http.Request) {
 		a.sendJSON(w, map[string]any{"ok": false, "error": "存档根节点必须是对象"}, http.StatusBadRequest)
 		return
 	}
+	normalized = normalizeAMFArrayMaps(normalized, 0)
 	normalizeCurrencyMirrors(normalized)
 	if err := validateEditorValue(normalized, 0); err != nil {
 		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)

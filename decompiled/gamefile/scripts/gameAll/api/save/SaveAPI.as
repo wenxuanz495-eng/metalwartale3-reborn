@@ -37,6 +37,9 @@ package gameAll.api.save
       {
          if(this.isLocal())
          {
+            var localTime:String = Game.getNowLocalTime();
+            Game.timeDate.getSaveDate.inData_byStr(localTime);
+            Game.severTime.nowTime.inData_byStr(localTime);
             Game.gameData.username = "本地玩家";
             Game.gameData.uid = 1;
             this.loadUI.hide();

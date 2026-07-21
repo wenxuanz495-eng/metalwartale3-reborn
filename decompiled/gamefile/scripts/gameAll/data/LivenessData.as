@@ -90,19 +90,35 @@ package gameAll.data
       
       public function inData_byObj(obj:Object) : *
       {
-         var n:* = undefined;
          var i:* = undefined;
-         var pro0:String = null;
-         var pro_arr:Array = ["value","firstGetB","taskNumArr"];
-         for(n in pro_arr)
+         var taskArr:Array = null;
+         if(obj == null)
          {
-            pro0 = pro_arr[n];
-            this[pro0] = obj[pro0];
+            this.init();
+            return;
          }
-         this.initGiftGet();
-         for(i in obj.giftGetB)
+         this.value = obj.hasOwnProperty("value") ? int(obj.value) : 0;
+         this.firstGetB = obj.hasOwnProperty("firstGetB") ? Boolean(obj.firstGetB) : false;
+         taskArr = obj.hasOwnProperty("taskNumArr") && obj.taskNumArr is Array ? obj.taskNumArr.concat() : [];
+         while(taskArr.length < taskMaxNum)
          {
-            this.giftGetB[i] = obj.giftGetB[i];
+            taskArr.push(0);
+         }
+         if(taskArr.length > taskMaxNum)
+         {
+            taskArr.length = taskMaxNum;
+         }
+         this.taskNumArr = taskArr;
+         this.initGiftGet();
+         if(obj.hasOwnProperty("giftGetB") && obj.giftGetB is Array)
+         {
+            for(i in obj.giftGetB)
+            {
+               if(int(i) < giftNum)
+               {
+                  this.giftGetB[i] = Boolean(obj.giftGetB[i]);
+               }
+            }
          }
          if(!obj.hasOwnProperty("newGiftGetB"))
          {

@@ -105,10 +105,31 @@ package gameAll.data
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
-         this.firstTimeDate.inData_byObj(obj.firstTimeDate);
-         this.getLoginGiftTime.inData_byObj(obj.getLoginGiftTime);
-         this.getRankGiftTime.inData_byObj(obj.getRankGiftTime);
-         if(obj.hasOwnProperty("lastLoginTime"))
+         if(obj.hasOwnProperty("firstTimeDate") && obj.firstTimeDate != null)
+         {
+            this.firstTimeDate.inData_byObj(obj.firstTimeDate);
+         }
+         else
+         {
+            this.firstTimeDate.init();
+         }
+         if(obj.hasOwnProperty("getLoginGiftTime") && obj.getLoginGiftTime != null)
+         {
+            this.getLoginGiftTime.inData_byObj(obj.getLoginGiftTime);
+         }
+         else
+         {
+            this.getLoginGiftTime.init();
+         }
+         if(obj.hasOwnProperty("getRankGiftTime") && obj.getRankGiftTime != null)
+         {
+            this.getRankGiftTime.inData_byObj(obj.getRankGiftTime);
+         }
+         else
+         {
+            this.getRankGiftTime.init();
+         }
+         if(obj.hasOwnProperty("lastLoginTime") && obj.lastLoginTime != null)
          {
             this.lastLoginTime.inData_byObj(obj.lastLoginTime);
          }

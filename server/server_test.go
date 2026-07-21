@@ -118,6 +118,24 @@ func TestAMF3InvalidObjectReferenceReturnsError(t *testing.T) {
 	}
 }
 
+func TestNormalizeAMFSparseArrayMap(t *testing.T) {
+	value := map[string]any{
+		"$dense": []any{"zero"},
+		"2":      "two",
+		"5":      map[string]any{"$dense": []any{1, 2}},
+	}
+	normalized, ok := normalizeAMFArrayMaps(value, 0).([]any)
+	if !ok || len(normalized) != 6 {
+		t.Fatalf("expected six-element sparse array, got %#v", normalized)
+	}
+	if normalized[0] != "zero" || normalized[2] != "two" {
+		t.Fatalf("sparse values were not preserved: %#v", normalized)
+	}
+	if nested, ok := normalized[5].([]any); !ok || len(nested) != 2 {
+		t.Fatalf("nested AMF array was not normalized: %#v", normalized[5])
+	}
+}
+
 func TestAMF0StrictArrayRejectsImpossibleLengthBeforeAllocating(t *testing.T) {
 	// AMF3 objects and AMF0 strict arrays both use marker 0x0a. Probing an
 	// AMF3 payload as AMF0 must reject its trait bytes as an impossible array
