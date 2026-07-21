@@ -18,26 +18,22 @@ Go 缓存：`D:\superalloy\.gopath\...`
 |---|---|
 | `启动游戏-flashplayer_sa.bat` | `flashplayer_sa.exe`（新对照，非 debug） |
 | `启动游戏-flashplayer_sa_debug.bat` | `flashplayer_sa_debug.exe`（旧 debug） |
-| `启动游戏-FlashPlayer发行版.bat` | 1.2 的 `FlashPlayer.exe` |
 
 英文同名：
 
 - `start-game-flashplayer_sa.bat`
 - `start-game-flashplayer_sa_debug.bat`
-- `start-game-FlashPlayer-release.bat`
 
 播放器查找顺序：
 
 - **sa**: `tools\debug\flashplayer_sa.exe` → `D:\superalloy\flashplayer_sa.exe`
 - **sa_debug**: `tools\debug\flashplayer_sa_debug.exe` → `D:\superalloy\flashplayer_32_sa_debug.exe`
-- **release**: `超合金离线优化海豹版1.2\FlashPlayer.exe`
 
 PowerShell：
 
 ```powershell
 .\scripts\run_dev.ps1 -PlayerType sa
 .\scripts\run_dev.ps1 -PlayerType sa_debug
-.\scripts\run_dev.ps1 -PlayerType release
 ```
 
 ## 3. 构建并启动（可选）

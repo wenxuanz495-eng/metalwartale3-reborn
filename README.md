@@ -22,7 +22,6 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 1. `构建.bat`：只构建
 2. `启动游戏-flashplayer_sa.bat`：`flashplayer_sa.exe`
 3. `启动游戏-flashplayer_sa_debug.bat`：`flashplayer_sa_debug.exe`
-4. `启动游戏-FlashPlayer发行版.bat`：1.2 `FlashPlayer.exe`
 
 
 见 [docs/DEV_RUN.md](docs/DEV_RUN.md)。根目录 启动游戏.bat 会：

@@ -3,7 +3,7 @@ param(
   [int]$Port = 8765,
   [switch]$Build,
   [switch]$SkipBuild,
-  [ValidateSet("sa", "sa_debug", "release")]
+  [ValidateSet("sa", "sa_debug")]
   [string]$PlayerType = "sa_debug",
   [string]$PlayerPath = ""
 )
@@ -64,13 +64,6 @@ function Resolve-PlayerPath([string]$type, [string]$explicit) {
         (Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe"),
         "D:\superalloy\flashplayer_32_sa_debug.exe",
         "D:\superalloy\flashplayer_sa_debug.exe"
-      )
-    }
-    "release" {
-      $candidates = @(
-        (Join-Path $sealDir "FlashPlayer.exe"),
-        (Join-Path $RepoRoot "tools\debug\FlashPlayer.exe"),
-        "D:\superalloy\FlashPlayer.exe"
       )
     }
   }
