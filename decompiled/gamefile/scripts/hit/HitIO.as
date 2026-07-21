@@ -1,4 +1,4 @@
-package hit
+﻿package hit
 {
    import data.Maths;
    import flash.geom.Point;
@@ -352,22 +352,18 @@ package hit
                   cos0 = Math.cos(ra) * w0;
                   sin0 = Math.sin(ra) * w0;
                }
-               while(true)
+               while(n < loopNum)
                {
-                  if(n < loopNum)
+                  x3 = x2 + cos0 * n - w1;
+                  y3 = y2 + sin0 * n - w1;
+                  bb = hit(rect.x,rect.y,rect.width,rect.height,x3,y3,w0,w0);
+                  if(Boolean(bb))
                   {
-                     x3 = x2 + cos0 * n - w1;
-                     y3 = y2 + sin0 * n - w1;
-                     bb = hit(rect.x,rect.y,rect.width,rect.height,x3,y3,w0,w0);
-                     if(Boolean(bb))
-                     {
-                        break;
-                     }
-                     n++;
-                     continue;
+                     return new Point(x2 + cos0 * n,y2 + sin0 * n);
                   }
+                  n++;
                }
-               return new Point(x2 + cos0 * n,y2 + sin0 * n);
+               return null;
             }
             if(x2 + w1 >= rect.x && x2 - w1 <= rect.x + rect.width && y2 >= rect.y)
             {
@@ -756,4 +752,5 @@ package hit
       }
    }
 }
+
 
