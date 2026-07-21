@@ -160,10 +160,12 @@ async function loadEditor(index){
  const featureData=gameData.localSlots[Number(index)].data;
  const feature=(id,label,checked)=>'<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;margin:8px 0;border:1px solid var(--line);border-radius:8px;background:#091725"><input id="'+id+'" type="checkbox" '+(checked?'checked':'')+' style="width:20px;height:20px"><strong>'+label+'</strong></label>';
  const featureHtml=feature('modInfiniteEnergy','无限能量',featureData.modInfiniteEnergy)+feature('modGod','车身无敌',featureData.modGod)+feature('modOneHit','一击必杀',featureData.modOneHit)+feature('modUnlockAll','关卡全解锁',featureData.modUnlockAll)+feature('modAllLevelsPassed','所有关卡通关',featureData.modAllLevelsPassed)+feature('modCraftFree','研发不需要材料',featureData.modCraftFree)+feature('modNoExtraCooldown','副本挑战无冷却',featureData.modNoExtraCooldown)+feature('modNoTaskCooldown','任务无冷却时间',featureData.modNoTaskCooldown);
+ const vipRank=getVipRank(featureData);
+ const vipBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>VIP 等级开关</strong><p class="status" style="margin:8px 0 10px">直接设置当前存档是否拥有青铜/白银/黄金/钻石 VIP。高等级会覆盖低等级。选择“无 VIP”可清空。离线模式按永久 VIP 写入。</p><div class="toolbar"><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="0" '+(vipRank===0?'checked':'')+'>无 VIP</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="1" '+(vipRank===1?'checked':'')+'>青铜</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="2" '+(vipRank===2?'checked':'')+'>白银</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="3" '+(vipRank===3?'checked':'')+'>黄金</label><label style="display:flex;align-items:center;gap:8px"><input type="radio" name="vipRank" value="4" '+(vipRank===4?'checked':'')+'>钻石</label></div></div>';
  const selectedCleared=detectClearedLevelIndex(featureData);
  const storyOptions=buildStoryProgressOptions(selectedCleared);
  const chapterBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>剧情进度测试（自由之心）</strong><p class="status" style="margin:8px 0 10px">精确到每一关：选择“已通关到某关”后，该关及之前视为通关，下一关解锁，后续关卡锁定。目前仅支持自由之心，不含月球危机。不会改等级、物品或VIP。</p><div class="toolbar"><select id="chapterProgressSelect" style="min-width:360px;max-width:100%">'+storyOptions+'</select></div></div>';
- html=html.replace('</main>','<section id="specialFeatures" class="panel"><div class="card"><h2>特殊功能</h2><p class="status">开关只作用于当前选中的存档。修改前请先退出游戏。</p>'+featureHtml+chapterBox+'<div class="toolbar"><button onclick="parent.saveSpecialFeatures()">保存特殊功能设置</button><button onclick="parent.saveChapterProgress()">保存剧情进度</button></div></div></section></main>');
+ html=html.replace('</main>','<section id="specialFeatures" class="panel"><div class="card"><h2>特殊功能</h2><p class="status">开关只作用于当前选中的存档。修改前请先退出游戏。</p>'+featureHtml+vipBox+chapterBox+'<div class="toolbar"><button onclick="parent.saveSpecialFeatures()">保存特殊功能设置</button><button onclick="parent.saveChapterProgress()">保存剧情进度</button></div></div></section></main>');
  editorFrame.srcdoc=html;
 }
 function visualSlotNumber(index){return [2,3,1,4,5,6,7,8][index]??(index+1)}
@@ -176,7 +178,48 @@ async function addCustomCar(){try{busy(true);const select=editorFrame.contentDoc
 async function addCustomWeapon(){try{busy(true);const select=editorFrame.contentDocument.getElementById("customWeaponSelect"),{index,saveSlot}=selected(),entry=customWeapons[Number(select.value)],bag=entry[0],id=entry[1],name=entry[2].replace("（副武器）",""),group=saveSlot.data[bag],base=id+"_lv1";if([...(group.arr||[]),...(group.equArr||[])].some(x=>x&&x.baseLabel===base))throw new Error(name+"已经在该存档中，不能重复加入。");const site=freeSite(group);group.lastID=Number(group.lastID||0)+1;group.arr.push({add:{},addSelf:{},baseEnergy:0,baseEnergyRate:0,baseLabel:base,buyDate:"",chipHole:{},cnName:name,color:0,define:null,dpsHurt:0,exploreIndex:-1,holeArr:[],id:String(group.lastID),imgLabel:(bag==="subItems"?"sub/":"arms/")+id+"_lv1",maxEnergy:0,maxEnergyRate:0,maxHoleNum:4,name,newB:true,nowEnergy:0,nowHoleNum:0,site,strengLevel:0,type:"arms",type2:"arms"});await saveGear(index,"已将“"+name+"”加入"+(bag==="subItems"?"副武器":"主武器")+"背包。")}catch(e){show(e.message,true)}finally{busy(false)}}
 function repairDenseArray(value){if(Array.isArray(value))return value;if(value&&Array.isArray(value.$dense)){const result=[...value.$dense];for(const [key,item] of Object.entries(value))if(key!=="$dense"&&/^\d+$/.test(key))result[Number(key)]=item;return result}return []}
 async function saveChapterProgress(){try{busy(true);const doc=editorFrame.contentDocument,{index,saveSlot}=selected(),d=saveSlot.data;const chapterSelect=doc.getElementById("chapterProgressSelect");if(!chapterSelect)throw new Error("未找到剧情进度选项。");const c=applyStoryProgressToLevel(d,chapterSelect.value);const nextText=c.index>=freeHeartLevels.length-1?"已到自由之心最终关":("下一关已解锁");await saveGear(index,"剧情进度已设置为："+c.label+"（"+nextText+"，后续锁定，lockNum="+c.lockNum+"）。重新进入该存档后生效。");}catch(e){show(e.message,true)}finally{busy(false)}}
-async function saveSpecialFeatures(){try{busy(true);const doc=editorFrame.contentDocument,{index,saveSlot}=selected(),d=saveSlot.data;for(const key of ["modInfiniteEnergy","modGod","modOneHit","modUnlockAll","modAllLevelsPassed","modCraftFree","modNoExtraCooldown","modNoTaskCooldown"])d[key]=Boolean(doc.getElementById(key).checked);if(d.challengeTaskData){d.challengeTaskData.readyAt=repairDenseArray(d.challengeTaskData.readyAt);d.challengeTaskData.failArr=repairDenseArray(d.challengeTaskData.failArr);d.challengeTaskData.taskReadyAt=repairDenseArray(d.challengeTaskData.taskReadyAt)}if(d.collectTaskData){d.collectTaskData.readyAt=repairDenseArray(d.collectTaskData.readyAt);d.collectTaskData.taskReadyAt=repairDenseArray(d.collectTaskData.taskReadyAt)}if(d.taskData){d.taskData.slotReadyAt=repairDenseArray(d.taskData.slotReadyAt);d.taskData.normalCardReadyAt=repairDenseArray(d.taskData.normalCardReadyAt)}if(d.modNoTaskCooldown){if(d.challengeTaskData)d.challengeTaskData.taskReadyAt=[];if(d.collectTaskData)d.collectTaskData.taskReadyAt=[];if(d.taskData)d.taskData.slotReadyAt=[0,0,0,0,0]}if(d.modNoExtraCooldown&&d.extraData)d.extraData.cooldownReadyAt=repairDenseArray(d.extraData.cooldownReadyAt).map(()=>0);await saveGear(index,"特殊功能设置已保存。重新进入该存档后生效。")}catch(e){show(e.message,true)}finally{busy(false)}}
+
+function getVipRank(d){
+  try{
+    const nowVip=(d&&d.vipData&&d.vipData.nowVip)?String(d.vipData.nowVip):'';
+    if(nowVip.indexOf('vipCard_1')===0){
+      const n=parseInt(nowVip.slice(8),10);
+      if(n>=11&&n<=14) return n-10;
+    }
+    // legacy ids vipCard_1..4
+    if(/^vipCard_[1-4]$/.test(nowVip)) return parseInt(nowVip.slice(8),10);
+  }catch(e){}
+  return 0;
+}
+function ensureVipData(d){
+  if(!d.vipData||typeof d.vipData!=='object') d.vipData={};
+  if(typeof d.vipData.nowVip!=='string') d.vipData.nowVip='';
+  if(typeof d.vipData.durationTime!=='string') d.vipData.durationTime='';
+  if(typeof d.vipData.giftGetB!=='boolean') d.vipData.giftGetB=false;
+  if(typeof d.vipData.buffGetB!=='boolean') d.vipData.buffGetB=false;
+  if(typeof d.vipData.buffTime!=='number') d.vipData.buffTime=0;
+  if(typeof d.vipData.experienceTime!=='number') d.vipData.experienceTime=0;
+  return d.vipData;
+}
+function applyVipRank(d,rank){
+  const vip=ensureVipData(d);
+  rank=Math.max(0,Math.min(4,Number(rank)||0));
+  if(rank<=0){
+    vip.nowVip='';
+    vip.durationTime='';
+    vip.buffGetB=false;
+    vip.buffTime=0;
+    vip.experienceTime=0;
+  }else{
+    vip.nowVip='vipCard_1'+(10+rank); // 11..14
+    vip.durationTime=''; // permanent offline
+    vip.buffGetB=true;
+    if(!(vip.buffTime>0)) vip.buffTime=1;
+  }
+  d.growVip=rank>0;
+  return vip.nowVip;
+}
+async function saveSpecialFeatures(){try{busy(true);const doc=editorFrame.contentDocument,{index,saveSlot}=selected(),d=saveSlot.data;for(const key of ["modInfiniteEnergy","modGod","modOneHit","modUnlockAll","modAllLevelsPassed","modCraftFree","modNoExtraCooldown","modNoTaskCooldown"])d[key]=Boolean(doc.getElementById(key).checked);const vipChecked=doc.querySelector('input[name="vipRank"]:checked');const vipRankValue=vipChecked?Number(vipChecked.value):0;applyVipRank(d,vipRankValue);if(d.challengeTaskData){d.challengeTaskData.readyAt=repairDenseArray(d.challengeTaskData.readyAt);d.challengeTaskData.failArr=repairDenseArray(d.challengeTaskData.failArr);d.challengeTaskData.taskReadyAt=repairDenseArray(d.challengeTaskData.taskReadyAt)}if(d.collectTaskData){d.collectTaskData.readyAt=repairDenseArray(d.collectTaskData.readyAt);d.collectTaskData.taskReadyAt=repairDenseArray(d.collectTaskData.taskReadyAt)}if(d.taskData){d.taskData.slotReadyAt=repairDenseArray(d.taskData.slotReadyAt);d.taskData.normalCardReadyAt=repairDenseArray(d.taskData.normalCardReadyAt)}if(d.modNoTaskCooldown){if(d.challengeTaskData)d.challengeTaskData.taskReadyAt=[];if(d.collectTaskData)d.collectTaskData.taskReadyAt=[];if(d.taskData)d.taskData.slotReadyAt=[0,0,0,0,0]}if(d.modNoExtraCooldown&&d.extraData)d.extraData.cooldownReadyAt=repairDenseArray(d.extraData.cooldownReadyAt).map(()=>0);await saveGear(index,"特殊功能设置已保存。重新进入该存档后生效。")}catch(e){show(e.message,true)}finally{busy(false)}}
 async function add(){try{busy(true);const {index,saveSlot}=selected(),props=saveSlot.data.propsItems;if(!props||!Array.isArray(props.arr))throw new Error("该存档的道具背包数据不完整。");let card=props.arr.find(x=>x&&x.name==="research_upgrade_card");if(card)card.nowNum=Number(card.nowNum||0)+1;else{if(props.arr.length>=Number(props.bagMaxNum||0))throw new Error("道具背包已满，请先腾出一个格子。");const used=new Set(props.arr.map(x=>Number(x.site))),site=[...Array(Number(props.bagMaxNum||100)).keys()].find(x=>!used.has(x));props.lastID=Number(props.lastID||0)+1;card={addArr:[],affixLevel:0,buyDate:"",cnName:"研发升级卡",define:{},exploreIndex:-1,id:String(props.lastID),imgLabel:"itemsUI/achieve_card_3",name:"research_upgrade_card",newB:true,nowNum:1,site:site??0,type:"card"};props.arr.push(card)}await save(index,"已给予1张研发升级卡。")}catch(e){show(e.message,true)}finally{busy(false)}}
 async function remove(){try{busy(true);const {index,saveSlot}=selected(),props=saveSlot.data.propsItems,i=props?.arr?.findIndex(x=>x&&x.name==="research_upgrade_card")??-1;if(i<0)throw new Error("该存档没有研发升级卡。");props.arr[i].nowNum=Number(props.arr[i].nowNum||0)-1;if(props.arr[i].nowNum<=0)props.arr.splice(i,1);await save(index,"已移除1张研发升级卡。")}catch(e){show(e.message,true)}finally{busy(false)}}
 async function changeElite(delta){try{busy(true);const {index,saveSlot}=selected(),props=saveSlot.data.propsItems;if(!props||!Array.isArray(props.arr))throw new Error("该存档的道具背包数据不完整。");let i=props.arr.findIndex(x=>x&&x.name==="elite_challenge_card"),card=i>=0?props.arr[i]:null;if(delta<0&&!card)throw new Error("该存档没有精英副本挑战卡。");if(card){card.nowNum=Number(card.nowNum||0)+delta;if(card.nowNum<=0)props.arr.splice(i,1)}else{if(props.arr.length>=Number(props.bagMaxNum||0))throw new Error("道具背包已满，请先腾出一个格子。");const used=new Set(props.arr.map(x=>Number(x.site))),site=[...Array(Number(props.bagMaxNum||100)).keys()].find(x=>!used.has(x));props.lastID=Number(props.lastID||0)+1;props.arr.push({addArr:[],affixLevel:0,buyDate:"",cnName:"精英副本挑战卡",define:{},exploreIndex:-1,id:String(props.lastID),imgLabel:"itemsUI/turntable_14",name:"elite_challenge_card",newB:true,nowNum:1,site:site??0,type:"card"})}await save(index,delta>0?"已给予1张精英副本挑战卡。":"已移除1张精英副本挑战卡。")}catch(e){show(e.message,true)}finally{busy(false)}}
