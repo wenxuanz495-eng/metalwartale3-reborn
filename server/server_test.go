@@ -12,6 +12,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -585,6 +586,38 @@ func TestEditorSaveCreatesBackupAndPreservesTypes(t *testing.T) {
 	backupValue, _, _ := parseGamePayload(backupRaw)
 	if backupValue.(map[string]any)["level"] != 4 {
 		t.Fatalf("backup does not contain original save: %#v", backupValue)
+	}
+}
+
+func TestEditorManualBackup(t *testing.T) {
+	store := newSaveStore(t.TempDir())
+	raw, err := encodeGamePayload(map[string]any{"level": 7})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.savePrimary(raw, "test"); err != nil {
+		t.Fatal(err)
+	}
+	application := &app{store: store}
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		application.editorBackupNow(w)
+	}))
+	defer server.Close()
+	request, _ := http.NewRequest(http.MethodPost, server.URL+"/api/editor/backup", nil)
+	response, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer response.Body.Close()
+	if response.StatusCode != http.StatusOK {
+		t.Fatalf("status=%d", response.StatusCode)
+	}
+	backups, err := store.listEditorBackups()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(backups) != 1 || !strings.Contains(backups[0].Name, "manual") {
+		t.Fatalf("backups=%#v", backups)
 	}
 }
 

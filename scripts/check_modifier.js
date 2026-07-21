@@ -30,6 +30,10 @@ if (html.includes('id="editorFrame"')) {
     /function\s+ensureNewLevelData\s*\(/,
     /function\s+prepareLivenessRewardsTest\s*\(/,
     /\/api\/editor\/prepare-liveness/,
+    /\/api\/editor\/backup/,
+    /function\s+manualBackup\s*\(/,
+    /保存修改（自动备份）/,
+    /可能回档，注意备份/,
     /body:\s*JSON\.stringify\(\{index\}\)/,
     /const\s+slotMarker\s*=\s*['"]const EDITOR_SLOT_INDEX=-1;/,
   ];

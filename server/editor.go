@@ -57,6 +57,8 @@ func (a *app) serveEditor(w http.ResponseWriter, r *http.Request, path string) b
 		a.editorSave(w, r)
 	case path == "/api/editor/backups" && r.Method == http.MethodGet:
 		a.editorBackups(w)
+	case path == "/api/editor/backup" && r.Method == http.MethodPost:
+		a.editorBackupNow(w)
 	case path == "/api/editor/fix-zero-car-affix" && r.Method == http.MethodPost:
 		result, err := a.store.fixZeroCarAffixes("editor-fix-zero-car-affix")
 		a.sendResult(w, result, err)
@@ -416,6 +418,24 @@ func (a *app) editorBackups(w http.ResponseWriter) {
 		return
 	}
 	a.sendJSON(w, map[string]any{"ok": true, "backups": backups}, http.StatusOK)
+}
+
+func (a *app) editorBackupNow(w http.ResponseWriter) {
+	raw, err := a.store.getPrimary()
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusNotFound)
+		return
+	}
+	if _, _, err := parseGamePayload(raw); err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": "当前存档无效，已拒绝备份: " + err.Error()}, http.StatusBadRequest)
+		return
+	}
+	backup, err := a.store.createEditorBackup(raw, "manual")
+	if err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+		return
+	}
+	a.sendJSON(w, map[string]any{"ok": true, "backup": backup}, http.StatusOK)
 }
 
 func (a *app) editorRestore(w http.ResponseWriter, r *http.Request) {

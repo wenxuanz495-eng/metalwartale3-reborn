@@ -1541,7 +1541,7 @@ package UI
             return;
          }
          this.returnMenuTab.mouseEnabled = false;
-         this.checkTip.showCheck("是否保存当前进度并返回主界面？",this.confirmReturnMenu,this.cancelReturnMenu);
+         this.checkTip.showCheck("是否自动保存并备份当前进度，然后返回主界面？",this.confirmReturnMenu,this.cancelReturnMenu);
       }
       
       private function confirmReturnMenu() : *

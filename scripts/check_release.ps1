@@ -26,6 +26,10 @@ if ($item.PSIsContainer) {
   try {
     foreach ($entry in $zip.Entries) {
       $name = $entry.FullName
+      $normalized = $name -replace '\\','/'
+      if ($normalized -match '(^|/)saves/backups/?$' -or $normalized -match '(^|/)(一键备份存档|打开存档备份文件夹)\.bat$') {
+        continue
+      }
       foreach ($pat in $bannedNamePatterns) {
         if ($name -like "*$pat*") {
           # allow nested 可选修改器 documentation text mentioning backups? still flag real save-like names
@@ -51,6 +55,9 @@ if ($item.PSIsContainer) {
 
 foreach ($f in $files) {
   $rel = $f.FullName.Substring($item.FullName.Length).TrimStart('\','/')
+  if ($rel -match '^(一键备份存档|打开存档备份文件夹)\.bat$') {
+    continue
+  }
   if ($rel -match 'saves\\game_save\.bin|saves\.db|\.sol$|flash-profile|\\backups\\|备份') {
     $problems.Add($rel)
   }
