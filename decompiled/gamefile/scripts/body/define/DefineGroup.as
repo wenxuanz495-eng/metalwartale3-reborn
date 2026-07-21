@@ -74,6 +74,11 @@ package body.define
                      mar = define0.mustItems;
                      define0.mustItems = gd0.getArmsMustItems(define0.attackType,mar);
                   }
+                  else if(define0.level > 0 && define0.index >= 50 && define0.index < 90)
+                  {
+                     // Guild/extra weapons (including 湮灭 line): materials = 1/10 of original.
+                     define0.mustItems = this.scaleGuildArmsMustItems(define0.mustItems,0.1);
+                  }
                }
             }
          }
@@ -525,6 +530,40 @@ package body.define
          return arr2;
       }
       
+      
+      private function scaleGuildArmsMustItems(arr0:Array, rate:Number) : Array
+      {
+         var n:* = undefined;
+         var txt0:String = null;
+         var parts:Array = null;
+         var num0:Number = NaN;
+         var out:Array = [];
+         if(arr0 == null)
+         {
+            return [];
+         }
+         for(n in arr0)
+         {
+            txt0 = String(arr0[n]);
+            if(txt0.indexOf("_num") >= 0)
+            {
+               parts = txt0.split("_num");
+               num0 = Number(parts[1]);
+               if(isNaN(num0))
+               {
+                  num0 = 1;
+               }
+               num0 = Math.max(1,Math.ceil(num0 * rate));
+               out.push(parts[0] + "_num" + num0);
+            }
+            else
+            {
+               out.push(txt0);
+            }
+         }
+         return out;
+      }
+
       public function getExtraArmsArr() : Array
       {
          var m:* = undefined;

@@ -239,6 +239,26 @@
          return 4000 + seed % 5001;
       }
 
+      private function getCarDisplayLevel(car0:CarDefine) : int
+      {
+         var lv:int = 0;
+         if(car0 == null)
+         {
+            return 0;
+         }
+         // Prefer installLevel / mustLevel (baseLevel); take the higher one as "car level".
+         lv = int(car0.installLevel);
+         if(int(car0.mustLevel) > lv)
+         {
+            lv = int(car0.mustLevel);
+         }
+         if(int(car0.beforeLevel) > lv)
+         {
+            lv = int(car0.beforeLevel);
+         }
+         return lv;
+      }
+
       private function getCustomCarPrice(label0:String) : int
       {
          var seed:int = 0;
@@ -251,7 +271,7 @@
          {
             seed = (seed * 37 + label0.charCodeAt(i)) % 100000;
          }
-         // custom cars: 1000~2000 MB, never below 1000
+         // custom cars above level 7: 1000~2000 MB, never below 1000
          return 1000 + seed % 1001;
       }
 
@@ -296,7 +316,11 @@
             if(car0.discount == -1000 && this.findGoods_inArr(this.car,car0.id) == null)
             {
                goods0 = this.switchCar([car0],"car","Mprice")[0];
-               goods0.Mprice = this.getCustomCarPrice(car0.id);
+               // Only cars above level 7 use the 1000~2000 MB custom price band.
+               if(this.getCarDisplayLevel(car0) > 7)
+               {
+                  goods0.Mprice = this.getCustomCarPrice(car0.id);
+               }
                this.car.push(goods0);
             }
          }
