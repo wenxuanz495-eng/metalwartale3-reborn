@@ -28,6 +28,9 @@ if (html.includes('id="editorFrame"')) {
     /function\s+normalizeLocalSlots\s*\(/,
     /function\s+waitEditorFrameReady\s*\(/,
     /function\s+ensureNewLevelData\s*\(/,
+    /function\s+prepareLivenessRewardsTest\s*\(/,
+    /live\.value\s*=\s*100/,
+    /live\.giftGetB\s*=\s*Array\(5\)\.fill\(false\)/,
     /const\s+slotMarker\s*=\s*['"]const EDITOR_SLOT_INDEX=-1;/,
   ];
   for (const pattern of required) {
