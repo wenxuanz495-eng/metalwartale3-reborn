@@ -590,6 +590,55 @@ package items
          }
          this.arr = arr2;
       }
+
+      private function canAutoCollect(items0:ItemsBody) : Boolean
+      {
+         var d0:ItemsDefine = null;
+         var bag0:* = null;
+         if(items0.label == "add")
+         {
+            return true;
+         }
+         d0 = items0.define;
+         if(!(d0 is ItemsDefine))
+         {
+            return false;
+         }
+         if(d0.name == "car_capsule")
+         {
+            return this.GD.carItems.getSurplus() > 0;
+         }
+         bag0 = d0.getPropB() ? this.GD.propsItems : this.GD.materialsItems;
+         if(d0.type != "chip" && bag0.getItemsByName(d0.name) != null)
+         {
+            return true;
+         }
+         return bag0.getSurplus() > 0;
+      }
+
+      private function attractToHero(items0:ItemsBody) : *
+      {
+         var dx:Number = this.hero.MX - items0.mot.x0;
+         var dy:Number = this.hero.MY - items0.mot.y0;
+         var distance:Number = Math.sqrt(dx * dx + dy * dy);
+         if(distance <= 1)
+         {
+            return;
+         }
+         var speed:Number = Math.min(32,Math.max(8,distance * 0.12));
+         var moveX:Number = dx;
+         var moveY:Number = dy;
+         if(distance > speed)
+         {
+            moveX = dx / distance * speed;
+            moveY = dy / distance * speed;
+         }
+         items0.mot.x0 += moveX;
+         items0.mot.y0 += moveY;
+         items0.mot.y2 += moveY;
+         items0.img.x = items0.mot.x0;
+         items0.img.y = items0.mot.y0;
+      }
       
       public function itemsGroupTimer() : *
       {
@@ -599,6 +648,10 @@ package items
          {
             items0 = this.arr[n];
             items0.bodyTimer();
+            if(items0.die == 0 && this.hero.die == 0 && this.canAutoCollect(items0))
+            {
+               this.attractToHero(items0);
+            }
          }
          if(this.hero.die == 0)
          {
