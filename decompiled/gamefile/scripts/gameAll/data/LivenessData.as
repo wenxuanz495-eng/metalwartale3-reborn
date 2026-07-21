@@ -9,7 +9,7 @@ package gameAll.data
       
       public static var max:int = 100;
       
-      public static var giftNum:int = 4;
+      public static var giftNum:int = 5;
       
       public static var taskMaxNum:int = 7;
       
@@ -143,6 +143,34 @@ package gameAll.data
       public function getGift_byIndex(index0:int) : *
       {
          this.giftGetB[index0] = true;
+         // After full liveness (100) rewards are claimed, auto reset for a new cycle.
+         this.tryResetAfterFull();
+      }
+      
+      public function tryResetAfterFull() : *
+      {
+         if(this.value < max)
+         {
+            return;
+         }
+         var allClaimed:Boolean = true;
+         var i:int = 0;
+         while(i < this.giftGetB.length)
+         {
+            if(!Boolean(this.giftGetB[i]))
+            {
+               allClaimed = false;
+               break;
+            }
+            i++;
+         }
+         // Also reset if the final tier (100) gift itself was claimed and value is full.
+         var finalClaimed:Boolean = this.giftGetB.length > 0 && Boolean(this.giftGetB[this.giftGetB.length - 1]);
+         if(allClaimed || finalClaimed)
+         {
+            this.value = 0;
+            this.initGiftGet();
+         }
       }
       
       public function getGiftStateArr() : Array
