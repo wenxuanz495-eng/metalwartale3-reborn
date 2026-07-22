@@ -232,8 +232,12 @@
          var spring:GoodsDefine = null;
          var labor:GoodsDefine = null;
          var normalDisassemble:GoodsDefine = null;
+         var normalDisassembleMB:GoodsDefine = null;
          var qualityDisassemble:GoodsDefine = null;
+         var qualityDisassembleMB:GoodsDefine = null;
+         var rareDisassemble:GoodsDefine = null;
          var honorBadge:GoodsDefine = null;
+         var honorBadgeMB:GoodsDefine = null;
          // Snow: 1 Children's Day heart -> 1 snow, quantity selectable in shop UI.
          if(this.findGoods_inArr(this.materials,"xuehua") == null)
          {
@@ -305,7 +309,25 @@
             normalDisassemble.price = 0;
             normalDisassemble.num = 1;
             normalDisassemble.baseNum = 1;
-            normalDisassemble.specialType = "heartPrice10";
+            normalDisassemble.specialType = "heartPrice5";
+         }
+         normalDisassembleMB = this.findOtherGoods_inArr(this.props,"disassemble",normalDisassemble);
+         if(normalDisassembleMB == null)
+         {
+            normalDisassembleMB = this.getItemsDefine_byID("disassemble","props","Mprice");
+            if(normalDisassembleMB is GoodsDefine)
+            {
+               this.props.push(normalDisassembleMB);
+            }
+         }
+         if(normalDisassembleMB is GoodsDefine)
+         {
+            normalDisassembleMB.Mprice = 1;
+            normalDisassembleMB.price = 0;
+            normalDisassembleMB.priceType = "Mprice";
+            normalDisassembleMB.num = 1;
+            normalDisassembleMB.baseNum = 1;
+            normalDisassembleMB.specialType = "";
          }
          qualityDisassemble = this.findGoods_inArr(this.props,"disassemble_2");
          if(qualityDisassemble == null)
@@ -322,7 +344,35 @@
             qualityDisassemble.price = 0;
             qualityDisassemble.num = 1;
             qualityDisassemble.baseNum = 1;
-            qualityDisassemble.specialType = "heartPrice25";
+            qualityDisassemble.specialType = "heartPrice10";
+         }
+         qualityDisassembleMB = this.findOtherGoods_inArr(this.props,"disassemble_2",qualityDisassemble);
+         if(qualityDisassembleMB == null)
+         {
+            qualityDisassembleMB = this.getItemsDefine_byID("disassemble_2","props","Mprice");
+            if(qualityDisassembleMB is GoodsDefine)
+            {
+               this.props.push(qualityDisassembleMB);
+            }
+         }
+         if(qualityDisassembleMB is GoodsDefine)
+         {
+            qualityDisassembleMB.Mprice = 3;
+            qualityDisassembleMB.price = 0;
+            qualityDisassembleMB.priceType = "Mprice";
+            qualityDisassembleMB.num = 1;
+            qualityDisassembleMB.baseNum = 1;
+            qualityDisassembleMB.specialType = "";
+         }
+         rareDisassemble = this.getItemsDefine_byID("disassemble_3","props","Mprice");
+         if(rareDisassemble is GoodsDefine)
+         {
+            rareDisassemble.Mprice = 0;
+            rareDisassemble.price = 0;
+            rareDisassemble.num = 1;
+            rareDisassemble.baseNum = 1;
+            rareDisassemble.specialType = "heartPrice15";
+            this.props.push(rareDisassemble);
          }
          honorBadge = this.findGoods_inArr(this.props,"justice_badge");
          if(honorBadge == null)
@@ -340,6 +390,24 @@
             honorBadge.num = 1;
             honorBadge.baseNum = 1;
             honorBadge.specialType = "heartPrice10";
+         }
+         honorBadgeMB = this.findOtherGoods_inArr(this.props,"justice_badge",honorBadge);
+         if(honorBadgeMB == null)
+         {
+            honorBadgeMB = this.getItemsDefine_byID("justice_badge","props","Mprice");
+            if(honorBadgeMB is GoodsDefine)
+            {
+               this.props.push(honorBadgeMB);
+            }
+         }
+         if(honorBadgeMB is GoodsDefine)
+         {
+            honorBadgeMB.Mprice = 10;
+            honorBadgeMB.price = 0;
+            honorBadgeMB.priceType = "Mprice";
+            honorBadgeMB.num = 1;
+            honorBadgeMB.baseNum = 1;
+            honorBadgeMB.specialType = "";
          }
          // Keep Mmaterials in sync for fallback materials tab.
          if(this.Mmaterials != null)
@@ -665,6 +733,21 @@ private function getCustomWeaponPrice(label0:String) : int
          {
             gd0 = arr0[n];
             if(gd0.id == name0)
+            {
+               return gd0;
+            }
+         }
+         return null;
+      }
+
+      private function findOtherGoods_inArr(arr0:Array, name0:String, exclude0:GoodsDefine) : GoodsDefine
+      {
+         var n:* = undefined;
+         var gd0:GoodsDefine = null;
+         for(n in arr0)
+         {
+            gd0 = arr0[n];
+            if(gd0 != exclude0 && gd0.id == name0)
             {
                return gd0;
             }
