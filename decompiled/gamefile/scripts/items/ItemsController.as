@@ -21,6 +21,10 @@
       private var upgradePackItem:GoodsItemsData;
 
       private var upgradePackFather:GoodsItemsDataGroup;
+
+      private var coreRewardPages:Array = [];
+
+      private var coreRewardPageIndex:int = 0;
       
       public function ItemsController()
       {
@@ -594,16 +598,23 @@
             Game.uiGroup.infoUI.fleshData();
             Game.uiGroup.saveDataNoUI("批量开启战斗核心");
          }
-         var result0:String = opened0 > 0 ? "拆解获得：\n" + this.formatCoreRewardSummary(rewardOrder0,rewardTotals0) : "没有拆解战斗核心。";
+         var result0:String = "";
          if(stopReason0 != "")
          {
-            result0 += "\n" + stopReason0;
+            result0 = stopReason0;
          }
          else if(opened0 < requestedNum0)
          {
-            result0 += "\n核心或拆解器数量不足。";
+            result0 = "核心或拆解器数量不足。";
          }
-         Game.uiGroup.checkTip.showCheck2(result0,2);
+         if(opened0 > 0)
+         {
+            this.showCoreRewardPages(rewardOrder0,rewardTotals0,result0);
+         }
+         else
+         {
+            Game.uiGroup.checkTip.showCheck2("没有拆解战斗核心。" + (result0 == "" ? "" : "\n" + result0),2);
+         }
       }
 
       private function getCoreFixedCoin(cardType0:String) : int
@@ -650,22 +661,68 @@
          totals0[name0] += num0;
       }
 
-      private function formatCoreRewardSummary(order0:Array, totals0:Object) : String
+      private function showCoreRewardPages(order0:Array, totals0:Object, footer0:String = "") : *
       {
-         var result0:String = "";
+         var page0:String = null;
          var name0:String = null;
          var i:int = 0;
+         var pageCount0:int = 0;
+         this.coreRewardPages = [];
          while(i < order0.length)
          {
-            name0 = order0[i];
-            if(result0 != "")
+            page0 = "";
+            pageCount0 = 0;
+            while(i < order0.length && pageCount0 < 6)
             {
-               result0 += i % 3 == 0 ? "\n" : "，";
+               name0 = order0[i];
+               if(page0 != "")
+               {
+                  page0 += pageCount0 % 3 == 0 ? "\n" : "，";
+               }
+               page0 += name0 + "×" + totals0[name0];
+               i++;
+               pageCount0++;
             }
-            result0 += name0 + "×" + totals0[name0];
-            i++;
+            this.coreRewardPages.push(page0);
          }
-         return result0;
+         if(this.coreRewardPages.length == 0)
+         {
+            this.coreRewardPages.push("无奖励");
+         }
+         if(footer0 != "")
+         {
+            this.coreRewardPages[this.coreRewardPages.length - 1] += "\n" + footer0;
+         }
+         this.coreRewardPageIndex = 0;
+         this.showCurrentCoreRewardPage();
+      }
+
+      private function showCurrentCoreRewardPage() : *
+      {
+         var text0:String = "拆解获得";
+         if(this.coreRewardPages.length > 1)
+         {
+            text0 += "（" + (this.coreRewardPageIndex + 1) + "/" + this.coreRewardPages.length + "）";
+         }
+         text0 += "：\n" + this.coreRewardPages[this.coreRewardPageIndex];
+         if(this.coreRewardPageIndex < this.coreRewardPages.length - 1)
+         {
+            text0 += "\n\n点击确定查看下一页。";
+            Game.uiGroup.checkTip.showCheck2(text0,2,this.showNextCoreRewardPage);
+         }
+         else
+         {
+            Game.uiGroup.checkTip.showCheck2(text0,2);
+         }
+      }
+
+      private function showNextCoreRewardPage() : *
+      {
+         this.coreRewardPageIndex++;
+         if(this.coreRewardPageIndex < this.coreRewardPages.length)
+         {
+            this.showCurrentCoreRewardPage();
+         }
       }
       
       public function sellItems(it0:GoodsItemsData, father0:GoodsItemsDataGroup) : *
