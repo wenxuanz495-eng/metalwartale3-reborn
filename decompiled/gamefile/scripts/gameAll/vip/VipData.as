@@ -319,15 +319,31 @@ package gameAll.vip
       
       public function refreshMapAccess() : Boolean
       {
+         var duration:Number = this.getMapDuration();
+         if(isNaN(this.mapCooldownReadyAt) || this.mapCooldownReadyAt < 0)
+         {
+            this.mapCooldownReadyAt = 0;
+         }
+         if(isNaN(this.mapTime))
+         {
+            this.mapTime = duration;
+         }
          if(this.mapCooldownReadyAt > 0 && this.getMapCooldownRemaining() <= 0)
          {
             this.mapCooldownReadyAt = 0;
-            this.mapTime = this.getMapDuration();
+            this.mapTime = duration;
             return true;
          }
-         if(this.mapCooldownReadyAt <= 0 && this.mapTime > this.getMapDuration())
+         if(duration > 0 && this.mapCooldownReadyAt <= 0 && this.mapTime <= 0)
          {
-            this.mapTime = this.getMapDuration();
+            // Old or externally edited saves may gain VIP without initializing map time.
+            // A legitimately exhausted map always has a future cooldown timestamp.
+            this.mapTime = duration;
+            return true;
+         }
+         if(this.mapCooldownReadyAt <= 0 && this.mapTime > duration)
+         {
+            this.mapTime = duration;
          }
          return false;
       }

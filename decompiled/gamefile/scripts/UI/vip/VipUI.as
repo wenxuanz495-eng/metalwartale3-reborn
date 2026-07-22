@@ -318,11 +318,16 @@ package UI.vip
                   bar0.setUseBtn(false);
                   bar0.content_txt.htmlText = "退出后冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
                }
-               else
-               {
-                  bar0.setUseBtn(this.vipData.mapTime > 0);
-                  bar0.content_txt.htmlText = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00") + "\n退出后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
-               }
+                else if(this.vipData.mapTime > 0)
+                {
+                   bar0.setUseBtn(true);
+                   bar0.content_txt.htmlText = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00") + "\n退出后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
+                }
+                else
+                {
+                   bar0.setUseBtn(false);
+                   bar0.content_txt.text = "地图暂不可进入";
+                }
                bar0 = this.bar_arr[2];
                txt0 = Game.goodsDefineGroup.switchStrArr_toStr(d0.giftArr,true).replace("\n","");
                tt0 = this.vipData.getGiftCooldownRemaining();
