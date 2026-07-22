@@ -69,7 +69,12 @@ package body.define
                this.armsArr[this.armsArr.length - 1][m] = define0;
                if(armsFather == "arms" || armsFather == "subArms")
                {
-                  if(define0.level > 0 && define0.index < 50)
+                  if(define0.level > 0 && define0.id == "darkpower")
+                  {
+                     // 黯灭 -> 湮灭 -> 泯灭: guild medal research costs = 1/5.
+                     define0.mustItems = this.scaleGuildArmsMustItems(define0.mustItems,0.2);
+                  }
+                  else if(define0.level > 0 && define0.index < 50)
                   {
                      mar = define0.mustItems;
                      define0.mustItems = gd0.getArmsMustItems(define0.attackType,mar);
