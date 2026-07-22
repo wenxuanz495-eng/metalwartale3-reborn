@@ -154,13 +154,12 @@ package UI.research
          {
             if(this.nowData is TrainAddData)
             {
-               Game.uiGroup.checkTip.showNumberInput("输入" + TrainAddData(this.nowData).cnName + "要提升的等级数：\n当前 " + TrainAddData(this.nowData).level + " 级，最高 " + TrainAddData(this.nowData).maxLevel + " 级。","1",this.prepareAllTrain,null,8);
+               Game.uiGroup.checkTip.showNumberInput(this.getTrainInputText(TrainAddData(this.nowData)),"1",this.prepareAllTrain,null,8);
                return;
             }
             if(this.nowDefine is SkillDefine)
             {
-               var skillLevel0:int = this.GD.playerData.getSkillLevel(this.nowDefine.name);
-               Game.uiGroup.checkTip.showNumberInput("输入" + this.nowDefine.cnName + "要提升的等级数：\n当前 " + skillLevel0 + " 级，最高 " + this.nowDefine.maxLevel + " 级。","1",this.prepareSkillBatch,null,3);
+               Game.uiGroup.checkTip.showNumberInput(this.getSkillInputText(this.nowDefine),"1",this.prepareSkillBatch,null,3);
                return;
             }
             mcoin0 = 0;
@@ -181,6 +180,29 @@ package UI.research
                this.upgradeComplete();
             }
          }
+      }
+
+      private function getTrainInputText(add0:TrainAddData) : String
+      {
+         var currency0:String = add0.type == "all" ? "M币" : "G币";
+         var cost0:Number = add0.level < add0.maxLevel ? this.getTrainBatchCost(add0.level,1,add0.type) : 0;
+         return "输入" + add0.cnName + "要提升的等级数：\n当前 " + add0.level + " 级，最高 " + add0.maxLevel + " 级。\n提升 1 级需要 " + cost0 + " " + currency0 + "。";
+      }
+
+      private function getSkillInputText(skill0:SkillDefine) : String
+      {
+         var level0:int = this.GD.playerData.getSkillLevel(skill0.name);
+         var cost0:Object = this.getSkillBatchCost(skill0,level0,1);
+         var costText0:String = "0 G币";
+         if(Number(cost0.MCoin) > 0)
+         {
+            costText0 = cost0.MCoin + " M币";
+         }
+         else if(Number(cost0.GCoin) > 0)
+         {
+            costText0 = cost0.GCoin + " G币";
+         }
+         return "输入" + skill0.cnName + "要提升的等级数：\n当前 " + level0 + " 级，最高 " + skill0.maxLevel + " 级。\n提升 1 级需要 " + costText0 + "。";
       }
 
       private function prepareAllTrain() : *
