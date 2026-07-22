@@ -1560,7 +1560,7 @@ package gameAll
             }
          }
          this.UIG.gamingUI.fleshTaskBox();
-         var tttr:Number = 0.03; // Children's Day heart drop *3
+         var tttr:Number = 0.15; // Children's Day heart drop: 15% in normal play
          if(Game.getTest())
          {
             tttr = 0.15;
