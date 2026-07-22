@@ -105,6 +105,8 @@ package UI.research
       public var upgradeNonMaterialB:Boolean = true;
       
       public var upgradeMaterialsB:Boolean = true;
+
+      public var upgradeCoinB:Boolean = true;
       
       private var useResearchUpgradeCardB:Boolean = false;
       
@@ -869,6 +871,7 @@ package UI.research
          this.upgrade_conditionB = true;
          this.upgradeNonMaterialB = true;
          this.upgradeMaterialsB = true;
+         this.upgradeCoinB = true;
          this.no_arr[0].visible = false;
          this.no_arr[1].visible = false;
          this.no_arr[2].visible = false;
@@ -972,7 +975,7 @@ package UI.research
          if(Game.gameData.GCoin < d0.price)
          {
             this.upgrade_conditionB = false;
-            this.upgradeNonMaterialB = false;
+            this.upgradeCoinB = false;
             this.condition_icon4.gotoAndStop(2);
          }
          else
@@ -1075,7 +1078,7 @@ package UI.research
             this.no_arr[2].visible = true;
             this.mustArmsIcon.visible = false;
          }
-         if(this.upgrade_conditionB || this.upgradeNonMaterialB && !this.upgradeMaterialsB && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
+         if(this.upgrade_conditionB || this.upgradeNonMaterialB && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
          {
             this.upgrade_btn.alpha = 1;
             this.upgrade_btn.enabled = true;
@@ -1426,11 +1429,11 @@ package UI.research
          {
             return;
          }
-         if(!this.upgradeMaterialsB && !this.useResearchUpgradeCardB)
+         if((!this.upgradeMaterialsB || !this.upgradeCoinB) && !this.useResearchUpgradeCardB)
          {
             if(Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
             {
-               Game.uiGroup.checkTip.showCheck2("研发材料不足，是否消耗1张研发升级卡完成本次研发？",1,this.upgradeWithResearchCard);
+               Game.uiGroup.checkTip.showCheck2("研发材料或G币不足，是否消耗1张研发升级卡完成本次研发？",1,this.upgradeWithResearchCard);
             }
             return;
          }
@@ -1451,7 +1454,10 @@ package UI.research
             Game.gameData.propsItems.useItemsNum("research_upgrade_card",1);
          }
          d0 = this.nowArms.itemsData;
-         Game.gameData.addCoin(-d0.price);
+         if(!this.useResearchUpgradeCardB)
+         {
+            Game.gameData.addCoin(-d0.price);
+         }
          items2 = this.itemsData.getItemsByBase(this.prevLabel);
          if(items2 is ArmsItemsData)
          {
