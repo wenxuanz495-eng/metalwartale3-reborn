@@ -991,6 +991,12 @@ package UI.research
             {
                icon1 = this.mustItemsBox.arr[n];
                d1 = icon1.itemsData;
+               if(Game.gameData.modCraftFree)
+               {
+                  icon1.setCondition(1);
+                  icon1.setMustNum(9999,d1.nowNum);
+                  continue;
+               }
                aid1 = this.materialsItems.getItemsByBase(d1.name);
                if(aid1 == null)
                {

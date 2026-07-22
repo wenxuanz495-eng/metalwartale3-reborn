@@ -210,15 +210,6 @@ package gameAll.data
       {
          var n:* = undefined;
          var aid:GoodsItemsData = null;
-         if(Game.gameData.modCraftFree && this == Game.gameData.materialsItems)
-         {
-            aid = this.getItemsByName(str);
-            if(aid == null)
-            {
-               aid = this.addItems(str,9999);
-            }
-            return aid;
-         }
          for(n in this.arr)
          {
             aid = this.arr[n];
