@@ -71,6 +71,7 @@ package UI.shop
          super();
          this.shop_mc = this.mc.shop_mc;
          this.txt = this.mc.txt;
+         this.txt.multiline = true;
          this.yes_btn = this.mc.yes_btn;
          this.yes_btn.noLabelB = true;
          this.no_btn = this.mc.no_btn;
@@ -415,6 +416,10 @@ package UI.shop
          this.input_txt.text = inputStr;
          this.input_txt.visible = true;
          this.txtBack_mc.visible = true;
+         if(this.input_txt.parent != null)
+         {
+            this.input_txt.parent.setChildIndex(this.input_txt,this.input_txt.parent.numChildren - 1);
+         }
       }
       
       public function showNumberInput(str:String, inputStr:String, fun1:Function = null, fun2:Function = null, maxChars0:int = 8) : *
