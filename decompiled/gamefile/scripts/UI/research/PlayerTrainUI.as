@@ -77,6 +77,10 @@ package UI.research
       private var pendingAllTrainCost:Number = 0;
 
       private var pendingAllTrainStartLevel:int = 0;
+
+      private var pendingTrainData:TrainAddData = null;
+
+      private var pendingTrainCurrency:String = "G币";
       
       public function PlayerTrainUI()
       {
@@ -138,9 +142,9 @@ package UI.research
          var mcoin0:int = 0;
          if(Boolean(this.nowData))
          {
-            if(this.nowData is TrainAddData && TrainAddData(this.nowData).type == "all")
+            if(this.nowData is TrainAddData)
             {
-               Game.uiGroup.checkTip.showNumberInput("输入全能训练要提升的等级数：\n当前 " + TrainAddData(this.nowData).level + " 级，最高 " + TrainAddData(this.nowData).maxLevel + " 级。","1",this.prepareAllTrain,null,8);
+               Game.uiGroup.checkTip.showNumberInput("输入" + TrainAddData(this.nowData).cnName + "要提升的等级数：\n当前 " + TrainAddData(this.nowData).level + " 级，最高 " + TrainAddData(this.nowData).maxLevel + " 级。","1",this.prepareAllTrain,null,8);
                return;
             }
             mcoin0 = 0;
@@ -165,7 +169,11 @@ package UI.research
 
       private function prepareAllTrain() : *
       {
-         var add0:TrainAddData = this.GD.playerData.allAdd;
+         var add0:TrainAddData = this.nowData as TrainAddData;
+         if(add0 == null)
+         {
+            return;
+         }
          var num0:int = int(Game.uiGroup.checkTip.input_txt.text);
          var remain0:int = add0.maxLevel - add0.level;
          if(num0 < 1)
@@ -178,7 +186,7 @@ package UI.research
             Game.uiGroup.checkTip.showCheck2("最多还能提升 " + remain0 + " 级。",2);
             return;
          }
-         var needPlayerLevel0:int = Game.gameDefine.getTrainLevelNum(add0.level + num0 - 1,"all");
+         var needPlayerLevel0:int = Game.gameDefine.getTrainLevelNum(add0.level + num0 - 1,add0.type);
          if(this.GD.level + 1 < needPlayerLevel0)
          {
             Game.uiGroup.checkTip.showCheck2("提升到目标等级需要玩家达到 " + needPlayerLevel0 + " 级。",2);
@@ -186,14 +194,26 @@ package UI.research
          }
          this.pendingAllTrainNum = num0;
          this.pendingAllTrainStartLevel = add0.level;
-         this.pendingAllTrainCost = this.getAllTrainBatchCost(add0.level,num0);
-         Game.uiGroup.checkTip.showCheck2("全能训练将从 " + add0.level + " 级提升到 " + (add0.level + num0) + " 级。\n共需要 " + this.pendingAllTrainCost + " M币，确定升级吗？",1,this.confirmAllTrain);
+         this.pendingTrainData = add0;
+         this.pendingTrainCurrency = add0.type == "all" ? "M币" : "G币";
+         this.pendingAllTrainCost = this.getTrainBatchCost(add0.level,num0,add0.type);
+         Game.uiGroup.checkTip.showCheck2(add0.cnName + "将从 " + add0.level + " 级提升到 " + (add0.level + num0) + " 级。\n目标要求玩家达到 " + needPlayerLevel0 + " 级。\n共需要 " + this.pendingAllTrainCost + " " + this.pendingTrainCurrency + "，确定升级吗？",1,this.confirmAllTrain);
       }
 
-      private function getAllTrainBatchCost(startLevel0:int, num0:int) : Number
+      private function getTrainBatchCost(startLevel0:int, num0:int, type0:String) : Number
       {
          var cost0:Number = 0;
          var endLevel0:int = startLevel0 + num0;
+         if(type0 != "all")
+         {
+            var normalLevel0:int = startLevel0;
+            while(normalLevel0 < endLevel0)
+            {
+               cost0 += Game.gameDefine.getTrainCoinNum(normalLevel0);
+               normalLevel0++;
+            }
+            return cost0;
+         }
          var normalEnd0:int = Math.min(endLevel0,500);
          var i:int = startLevel0;
          while(i < normalEnd0)
@@ -210,28 +230,50 @@ package UI.research
 
       private function confirmAllTrain() : *
       {
-         var add0:TrainAddData = this.GD.playerData.allAdd;
+         var add0:TrainAddData = this.pendingTrainData;
+         if(add0 == null)
+         {
+            return;
+         }
          if(add0.level != this.pendingAllTrainStartLevel || this.pendingAllTrainNum < 1)
          {
             Game.uiGroup.checkTip.showCheck2("训练等级已经变化，请重新输入。",2);
             return;
          }
-         this.pendingAllTrainCost = this.getAllTrainBatchCost(add0.level,this.pendingAllTrainNum);
-         if(this.pendingAllTrainCost > this.GD.MCoin)
+         this.pendingAllTrainCost = this.getTrainBatchCost(add0.level,this.pendingAllTrainNum,add0.type);
+         if(add0.type == "all" && this.pendingAllTrainCost > this.GD.MCoin)
          {
             Game.uiGroup.checkTip.showCheck2("M币不足，需要 " + this.pendingAllTrainCost + " M币。",2);
             return;
          }
-         Game.payController.decMCoin(this.pendingAllTrainCost,this.completeAllTrain,this.affter_m_buyCheck2);
+         if(add0.type != "all" && this.pendingAllTrainCost > this.GD.GCoin)
+         {
+            Game.uiGroup.checkTip.showCheck2("G币不足，需要 " + this.pendingAllTrainCost + " G币。",2);
+            return;
+         }
+         if(add0.type == "all")
+         {
+            Game.payController.decMCoin(this.pendingAllTrainCost,this.completeAllTrain,this.affter_m_buyCheck2);
+         }
+         else
+         {
+            this.GD.addCoin(-this.pendingAllTrainCost);
+            this.completeAllTrain();
+         }
       }
 
       private function completeAllTrain() : *
       {
-         var add0:TrainAddData = this.GD.playerData.allAdd;
+         var add0:TrainAddData = this.pendingTrainData;
+         if(add0 == null)
+         {
+            return;
+         }
          var num0:int = this.pendingAllTrainNum;
          add0.levelUp(num0);
          this.pendingAllTrainNum = 0;
-         Game.uiGroup.checkTip.showTip("全能训练成功提升 " + num0 + " 级！",1);
+         this.pendingTrainData = null;
+         Game.uiGroup.checkTip.showTip(add0.cnName + "成功提升 " + num0 + " 级！",1);
          Game.eventGroup.fleshSkill();
          Game.uiGroup.carShow.copyAll();
          Game.SG.playSound("upgradeArms");
