@@ -39,6 +39,8 @@ package gameAll.data
       public var dpsHurt:Number = 0;
       
       public var define:OneArmsDefine;
+
+      public var researchMaxLevel:int = 0;
       
       public function ArmsItemsData()
       {
@@ -151,6 +153,14 @@ package gameAll.data
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
+         if(obj.hasOwnProperty("researchMaxLevel"))
+         {
+            this.researchMaxLevel = Math.max(0,int(obj.researchMaxLevel));
+         }
+         else
+         {
+            this.researchMaxLevel = Math.max(0,this.getLevel());
+         }
          super.inData_byObj(obj);
          if(Boolean(obj.chipHole.hasOwnProperty("affixLevel")))
          {
@@ -227,6 +237,10 @@ package gameAll.data
       public function inData_byDefine() : *
       {
          var oad:OneArmsDefine = this.getArmsDefine();
+         if(oad.level > this.researchMaxLevel)
+         {
+            this.researchMaxLevel = oad.level;
+         }
          this.inData_byOther(oad);
       }
       
@@ -246,6 +260,11 @@ package gameAll.data
       {
          var arr2:Array = this.baseLabel.split("_lv");
          return int(arr2[1]) - 1;
+      }
+
+      public function getResearchMaxLevel() : int
+      {
+         return Math.max(this.researchMaxLevel,Math.max(0,this.getLevel()));
       }
       
       public function getID() : String

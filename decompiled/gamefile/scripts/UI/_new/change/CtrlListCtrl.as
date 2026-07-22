@@ -182,6 +182,14 @@ package UI._new.change
                   list_arr.unshift(0);
                }
             }
+            if(id0.getResearchMaxLevel() > 0 && Game.defineGroup.getArmsDefineArr(d0.id).length > 1)
+            {
+               var researchIndex0:int = list_arr.indexOf(2);
+               if(researchIndex0 >= 0)
+               {
+                  list_arr[researchIndex0] = 11;
+               }
+            }
             if(list_arr.length > 0)
             {
                ctrlList.fleshName(list_arr);
@@ -228,6 +236,18 @@ package UI._new.change
             {
                Game.uiGroup.gotoResearch(father.type + "_upgrade",da0.getID());
             }
+            else if(index0 == 11)
+            {
+               showArmsResearchMenu();
+            }
+            else if(index0 == 10)
+            {
+               Game.uiGroup.gotoResearch(father.type + "_upgrade",da0.getID());
+            }
+            else if(index0 == 9)
+            {
+               showArmsFormInput();
+            }
             else if(index0 == 3)
             {
                str0 = "你确定要卖出 <font color=\'#FFFF00\'>" + d0.name + "</font> 吗？";
@@ -244,6 +264,59 @@ package UI._new.change
                Game.SG.playSound("failureItems");
             }
          }
+      }
+
+      private static function showArmsResearchMenu() : *
+      {
+         var da0:ArmsItemsData = icon.itemsData;
+         var arr0:Array = Game.defineGroup.getArmsDefineArr(da0.getID());
+         var options0:Array = [];
+         var current0:int = Math.max(0,da0.getLevel());
+         var researched0:int = Math.min(da0.getResearchMaxLevel(),arr0.length - 1);
+         if(current0 >= researched0 && researched0 < arr0.length - 1)
+         {
+            options0.push(10);
+         }
+         options0.push(9);
+         ctrlList.fleshName(options0);
+         showList(icon);
+      }
+
+      private static function showArmsFormInput() : *
+      {
+         var da0:ArmsItemsData = icon.itemsData;
+         var arr0:Array = Game.defineGroup.getArmsDefineArr(da0.getID());
+         var researched0:int = Math.min(da0.getResearchMaxLevel(),arr0.length - 1);
+         Game.uiGroup.checkTip.showNumberInput("选择要使用的武器形态：\n已研发 1 至 " + (researched0 + 1) + " 阶，当前为 " + (da0.getLevel() + 1) + " 阶。",String(da0.getLevel() + 1),switchArmsForm,null,3);
+      }
+
+      private static function switchArmsForm() : *
+      {
+         var da0:ArmsItemsData = icon.itemsData;
+         var dg0:ArmsItemsDataGroup = father.dataGroup;
+         var arr0:Array = Game.defineGroup.getArmsDefineArr(da0.getID());
+         var researched0:int = Math.min(da0.getResearchMaxLevel(),arr0.length - 1);
+         var target0:int = int(Game.uiGroup.checkTip.input_txt.text) - 1;
+         if(target0 < 0 || target0 > researched0)
+         {
+            Game.uiGroup.checkTip.showCheck2("只能选择已经研发的 1 至 " + (researched0 + 1) + " 阶形态。",2);
+            return;
+         }
+         if(target0 == da0.getLevel())
+         {
+            Game.uiGroup.checkTip.showCheck2("当前已经是第 " + (target0 + 1) + " 阶形态。",2);
+            return;
+         }
+         da0.baseLabel = arr0[target0].getLabel();
+         da0.inData_byDefine();
+         da0.fleshData();
+         dg0.fleshData();
+         fleshData();
+         Game.eventGroup.fleshSkill();
+         Game.uiGroup.carShow.copyAll();
+         Game.uiGroup.saveDataNoUI("切换武器形态");
+         Game.SG.playSound("upgradeArms");
+         Game.uiGroup.checkTip.showTip("已切换为第 " + (target0 + 1) + " 阶形态。",1);
       }
       
       private static function sellArms() : *
