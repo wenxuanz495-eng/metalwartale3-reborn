@@ -237,6 +237,8 @@
       public var isVipLevelB:Boolean = false;
       
       public var aideEnabled:Boolean = false;
+
+      public var vipAideAutoB:Boolean = false;
       
       public var isNationalDay:Boolean = true;
       
@@ -361,6 +363,7 @@
          this.autoCollectLifePer = obj.hasOwnProperty("autoCollectLifePer") ? Boolean(obj.autoCollectLifePer) : true;
          this.disableAutoCollectLifePer = obj.hasOwnProperty("disableAutoCollectLifePer") ? Boolean(obj.disableAutoCollectLifePer) : true;
          this.modAllLevelsPassed = obj.hasOwnProperty("modAllLevelsPassed") ? Boolean(obj.modAllLevelsPassed) : false;
+         this.vipAideAutoB = obj.hasOwnProperty("vipAideAutoB") ? Boolean(obj.vipAideAutoB) : false;
          this.isZuobi = false;
          this.zuobiStr = "";
          if(obj.hasOwnProperty("offlineUnion") && obj.offlineUnion != null)

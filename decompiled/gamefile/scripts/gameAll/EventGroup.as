@@ -762,6 +762,12 @@ package gameAll
          {
             this.UIG.leftUI.heroai_btn.visible = false;
          }
+         this.UIG.leftUI.fleshVipAuto();
+         if(this.GD.vipAideAutoB && this.UIG.leftUI.heroai_btn.visible && this.UIG.leftUI.heroai_btn.actived)
+         {
+            this.startHeroAI();
+            this.UIG.leftUI.setHeroAI(false);
+         }
       }
       
       public function gamingOver() : *
