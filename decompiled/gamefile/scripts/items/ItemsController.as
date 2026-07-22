@@ -707,7 +707,7 @@
          text0 += "：\n" + this.coreRewardPages[this.coreRewardPageIndex];
          if(this.coreRewardPageIndex < this.coreRewardPages.length - 1)
          {
-            text0 += "\n\n点击确定查看下一页。";
+            text0 += "\n点击确定查看下一页。";
             Game.uiGroup.checkTip.showCheck2(text0,2,this.showNextCoreRewardPage);
          }
          else
