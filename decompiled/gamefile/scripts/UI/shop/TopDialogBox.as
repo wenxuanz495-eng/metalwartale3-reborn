@@ -1,12 +1,15 @@
 package UI.shop
 {
    import UI.button.PicButton;
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
    import flash.display.MovieClip;
    import flash.display.Sprite;
    import flash.events.Event;
    import flash.events.MouseEvent;
    import flash.text.TextField;
    import flash.text.TextFieldAutoSize;
+   import flash.text.StaticText;
    import goods.GoodsDefine;
    import gs.TweenLite;
    import gs.easing.Back;
@@ -90,6 +93,7 @@ package UI.shop
          this.inputPanelBack.graphics.endFill();
          this.mc.addChildAt(this.inputPanelBack,0);
          this.inputPanelBack.visible = false;
+         this.hideConsumptionSlogan(this.mc);
          this.txt.autoSize = "left";
          this.txt.wordWrap = false;
          this.yes_btn.setText("yes");
@@ -105,6 +109,36 @@ package UI.shop
          this.shop_mc.num_txt.addEventListener(Event.CHANGE,this.priceTxtChange);
          this.shop_mc.num_txt.maxChars = 7;
          this.shop_mc.num_txt.restrict = "0-9";
+      }
+
+      private function hideConsumptionSlogan(container0:DisplayObjectContainer) : void
+      {
+         var child0:DisplayObject = null;
+         var text0:String = null;
+         for(var i:int = container0.numChildren - 1; i >= 0; i--)
+         {
+            child0 = container0.getChildAt(i);
+            if(child0 is StaticText)
+            {
+               text0 = StaticText(child0).text;
+            }
+            else if(child0 is TextField)
+            {
+               text0 = TextField(child0).text;
+            }
+            else
+            {
+               text0 = null;
+            }
+            if(text0 != null && (text0.indexOf("适当娱乐") >= 0 || text0.indexOf("理性消费") >= 0))
+            {
+               child0.visible = false;
+            }
+            else if(child0 is DisplayObjectContainer)
+            {
+               this.hideConsumptionSlogan(DisplayObjectContainer(child0));
+            }
+         }
       }
       
       public function showReSignCheck(buyCount:int, _yesFun:Function = null, numB:Boolean = true, _bagNum:int = 1, _repeatB:Boolean = true) : *
@@ -419,7 +453,7 @@ package UI.shop
       {
          this.show(str,-1,0,1,fun1,fun2);
          this.inputPanelBack.visible = true;
-         this.txt.y = -145;
+         this.txt.y = -60;
          this.input_txt.y = this.inputDefaultY + 35;
          this.txtBack_mc.y = this.inputBackDefaultY + 35;
          this.yes_btn.y = 105;
