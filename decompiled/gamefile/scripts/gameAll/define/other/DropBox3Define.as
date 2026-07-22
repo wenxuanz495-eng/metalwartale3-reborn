@@ -21,14 +21,13 @@ package gameAll.define.other
          this.type_arr.push("crystal_4,\t1,\t\t\t\t\t1");
          this.type_arr.push("crystal_5,\t1,\t\t\t\t\t1");
          this.type_arr.push("crystal_6,\t1,\t\t\t\t\t1");
-         this.type_arr.push("arms,\t\tarc,\t\t\t\t1");
          this.type_arr.push("sub,\t\t\tcutter_gold_lv1,\t1");
          this.type_arr.push("props,\t\tchipBag20,\t\t\t1");
          this.type_arr.push("props,\t\tchipBag40,\t\t\t1");
          this.type_arr.push("props,\t\tchipBag60,\t\t\t1");
          this.type_arr.push("props,\t\tchipBag80,\t\t\t1");
          this.type_arr.push("props,\t\tchipBag100,\t\t1");
-         this.pro_arr = [0.27,0.1,0.1,0.1,0.05,0.05,0.05,0.05,0.05,0.015,0.015,0.05,0.04,0.03,0.02,0.01];
+         this.pro_arr = [0.27,0.1,0.1,0.1,0.05,0.05,0.05,0.05,0.05,0.03,0.05,0.04,0.03,0.02,0.01];
       }
       
       public function getGift(than8:Boolean = false) : String
