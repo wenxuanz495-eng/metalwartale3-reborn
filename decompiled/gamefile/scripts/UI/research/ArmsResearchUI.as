@@ -1478,6 +1478,7 @@ package UI.research
          this.fleshArmsBox();
          this.chooseIcon(index0);
          this.chooseGradeArmsIcon();
+         Game.gameData.honorData.checkWeaponMasterHonor();
          this.useResearchUpgradeCardB = false;
       }
       

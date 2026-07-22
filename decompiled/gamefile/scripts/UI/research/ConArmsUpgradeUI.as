@@ -116,6 +116,7 @@ package UI.research
          this.chooseIcon(this.nowArmsChoose);
          Game.SG.playSound("upgradeArms");
          Game.uiGroup.checkTip.showTip("升级成功！",1);
+         Game.gameData.honorData.checkWeaponMasterHonor();
       }
    }
 }

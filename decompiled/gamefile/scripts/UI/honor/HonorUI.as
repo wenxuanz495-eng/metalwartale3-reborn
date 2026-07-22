@@ -111,6 +111,7 @@ package UI.honor
       {
          var arr1:Array = null;
          var arr2:Array = null;
+         this.honorData.checkWeaponMasterHonor();
          this.labelCtrl.setChoose_byLabel(label0);
          this.ac.visible = false;
          this.honor_mc.visible = false;

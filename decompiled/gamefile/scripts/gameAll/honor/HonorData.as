@@ -162,6 +162,46 @@ package gameAll.honor
          }
          return "无";
       }
+
+      public function checkWeaponMasterHonor(showTip:Boolean = true) : Boolean
+      {
+         var cutter:* = undefined;
+         var darkpower:* = undefined;
+         var conArr:Array = null;
+         var n:* = undefined;
+         var conArms:* = undefined;
+         var conMaxB:Boolean = false;
+         if(this.getData("su_xunzong") != null || Game.gameData == null)
+         {
+            return false;
+         }
+         cutter = Game.gameData.subItems.getItemsByBase("cutter",false);
+         darkpower = Game.gameData.subItems.getItemsByBase("darkpower",false);
+         if(cutter == null || cutter.getResearchMaxLevel() < 5 || darkpower == null || darkpower.getResearchMaxLevel() < 2)
+         {
+            return false;
+         }
+         conArr = Game.gameData.armsItems.getConArms();
+         for(n in conArr)
+         {
+            conArms = conArr[n];
+            if(conArms.strengLevel >= 35)
+            {
+               conMaxB = true;
+               break;
+            }
+         }
+         if(!conMaxB)
+         {
+            return false;
+         }
+         this.addHonor("su_xunzong");
+         if(showTip)
+         {
+            Game.uiGroup.checkTip.showCheck2("已获得新称号：苏勋宗\n勋章收集大师。你滴勋皇，无限猖狂！！！",2);
+         }
+         return true;
+      }
    }
 }
 

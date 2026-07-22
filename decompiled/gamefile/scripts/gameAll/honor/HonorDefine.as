@@ -52,6 +52,13 @@ package gameAll.honor
          d0.add = ["allAdd+0.10"];
          this.honor_arr.push(d0);
          d0 = new OneHonorDefine();
+         d0.name = "su_xunzong";
+         d0.cnName = "苏勋宗";
+         d0.pro = "全能训练加成10%，射击训练加成5%，控制训练加成5%";
+         d0.condition = "勋章收集大师。你滴勋皇，无限猖狂！！！\n获得条件：研发完成深渊MK2、泯灭，并将任意一把星座武器升级至最高级。";
+         d0.add = ["allAdd+0.10","attackAdd+0.05","subAdd+0.05"];
+         this.honor_arr.push(d0);
+         d0 = new OneHonorDefine();
          d0.name = "arena_0";
          d0.cnName = "大师角斗士";
          d0.pro = "全能训练加成10%";
