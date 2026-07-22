@@ -45,6 +45,10 @@ package gameAll.data.weekExtra
             this.winB = false;
             this.nowLife = this.define.maxLife;
          }
+         else if(!this.winB && this.readyAt > 0)
+         {
+            this.readyAt = 0;
+         }
          if(this.nowLife > this.define.maxLife)
          {
             this.nowLife = this.define.maxLife;

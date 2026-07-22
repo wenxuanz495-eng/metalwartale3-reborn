@@ -62,6 +62,7 @@ package gameAll.level.extra
       override public function closeLevel() : *
       {
          this.saveLife();
+         Game.uiGroup.saveDataNoUI("保存玩家副本Boss血量");
          super.closeLevel();
       }
       
@@ -69,6 +70,10 @@ package gameAll.level.extra
       {
          this.fleshBossLife();
          Game.gameData.weekExtraData.getNowData().nowLife = this.bossNowLife;
+         if(!Game.gameData.weekExtraData.getNowData().winB)
+         {
+            Game.gameData.weekExtraData.getNowData().readyAt = 0;
+         }
       }
    }
 }

@@ -110,7 +110,7 @@ package gameAll.data.weekExtra
       public function setNowExtraState(bb0:Boolean) : *
       {
          this.getNowData().winB = bb0;
-         this.getNowData().readyAt = new Date().time + 1800000;
+         this.getNowData().readyAt = bb0 ? new Date().time + 1800000 : 0;
       }
       
       public function getNowData() : WeekExtraOneData
@@ -128,6 +128,10 @@ package gameAll.data.weekExtra
          for(n in this.arr)
          {
             data0 = this.arr[n];
+            if(!data0.winB && data0.readyAt > 0)
+            {
+               data0.readyAt = 0;
+            }
             if(data0.winB && data0.readyAt > 0 && new Date().time >= data0.readyAt)
             {
                data0.winB = false;
@@ -139,7 +143,7 @@ package gameAll.data.weekExtra
             {
                arr0.push(0);
             }
-            else if(data0.winB || new Date().time < data0.readyAt)
+            else if(data0.winB && new Date().time < data0.readyAt)
             {
                arr0.push(2);
             }
