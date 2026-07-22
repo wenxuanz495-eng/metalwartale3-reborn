@@ -45,6 +45,8 @@ package UI.shop
       public var input_txt:TextField;
       
       public var txtBack_mc:Sprite;
+
+      private var inputPanelBack:Sprite = new Sprite();
       
       public var shop_mc:*;
       
@@ -76,6 +78,11 @@ package UI.shop
          this.icon = this.mc.icon;
          this.input_txt = this.mc.input_txt;
          this.txtBack_mc = this.mc.txtBack_mc;
+         this.inputPanelBack.graphics.beginFill(0,0.96);
+         this.inputPanelBack.graphics.drawRect(-450,-135,900,270);
+         this.inputPanelBack.graphics.endFill();
+         this.mc.addChildAt(this.inputPanelBack,0);
+         this.inputPanelBack.visible = false;
          this.txt.autoSize = "left";
          this.txt.wordWrap = false;
          this.yes_btn.setText("yes");
@@ -388,6 +395,7 @@ package UI.shop
          }
          this.input_txt.visible = false;
          this.txtBack_mc.visible = false;
+         this.inputPanelBack.visible = false;
          this.yes_btn.y = 45;
          this.no_btn.y = 45;
          this.m50_btn.visible = false;
@@ -401,6 +409,7 @@ package UI.shop
       public function showInputText(str:String, inputStr:String, fun1:Function = null, fun2:Function = null) : *
       {
          this.show(str,-1,0,1,fun1,fun2);
+         this.inputPanelBack.visible = true;
          this.input_txt.restrict = null;
          this.input_txt.maxChars = 0;
          this.input_txt.text = inputStr;
