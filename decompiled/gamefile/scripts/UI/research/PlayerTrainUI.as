@@ -81,6 +81,16 @@ package UI.research
       private var pendingTrainData:TrainAddData = null;
 
       private var pendingTrainCurrency:String = "G币";
+
+      private var pendingSkillDefine:SkillDefine = null;
+
+      private var pendingSkillStartLevel:int = 0;
+
+      private var pendingSkillNum:int = 0;
+
+      private var pendingSkillGCost:Number = 0;
+
+      private var pendingSkillMCost:Number = 0;
       
       public function PlayerTrainUI()
       {
@@ -145,6 +155,12 @@ package UI.research
             if(this.nowData is TrainAddData)
             {
                Game.uiGroup.checkTip.showNumberInput("输入" + TrainAddData(this.nowData).cnName + "要提升的等级数：\n当前 " + TrainAddData(this.nowData).level + " 级，最高 " + TrainAddData(this.nowData).maxLevel + " 级。","1",this.prepareAllTrain,null,8);
+               return;
+            }
+            if(this.nowDefine is SkillDefine)
+            {
+               var skillLevel0:int = this.GD.playerData.getSkillLevel(this.nowDefine.name);
+               Game.uiGroup.checkTip.showNumberInput("输入" + this.nowDefine.cnName + "要提升的等级数：\n当前 " + skillLevel0 + " 级，最高 " + this.nowDefine.maxLevel + " 级。","1",this.prepareSkillBatch,null,3);
                return;
             }
             mcoin0 = 0;
@@ -274,6 +290,155 @@ package UI.research
          this.pendingAllTrainNum = 0;
          this.pendingTrainData = null;
          Game.uiGroup.checkTip.showTip(add0.cnName + "成功提升 " + num0 + " 级！",1);
+         Game.eventGroup.fleshSkill();
+         Game.uiGroup.carShow.copyAll();
+         Game.SG.playSound("upgradeArms");
+         this.fleshAll();
+      }
+
+      private function prepareSkillBatch() : *
+      {
+         var skill0:SkillDefine = this.nowDefine as SkillDefine;
+         if(skill0 == null)
+         {
+            return;
+         }
+         var startLevel0:int = this.GD.playerData.getSkillLevel(skill0.name);
+         var num0:int = int(Game.uiGroup.checkTip.input_txt.text);
+         var remain0:int = skill0.maxLevel - startLevel0;
+         if(num0 < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2("请输入大于 0 的等级数。",2);
+            return;
+         }
+         if(num0 > remain0)
+         {
+            Game.uiGroup.checkTip.showCheck2("最多还能提升 " + remain0 + " 级。",2);
+            return;
+         }
+         var cost0:Object = this.getSkillBatchCost(skill0,startLevel0,num0);
+         if(this.GD.level + 1 < int(cost0.mustLevel))
+         {
+            Game.uiGroup.checkTip.showCheck2("提升到目标等级需要玩家达到 " + cost0.mustLevel + " 级。",2);
+            return;
+         }
+         this.pendingSkillDefine = skill0;
+         this.pendingSkillStartLevel = startLevel0;
+         this.pendingSkillNum = num0;
+         this.pendingSkillGCost = Number(cost0.GCoin);
+         this.pendingSkillMCost = Number(cost0.MCoin);
+         var costText0:String = "";
+         if(this.pendingSkillGCost > 0)
+         {
+            costText0 = this.pendingSkillGCost + " G币";
+         }
+         if(this.pendingSkillMCost > 0)
+         {
+            costText0 += (costText0 == "" ? "" : "，") + this.pendingSkillMCost + " M币";
+         }
+         if(costText0 == "")
+         {
+            costText0 = "0 G币";
+         }
+         Game.uiGroup.checkTip.showCheck2(skill0.cnName + "将从 " + startLevel0 + " 级提升到 " + (startLevel0 + num0) + " 级。\n目标要求玩家达到 " + cost0.mustLevel + " 级。\n共需要 " + costText0 + "，确定升级吗？",1,this.confirmSkillBatch);
+      }
+
+      private function getSkillBatchCost(skill0:SkillDefine, startLevel0:int, num0:int) : Object
+      {
+         var result0:Object = {
+            "GCoin":0,
+            "MCoin":0,
+            "mustLevel":1
+         };
+         var i:int = startLevel0;
+         var pay0:OneLevelSkillDefine = null;
+         var target0:OneLevelSkillDefine = null;
+         while(i < startLevel0 + num0)
+         {
+            pay0 = skill0.getLevel(i);
+            target0 = skill0.getLevel(i + 1);
+            if(pay0 != null)
+            {
+               if(pay0.mustMcoin > 0)
+               {
+                  result0.MCoin += pay0.mustMcoin;
+               }
+               else
+               {
+                  result0.GCoin += pay0.mustGcoin;
+               }
+            }
+            if(target0 != null && target0.mustLevel > result0.mustLevel)
+            {
+               result0.mustLevel = target0.mustLevel;
+            }
+            i++;
+         }
+         return result0;
+      }
+
+      private function confirmSkillBatch() : *
+      {
+         var skill0:SkillDefine = this.pendingSkillDefine;
+         if(skill0 == null || this.pendingSkillNum < 1)
+         {
+            return;
+         }
+         var nowLevel0:int = this.GD.playerData.getSkillLevel(skill0.name);
+         if(nowLevel0 != this.pendingSkillStartLevel)
+         {
+            Game.uiGroup.checkTip.showCheck2("技能等级已经变化，请重新输入。",2);
+            return;
+         }
+         var cost0:Object = this.getSkillBatchCost(skill0,nowLevel0,this.pendingSkillNum);
+         this.pendingSkillGCost = Number(cost0.GCoin);
+         this.pendingSkillMCost = Number(cost0.MCoin);
+         if(this.GD.level + 1 < int(cost0.mustLevel))
+         {
+            Game.uiGroup.checkTip.showCheck2("玩家等级不足，需要达到 " + cost0.mustLevel + " 级。",2);
+            return;
+         }
+         if(this.pendingSkillGCost > this.GD.GCoin)
+         {
+            Game.uiGroup.checkTip.showCheck2("G币不足，需要 " + this.pendingSkillGCost + " G币。",2);
+            return;
+         }
+         if(this.pendingSkillMCost > this.GD.MCoin)
+         {
+            Game.uiGroup.checkTip.showCheck2("M币不足，需要 " + this.pendingSkillMCost + " M币。",2);
+            return;
+         }
+         if(this.pendingSkillMCost > 0)
+         {
+            Game.payController.decMCoin(this.pendingSkillMCost,this.completeSkillBatch,this.affter_m_buyCheck2);
+         }
+         else
+         {
+            this.completeSkillBatch();
+         }
+      }
+
+      private function completeSkillBatch() : *
+      {
+         var skill0:SkillDefine = this.pendingSkillDefine;
+         if(skill0 == null)
+         {
+            return;
+         }
+         if(this.pendingSkillGCost > 0)
+         {
+            this.GD.addCoin(-this.pendingSkillGCost);
+         }
+         var num0:int = this.pendingSkillNum;
+         var i:int = 0;
+         while(i < num0)
+         {
+            this.GD.playerData.skillLevelUp(skill0.name);
+            i++;
+         }
+         this.pendingSkillDefine = null;
+         this.pendingSkillNum = 0;
+         Game.uiGroup.checkTip.showTip(skill0.cnName + "成功提升 " + num0 + " 级！",1);
          Game.eventGroup.fleshSkill();
          Game.uiGroup.carShow.copyAll();
          Game.SG.playSound("upgradeArms");
