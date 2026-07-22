@@ -56,7 +56,23 @@ package gameAll.vip
          var n:* = undefined;
          var pro0:String = null;
          var pro_arr:Array = ["nowVip","durationTime","giftGetB","buffGetB","buffTime","experienceTime"];
-         if(obj.nowVip == "vipCard_1")
+         if(obj.nowVip == "vipCard_111")
+         {
+            obj.nowVip = "vipCard_11";
+         }
+         else if(obj.nowVip == "vipCard_112")
+         {
+            obj.nowVip = "vipCard_12";
+         }
+         else if(obj.nowVip == "vipCard_113")
+         {
+            obj.nowVip = "vipCard_13";
+         }
+         else if(obj.nowVip == "vipCard_114")
+         {
+            obj.nowVip = "vipCard_14";
+         }
+         else if(obj.nowVip == "vipCard_1")
          {
             obj.nowVip = "vipCard_11";
          }

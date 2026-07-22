@@ -132,10 +132,12 @@ package UI.vip
             bar0 = this.good_arr[n];
             if(int(n) < rank)
             {
+               bar0._btn.visible = false;
                bar0.price_txt.text = "已解锁（永久）";
             }
             else
             {
+               bar0._btn.visible = true;
                bar0.price_txt.text = this.unlockText_arr[int(n)];
             }
          }
@@ -144,6 +146,16 @@ package UI.vip
       private function goodsClick(e:*) : *
       {
          var index0:int = int(e.target.parent.index);
+         var rank:int = 0;
+         var nowVip:String = this.vipData.nowVip;
+         if(nowVip != null && nowVip.indexOf("vipCard_1") == 0)
+         {
+            rank = int(nowVip.substr(8)) - 10;
+         }
+         if(index0 < rank)
+         {
+            return;
+         }
          Game.uiGroup.checkTip.showCheck2("VIP不能购买。解锁条件：" + this.unlockText_arr[index0],2,null,null,2);
       }
       

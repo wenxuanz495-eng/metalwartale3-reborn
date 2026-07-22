@@ -309,6 +309,9 @@ async function saveChapterProgress(){try{busy(true);const doc=editorFrame.conten
 function getVipRank(d){
   try{
     const nowVip=(d&&d.vipData&&d.vipData.nowVip)?String(d.vipData.nowVip):'';
+    // 1.2.6 之前的修改器错误地把 11..14 再拼到 "vipCard_1" 后面，
+    // 会写出 vipCard_111..114。识别这些值，用户下次保存时即可自动修正。
+    if(/^vipCard_11[1-4]$/.test(nowVip)) return parseInt(nowVip.slice(-1),10);
     if(nowVip.indexOf('vipCard_1')===0){
       const n=parseInt(nowVip.slice(8),10);
       if(n>=11&&n<=14) return n-10;
@@ -338,7 +341,7 @@ function applyVipRank(d,rank){
     vip.buffTime=0;
     vip.experienceTime=0;
   }else{
-    vip.nowVip='vipCard_1'+(10+rank); // 11..14
+    vip.nowVip='vipCard_'+(10+rank); // vipCard_11..vipCard_14
     vip.durationTime=''; // permanent offline
     vip.buffGetB=true;
     if(!(vip.buffTime>0)) vip.buffTime=1;
