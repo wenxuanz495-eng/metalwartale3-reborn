@@ -171,7 +171,9 @@ package gameAll.data
       public function getLocalOpponents() : Array
       {
          var names:Array = ["铁拳教官","荒原猎手","疾风游骑","重甲卫士","电弧先锋","赤焰追猎","寒霜守望","雷鸣战将","钢铁壁垒","幻影刀锋","熔火统领","深空巡猎","审判之矛","不朽堡垒","竞技场冠军"];
-         var heads:Array = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s15"];
+         // The arena portrait clip has no s15 frame. Using it lets the battle
+         // start behind a loading overlay when the 15th local bot is selected.
+         var heads:Array = ["s1","s2","s3","s4","s5","s6","s7","s8","s9","s10","s11","s12","s13","s14","s14"];
          var base:HighArena_ExtraData = Game.gameData.getHighArena_ExtraData();
          var result:Array = [];
          if(base == null)
