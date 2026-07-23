@@ -357,8 +357,18 @@ package body.define
          }
          for(var loopNum:int = 0; n <= n2; )
          {
+            if(this.armsArr[n] == null || this.armsArr[n].length == 0)
+            {
+               n++;
+               continue;
+            }
             define0 = this.armsArr[n][0];
             loopNum++;
+            if(define0 == null)
+            {
+               n++;
+               continue;
+            }
             if(define0.id == id0)
             {
                if(copyB)

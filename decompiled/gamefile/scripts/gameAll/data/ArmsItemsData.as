@@ -233,7 +233,7 @@ package gameAll.data
 
       public function getPurpleChipGrowthLevel() : int
       {
-         if(this.canInstallPurpleChip() && this.chipHole is GoodsItemsData)
+         if(this.chipHole is GoodsItemsData && this.canInstallPurpleChip())
          {
             return this.chipHole.getPurpleGrowthLevel();
          }

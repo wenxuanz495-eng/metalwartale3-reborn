@@ -30,6 +30,7 @@ gameAll\data\GoodsItemsDataGroup.as
 gameAll\data\GoodsItemsData.as
 gameAll\data\ArmsItemsData.as
 body\define\OneArmsDefine.as
+body\define\DefineGroup.as
 gameAll\data\ArmsItemsDataGroup.as
 items\ItemsGroup.as
 UI\research\ChipBaptizeUI.as
