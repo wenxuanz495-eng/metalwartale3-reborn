@@ -2,4 +2,5 @@
 # The 1.26.2.1-BAT baseline already contains all 21 current embedded XML assets.
 # Add only BinaryData changed after that baseline, one entry per line.
 3|decompiled\embedded-xml-assets\3_EmbedXml_xmlClass2_EmbedXml_xmlClass2.bin
+6|decompiled\embedded-xml-assets\6_EmbedXml_xmlClass7_EmbedXml_xmlClass7.bin
 19|decompiled\embedded-xml-assets\19_EmbedXml_xmlClass12_EmbedXml_xmlClass12.bin
