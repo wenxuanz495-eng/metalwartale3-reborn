@@ -40,6 +40,8 @@ tasklist /fi "IMAGENAME eq flashplayer_sa.exe" 2>nul | find /i "flashplayer_sa.e
 if not errorlevel 1 goto game_running
 tasklist /fi "IMAGENAME eq flashplayer_sa_debug.exe" 2>nul | find /i "flashplayer_sa_debug.exe" >nul
 if not errorlevel 1 goto game_running
+tasklist /fi "IMAGENAME eq flashplayer_32_sa_debug.exe" 2>nul | find /i "flashplayer_32_sa_debug.exe" >nul
+if not errorlevel 1 goto game_running
 
 if defined SMOKE_ONLY goto start_engine
 

@@ -6,6 +6,12 @@ tasklist /fi "IMAGENAME eq flashplayer_sa.exe" 2>nul | find /i "flashplayer_sa.e
 if not errorlevel 1 goto game_running
 tasklist /fi "IMAGENAME eq flashplayer_sa_debug.exe" 2>nul | find /i "flashplayer_sa_debug.exe" >nul
 if not errorlevel 1 goto game_running
+tasklist /fi "IMAGENAME eq flashplayer_32_sa_debug.exe" 2>nul | find /i "flashplayer_32_sa_debug.exe" >nul
+if not errorlevel 1 goto game_running
+tasklist /v /fi "WINDOWTITLE eq SA_COLLAB_SERVER_*" 2>nul | find /i "SA_COLLAB_SERVER_" >nul
+if not errorlevel 1 goto game_running
+tasklist /v /fi "WINDOWTITLE eq SA_COLLAB_MODIFIER_*" 2>nul | find /i "SA_COLLAB_MODIFIER_" >nul
+if not errorlevel 1 goto game_running
 
 echo This permanently deletes all files under:
 echo %CD%\build\saves
@@ -25,6 +31,6 @@ pause
 exit /b 0
 
 :game_running
-echo [ERROR] Close the game before clearing saves.
+echo [ERROR] Close the game, modifier and collaboration server before clearing saves.
 pause
 exit /b 1
