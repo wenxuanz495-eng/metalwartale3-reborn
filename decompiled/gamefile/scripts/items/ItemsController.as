@@ -80,6 +80,80 @@
          this.batchFather = null;
       }
 
+      public function requestChipBagBatch(it0:GoodsItemsData, father0:GoodsItemsDataGroup) : *
+      {
+         if(it0 == null || father0 == null || it0.nowNum < 1)
+         {
+            return;
+         }
+         this.batchItem = it0;
+         this.batchFather = father0;
+         Game.uiGroup.checkTip.showNumberInput("输入要开启的芯片袋数量：\n最多可以开启 " + it0.nowNum + " 个。",String(Math.min(10,it0.nowNum)),this.confirmChipBagBatch,null,4);
+      }
+
+      private function confirmChipBagBatch() : *
+      {
+         if(this.batchItem == null || this.batchFather == null)
+         {
+            return;
+         }
+         var num0:int = int(Game.uiGroup.checkTip.input_txt.text);
+         if(num0 < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2("请输入大于0的数量。",2);
+            return;
+         }
+         num0 = Math.min(num0,this.batchItem.nowNum);
+         this.openChipBagBatch(this.batchItem,this.batchFather,num0);
+         this.batchItem = null;
+         this.batchFather = null;
+      }
+
+      private function openChipBagBatch(it0:GoodsItemsData, father0:GoodsItemsDataGroup, requestedNum0:int) : *
+      {
+         var opened0:int = 0;
+         var won0:int = 0;
+         var chip0:GoodsItemsData = null;
+         var stopReason0:String = "";
+         if(this.GD.materialsItems.getSurplus() < 1)
+         {
+            Game.uiGroup.checkTip.showCheck2("材料背包至少需要一个空位，才能批量开启芯片袋。",2);
+            return;
+         }
+         while(opened0 < requestedNum0 && it0.nowNum > 0)
+         {
+            if(Math.random() < 0.49)
+            {
+               if(this.GD.materialsItems.getSurplus() < 1)
+               {
+                  stopReason0 = "材料背包已满，剩余芯片袋未消耗。";
+                  break;
+               }
+               chip0 = this.addPurpleChip_byLevel(Game.gameData.level);
+               if(chip0 == null)
+               {
+                  stopReason0 = "紫色芯片未能放入材料背包，剩余芯片袋未消耗。";
+                  break;
+               }
+               won0++;
+            }
+            father0.useItemsData(it0,1);
+            opened0++;
+         }
+         if(opened0 > 0)
+         {
+            Game.uiGroup.changeUI.materialsUI.fleshAll();
+            Game.uiGroup.changeUI.propsUI.fleshAll();
+            Game.uiGroup.saveDataNoUI("批量开启紫色芯片袋");
+         }
+         var result0:String = "批量开启完成。\n已开启芯片袋：" + opened0 + " 个\n获得紫色芯片：" + won0 + " 个";
+         if(stopReason0 != "")
+         {
+            result0 += "\n" + stopReason0;
+         }
+         Game.uiGroup.checkTip.showCheck2(result0,2);
+      }
+
       public function useItems(it0:GoodsItemsData, father0:GoodsItemsDataGroup, allUseB:Boolean = false, requestedNum:int = 0) : *
       {
          var str0:String = null;
@@ -708,6 +782,8 @@
       private function addCoreRewardCategory(lines0:Array, title0:String, order0:Array, totals0:Object) : *
       {
          var name0:String = null;
+         var row0:String = "";
+         var count0:int = 0;
          lines0.push("【" + title0 + "】");
          if(order0.length == 0)
          {
@@ -716,7 +792,22 @@
          }
          for each(name0 in order0)
          {
-            lines0.push(name0 + "×" + totals0[name0]);
+            if(row0 != "")
+            {
+               row0 += "　　";
+            }
+            row0 += name0 + "×" + totals0[name0];
+            count0++;
+            if(count0 == 2)
+            {
+               lines0.push(row0);
+               row0 = "";
+               count0 = 0;
+            }
+         }
+         if(row0 != "")
+         {
+            lines0.push(row0);
          }
       }
 
@@ -737,7 +828,7 @@
          {
             page0 = "";
             pageCount0 = 0;
-            while(i < lines0.length && pageCount0 < 8)
+            while(i < lines0.length && pageCount0 < 5)
             {
                if(page0 != "")
                {

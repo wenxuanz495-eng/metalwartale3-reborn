@@ -535,7 +535,7 @@ package UI._new.change
                   }
                   else
                   {
-                     list_arr = [4];
+                     list_arr = d0.cardType == "chipBag" && id0.nowNum > 1 ? [4,8] : [4];
                   }
                }
                else if(d0.cardValue != 0)
@@ -625,7 +625,14 @@ package UI._new.change
          }
          else if(index0 == 8)
          {
-            Game.IC.requestCoreBatch(da0,dg0);
+            if(d0.cardType == "chipBag")
+            {
+               Game.IC.requestChipBagBatch(da0,dg0);
+            }
+            else
+            {
+               Game.IC.requestCoreBatch(da0,dg0);
+            }
          }
       }
       

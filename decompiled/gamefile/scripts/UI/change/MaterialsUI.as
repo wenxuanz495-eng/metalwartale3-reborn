@@ -322,7 +322,14 @@ package UI.change
                }
                else if(index0 == 8)
                {
-                  Game.IC.requestCoreBatch(this.nowCtrl.itemsData,this.itemsData);
+                  if(id0.getDefine().cardType == "chipBag")
+                  {
+                     Game.IC.requestChipBagBatch(this.nowCtrl.itemsData,this.itemsData);
+                  }
+                  else
+                  {
+                     Game.IC.requestCoreBatch(this.nowCtrl.itemsData,this.itemsData);
+                  }
                }
             }
          }
@@ -450,7 +457,14 @@ package UI.change
                         }
                         else if(define00.cardValue == -1)
                         {
-                           this.ctrlList.fleshName([4]);
+                           if(define00.cardType == "chipBag" && iai.itemsData.nowNum > 1)
+                           {
+                              this.ctrlList.fleshName([4,8]);
+                           }
+                           else
+                           {
+                              this.ctrlList.fleshName([4]);
+                           }
                         }
                         else if(define00.cardValue != 0)
                         {

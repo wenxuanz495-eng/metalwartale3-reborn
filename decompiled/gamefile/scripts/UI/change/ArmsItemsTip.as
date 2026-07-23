@@ -5,6 +5,7 @@ package UI.change
    import flash.display.Sprite;
    import flash.text.TextField;
    import gameAll.data.ArmsItemsData;
+   import gameAll.data.GoodsItemsData;
    
    public class ArmsItemsTip extends Sprite
    {
@@ -37,10 +38,7 @@ package UI.change
       public function inData(aid:ArmsItemsData) : *
       {
          var define0:OneArmsDefine = aid.define;
-         if(define0.specialType.indexOf("Level_Growth") >= 0)
-         {
-            define0.fleshData();
-         }
+         aid.fleshData();
          this.title_txt.text = define0.name;
          this.titleTxt2.x = this.title_txt.x + this.title_txt.width;
          this.title_txt.textColor = this.colorArr[aid.color];
@@ -70,6 +68,12 @@ package UI.change
          }
          str += this.getColor("装备等级：" + define0.installLevel + "级","#993300") + nolevelStr + "<br />";
          str += this.getColor("武器等级：" + define0.commonLevel + "级","#FFFF00") + "<br />";
+         if(aid.chipHole is GoodsItemsData && aid.chipHole.isPurpleChip())
+         {
+            var growth0:int = aid.chipHole.getPurpleGrowthLevel();
+            var chipLevel0:int = Game.gameData.level + growth0 + 1;
+            str += this.getColor("紫芯片共鸣：人物等级+" + growth0 + "，计算等级" + chipLevel0 + "级" + (chipLevel0 > define0.originalCommonLevel ? "（已生效）" : "（未超过武器原始等级）"),"#FF66FF") + "<br />";
+         }
          str += this.getFontColor("武器伤害：") + int(define0.getAllDataHurt()) + "<br />";
          str += this.getFontColor("攻击速度：") + define0.getShootSpeed() + "发/秒<br />";
          if(define0.father == "arms")
