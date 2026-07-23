@@ -114,8 +114,9 @@ package gameAll.data
          {
             return 0;
          }
-         var growth0:int = Math.floor((this.affixLevel + 1 - 70) / 2);
-         return Math.max(10,Math.min(40,growth0));
+         var chipLevel0:int = this.affixLevel + 1;
+         var growth0:int = 10 + Math.floor((chipLevel0 - 90) * 2 / 3);
+         return Math.max(10,Math.min(50,growth0));
       }
       
       public function getChipText() : String

@@ -6,7 +6,7 @@ package gameAll.data
    public class ArmsItemsData extends ItemsData
    {
 
-      public static var purpleChipBlockedWeaponIds:Array = ["phaseTransfer","arc","baonengpao","amplitude","jujiaoguangshupao","zzpao","Freezeweapon","zhonglichongjipao","darkpower","涡轮激光炮","Highfrequency","Boomcannon","zhongzifeidan","highEnergy","positron","goldflyBlade"];
+      public static var purpleChipGrowthWhitelist:Array = ["snow","microwave"];
       
       public var baseLabel:String = "";
       
@@ -242,11 +242,19 @@ package gameAll.data
 
       public function canInstallPurpleChip() : Boolean
       {
-         if(this.define.specialType.indexOf("Level_Growth") >= 0 || this.define.discount == -1000)
+         if(this.define.discount == -1000)
          {
             return false;
          }
-         return purpleChipBlockedWeaponIds.indexOf(this.define.id) < 0;
+         if(purpleChipGrowthWhitelist.indexOf(this.define.id) >= 0)
+         {
+            return true;
+         }
+         if(this.define.specialType.indexOf("Level_Growth") >= 0)
+         {
+            return false;
+         }
+         return this.define.originalCommonLevel < 180;
       }
 
       public function getPurpleChipBlockReason() : String
@@ -259,7 +267,7 @@ package gameAll.data
          {
             return "定制武器不能安装紫色芯片。";
          }
-         return "该后期武器不能安装紫色芯片。";
+         return "原始等级达到180级的后期武器不能安装紫色芯片。";
       }
 
       public function hasLevelGrowth() : Boolean

@@ -403,7 +403,7 @@ package body.define
          addLevel0 = this.itemsData.getPurpleChipGrowthLevel();
          if(addLevel0 > 0)
          {
-            growthLevel0 = Math.max(growthLevel0,Game.gameData.level + addLevel0 + 1);
+            growthLevel0 = Math.max(growthLevel0,Math.min(200,Game.gameData.level + addLevel0 + 1));
          }
          this.commonLevel = Math.max(this.originalCommonLevel,growthLevel0);
          this.baseDps = Game.gameDefine.getDpsByLevel(this.commonLevel);
