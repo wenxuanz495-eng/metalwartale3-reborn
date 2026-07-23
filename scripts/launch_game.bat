@@ -17,6 +17,7 @@ if not defined PLAYER_TYPE set "PLAYER_TYPE=sa"
 set "REPO_ROOT=%~dp0.."
 for %%I in ("%REPO_ROOT%") do set "REPO_ROOT=%%~fI"
 set "BUILD_DIR=%REPO_ROOT%\build"
+set "SAVE_DIR=%REPO_ROOT%\saves"
 set "SERVER=%BUILD_DIR%\server.exe"
 set "GAME=%BUILD_DIR%\game.swf"
 set "PLAYER="
@@ -44,6 +45,9 @@ if not exist "%BUILD_DIR%\.release-ready" (
   if errorlevel 1 exit /b %ERRORLEVEL%
 )
 
+call :prepare_saves
+if errorlevel 1 exit /b %ERRORLEVEL%
+
 if defined CHECK_ONLY (
   echo [OK] Pure BAT game prerequisites are ready.
   echo Player: %PLAYER%
@@ -57,7 +61,7 @@ echo Player: %PLAYER%
 for /l %%P in (8765,1,8805) do (
   if not defined PORT (
     set "SERVER_TITLE=SA_COLLAB_SERVER_!RANDOM!_!RANDOM!"
-    start "!SERVER_TITLE!" /min cmd.exe /d /c ""%SERVER%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%""
+    start "!SERVER_TITLE!" /min cmd.exe /d /c ""%SERVER%" -host 127.0.0.1 -port %%P -root "%REPO_ROOT%""
     call :wait_server %%P
     if not errorlevel 1 (
       set "PORT=%%P"
@@ -74,11 +78,22 @@ if defined SMOKE_ONLY (
   echo [OK] Pure BAT game server smoke test passed.
   exit /b 0
 )
-if not exist "%BUILD_DIR%\saves\game_save.bin" if exist "%BUILD_DIR%\swf\empty-save-template.bin" copy /y "%BUILD_DIR%\swf\empty-save-template.bin" "%BUILD_DIR%\saves\game_save.bin" >nul
-"%PLAYER%" "http://127.0.0.1:!PORT!/game.swf?localrun=!RANDOM!!RANDOM!"
+if not exist "%SAVE_DIR%\game_save.bin" if exist "%BUILD_DIR%\swf\empty-save-template.bin" copy /y "%BUILD_DIR%\swf\empty-save-template.bin" "%SAVE_DIR%\game_save.bin" >nul
+"%PLAYER%" "http://127.0.0.1:!PORT!/build/game.swf?localrun=!RANDOM!!RANDOM!"
 set "GAME_ERROR=!ERRORLEVEL!"
 call :cleanup_servers
 if not "!GAME_ERROR!"=="0" goto player_failed
+exit /b 0
+
+:prepare_saves
+if not exist "%SAVE_DIR%" mkdir "%SAVE_DIR%"
+if not exist "%SAVE_DIR%\backups" mkdir "%SAVE_DIR%\backups"
+if exist "%BUILD_DIR%\saves\game_save.bin" if not exist "%SAVE_DIR%\game_save.bin" (
+  echo [MIGRATE] Moving legacy build\saves data to root saves...
+  copy /y "%BUILD_DIR%\saves\game_save.bin" "%SAVE_DIR%\game_save.bin" >nul
+  if errorlevel 1 exit /b 8
+)
+if exist "%BUILD_DIR%\saves\game_save.bin" if exist "%SAVE_DIR%\game_save.bin" echo [NOTICE] Root saves\game_save.bin is authoritative; build\saves is ignored.
 exit /b 0
 
 :wait_server

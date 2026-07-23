@@ -1,0 +1,75 @@
+2.0合作内测版发布装包规范
+
+一、最高优先级：Flash Player 版本
+
+1. 玩家包必须使用非 Debug 的 Flash Player SA 34.0.0.330。
+2. 正确文件可从 F:\快捷\下载\flashplayer_sa.exe 获取。
+3. 正确文件大小：10735016 字节。
+4. 正确 SHA-256：7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979。
+5. 包内目标位置固定为 tools\runtime\FlashPlayer.exe，启动入口固定为 启动游戏-flashplayer_sa.bat。
+6. 绝对禁止用 Flash Player 29 替换它。仓库中的 tools\runtime\FlashPlayer.exe 曾经是 29.0.0.171，不能因为文件名相同就直接打包。
+7. 也不能使用 flashplayer_sa_debug.exe；Debug 播放器不属于玩家版本。
+8. 装包前后必须读取 EXE 的 FileVersion，并再次校验 SHA-256。不能只检查文件名、目录名或旧脚本中的哈希常量。
+
+二、发布物名称与位置
+
+1. 玩家文件夹：D:\superalloy\2.0合作内测版
+2. 玩家压缩包：D:\superalloy\2.0合作内测版.7z
+3. 7z 内必须保留顶层目录 2.0合作内测版，不能只压缩目录内部文件。
+
+三、玩家包必要结构
+
+2.0合作内测版\
+  启动游戏-flashplayer_sa.bat
+  启动修改器.bat
+  修改器.bat
+  modifier.html
+  修改器使用说明.txt
+  发布装包规范.txt
+  一键备份存档.bat
+  打开存档目录.bat
+  打开存档备份文件夹.bat
+  清除存档.bat
+  清理后台残留.bat
+  scripts\
+    launch_game.bat
+    launch_modifier.bat
+  tools\runtime\
+    FlashPlayer.exe
+  build\
+    .release-ready
+    game.swf
+    server.exe
+    公告.txt
+    swf\...
+    saves\
+      backups\
+
+四、存档规则
+
+1. 对外发布的 7z 中，build\saves 和 build\saves\backups 必须存在且为空。
+2. 严禁把 game_save.bin、game_save.last-good.bin、任何备份、日志或临时文件放进压缩包。
+3. 本机文件夹版可能由测试人员主动放入测试存档。重新制作压缩包时不能直接压缩这个测试目录，应从干净构建产物重新组装。
+4. 游戏和修改器必须共用游戏根目录 saves，不得把 build\saves 当作正式存档目录。
+5. 服务端启动参数必须使用游戏根目录作为 -root；游戏从 /build/game.swf 加载，修改器从根目录 /modifier.html 加载。
+6. 若发布目录同时存在根目录 saves 与 build\saves，启动前必须迁移或明确以根目录 saves 为唯一权威，禁止静默读取两份存档。
+
+五、修改器规则
+
+1. modifier.html 的发布原件必须位于游戏根目录，不能放进 build、build\saves 或其他子目录。
+2. 必须包含根目录 modifier.html、build\server.exe、scripts\launch_modifier.bat，以及根目录启动修改器.bat和修改器.bat。启动脚本会在运行时把根目录文件同步到 build 作为服务器副本。
+3. 发布前运行 node scripts\check_modifier.js modifier.html，检查修改器 JavaScript 与运行依赖。
+4. 在干净发布目录运行 scripts\launch_modifier.bat --check。
+5. 条件允许时再运行 scripts\launch_modifier.bat --smoke，验证本地服务器和 modifier.html 可以访问。
+6. 修改器使用前必须退出游戏；启动器会在修改前备份现有存档。
+
+六、最终校验
+
+1. 在发布文件夹运行 scripts\launch_game.bat --check sa。
+2. 确认包内只有一个 Flash Player，并确认它是 34.0.0.330 非 Debug 版。
+3. 使用 7z t 测试压缩包完整性。
+4. 使用 7z l 检查 build\saves 和 build\saves\backups 是两个大小为 0 的目录条目。
+5. 扫描压缩包，确认没有存档、备份、Debug 播放器、日志和临时文件。
+6. 最后计算并记录 7z、game.swf、FlashPlayer.exe、modifier.html 的 SHA-256。
+
+历史错误提醒：曾经因为只按 FlashPlayer.exe 文件名和仓库旧哈希装包，误把 29.0.0.171 当成 34 版。以后任何 AI 或人工装包都必须把真实版本检查放在最高优先级。

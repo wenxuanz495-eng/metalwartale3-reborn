@@ -2,8 +2,8 @@
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 
-set "SAVE=build\saves\game_save.bin"
-set "BACKUPS=build\saves\backups"
+set "SAVE=saves\game_save.bin"
+set "BACKUPS=saves\backups"
 
 if not exist "!SAVE!" (
   echo [ERROR] Save not found: !SAVE!

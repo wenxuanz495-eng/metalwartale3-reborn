@@ -1,6 +1,6 @@
 ﻿@echo off
 cd /d "%~dp0"
-set "SAVES=%~dp0build\saves"
+set "SAVES=%~dp0saves"
 if not exist "%SAVES%" mkdir "%SAVES%"
 echo ========================================
 echo Save directory (authoritative):

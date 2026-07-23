@@ -9,8 +9,9 @@ if /i "%~1"=="--smoke" set "SMOKE_ONLY=1"
 set "REPO_ROOT=%~dp0.."
 for %%I in ("%REPO_ROOT%") do set "REPO_ROOT=%%~fI"
 set "BUILD_DIR=%REPO_ROOT%\build"
+set "SAVE_DIR=%REPO_ROOT%\saves"
 set "ENGINE=%BUILD_DIR%\server.exe"
-set "MODIFIER=%BUILD_DIR%\modifier.html"
+set "MODIFIER_SOURCE=%REPO_ROOT%\modifier.html"
 set "ENGINE_TITLE=SA_COLLAB_MODIFIER_%RANDOM%_%RANDOM%"
 set "BROWSER="
 set "PORT="
@@ -26,7 +27,9 @@ if not exist "%BUILD_DIR%\.release-ready" (
   call "%~dp0prepare_build_runtime.bat"
   if errorlevel 1 exit /b %ERRORLEVEL%
 )
-if not exist "%MODIFIER%" goto missing_modifier
+if not exist "%MODIFIER_SOURCE%" goto missing_modifier
+call :prepare_saves
+if errorlevel 1 exit /b %ERRORLEVEL%
 
 if exist "%ProgramFiles%\Microsoft\Edge\Application\msedge.exe" set "BROWSER=%ProgramFiles%\Microsoft\Edge\Application\msedge.exe"
 if not defined BROWSER if exist "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" set "BROWSER=%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe"
@@ -49,8 +52,8 @@ if not errorlevel 1 goto game_running
 
 if defined SMOKE_ONLY goto start_engine
 
-if exist "%BUILD_DIR%\saves\game_save.bin" (
-  copy /y "%BUILD_DIR%\saves\game_save.bin" "%BUILD_DIR%\saves\backups\game_save.before-modifier-!RANDOM!-!RANDOM!.bin" >nul
+if exist "%SAVE_DIR%\game_save.bin" (
+  copy /y "%SAVE_DIR%\game_save.bin" "%SAVE_DIR%\backups\game_save.before-modifier-!RANDOM!-!RANDOM!.bin" >nul
   if errorlevel 1 goto backup_failed
 )
 
@@ -61,7 +64,7 @@ echo Starting collaboration modifier with pure BAT...
 for /l %%P in (8766,1,8806) do (
   if not defined PORT (
     set "ENGINE_TITLE=SA_COLLAB_MODIFIER_!RANDOM!_!RANDOM!"
-    start "!ENGINE_TITLE!" /min cmd.exe /d /c ""%ENGINE%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%""
+    start "!ENGINE_TITLE!" /min cmd.exe /d /c ""%ENGINE%" -host 127.0.0.1 -port %%P -root "%REPO_ROOT%""
     call :wait_engine %%P
     if not errorlevel 1 (
       set "PORT=%%P"
@@ -97,6 +100,17 @@ call :cleanup_modifier
 if exist "!BROWSER_PROFILE!" rd /s /q "!BROWSER_PROFILE!" >nul 2>nul
 exit /b 0
 
+:prepare_saves
+if not exist "%SAVE_DIR%" mkdir "%SAVE_DIR%"
+if not exist "%SAVE_DIR%\backups" mkdir "%SAVE_DIR%\backups"
+if exist "%BUILD_DIR%\saves\game_save.bin" if not exist "%SAVE_DIR%\game_save.bin" (
+  echo [MIGRATE] Moving legacy build\saves data to root saves...
+  copy /y "%BUILD_DIR%\saves\game_save.bin" "%SAVE_DIR%\game_save.bin" >nul
+  if errorlevel 1 exit /b 8
+)
+if exist "%BUILD_DIR%\saves\game_save.bin" if exist "%SAVE_DIR%\game_save.bin" echo [NOTICE] Root saves\game_save.bin is authoritative; build\saves is ignored.
+exit /b 0
+
 :wait_engine
 for /l %%W in (1,1,30) do (
   curl.exe --silent --fail --max-time 1 -o "%TEMP%\sa-collab-modifier-%~1.tmp" "http://127.0.0.1:%~1/api/status" 2>nul
@@ -122,7 +136,7 @@ echo [ERROR] Missing build\server.exe. Run build.bat first.
 exit /b 1
 
 :missing_modifier
-echo [ERROR] Missing runtime\modifier.html or build\modifier.html.
+echo [ERROR] Missing modifier.html in the game root directory.
 exit /b 2
 
 :missing_curl
