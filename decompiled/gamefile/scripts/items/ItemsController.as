@@ -156,7 +156,7 @@
                      father0.useItemsData(it0,num0);
                      if(Math.random() < 0.49)
                      {
-                        this.addPurpleChip_byLevel(int(d0.name.replace("chipBag","")));
+                        this.addPurpleChip_byLevel(Game.gameData.level);
                         Game.uiGroup.changeUI.materialsUI.fleshAll();
                         Game.uiGroup.checkTip.showCheck2("你获得了一个紫色芯片。",2);
                      }
@@ -802,26 +802,7 @@
          var chipName0:String = null;
          var d0:GoodsItemsData = null;
          var chipArr0:Array = [];
-         if(level0 > 80)
-         {
-            chipArr0 = ["hong","ji"];
-         }
-         else if(level0 > 60)
-         {
-            chipArr0 = ["nu","kuang"];
-         }
-         else if(level0 > 40)
-         {
-            chipArr0 = ["zhen","lie"];
-         }
-         else if(level0 > 20)
-         {
-            chipArr0 = ["jing","zu"];
-         }
-         else if(level0 > 0)
-         {
-            chipArr0 = ["ben","zhui"];
-         }
+         chipArr0 = ["ben","zhui","jing","zu","zhen","lie","nu","kuang","hong","ji"];
          if(chipArr0.length > 0)
          {
             chipName0 = chipArr0[int(chipArr0.length * Math.random())] + "_purple_chip";

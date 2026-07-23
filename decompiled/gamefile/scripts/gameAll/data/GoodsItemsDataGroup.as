@@ -39,6 +39,40 @@ package gameAll.data
             aid.inData_byObj(arr0[i]);
             this.arr.push(aid);
          }
+         this.mergeLegacyChipBags();
+      }
+
+      private function mergeLegacyChipBags() : void
+      {
+         var i:int = 0;
+         var aid:GoodsItemsData = null;
+         var target:GoodsItemsData = null;
+         var total0:int = 0;
+         var bagNames:Array = ["chipBag","chipBag20","chipBag40","chipBag60","chipBag80","chipBag100"];
+         i = this.arr.length - 1;
+         while(i >= 0)
+         {
+            aid = this.arr[i];
+            if(bagNames.indexOf(aid.name) >= 0)
+            {
+               total0 += aid.nowNum;
+               if(target == null)
+               {
+                  target = aid;
+               }
+               else
+               {
+                  this.arr.splice(i,1);
+               }
+            }
+            i--;
+         }
+         if(target != null)
+         {
+            target.name = "chipBag";
+            target.cnName = "紫色芯片袋";
+            target.nowNum = total0;
+         }
       }
       
       public function delAll() : *

@@ -12,6 +12,7 @@ items\ItemsDefineGroup.as
 gameAll\define\ArenaFlipCardDefine.as
 gameAll\define\UnionFlipCardDefine.as
 gameAll\define\ExtraFlipCardDefine.as
+gameAll\define\other\DropBox3Define.as
 UI\items\ItemsIcon.as
 UI\gameover\FlipCardBar.as
 sound\SoundGroup.as

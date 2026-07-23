@@ -1775,7 +1775,7 @@
 				<description>
 				固定获得：{font color="#FFFF00"}50万G币{/font}。{br}
 				固定获得：专家级至宗师级穿透器、聚束器、爆炸器各25个，品质分别随机。{br}
-				保底之外，再从原版卡池必定抽取1项：20万G币、三种超合金、橙/绿芯片、四至六级晶体、20至100级芯片袋之一。{br}
+				保底之外，再从原版卡池必定抽取1项：20万G币、三种超合金、橙/绿芯片、四至六级晶体或紫色芯片袋。{br}
 				原版稀有武器：黄金深渊（3%）。{br}
 				独立彩蛋：0.1%随机获得一把尚未拥有的M币商城武器；1%获得研发升级卡。两项概率独立计算。{br}
 				研发升级卡：人物等级及前置武器满足后，可无视本次研发所需G币和材料，直接完成研究或晋升一级。
@@ -1784,8 +1784,8 @@
 		
 		<!-- 芯片袋子-->	
 			<items index="0">
-				<name>chipBag20</name>
-				<cnName>20级芯片袋子</cnName>
+				<name>chipBag</name>
+				<cnName>紫色芯片袋</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
 				<imgLabel>itemsUI/chipBag</imgLabel>
@@ -1795,11 +1795,11 @@
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
 				<Mprice>5</Mprice>	
-				<description>使用后有50%概率获得{font color="#FFFF00"}20级紫色芯片{/font}。</description>
+				<description>使用后有50%概率获得一个紫色芯片，芯片等级与开启时的人物等级相同。</description>
 			</items>
 			<items index="0">
 				<name>chipBag40</name>
-				<cnName>40级芯片袋子</cnName>
+				<cnName>紫色芯片袋</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
 				<imgLabel>itemsUI/chipBag</imgLabel>
@@ -1809,11 +1809,11 @@
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
 				<Mprice>5</Mprice>	
-				<description>使用后有50%概率获得{font color="#FFFF00"}40级紫色芯片{/font}。</description>
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
 			</items>
 			<items index="0">
 				<name>chipBag60</name>
-				<cnName>60级芯片袋子</cnName>
+				<cnName>紫色芯片袋</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
 				<imgLabel>itemsUI/chipBag</imgLabel>
@@ -1823,11 +1823,11 @@
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
 				<Mprice>5</Mprice>	
-				<description>使用后有50%概率获得{font color="#FFFF00"}60级紫色芯片{/font}。</description>
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
 			</items>
 			<items index="0">
 				<name>chipBag80</name>
-				<cnName>80级芯片袋子</cnName>
+				<cnName>紫色芯片袋</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
 				<imgLabel>itemsUI/chipBag</imgLabel>
@@ -1837,11 +1837,11 @@
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
 				<Mprice>5</Mprice>	
-				<description>使用后有50%概率获得{font color="#FFFF00"}80级紫色芯片{/font}。</description>
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
 			</items>
 			<items index="0">
 				<name>chipBag100</name>
-				<cnName>100级芯片袋子</cnName>
+				<cnName>紫色芯片袋</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
 				<imgLabel>itemsUI/chipBag</imgLabel>
@@ -1851,7 +1851,7 @@
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
 				<Mprice>5</Mprice>	
-				<description>使用后有50%概率获得{font color="#FFFF00"}100级紫色芯片{/font}。</description>
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
 			</items>
 			
 			
