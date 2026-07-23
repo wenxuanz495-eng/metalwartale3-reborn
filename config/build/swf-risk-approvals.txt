@@ -1,0 +1,2 @@
+# Format: path relative to decompiled\gamefile\scripts|approved source SHA256
+# Add an entry only after baseline/candidate P-code comparison and Debug Player regression.

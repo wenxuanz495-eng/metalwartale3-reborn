@@ -32,6 +32,7 @@
 				positron_lv1,
 				banger_lv1,
 				Goldbanger_lv1,
+				darkpower_lv1,
 			</sub>
 			
 			<car>
@@ -94,6 +95,9 @@
 				thorn_5,
 			</materials>
 			<props>
+				tuzhi_zhuanyipao2,
+				xuehua,
+				ertongaixin,
 				novice_giftBox,
 				grow_giftBox,
 				superalloyStone,

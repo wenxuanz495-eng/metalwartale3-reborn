@@ -1,12 +1,15 @@
 @echo off
+setlocal EnableExtensions
 cd /d "%~dp0"
-echo [BUILD] server + game.swf
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\build_all.ps1"
-if errorlevel 1 (
-  echo BUILD FAILED
+call "%~dp0scripts\build_all.bat"
+set "BUILD_ERROR=%ERRORLEVEL%"
+if not "%BUILD_ERROR%"=="0" (
+  echo.
+  echo [ERROR] Pure BAT build failed with code %BUILD_ERROR%.
   pause
-  exit /b 1
+  exit /b %BUILD_ERROR%
 )
 echo.
-echo BUILD OK. Now you can double-click ????.bat
+echo Build completed. Run 启动游戏.bat to play.
 pause
+exit /b 0

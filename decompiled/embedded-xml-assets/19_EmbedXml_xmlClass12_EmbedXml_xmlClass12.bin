@@ -66,7 +66,7 @@
 				<Mprice>2</Mprice>	
 				<propId>1153</propId>
 				<propId2>1154</propId2>
-				<description>可以兑换双蛋道具。</description>
+				<description>可以兑换双蛋道具；也可以在商城道具栏按1:1兑换儿童节爱心。</description>
 			</items>
 			<items index="0">
 				<name>laodongjie</name>
@@ -104,7 +104,7 @@
 				<Mprice>1</Mprice>
 				<propId>2056</propId>
 				<propId2>2056</propId2>	
-				<description>可以在61活动界面中兑换稀有道具！</description>
+				<description>可以在61活动界面中兑换稀有道具；也可以在商城道具栏按1:1兑换雪花。</description>
 			</items>
 			<items index="0">
 				<name>xiaohou</name>
@@ -598,7 +598,7 @@
 				<cnName>图纸-鞭炮2级</cnName>
 				<dropLevel>999</dropLevel>
 				<price>18</price>					<!-- 价格 -->
-				<Mprice>1</Mprice>	
+				<Mprice>100</Mprice>	
 				<Xprice>0.5</Xprice>	
 				<iconImgLabel>itemsUI/tuzhi_zhuanyipao2</iconImgLabel>
 				<imgLabel>itemsUI/tuzhi_zhuanyipao2</imgLabel>
@@ -1503,7 +1503,7 @@
 				<cardValue>1</cardValue>
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
-				<Mprice>4</Mprice>
+				<Mprice>4</Mprice>	
 				<propId>7</propId>
 				<propId2>7</propId2>
 				
@@ -1638,6 +1638,28 @@
 				<propId2>1546</propId2>
 				<description>可以提升公会建筑等级。</description>
 			</items>
+			<items index="0">
+				<name>elite_challenge_card</name>
+				<cnName>精英副本挑战卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/turntable_14</iconImgLabel>
+				<imgLabel>itemsUI/turntable_14</imgLabel>
+				<price>1</price>
+				<Mprice>0</Mprice>
+				<propId>0</propId>
+				<propId2>0</propId2>
+				<description>精英副本免费次数用完后，消耗1张可正常获得场内掉落、固定奖励和翻牌奖励。</description>
+			</items>
+			<items index="0">
+				<name>mcoin_reward_card</name>
+				<cnName>M币奖励</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/GCoin_card_4</iconImgLabel>
+				<imgLabel>itemsUI/GCoin_card_4</imgLabel>
+				<price>15</price>
+				<Mprice>0</Mprice>
+				<description>直接获得指定数量的M币。</description>
+			</items>
 		<!-- 正义联盟荣誉勋章-->	
 			<items index="0">
 				<name>justice2_badge</name>
@@ -1659,7 +1681,7 @@
 				<imgLabel>itemsUI/disassemble</imgLabel>
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
-				<Mprice>5</Mprice>	
+				<Mprice>2</Mprice>	
 				<propId>6</propId>
 				<propId2>599</propId2>
 				
@@ -1673,7 +1695,7 @@
 				<imgLabel>itemsUI/disassemble_2</imgLabel>
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
-				<Mprice>10</Mprice>	
+				<Mprice>4</Mprice>	
 				<propId>1521</propId>
 				<propId2>1522</propId2>
 				
@@ -1687,7 +1709,7 @@
 				<imgLabel>itemsUI/disassemble_3</imgLabel>
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
-				<Mprice>20</Mprice>	
+				<Mprice>6</Mprice>	
 				<propId>1519</propId>
 				<propId2>1520</propId2>
 				
@@ -1712,7 +1734,7 @@
 				固定获得：{font color="#FFFF00"}5万G币{/font}。{br}
 				固定获得：中级至大师级穿透器、聚束器、爆炸器各10个，品质分别随机。{br}
 				保底之外，再从原版卡池必定抽取1项：5万G币（49%）；三种超合金各10个（各10%）；橙色芯片1个（10%）；四级晶体1个（5%）；优质拆解器1个（5%）。{br}
-				原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。{br}
+				原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。
 				</description>
 			</items>
 			<items index="0">
@@ -1726,14 +1748,14 @@
 				<cardValue>-1</cardValue>
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
-				<Mprice>5</Mprice>	
+				<Mprice>15</Mprice>	
 				<propId>1587</propId>
 				<propId2>1588</propId2>
 				<description>
 				固定获得：{font color="#FFFF00"}10万G币{/font}。{br}
 				固定获得：超合金、超合金Z、超合金X各10个。{br}
 				保底之外，再从原版卡池必定抽取1项：10万G币（39%）；三种超合金各10个（各10%）；橙色芯片（10%）；绿色芯片、四级晶体、五级晶体、稀有拆解器（各5%）。{br}
-				原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。{br}
+				原版稀有武器：斯巴达（0.5%）、黄金深渊（0.5%）。
 				</description>
 			</items>
 			<items index="0">
@@ -1747,14 +1769,15 @@
 				<cardValue>-1</cardValue>
 				<!-- 功能描述	-->
 				<price>1</price>					<!-- 价格 -->
-				<Mprice>5</Mprice>	
+				<Mprice>30</Mprice>	
 				<propId>1589</propId>
 				<propId2>1590</propId2>
 				<description>
 				固定获得：{font color="#FFFF00"}20万G币{/font}。{br}
-				固定获得：专家级至宗师级穿透器、聚束器、爆炸器各10个，品质分别随机。{br}
+				10%概率获得：专家级至宗师级穿透器、聚束器、爆炸器各10个，品质分别随机。{br}
 				保底之外，再从原版卡池必定抽取1项：20万G币、三种超合金、橙/绿芯片、四至六级晶体、20至100级芯片袋之一。{br}
 				原版稀有武器：斯巴达（1.5%）、黄金深渊（1.5%）。{br}
+				独立彩蛋：0.1%随机获得一件M币商城武器；0.1%获得研发升级卡。
 				</description>
 			</items>
 		
@@ -2009,6 +2032,18 @@
 				
 				<description>使用后直接获得1000点功勋值。</description>
 				<!-- 打折-->
+			</items>
+			<items index="0">
+				<name>research_upgrade_card</name>
+				<cnName>研发升级卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/achieve_card_3</iconImgLabel>
+				<imgLabel>itemsUI/achieve_card_3</imgLabel>
+				<cardType>research_upgrade</cardType>
+				<cardValue>0</cardValue>
+				<price>1</price>
+				<Mprice>0</Mprice>
+				<description>武器研发材料不足时，可以消耗1张本卡直接补足本次研发所需材料。人物等级、前置武器与G币条件仍需满足。</description>
 			</items>
 			
 			

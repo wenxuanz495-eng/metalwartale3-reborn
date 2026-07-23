@@ -3389,7 +3389,7 @@
 			<commonLevel>60</commonLevel>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>
-			<mustItems>justice2_badge_num1000</mustItems>
+			<mustItems>justice_badge_num1000</mustItems>
 
 			<price>1000000</price>    <!-- 价格 -->
 			<Mprice>100</Mprice>
@@ -3433,7 +3433,7 @@
 			<commonLevel>60</commonLevel>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>
-			<mustItems>justice2_badge_num2000</mustItems>
+			<mustItems>justice_badge_num2000</mustItems>
 
 			<price>10000000</price>    <!-- 价格 -->
 			<Mprice>100</Mprice>

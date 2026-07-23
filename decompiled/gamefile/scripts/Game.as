@@ -22,18 +22,18 @@ package
    import flash.display.Stage;
    import flash.display.StageScaleMode;
    import flash.events.Event;
-   import flash.utils.getTimer;
    import flash.events.IOErrorEvent;
+   import flash.events.KeyboardEvent;
+   import flash.events.MouseEvent;
    import flash.events.SecurityErrorEvent;
+   import flash.events.TimerEvent;
    import flash.net.URLLoader;
    import flash.net.URLRequest;
    import flash.net.URLRequestMethod;
-   import flash.events.KeyboardEvent;
-   import flash.events.MouseEvent;
-   import flash.events.TimerEvent;
    import flash.text.TextField;
    import flash.ui.Keyboard;
    import flash.ui.Mouse;
+   import flash.utils.getTimer;
    import gameAll.EventGroup;
    import gameAll.GameDefine;
    import gameAll.High_API;
@@ -73,7 +73,7 @@ package
    import unit4399.events.PayEvent;
    import unit4399.events.RankListEvent;
    
-   [SWF(width="960",height="560",backgroundColor="#333333",frameRate="30")]
+   [SWF(frameRate="30",backgroundColor="#333333",width="960",height="560")]
    public class Game extends MovieClip
    {
       
@@ -207,6 +207,10 @@ package
       
       public static var testTimeAdjust:int = 0;
       
+      private static var lastClientErrorMsg:String = "";
+      
+      private static var lastClientErrorAt:int = 0;
+      
       public var mouseShowB:Boolean = true;
       
       internal var _4399_function_rankList_id:String = "69f52ab6eb1061853a761ee8c26324ae";
@@ -304,7 +308,6 @@ package
       
       public static function zuobiTest() : *
       {
-         // Offline build: local saves are authoritative and must never be banned.
          gameData.isZuobi = false;
          gameData.zuobiStr = "";
       }
@@ -331,16 +334,79 @@ package
          return true;
       }
       
+      public static function reportClientError(kind:String, message:String, stack:String = "", extra:String = "") : *
+      {
+         var now:int = 0;
+         var req:URLRequest = null;
+         var loader:URLLoader = null;
+         var body:String = null;
+         try
+         {
+            if(message == null)
+            {
+               message = "";
+            }
+            if(stack == null)
+            {
+               stack = "";
+            }
+            if(kind == null || kind == "")
+            {
+               kind = "error";
+            }
+            now = getTimer();
+            if(message == lastClientErrorMsg && now - lastClientErrorAt < 1500)
+            {
+               return;
+            }
+            lastClientErrorMsg = message;
+            lastClientErrorAt = now;
+            body = "{\"kind\":\"" + escapeClientLog(kind) + "\",\"message\":\"" + escapeClientLog(message) + "\",\"stack\":\"" + escapeClientLog(stack) + "\",\"extra\":\"" + escapeClientLog(extra) + "\",\"time\":" + now + "}";
+            req = new URLRequest("api/client-log");
+            req.method = URLRequestMethod.POST;
+            req.contentType = "application/json; charset=utf-8";
+            req.data = body;
+            loader = new URLLoader();
+            loader.addEventListener(IOErrorEvent.IO_ERROR,ignoreClientLog);
+            loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,ignoreClientLog);
+            loader.addEventListener(Event.COMPLETE,ignoreClientLog);
+            loader.load(req);
+         }
+         catch(e:*)
+         {
+         }
+      }
+      
+      private static function escapeClientLog(value:String) : String
+      {
+         if(value == null)
+         {
+            return "";
+         }
+         value = value.split("\\").join("\\\\");
+         value = value.split("\"").join("\\\"");
+         value = value.split("\r").join("\\r");
+         value = value.split("\n").join("\\n");
+         value = value.split("\t").join("\\t");
+         if(value.length > 4000)
+         {
+            value = value.substr(0,4000);
+         }
+         return value;
+      }
+      
+      private static function ignoreClientLog(e:Event = null) : *
+      {
+      }
+      
       public function setHold(hold:*) : *
       {
-         // Standalone builds never delegate payments or saves to the 4399 shell.
          serviceHold = null;
          testText.addTestText("离线版已忽略网页服务对象。");
       }
       
       private function checkVersion() : void
       {
-         // Offline release uses the original production rules; only external services are local.
          gameDefine.nowLevel = 1;
          versionNumber = "11.3";
          TextLoaderManager.IsLocal = false;
@@ -405,8 +471,6 @@ package
          stage.addEventListener(KeyboardEvent.KEY_UP,cheating.cheating);
          saveController.GAME = this;
          this.addSaveEvent();
-         // The original production branch waits for a web-shell intro timeline.
-         // The standalone offline player has no such shell, so load game data directly.
          this.textLoad();
       }
       
@@ -547,120 +611,130 @@ package
       
       internal function uiLoader_complete(e:Event) : *
       {
+         var xx:*;
+         var xxx:*;
+         var dgxx:DefineGroup;
+         var d00:*;
+         var soundMustData_swf:*;
+         var soundArr:Array;
+         var musicArr:Array;
+         var hero0:HeroCarBody;
+         var bootMsg:String;
+         var bootStack:String;
          var testMc0:Sprite = null;
          swfLoaderManager.removeEventListener(Event.COMPLETE,this.uiLoader_complete);
          try
          {
             Game.reportClientError("boot-step","uiLoader_complete start");
-         save_api.init();
-         SG.addMusic(swfLoaderManager.getResource("Decisions","Decisions"),"Decisions");
-         this.music = SG.getMusic("Decisions");
-         if(this.music != null)
-         {
-            this.music.play(10000);
-         }
-         gameData.levelsMax = gameDefine.levelsMax;
-         gameDefine.drop.inData_byXML(XML(textLoaderManager.getResource("drop").data));
-         gameDefine.drop.test();
-         defineGroup.addData_byXML(XML(textLoaderManager.getResource("arms").data),"arms");
-         defineGroup.addData_byXML(XML(textLoaderManager.getResource("subArms").data),"subArms");
-         defineGroup.addData_byXML(XML(textLoaderManager.getResource("enemyArms").data),"enemyArms");
-         defineGroup.addCarData_byXML(XML(textLoaderManager.getResource("car").data));
-         defineGroup.addEnemyName_byXML(XML(textLoaderManager.getResource("enemy").data));
-         defineGroup.skill.inData_byXML(XML(textLoaderManager.getResource("skill").data));
-         defineGroup.init();
-         newDG.inCarData_byXML(XML(textLoaderManager.getResource("carProperty").data));
-         newDG.car.test();
-         var xx:* = newDG;
-         itemsDefineGroup.addData_byXML(XML(textLoaderManager.getResource("items").data));
-         goodsDefineGroup.inData_byXML(XML(textLoaderManager.getResource("goods").data));
-         exchangeDefineGroup.inData_byXML(XML(textLoaderManager.getResource("exchangeConfig").data));
-         levelGiftDefineGroup.inData_byXML(XML(textLoaderManager.getResource("dengjilibao").data));
-         turnTableDefineGroup.inData_byXML(XML(textLoaderManager.getResource("turntable").data));
-         unionShopDefineGroup.inData_byXML(XML(textLoaderManager.getResource("unionshop").data));
-         startGiftDefineGroup.inData_byXML(XML(textLoaderManager.getResource("starconfig").data));
-         growGiftDefineGroup.inData_byXML(XML(textLoaderManager.getResource("growconfig").data));
-         LG.inAllXML(XML(textLoaderManager.getResource("level").data));
-         LG.filter.inEnemyData_byXML(XML(textLoaderManager.getResource("enemyData").data));
-         var xxx:* = LG;
-         oneScene.inAllXML(XML(textLoaderManager.getResource("scene").data));
-         goodsDefineGroup.init(itemsDefineGroup.addMaterialGift());
-         var dgxx:DefineGroup = defineGroup;
-         var d00:* = defineGroup.getArmsDefine("Twogun",0);
-         sensitiveWords.init(XML(textLoaderManager.getResource("dirtyWord").data));
-         uiGroup.init();
-         IC.init();
-         var soundMustData_swf:* = swfLoaderManager.getResource("sound","MustSoundData");
-         var soundArr:Array = null;
-         var musicArr:Array = null;
-         if(soundMustData_swf != null)
-         {
-            soundArr = soundMustData_swf.soundMustArr;
-            musicArr = soundMustData_swf.musicMustArr;
-         }
-         if(soundArr == null)
-         {
-            soundArr = [];
-         }
-         if(musicArr == null)
-         {
-            musicArr = [];
-         }
-         SG.addMusicList(musicArr);
-         SG.addSoundList(soundArr);
-         BG.init();
-         EG.init();
-         BGRefresh.init();
-         BGHit.init();
-         dialogboxGroup.init();
-         var hero0:HeroCarBody = BG.addHeroCarBody();
-         eventGroup.init(this);
-         itemsGroup.init();
-         textGroup.init();
-         uiGroup.extraUI.extraNameArr = LG.extraArr;
-         uiGroup.extraUI.weekExtraNameArr = LG.weekExtraArr;
-         uiGroup.extraUI.specialExtraNameArr = LG.specialExtraNameArr;
-         Game.gameSprite.addChild(uiGroup.gamingUI.pointer);
-         uiGroup.gamingUI.pointer.visible = false;
-         this.addEventListener(Event.ENTER_FRAME,this.allTimer);
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","missile_bullet_smoke"),"sub","missile_bullet_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","missile_bullet_smoke_0"),"sub","missile_bullet_smoke_0");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv1_smoke"),"arms","plasma_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv2_smoke"),"arms","plasma_lv2_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv3_smoke"),"arms","plasma_lv3_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv4_smoke"),"arms","plasma_lv4_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","amplitude_lv1_smoke"),"arms","amplitude_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","amplitude_lv2_smoke"),"arms","amplitude_lv2_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","phaseTransfer_lv1_smoke"),"arms","phaseTransfer_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","phaseTransfer_lv2_smoke"),"arms","phaseTransfer_lv2_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","conBullet_smoke"),"arms","conBullet_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","protonImpact_lv1_smoke"),"sub","protonImpact_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","protonImpact_lv2_smoke"),"sub","protonImpact_lv2_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","dragonHead_lv1_smoke"),"arms","dragonHead_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","beelzebub_lv1_smoke"),"arms","beelzebub_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","moumouGun_lv1_smoke"),"arms","moumouGun_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","blueKnife_lv1_smoke"),"sub","blueKnife_lv1_smoke");
-         bmpMovieClipManager.addResource(swfLoaderManager.getResource("heroFly","lighting"),"heroFly","lighting");
-         SG.addSound(swfLoaderManager.getResource("heroFly","lighting_sound"),"lighting_sound");
-         uiGroup.show("fase");
-         faseUI.startGame_btn.addEventListener(MouseEvent.CLICK,this.faseNewGameClick);
-         faseUI.continueGame_btn.addEventListener(MouseEvent.CLICK,this.faseContinueGameClick);
-         this.removeEventListener(Event.ENTER_FRAME,this.loaderShowTimer);
-         if(getTest())
-         {
-            testMc0 = swfLoaderManager.getResource("ui","testShowText");
-            testMc0.x = stageWidth;
-            testMc0.y = stageHeight;
-            testMc0.mouseEnabled = false;
-            this.addChild(testMc0);
-         }
-         save_api.game_init();
+            save_api.init();
+            SG.addMusic(swfLoaderManager.getResource("Decisions","Decisions"),"Decisions");
+            this.music = SG.getMusic("Decisions");
+            if(this.music != null)
+            {
+               this.music.play(10000);
+            }
+            gameData.levelsMax = gameDefine.levelsMax;
+            gameDefine.drop.inData_byXML(XML(textLoaderManager.getResource("drop").data));
+            gameDefine.drop.test();
+            defineGroup.addData_byXML(XML(textLoaderManager.getResource("arms").data),"arms");
+            defineGroup.addData_byXML(XML(textLoaderManager.getResource("subArms").data),"subArms");
+            defineGroup.addData_byXML(XML(textLoaderManager.getResource("enemyArms").data),"enemyArms");
+            defineGroup.addCarData_byXML(XML(textLoaderManager.getResource("car").data));
+            defineGroup.addEnemyName_byXML(XML(textLoaderManager.getResource("enemy").data));
+            defineGroup.skill.inData_byXML(XML(textLoaderManager.getResource("skill").data));
+            defineGroup.init();
+            newDG.inCarData_byXML(XML(textLoaderManager.getResource("carProperty").data));
+            newDG.car.test();
+            xx = newDG;
+            itemsDefineGroup.addData_byXML(XML(textLoaderManager.getResource("items").data));
+            goodsDefineGroup.inData_byXML(XML(textLoaderManager.getResource("goods").data));
+            exchangeDefineGroup.inData_byXML(XML(textLoaderManager.getResource("exchangeConfig").data));
+            levelGiftDefineGroup.inData_byXML(XML(textLoaderManager.getResource("dengjilibao").data));
+            turnTableDefineGroup.inData_byXML(XML(textLoaderManager.getResource("turntable").data));
+            unionShopDefineGroup.inData_byXML(XML(textLoaderManager.getResource("unionshop").data));
+            startGiftDefineGroup.inData_byXML(XML(textLoaderManager.getResource("starconfig").data));
+            growGiftDefineGroup.inData_byXML(XML(textLoaderManager.getResource("growconfig").data));
+            LG.inAllXML(XML(textLoaderManager.getResource("level").data));
+            LG.filter.inEnemyData_byXML(XML(textLoaderManager.getResource("enemyData").data));
+            xxx = LG;
+            oneScene.inAllXML(XML(textLoaderManager.getResource("scene").data));
+            goodsDefineGroup.init(itemsDefineGroup.addMaterialGift());
+            dgxx = defineGroup;
+            d00 = defineGroup.getArmsDefine("Twogun",0);
+            sensitiveWords.init(XML(textLoaderManager.getResource("dirtyWord").data));
+            uiGroup.init();
+            IC.init();
+            soundMustData_swf = swfLoaderManager.getResource("sound","MustSoundData");
+            soundArr = null;
+            musicArr = null;
+            if(soundMustData_swf != null)
+            {
+               soundArr = soundMustData_swf.soundMustArr;
+               musicArr = soundMustData_swf.musicMustArr;
+            }
+            if(soundArr == null)
+            {
+               soundArr = [];
+            }
+            if(musicArr == null)
+            {
+               musicArr = [];
+            }
+            SG.addMusicList(musicArr);
+            SG.addSoundList(soundArr);
+            BG.init();
+            EG.init();
+            BGRefresh.init();
+            BGHit.init();
+            dialogboxGroup.init();
+            hero0 = BG.addHeroCarBody();
+            eventGroup.init(this);
+            itemsGroup.init();
+            textGroup.init();
+            uiGroup.extraUI.extraNameArr = LG.extraArr;
+            uiGroup.extraUI.weekExtraNameArr = LG.weekExtraArr;
+            uiGroup.extraUI.specialExtraNameArr = LG.specialExtraNameArr;
+            Game.gameSprite.addChild(uiGroup.gamingUI.pointer);
+            uiGroup.gamingUI.pointer.visible = false;
+            this.addEventListener(Event.ENTER_FRAME,this.allTimer);
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","missile_bullet_smoke"),"sub","missile_bullet_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","missile_bullet_smoke_0"),"sub","missile_bullet_smoke_0");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv1_smoke"),"arms","plasma_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv2_smoke"),"arms","plasma_lv2_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv3_smoke"),"arms","plasma_lv3_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","plasma_lv4_smoke"),"arms","plasma_lv4_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","amplitude_lv1_smoke"),"arms","amplitude_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","amplitude_lv2_smoke"),"arms","amplitude_lv2_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","phaseTransfer_lv1_smoke"),"arms","phaseTransfer_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","phaseTransfer_lv2_smoke"),"arms","phaseTransfer_lv2_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","conBullet_smoke"),"arms","conBullet_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","protonImpact_lv1_smoke"),"sub","protonImpact_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","protonImpact_lv2_smoke"),"sub","protonImpact_lv2_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","dragonHead_lv1_smoke"),"arms","dragonHead_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","beelzebub_lv1_smoke"),"arms","beelzebub_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("arms","moumouGun_lv1_smoke"),"arms","moumouGun_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("sub","blueKnife_lv1_smoke"),"sub","blueKnife_lv1_smoke");
+            bmpMovieClipManager.addResource(swfLoaderManager.getResource("heroFly","lighting"),"heroFly","lighting");
+            SG.addSound(swfLoaderManager.getResource("heroFly","lighting_sound"),"lighting_sound");
+            uiGroup.show("fase");
+            faseUI.startGame_btn.addEventListener(MouseEvent.CLICK,this.faseNewGameClick);
+            faseUI.continueGame_btn.addEventListener(MouseEvent.CLICK,this.faseContinueGameClick);
+            this.removeEventListener(Event.ENTER_FRAME,this.loaderShowTimer);
+            if(getTest())
+            {
+               testMc0 = swfLoaderManager.getResource("ui","testShowText");
+               testMc0.x = stageWidth;
+               testMc0.y = stageHeight;
+               testMc0.mouseEnabled = false;
+               this.addChild(testMc0);
+            }
+            save_api.game_init();
             Game.reportClientError("boot-step","uiLoader_complete done");
          }
          catch(bootErr:*)
          {
-            var bootMsg:String = "uiLoader_complete failed: " + bootErr;
-            var bootStack:String = "";
+            bootMsg = "uiLoader_complete failed: " + bootErr;
+            bootStack = "";
             try
             {
                if(bootErr != null && bootErr.hasOwnProperty("getStackTrace") && bootErr.getStackTrace is Function)
@@ -686,7 +760,7 @@ package
       
       public function addSaveEvent() : *
       {
-                  stage.addEventListener("multipleError",payController.multipleErrorHandler,false,0,true);
+         stage.addEventListener("multipleError",payController.multipleErrorHandler,false,0,true);
          stage.addEventListener("StoreStateEvent",payController.getStoreStateHandler,false,0,true);
          stage.addEventListener(PayEvent.LOG,payController.onPayEventHandler,false,0,true);
          stage.addEventListener("usePayApi",payController.onPayEventHandler,false,0,true);
@@ -969,74 +1043,6 @@ package
             }
          }
       }
-      private static var lastClientErrorMsg:String = "";
-      
-      private static var lastClientErrorAt:int = 0;
-      
-      public static function reportClientError(kind:String, message:String, stack:String = "", extra:String = "") : *
-      {
-         var now:int = 0;
-         var req:URLRequest = null;
-         var loader:URLLoader = null;
-         var body:String = null;
-         try
-         {
-            if(message == null)
-            {
-               message = "";
-            }
-            if(stack == null)
-            {
-               stack = "";
-            }
-            if(kind == null || kind == "")
-            {
-               kind = "error";
-            }
-            now = getTimer();
-            if(message == lastClientErrorMsg && now - lastClientErrorAt < 1500)
-            {
-               return;
-            }
-            lastClientErrorMsg = message;
-            lastClientErrorAt = now;
-            body = "{\"kind\":\"" + escapeClientLog(kind) + "\",\"message\":\"" + escapeClientLog(message) + "\",\"stack\":\"" + escapeClientLog(stack) + "\",\"extra\":\"" + escapeClientLog(extra) + "\",\"time\":" + now + "}";
-            req = new URLRequest("api/client-log");
-            req.method = URLRequestMethod.POST;
-            req.contentType = "application/json; charset=utf-8";
-            req.data = body;
-            loader = new URLLoader();
-            loader.addEventListener(IOErrorEvent.IO_ERROR,ignoreClientLog);
-            loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,ignoreClientLog);
-            loader.addEventListener(Event.COMPLETE,ignoreClientLog);
-            loader.load(req);
-         }
-         catch(e:*)
-         {
-         }
-      }
-      
-      private static function escapeClientLog(value:String) : String
-      {
-         if(value == null)
-         {
-            return "";
-         }
-         value = value.split("\\").join("\\\\");
-         value = value.split("\"").join("\\\"");
-         value = value.split("\r").join("\\r");
-         value = value.split("\n").join("\\n");
-         value = value.split("\t").join("\\t");
-         if(value.length > 4000)
-         {
-            value = value.substr(0,4000);
-         }
-         return value;
-      }
-      
-      private static function ignoreClientLog(e:Event = null) : *
-      {
-      }
       
       private function installClientErrorReporting() : *
       {
@@ -1090,7 +1096,6 @@ package
          {
          }
       }
-
    }
 }
 

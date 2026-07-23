@@ -35,15 +35,17 @@ build\saves\game_save.bin
 
 ## 内部 BAT
 
-- `scripts\prepare_build_runtime.bat`：把层级资源和修改器页面准备到 `build/`。
+- `scripts\build_all.bat`：依次构建 Go 服务端、主 SWF，并准备完整运行目录。
+- `scripts\build_swf.bat`：从不可变基线应用显式最小补丁清单。
+- `scripts\prepare_build_runtime.bat`：只用仓库已跟踪资源重建 `build/` 的 175 个运行资源。
 - `scripts\launch_game.bat`：端口探测、服务健康检查、播放器启动和退出清理。
 - `scripts\launch_modifier.bat`：存档备份、端口探测、浏览器应用窗口和退出清理。
 
-资源准备优先读取仓库的 `runtime\swf`；本地尚未整理资源层级时，只读回退到冻结的 `1.26.2.1-BAT`。所有写入目标都位于合作版 `build/`。
+资源准备只读取仓库内已跟踪的 `swf/` 与 `runtime/` 文件，不读取或写入外部黄金版。所有生成和写入目标都位于合作版 `build/`。
 
 ## 边界
 
-第二阶段消除了玩家运行流程的 PowerShell 依赖。当前 `构建.bat` 仍调用旧 PowerShell 构建脚本；固定基线、嵌入 XML 和纯 BAT 构建属于第三阶段，不能在构建可复现性确认前仓促替换。
+第三阶段已经消除正式构建流程的 PowerShell 依赖。`构建.bat` 调用纯 BAT 构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
 
 ## 静态自检
 

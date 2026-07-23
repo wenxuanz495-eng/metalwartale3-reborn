@@ -1,4 +1,4 @@
-﻿# 协作与代理工作区规则（强制）
+# 协作与代理工作区规则（强制）
 
 > 本文件约束所有在本项目中工作的开发者与 AI 代理（含 Codex）。
 
@@ -20,7 +20,7 @@
 | 权威存档 | **采用 Git 路线**：`saves/game_save.bin` 为唯一权威；本地 Go 服务读写；不做 SharedObject/隐藏存储主路径 |
 | 其它架构/运行壳 | **采用 1.2 发行体验**：根目录启动、修改器根目录、公告外置、火绒说明、端口冲突处理等 |
 | 源码形态 | **尽可能使用本仓库可编译源码 SSOT**（`decompiled/` + `server/`），禁止长期只改发行目录二进制 |
-| 主 SWF | **需进一步判断**：当前仓库 `swf/gamefile.swf` 与 1.2 `game.swf` 哈希不同；移植功能到源码后重新编译，再与 1.2 行为回归，不直接整包覆盖 |
+| 主 SWF | **采用不可变基线加最小补丁**：禁止整库回编译；ActionScript 和 BinaryData 变更必须登记显式清单 |
 | 公会 | **先用 Git 的本地单人公会模拟实现** |
 | 定制/往期装备上架 | **放入商城**；**定制武器统一售价 20,000 M币** |
 | 扩展修改器 UI | **全部迁入**（特殊功能、定制车辆/武器、研发卡、挑战卡、章节进度测试等） |
@@ -45,7 +45,7 @@
 ## 开发流程（默认）
 
 1. 在本仓库改 `decompiled/` 或 `server/` 或 `docs/`
-2. 编译 / 测试
+2. 用根目录 `构建.bat` 或 `scripts/build_all.bat` 执行纯 BAT 构建
 3. 部署到 `runtime/`（或约定的本地运行目录）
 4. 用 `flashplayer_32_sa_debug` 做最小回归
 5. 更新 `docs/PROJECT_STATUS.md` / `docs/SEAL_RULES.md`
@@ -58,6 +58,9 @@
 - 禁止把隐藏 SharedObject 当作权威存档
 - 禁止发行包夹带玩家存档/备份/备案/临时 SWF
 - 禁止未读 `docs/FFDEC_CONTROL_FLOW_REGRESSION.md` 就大范围回编译复杂方法
+- 禁止对 667 个反编译类执行整库 `importScript`；只允许使用 `config/build/` 的显式最小补丁清单
+- 禁止把 `EmbedXml_xmlClass*.as` 作为脚本导入；嵌入 XML 必须按 BinaryData 字符 ID 替换
+- `Game.as` 变更必须完成 P-code 对比和 Debug Player 回归，并为当前源码哈希登记审批
 
 ## 近期优先任务
 
@@ -75,10 +78,12 @@
 - `docs/COLLAB_WORKSPACE.md`：工作区说明
 - `docs/OFFLINE_ARCHITECTURE.md`：离线架构
 - `docs/DEVELOPMENT.md`：开发与发布
-
+- `docs/REPRODUCIBLE_BUILD.md`：纯 BAT 可复现构建与高风险补丁审批
 
 ## 开发启动
 
-- 主路径：scripts/run_dev.ps1 / 根目录 启动游戏.bat`n- 自建 SWF + 自建 Go server + 	ools/debug 播放器
-- Go 模块缓存：D:\\superalloy\\.gopath`n- 不要以 untime/ 为主运行目录
-
+- 构建：根目录 `构建.bat`
+- 运行：根目录 `启动游戏.bat`
+- 验收：`scripts/verify_phase3.bat`
+- Go 模块缓存：`D:\superalloy\.gopath`
+- 不要以 `runtime/` 为主运行目录

@@ -7,7 +7,9 @@
 - 第一阶段完成：冻结 `1.26.2.1-BAT` 为只读黄金参考；生成排除存档、数据库、JSON 镜像和日志的 195 文件 SHA-256 清单，并提供纯 BAT 生成/验证工具。
 - 第二阶段完成：合作版普通游戏、Debug 游戏、修改器、备份、清档、打开备份目录和残留清理改为纯 BAT，统一使用 `build/saves`；游戏与修改器服务端冒烟测试通过。
 - 黄金版未被写入；阶段结束时 195 个发行文件再次通过哈希验证。
-- 第三阶段待办：固定不可变 SWF 基线，把脚本与嵌入 XML 纳入可复现的纯 BAT 构建。
+- 第三阶段完成：固定仓库内不可变 SWF 基线，以显式清单最小导入 ActionScript、按字符 ID 替换嵌入 XML；服务端、SWF 和 175 个运行资源均由纯 BAT 构建。
+- 对 667 个 ActionScript 类逐个回灌审计：645 个精确一致、21 个嵌入 XML 包装类禁止作为脚本导入、`Game.as` 需 P-code 审批、编译失败为 0。
+- 两次连续构建字节一致；空补丁清单产物与黄金 SWF 的 SHA-256 `F54B78B...A37E` 一致，21 份嵌入 BinaryData 与仓库源文件一致。
 
 ## 方法
 
@@ -38,8 +40,9 @@
 ## 主 SWF 判断
 
 - 仓库 `swf/gamefile.swf` 与 1.2 `game.swf` 不同哈希/大小。
-- 正确路径：改 `decompiled` → FFDec importScript 重编译 → runtime 部署。
-- 下一步需要完整构建流水线与行为回归，而不是覆盖二进制。
+- 正确路径：以 `swf/baselines/1.26.2.1-BAT.game.swf` 为不可变输入，只把变更类加入 `config/build/swf-script-patches.txt`，嵌入 XML 则按字符 ID 加入 `swf-binary-patches.txt`。
+- 禁止整库 `importScript`。`EmbedXml_xmlClass*.as` 必须走 BinaryData；`Game.as` 必须先完成 P-code 对比和 Debug Player 回归，再按当前源文件哈希审批。
+- 构建及审批细节见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
 
 ## 备份
 

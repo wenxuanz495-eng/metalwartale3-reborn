@@ -17,7 +17,7 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 
 ## 开发运行
 
-玩家运行入口已改为纯 BAT，不再调用 PowerShell。构建链将在第三阶段改造成可复现的纯 BAT 构建；当前构建入口仍沿用原脚本。
+玩家运行入口和正式构建链均为纯 BAT，不调用 PowerShell。主 SWF 从仓库内冻结的 `1.26.2.1-BAT` 基线开始，只导入清单中明确列出的 ActionScript 或 BinaryData 变更，避免整库回编译引入不可见回归。
 
 1. `构建.bat`：构建服务端和游戏 SWF。
 2. `启动游戏.bat`：纯 BAT 启动普通 SA 播放器。
@@ -25,7 +25,7 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 4. `启动游戏-flashplayer_sa_debug.bat`：Debug Player 入口。
 5. `启动修改器.bat`：纯 BAT 启动修改器。
 
-纯 BAT 运行细节见 [`docs/BAT_RUNTIME.md`](docs/BAT_RUNTIME.md)。根目录游戏入口直接启动已有的 `build/server.exe` 与 `build/game.swf`，自动准备资源、寻找端口、等待健康检查，并在播放器退出后清理本次服务端。
+纯 BAT 运行细节见 [`docs/BAT_RUNTIME.md`](docs/BAT_RUNTIME.md)，构建规则见 [`docs/REPRODUCIBLE_BUILD.md`](docs/REPRODUCIBLE_BUILD.md)。根目录游戏入口直接启动已有的 `build/server.exe` 与 `build/game.swf`，自动准备资源、寻找端口、等待健康检查，并在播放器退出后清理本次服务端。
 
 权威开发存档：
 
