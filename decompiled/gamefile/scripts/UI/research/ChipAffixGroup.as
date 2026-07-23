@@ -6,6 +6,7 @@ package UI.research
    import flash.events.MouseEvent;
    import gameAll.data.AdditionalData;
    import gameAll.data.GoodsItemsData;
+   import gameAll.define.other.PurpleChipDefine;
    
    public class ChipAffixGroup extends Sprite
    {
@@ -122,12 +123,27 @@ package UI.research
       
       public function repeat(gd0:GoodsItemsData) : *
       {
+         var n:* = undefined;
          var add0:AdditionalData = new AdditionalData();
          add0.inData_byArr(gd0.addArr);
          var add_lock:AdditionalData = this.getUnlockAdd();
          var lock_nameArr:Array = add_lock.getNameArr();
-         var surplusArr:Array = StringToDefine.deductArr(AdditionalData.allName,lock_nameArr);
-         var num2:int = add0.getNameArr().length - add_lock.getNameArr().length;
+         var rangeArr:Array = gd0.isPurpleChip() ? PurpleChipDefine.combatNameArr : AdditionalData.allName;
+         if(gd0.isPurpleChip())
+         {
+            var purpleLock:AdditionalData = new AdditionalData();
+            for(n in lock_nameArr)
+            {
+               if(rangeArr.indexOf(lock_nameArr[n]) >= 0)
+               {
+                  purpleLock[lock_nameArr[n]] = add_lock[lock_nameArr[n]];
+               }
+            }
+            add_lock = purpleLock;
+            lock_nameArr = add_lock.getNameArr();
+         }
+         var surplusArr:Array = StringToDefine.deductArr(rangeArr,lock_nameArr);
+         var num2:int = (gd0.isPurpleChip() ? rangeArr.length : add0.getNameArr().length) - add_lock.getNameArr().length;
          var add2:AdditionalData = Game.gameDefine.addDefine.getAdditionalData(num2,gd0.affixLevel,null,surplusArr);
          add2.addData(add_lock);
          gd0.addArr = add2.getStrArr();

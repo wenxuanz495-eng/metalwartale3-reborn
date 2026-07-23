@@ -102,6 +102,21 @@ package gameAll.data
          ad0.inData_byArr(this.addArr);
          return ad0;
       }
+
+      public function isPurpleChip() : Boolean
+      {
+         return type == "chip" && name.indexOf("purple_chip") >= 0;
+      }
+
+      public function getPurpleGrowthLevel() : int
+      {
+         if(!this.isPurpleChip())
+         {
+            return 0;
+         }
+         var growth0:int = Math.floor((this.affixLevel + 1 - 70) / 2);
+         return Math.max(10,Math.min(40,growth0));
+      }
       
       public function getChipText() : String
       {

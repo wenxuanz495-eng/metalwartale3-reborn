@@ -2,15 +2,17 @@ package gameAll.define.other
 {
    public class PurpleChipDefine
    {
+
+      public static var combatNameArr:Array = ["dps_pro","dps","crit_pro","crit_mul","allAdd","attackAdd","subAdd"];
       
       public function PurpleChipDefine()
       {
          super();
       }
       
-      public function getAddArr(name0:String) : Array
+      public function getAddArr(name0:String, level0:int = 0) : Array
       {
-         return this[name0]();
+         return Game.gameDefine.addDefine.getAdditionalData(combatNameArr.length,level0,combatNameArr).getStrArr();
       }
       
       private function ben_purple_chip() : Array

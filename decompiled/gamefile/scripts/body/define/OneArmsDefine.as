@@ -44,6 +44,8 @@ package body.define
       public var energyRate:Number = 0;
       
       private var _commonLevel:String = "";
+
+      public var originalCommonLevel:int = 0;
       
       public var installLevel:int = 1;
       
@@ -219,6 +221,7 @@ package body.define
             this.installLevel = 1;
          }
          this.commonLevel = int(xml0.commonLevel);
+         this.originalCommonLevel = this.commonLevel;
          this.name = String(xml0.child("name"));
          this.type = String(xml0.type);
          this.attackType = String(xml0.attackType);
@@ -387,15 +390,22 @@ package body.define
       public function fleshData() : *
       {
          var addLevel0:int = 0;
+         var growthLevel0:int = this.originalCommonLevel;
          if(this.specialType.indexOf("Level_Growth") >= 0)
          {
             addLevel0 = int(this.specialType.split("_Growth_")[1]);
-            this.commonLevel = Game.gameData.level + addLevel0 + 1;
+            growthLevel0 = Game.gameData.level + addLevel0 + 1;
             if(this.id.indexOf("con") == 0)
             {
-               this.commonLevel += this.itemsData.strengLevel;
+               growthLevel0 += this.itemsData.strengLevel;
             }
          }
+         addLevel0 = this.itemsData.getPurpleChipGrowthLevel();
+         if(addLevel0 > 0)
+         {
+            growthLevel0 = Math.max(growthLevel0,Game.gameData.level + addLevel0 + 1);
+         }
+         this.commonLevel = Math.max(this.originalCommonLevel,growthLevel0);
          this.baseDps = Game.gameDefine.getDpsByLevel(this.commonLevel);
          if(this.father == "arms")
          {

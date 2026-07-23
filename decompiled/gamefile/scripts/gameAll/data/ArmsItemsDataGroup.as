@@ -167,7 +167,7 @@ package gameAll.data
          for(n in this.arr)
          {
             aid0 = this.arr[n];
-            if(aid0.define.specialType.indexOf("Level_Growth") >= 0)
+            if(aid0.hasLevelGrowth())
             {
                aid0.fleshData();
             }
@@ -175,7 +175,7 @@ package gameAll.data
          for(m in this.equArr)
          {
             aid1 = this.equArr[m];
-            if(aid1.define.specialType.indexOf("Level_Growth") >= 0)
+            if(aid1.hasLevelGrowth())
             {
                aid1.fleshData();
             }

@@ -83,6 +83,8 @@ package UI.research
       public function fleshBag() : *
       {
          var arr0:Array = this.materialsItems.getArr_byName("green_chip");
+         var purpleArr:Array = ["purple_chip","ben_purple_chip","zhui_purple_chip","jing_purple_chip","zu_purple_chip","zhen_purple_chip","lie_purple_chip","nu_purple_chip","kuang_purple_chip","hong_purple_chip","ji_purple_chip"];
+         arr0 = arr0.concat(this.materialsItems.getArr_byNameArr(purpleArr));
          this.bagItemsBox.inData_byItems(arr0);
          this.pageBox.table = this.bagItemsBox;
          this.pageBox.fleshByTable();

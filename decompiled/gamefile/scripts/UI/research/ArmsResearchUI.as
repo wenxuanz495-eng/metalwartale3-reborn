@@ -1315,6 +1315,13 @@ package UI.research
             {
                items0 = this.dragTarget.itemsData;
                id0 = this.nowInlayArms.itemsData;
+               if(items0.isPurpleChip() && !id0.canInstallPurpleChip())
+               {
+                  Game.uiGroup.checkTip.showTip(id0.getPurpleChipBlockReason(),2);
+                  Game.SG.playSound("failureItems");
+                  this.stopDraging();
+                  return;
+               }
                if(items0.type == "chip")
                {
                   if(iai.state == "blank")

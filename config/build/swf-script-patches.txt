@@ -25,6 +25,16 @@ effect\EffectSMC.as
 enemy\_die\DieDelay.as
 enemy\_die\DieDelayGroup.as
 Game.as
+gameAll\define\other\PurpleChipDefine.as
+gameAll\data\GoodsItemsDataGroup.as
+gameAll\data\GoodsItemsData.as
+gameAll\data\ArmsItemsData.as
+body\define\OneArmsDefine.as
+gameAll\data\ArmsItemsDataGroup.as
+items\ItemsGroup.as
+UI\research\ChipBaptizeUI.as
+UI\research\ChipAffixGroup.as
+UI\research\ArmsResearchUI.as
 body\key\KeysGroup.as
 body\hero\HeroCarKey.as
 UI\gaming\GamingUI.as

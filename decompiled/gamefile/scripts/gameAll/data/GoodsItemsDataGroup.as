@@ -80,8 +80,15 @@ package gameAll.data
          if(items0.type == "chip")
          {
             trace("addItemsDefine词缀等级：" + define0.affixLevel);
-            add0 = Game.gameDefine.addDefine.getAdditionalData(define0.dropLevel,define0.affixLevel,labelArr);
-            items0.addArr = add0.getStrArr();
+            if(items0.name.indexOf("purple_chip") >= 0)
+            {
+               items0.addArr = Game.gameDefine.purpleChip.getAddArr(items0.name,items0.affixLevel);
+            }
+            else
+            {
+               add0 = Game.gameDefine.addDefine.getAdditionalData(define0.dropLevel,define0.affixLevel,labelArr);
+               items0.addArr = add0.getStrArr();
+            }
          }
          return this.addItemsData(items0,num0,newB);
       }

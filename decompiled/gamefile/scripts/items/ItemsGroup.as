@@ -308,8 +308,8 @@ package items
                   {
                      if(gid0.name.indexOf("purple_chip") >= 0)
                      {
-                        gid0.affixLevel = gid0.getDefine().price - 1;
-                        gid0.addArr = Game.gameDefine.purpleChip.getAddArr(gid0.name);
+                        gid0.affixLevel = Game.gameData.level;
+                        gid0.addArr = Game.gameDefine.purpleChip.getAddArr(gid0.name,gid0.affixLevel);
                      }
                   }
                }

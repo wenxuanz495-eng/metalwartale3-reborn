@@ -5,6 +5,8 @@ package gameAll.data
    
    public class ArmsItemsData extends ItemsData
    {
+
+      public static var purpleChipBlockedWeaponIds:Array = ["phaseTransfer","arc","baonengpao","amplitude","jujiaoguangshupao","zzpao","Freezeweapon","zhonglichongjipao","darkpower","涡轮激光炮","Highfrequency","Boomcannon","zhongzifeidan","highEnergy","positron","goldflyBlade"];
       
       public var baseLabel:String = "";
       
@@ -66,7 +68,7 @@ package gameAll.data
                this.add.addData(add1);
             }
          }
-         if(Boolean(this.chipHole.hasOwnProperty("affixLevel")))
+         if(Boolean(this.chipHole.hasOwnProperty("affixLevel")) && (!(this.chipHole is GoodsItemsData) || !this.chipHole.isPurpleChip() || this.canInstallPurpleChip()))
          {
             add2 = new AdditionalData();
             add2.inData_byArr(this.chipHole.addArr);
@@ -227,6 +229,42 @@ package gameAll.data
          var d0:OneArmsDefine = Game.defineGroup.getAD_byStr(this.baseLabel,"",this);
          d0.itemsData = this;
          return d0;
+      }
+
+      public function getPurpleChipGrowthLevel() : int
+      {
+         if(this.canInstallPurpleChip() && this.chipHole is GoodsItemsData)
+         {
+            return this.chipHole.getPurpleGrowthLevel();
+         }
+         return 0;
+      }
+
+      public function canInstallPurpleChip() : Boolean
+      {
+         if(this.define.specialType.indexOf("Level_Growth") >= 0 || this.define.discount == -1000)
+         {
+            return false;
+         }
+         return purpleChipBlockedWeaponIds.indexOf(this.define.id) < 0;
+      }
+
+      public function getPurpleChipBlockReason() : String
+      {
+         if(this.define.specialType.indexOf("Level_Growth") >= 0)
+         {
+            return "成长型武器不能安装紫色芯片。";
+         }
+         if(this.define.discount == -1000)
+         {
+            return "定制武器不能安装紫色芯片。";
+         }
+         return "该后期武器不能安装紫色芯片。";
+      }
+
+      public function hasLevelGrowth() : Boolean
+      {
+         return this.define.specialType.indexOf("Level_Growth") >= 0 || this.getPurpleChipGrowthLevel() > 0;
       }
       
       public function addData(aid:ArmsItemsData) : *

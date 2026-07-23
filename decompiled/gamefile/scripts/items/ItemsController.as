@@ -826,7 +826,7 @@
          {
             chipName0 = chipArr0[int(chipArr0.length * Math.random())] + "_purple_chip";
             d0 = this.GD.materialsItems.addItems(chipName0,1,level0 - 1);
-            d0.addArr = Game.gameDefine.purpleChip.getAddArr(chipName0);
+            d0.addArr = Game.gameDefine.purpleChip.getAddArr(chipName0,d0.affixLevel);
             return d0;
          }
          return null;
