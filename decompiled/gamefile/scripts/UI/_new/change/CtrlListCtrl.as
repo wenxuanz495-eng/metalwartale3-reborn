@@ -189,6 +189,10 @@ package UI._new.change
                {
                   list_arr[researchIndex0] = 11;
                }
+               else
+               {
+                  list_arr.unshift(11);
+               }
             }
             if(list_arr.length > 0)
             {
