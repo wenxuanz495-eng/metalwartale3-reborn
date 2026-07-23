@@ -82,6 +82,8 @@ package UI.arena
          this.localOpponents = [];
          this.highBox.data_arr = [];
          this.addNum_btn.addEventListener(MouseEvent.CLICK,this.addNumFun);
+         this.addNum_btn.visible = false;
+         this.addNum_btn.mouseEnabled = false;
          this.mustM0 = TextWay.toCode("10");
          this.highBox.addEventListener(ClickEvent.ON_OVER,this.barOver);
          this.highBox.addEventListener(ClickEvent.ON_OUT,this.barOut);
@@ -152,7 +154,7 @@ package UI.arena
             bar0 = this.bar_arr[n];
             obj0 = bar0.itemsData;
             remain = obj0 == null ? 0 : this.arenaData.getBotCooldown(String(obj0.userName));
-            bar0._btn.mouseEnabled = this.arenaData.useNum > 0 && remain <= 0;
+            bar0._btn.mouseEnabled = remain <= 0;
             bar0._btn.alpha = bar0._btn.mouseEnabled ? 1 : 0.35;
             if(remain > 0)
             {
@@ -164,7 +166,7 @@ package UI.arena
             highBar = this.highBox.bar_arr[n];
             obj0 = this.highBox.data_arr[n];
             remain = obj0 == null ? 0 : this.arenaData.getBotCooldown(String(obj0.userName));
-            highBar._btn.mouseEnabled = this.arenaData.useNum > 0 && remain <= 0;
+            highBar._btn.mouseEnabled = remain <= 0;
             highBar._btn.alpha = highBar._btn.mouseEnabled ? 1 : 0.35;
             if(remain > 0 && highBar.t4 != null)
             {
@@ -273,15 +275,8 @@ package UI.arena
          num_str0 += "耐久 " + Math.floor(GD.nowLife) + "/" + Math.floor(GD.maxLife) + "\n";
          num_str0 += "防御 " + int(GD.maxDefence);
          this.other2_txt.htmlText = num_str0;
-         this.num_txt.text = GD.arenaData.useNum + "";
-         if(GD.arenaData.useNum > 0)
-         {
-            this.setBtnState(0);
-         }
-         else
-         {
-            this.setBtnState(1);
-         }
+         this.num_txt.text = "无限";
+         this.setBtnState(0);
          this.fleshAuto();
       }
       
@@ -387,11 +382,6 @@ package UI.arena
       private function startLocalChallenge(obj0:*) : *
       {
          var d0:HighArena_All = null;
-         if(this.arenaData.useNum <= 0)
-         {
-            Game.uiGroup.checkTip.showCheck2("今日竞技场挑战次数已经用完。",2);
-            return;
-         }
          if(obj0 == null)
          {
             return;

@@ -1448,7 +1448,7 @@
 			<name>托尔</name>    <!-- 武器名称【必备】-->
 			<type>闪电炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
-			<description>利用高能激光将空气离子化，产生强烈的脉冲放电现象。</description>
+			<description>先以高能激光电离并击穿空气，形成低阻等离子体通道；随后释放强电场，使脉冲电流沿该通道定向放电，以闪电冲击目标。</description>
 			<!-- 能量需求 -->
 			<energyUse>24</energyUse>
 			<energyRate>0.025</energyRate>
@@ -1484,7 +1484,7 @@
 			<name>因陀罗</name>    <!-- 武器名称【必备】-->
 			<type>闪电炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
-			<description>利用高能激光将空气离子化，产生强烈的脉冲放电现象。</description>
+			<description>先以高能激光电离并击穿空气，形成低阻等离子体通道；随后释放强电场，使脉冲电流沿该通道定向放电，以闪电冲击目标。</description>
 			<!-- 能量需求 -->
 			<energyUse>24</energyUse>
 			<energyRate>0.025</energyRate>
@@ -1519,7 +1519,7 @@
 			<name>宙斯</name>    <!-- 武器名称【必备】-->
 			<type>闪电炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
-			<description>利用高能激光将空气离子化，产生强烈的脉冲放电现象。</description>
+			<description>先以高能激光电离并击穿空气，形成低阻等离子体通道；随后释放强电场，使脉冲电流沿该通道定向放电，以闪电冲击目标。</description>
 			<!-- 能量需求 -->
 			<energyUse>24</energyUse>
 			<energyRate>0.025</energyRate>
@@ -1554,7 +1554,7 @@
 			<name>皮卡丘</name>    <!-- 武器名称【必备】-->
 			<type>闪电炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
-			<description>利用高能激光将空气离子化，产生强烈的脉冲放电现象。</description>
+			<description>先以高能激光电离并击穿空气，形成低阻等离子体通道；随后释放强电场，使脉冲电流沿该通道定向放电，以闪电冲击目标。</description>
 			<!-- 能量需求 -->
 			<energyUse>50</energyUse>
 			<energyRate>0.025</energyRate>
@@ -1590,7 +1590,7 @@
 			<name>雷丘</name>    <!-- 武器名称【必备】-->
 			<type>闪电炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
-			<description>利用高能激光将空气离子化，产生强烈的脉冲放电现象。</description>
+			<description>先以高能激光电离并击穿空气，形成低阻等离子体通道；随后释放强电场，使脉冲电流沿该通道定向放电，以闪电冲击目标。</description>
 			<!-- 能量需求 -->
 			<energyUse>50</energyUse>
 			<energyRate>0.025</energyRate>

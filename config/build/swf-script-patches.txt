@@ -46,3 +46,11 @@ body\hero\HeroCarKey.as
 UI\gaming\GamingUI.as
 UI\gaming\GamingPauseUI.as
 gameAll\data\LivenessData.as
+gameAll\data\ArenaData.as
+UI\arena\ArenaUI.as
+UI\arena\NewArenaUI.as
+gameAll\level\ArenaLevel.as
+UI\shop\TopDialogBox.as
+gameAll\define\drop\oneDropDefine.as
+gameAll\define\drop\DropDefine.as
+gameAll\data\SpecialExtraData.as

@@ -40,6 +40,20 @@ package gameAll.define.drop
          var arr0:Array = this[bType0 + "Arr"];
          return this.type[StringToDefine.getPro_byArr(arr0)];
       }
+
+      public function getTypeProbability(bType0:String, type0:String) : Number
+      {
+         var arr0:Array = this[bType0 + "Arr"];
+         var result0:Number = 0;
+         for(var i:int = 0; i < this.type.length && i < arr0.length; i++)
+         {
+            if(this.type[i] == type0)
+            {
+               result0 += Number(arr0[i]);
+            }
+         }
+         return result0;
+      }
    }
 }
 

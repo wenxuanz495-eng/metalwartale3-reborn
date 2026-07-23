@@ -26,7 +26,7 @@ package gameAll.data
             level0 = this.getMustLevel(n);
             if(level0 <= Game.gameData.level)
             {
-               if(data0.nowNum > 0)
+               if(this.getCooldownSeconds(int(n)) <= 0)
                {
                   num0++;
                }
@@ -72,10 +72,7 @@ package gameAll.data
             data0 = new SpecialExtraOneDefine();
             d0 = darr[i];
             data0.inData_byDefine(d0);
-            if(obj.arr.length >= i + 1)
-            {
-               data0.nowNum = obj.arr[i].nowNum;
-            }
+            data0.nowNum = 1;
             this.arr[i] = data0;
          }
          this.readyAt = obj.hasOwnProperty("readyAt") && obj.readyAt is Array ? obj.readyAt.concat() : [];
@@ -98,7 +95,7 @@ package gameAll.data
       {
          var lock_arr:Array = this.getUnlockArr();
          var data0:SpecialExtraOneDefine = this.arr[index0];
-         if(data0.nowNum > 0 && lock_arr[index0] == 1)
+         if(this.getCooldownSeconds(index0) <= 0 && lock_arr[index0] == 1)
          {
             return 1;
          }
@@ -149,11 +146,7 @@ package gameAll.data
          var sd0:SpecialExtraOneDefine = this.getNowData();
          if(sd0 is SpecialExtraOneDefine)
          {
-            sd0.nowNum -= num0;
-            if(sd0.nowNum < 0)
-            {
-               sd0.nowNum = 0;
-            }
+            sd0.nowNum = 1;
          }
       }
       
@@ -169,7 +162,10 @@ package gameAll.data
       
       public function newDayCtrl() : *
       {
-         this.init();
+         for each(var data0:SpecialExtraOneDefine in this.arr)
+         {
+            data0.nowNum = 1;
+         }
       }
       
       public function getMustLevel(index0:int) : int

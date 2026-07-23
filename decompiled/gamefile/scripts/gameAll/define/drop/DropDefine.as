@@ -138,6 +138,16 @@ package gameAll.define.drop
          var d0:DropDiffDefine = this.items[diff0];
          return d0.items.getRandom(bType);
       }
+
+      public function getItemsTypeProbability(bType:String, diff0:int, type0:String) : Number
+      {
+         if(diff0 > this.items.length - 1)
+         {
+            diff0 = this.items.length - 1;
+         }
+         var d0:DropDiffDefine = this.items[diff0];
+         return d0.items.getTypeProbability(bType,type0);
+      }
       
       public function getChipType(bType:String, diff0:int) : String
       {

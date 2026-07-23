@@ -527,7 +527,11 @@ package UI._new.change
             list_arr = [];
             if(d0.type == "card")
             {
-               if(d0.cardType == "drop_box" || d0.cardType == "drop_box2" || d0.cardType == "drop_box3")
+               if(d0.cardType == "chipBag")
+               {
+                  list_arr = id0.nowNum > 1 ? [4,8] : [4];
+               }
+               else if(d0.cardType == "drop_box" || d0.cardType == "drop_box2" || d0.cardType == "drop_box3")
                {
                   if(id0.nowNum > 1)
                   {
@@ -535,7 +539,7 @@ package UI._new.change
                   }
                   else
                   {
-                     list_arr = d0.cardType == "chipBag" && id0.nowNum > 1 ? [4,8] : [4];
+                     list_arr = [4];
                   }
                }
                else if(d0.cardValue != 0)

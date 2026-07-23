@@ -12,6 +12,7 @@ package items
    import gameAll.data.GoodsItemsData;
    import gameAll.data.car.CarDataCreator;
    import gameAll.data.collect.CollectTaskDefine;
+   import gameAll.level.extra.VipExtraLevel;
    
    public class ItemsGroup
    {
@@ -378,6 +379,9 @@ package items
          var i3:int = 0;
          var label20:String = null;
          var d20:* = undefined;
+         var materialBonus0:Number = 0;
+         var moneyBonus0:Number = 0;
+         var vipBonus0:Number = 0;
          var carStr0:String = this.DD.drop.getCarItemsType(b0.type,this.GD.nowDifficult);
          if(carStr0 == "car")
          {
@@ -530,6 +534,16 @@ package items
                }
             }
          }
+         if(Game.LG.state == "normal" || Game.LG.level is VipExtraLevel)
+         {
+            materialBonus0 = this.DD.drop.getItemsTypeProbability(b0.type,this.GD.nowDifficult,"material") * num0 * 0.1;
+            moneyBonus0 = this.DD.drop.getItemsTypeProbability(b0.type,this.GD.nowDifficult,"money") * num0 * 0.2;
+            this.tryDropUpgradeMaterialBonus(b0,materialBonus0);
+            if(Math.random() < moneyBonus0)
+            {
+               this.addAddBall2("money",coin0,b0,moreCoinNum);
+            }
+         }
          var iarr20:Array = b0.define.dropItemsArr;
          for(n20 in iarr20)
          {
@@ -539,6 +553,29 @@ package items
             {
                d20.affixLevel = lv0;
                this.addItemsBody(d20,b0.MX,b0.MY);
+            }
+         }
+         if(levelState0 == "normal" && Game.LG.level is VipExtraLevel)
+         {
+            if(this.GD.vipData.nowVip == "vipCard_11")
+            {
+               vipBonus0 = 0.25;
+            }
+            else if(this.GD.vipData.nowVip == "vipCard_12")
+            {
+               vipBonus0 = 0.5;
+            }
+            else if(this.GD.vipData.nowVip == "vipCard_13")
+            {
+               vipBonus0 = 0.75;
+            }
+            else if(this.GD.vipData.nowVip == "vipCard_14")
+            {
+               vipBonus0 = 1;
+            }
+            if(vipBonus0 >= 1 || Math.random() < vipBonus0)
+            {
+               this.dropItems(b0,coin0,zra0,"vipBonus");
             }
          }
       }
@@ -554,6 +591,27 @@ package items
          {
             d0 = iarr0[int(iarr0.length * Math.random())];
             this.addItemsBody(d0,b0.MX,b0.MY);
+         }
+      }
+
+      private function tryDropUpgradeMaterialBonus(b0:*, chance0:Number) : *
+      {
+         var lv0:int = int(b0.define.level);
+         var lv2:int = this.DD.drop.getItemsLevel(lv0);
+         var minLv2:int = this.DD.drop.getMinLevel("material",lv2);
+         var all0:Array = this.IDG.getArr_byTypeLevel("material",lv2,minLv2);
+         var devices0:Array = [];
+         var d0:ItemsDefine = null;
+         for each(d0 in all0)
+         {
+            if(d0.name.indexOf("thorn_") == 0 || d0.name.indexOf("buncher_") == 0 || d0.name.indexOf("boom_") == 0)
+            {
+               devices0.push(d0);
+            }
+         }
+         if(all0.length > 0 && devices0.length > 0 && Math.random() < chance0 * devices0.length / all0.length)
+         {
+            this.addItemsBody(devices0[int(Math.random() * devices0.length)],b0.MX,b0.MY);
          }
       }
       

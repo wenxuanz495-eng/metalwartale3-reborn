@@ -77,6 +77,10 @@ package UI.change
             var growth0:int = aid.chipHole.getPurpleGrowthLevel();
             var chipLevel0:int = aid.getPurpleGrowthCalculatedLevel();
             str += this.getColor("紫芯片共鸣：原生+" + aid.getNativeGrowthLevel() + "，芯片+" + growth0 + "，计算等级" + chipLevel0 + "级" + (chipLevel0 > define0.originalCommonLevel ? "（已生效）" : "（未超过武器原始等级）"),"#FF66FF") + "<br />";
+            if(define0.id == "zhonglichongjipao")
+            {
+               str += this.getColor("黑洞特例：以人物等级和当前形态基础等级中的较高值计算，再叠加芯片成长。","#FFCC66") + "<br />";
+            }
          }
          str += this.getFontColor("武器伤害：") + int(define0.getAllDataHurt()) + "<br />";
          str += this.getFontColor("攻击速度：") + define0.getShootSpeed() + "发/秒<br />";

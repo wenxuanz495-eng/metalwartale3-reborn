@@ -37,7 +37,7 @@ package gameAll.data
 
       public static const LOCAL_BOT_COUNT:int = 15;
 
-      public static const LOCAL_BOT_COOLDOWN:Number = 1800000;
+      public static const LOCAL_BOT_COOLDOWN:Number = 900000;
       
       public function ArenaData()
       {
@@ -187,7 +187,7 @@ package gameAll.data
          {
             var d0:HighArena_All = new HighArena_All();
             var extra0:HighArena_ExtraData = new HighArena_ExtraData();
-            var scale0:Number = 1.35 - i * 0.05;
+            var scale0:Number = 1 - i * 0.01;
             d0.rank = i + 1;
             d0.score = Math.max(1,Math.round(this.score + (7 - i) * 80));
             d0.userName = "local_arena_bot_" + i;

@@ -54,6 +54,8 @@ package UI.shop
       private var inputDefaultY:Number = 0;
 
       private var inputBackDefaultY:Number = 0;
+
+      private var pageHint_txt:TextField = new TextField();
       
       public var shop_mc:*;
       
@@ -93,6 +95,12 @@ package UI.shop
          this.inputPanelBack.graphics.endFill();
          this.mc.addChildAt(this.inputPanelBack,0);
          this.inputPanelBack.visible = false;
+         this.pageHint_txt.defaultTextFormat = this.txt.defaultTextFormat;
+         this.pageHint_txt.autoSize = TextFieldAutoSize.CENTER;
+         this.pageHint_txt.selectable = false;
+         this.pageHint_txt.mouseEnabled = false;
+         this.pageHint_txt.visible = false;
+         this.mc.addChild(this.pageHint_txt);
          this.hideConsumptionSlogan(this.mc);
          this.txt.autoSize = "left";
          this.txt.wordWrap = false;
@@ -442,6 +450,27 @@ package UI.shop
          this.yes_btn.y = 45;
          this.no_btn.y = 45;
          this.m50_btn.visible = false;
+         this.pageHint_txt.visible = false;
+      }
+
+      public function showPagedCheck2(str:String, fun1:Function = null) : *
+      {
+         this.showCheck2(str,2,fun1);
+         this.pageHint_txt.text = "点击确定查看下一页";
+         this.pageHint_txt.x = -this.pageHint_txt.width / 2;
+         this.pageHint_txt.y = this.yes_btn.y + this.yes_btn.height / 2 + 6;
+         this.pageHint_txt.visible = true;
+         this.mc.setChildIndex(this.pageHint_txt,this.mc.numChildren - 1);
+      }
+
+      public function showFooterCheck2(str:String, footer0:String, fun1:Function = null) : *
+      {
+         this.showCheck2(str,2,fun1);
+         this.pageHint_txt.text = footer0;
+         this.pageHint_txt.x = -this.pageHint_txt.width / 2;
+         this.pageHint_txt.y = this.yes_btn.y + this.yes_btn.height / 2 + 6;
+         this.pageHint_txt.visible = true;
+         this.mc.setChildIndex(this.pageHint_txt,this.mc.numChildren - 1);
       }
       
       public function getSelectedNum() : int

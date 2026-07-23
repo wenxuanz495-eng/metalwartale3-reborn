@@ -29,8 +29,6 @@ package gameAll.level
          this.time_num = 3;
          super.startLevel();
          this.addArival();
-         Game.gameData.arenaData.startCurrentBotCooldown();
-         Game.gameData.arenaData.reduceUseNum();
          Game.uiGroup.saveDataNoUI();
          Game.gameData.lifeRateB2 = false;
       }
@@ -41,6 +39,9 @@ package gameAll.level
          b0.type = "boss";
          nowBoss = b0;
          var d0:HighArena_All = Game.gameData.arenaData.arival;
+         d0.extra.dps = Math.min(d0.extra.dps,Game.gameData.getAllDps());
+         d0.extra.life = Math.min(d0.extra.life,Game.gameData.maxLife);
+         d0.extra.defence = Math.min(d0.extra.defence,Game.gameData.maxDefence);
          b0.ai.fleshData_byHighArena_All(d0);
          b0.define.trueName = d0.extra.name;
          b0.headTitle.txt.text = d0.extra.name;
@@ -139,6 +140,8 @@ package gameAll.level
       {
          if(b0.type == "boss")
          {
+            Game.gameData.arenaData.startCurrentBotCooldown();
+            Game.uiGroup.saveDataNoUI();
             hero.hitHurtB = 1;
             this.arenaUI.showWin();
             addOnceFun(exitEvent,2 / 6);

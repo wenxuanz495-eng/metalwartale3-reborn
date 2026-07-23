@@ -25,6 +25,8 @@
       private var coreRewardPages:Array = [];
 
       private var coreRewardPageIndex:int = 0;
+
+      private var coreRewardFooter:String = "";
       
       public function ItemsController()
       {
@@ -828,7 +830,7 @@
          {
             page0 = "";
             pageCount0 = 0;
-            while(i < lines0.length && pageCount0 < 5)
+            while(i < lines0.length && pageCount0 < 3)
             {
                if(page0 != "")
                {
@@ -844,10 +846,7 @@
          {
             this.coreRewardPages.push("无奖励");
          }
-         if(footer0 != "")
-         {
-            this.coreRewardPages[this.coreRewardPages.length - 1] += "\n" + footer0;
-         }
+         this.coreRewardFooter = footer0;
          this.coreRewardPageIndex = 0;
          this.showCurrentCoreRewardPage();
       }
@@ -862,12 +861,18 @@
          text0 += "：\n" + this.coreRewardPages[this.coreRewardPageIndex];
          if(this.coreRewardPageIndex < this.coreRewardPages.length - 1)
          {
-            text0 += "\n点击确定查看下一页。";
-            Game.uiGroup.checkTip.showCheck2(text0,2,this.showNextCoreRewardPage);
+            Game.uiGroup.checkTip.showPagedCheck2(text0,this.showNextCoreRewardPage);
          }
          else
          {
-            Game.uiGroup.checkTip.showCheck2(text0,2);
+            if(this.coreRewardFooter != "")
+            {
+               Game.uiGroup.checkTip.showFooterCheck2(text0,this.coreRewardFooter);
+            }
+            else
+            {
+               Game.uiGroup.checkTip.showCheck2(text0,2);
+            }
          }
       }
 

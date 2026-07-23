@@ -323,18 +323,11 @@ package UI.arena
          {
             Game.testText.addTestText("PK单位:" + obj0.userName);
             arenaData = Game.gameData.arenaData;
-            if(arenaData.useNum > 0)
-            {
-               d0 = new HighArena_All();
-               d0.inData_byObj(obj0);
-               d0.rank = arenaData.nowRank;
-               arenaData.arival = d0;
-               Game.eventGroup.chosenLevel(0,"arena");
-            }
-            else
-            {
-               Game.uiGroup.checkTip.showCheck2("您的挑战次数已经使用完毕！",2);
-            }
+            d0 = new HighArena_All();
+            d0.inData_byObj(obj0);
+            d0.rank = arenaData.nowRank;
+            arenaData.arival = d0;
+            Game.eventGroup.chosenLevel(0,"arena");
          }
       }
    }
