@@ -6,7 +6,7 @@ package gameAll.data
    public class ArmsItemsData extends ItemsData
    {
 
-      public static var purpleChipGrowthWhitelist:Array = ["snow","microwave"];
+      public static var purpleChipGrowthWhitelist:Array = ["snow","microwave","ioncanon","youdaodianjiangpao","jujiaoguangshupao","zhonglichongjipao","schoolArms"];
       
       public var baseLabel:String = "";
       
