@@ -55,7 +55,7 @@ package gameAll.data
          this.upgradeGiftGetB = false;
          this.initGiftGet();
          this.initTaskNum();
-         this.addTaskNum("login");
+         this.forceLoginTaskComplete();
       }
       
       public function initGiftGet() : *
@@ -82,10 +82,7 @@ package gameAll.data
          this.value = 0;
          this.initGiftGet();
          this.initTaskNum();
-         if(countLogin)
-         {
-            this.addTaskNum("login");
-         }
+         this.forceLoginTaskComplete();
       }
       
       public function inData_byObj(obj:Object) : *
@@ -109,6 +106,7 @@ package gameAll.data
             taskArr.length = taskMaxNum;
          }
          this.taskNumArr = taskArr;
+         this.forceLoginTaskComplete();
          this.initGiftGet();
          if(obj.hasOwnProperty("giftGetB") && obj.giftGetB is Array)
          {
@@ -143,6 +141,22 @@ package gameAll.data
          else
          {
             this.boughtArr = obj.boughtArr;
+         }
+      }
+
+      private function forceLoginTaskComplete() : *
+      {
+         var d0:LivenessTaskDefine = Game.gameDefine.liveness.getTaskDefine_byId("login");
+         var arr0:Array = null;
+         if(d0 is LivenessTaskDefine)
+         {
+            arr0 = this.taskNumArr;
+            if(int(arr0[d0.index]) != -1)
+            {
+               arr0[d0.index] = -1;
+               this.taskNumArr = arr0;
+               this.addValue(d0.gift);
+            }
          }
       }
       
