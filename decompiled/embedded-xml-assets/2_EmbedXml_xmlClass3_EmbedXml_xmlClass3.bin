@@ -5062,8 +5062,8 @@
 			<name>金色琉璃</name>    <!-- 武器名称【必备】-->
 			<type>光刃炮</type>    <!-- 武器类型【必备】-->
 			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>穿透</specialProperty>
-			<description>将光能粒子收集起来，集中成一束光刃发射出去，摧毁敌人。</description>
+			<specialProperty>穿透，成长型</specialProperty>
+			<description>成长型武器，武器等级随人物等级提升。将光能粒子收集起来，集中成一束光刃发射出去，摧毁敌人。</description>
 			<!-- 能量需求 -->
 			<reduceRa>0.7</reduceRa>
 			<energyUse>24</energyUse>
@@ -5092,7 +5092,7 @@
 			<bulletWidth>10</bulletWidth>    <!-- 子弹宽度-->
 
 			<penetrationB>1</penetrationB>
-			<specialType>Level_Growth_3</specialType>
+			<specialType>Level_Growth_10</specialType>
 
 			<!-- 图像动画-->
 			<imgLabel>lightKnife_lv1</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
