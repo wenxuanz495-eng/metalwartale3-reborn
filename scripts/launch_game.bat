@@ -40,8 +40,10 @@ if not defined PLAYER goto missing_player
 where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_curl
 
-call "%~dp0prepare_build_runtime.bat"
-if errorlevel 1 exit /b %ERRORLEVEL%
+if not exist "%BUILD_DIR%\.release-ready" (
+  call "%~dp0prepare_build_runtime.bat"
+  if errorlevel 1 exit /b %ERRORLEVEL%
+)
 
 if defined CHECK_ONLY (
   echo [OK] Pure BAT game prerequisites are ready.

@@ -20,8 +20,10 @@ if not exist "%ENGINE%" goto missing_build
 where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_curl
 
-call "%~dp0prepare_build_runtime.bat"
-if errorlevel 1 exit /b %ERRORLEVEL%
+if not exist "%BUILD_DIR%\.release-ready" (
+  call "%~dp0prepare_build_runtime.bat"
+  if errorlevel 1 exit /b %ERRORLEVEL%
+)
 if not exist "%MODIFIER%" goto missing_modifier
 
 if exist "%ProgramFiles%\Microsoft\Edge\Application\msedge.exe" set "BROWSER=%ProgramFiles%\Microsoft\Edge\Application\msedge.exe"

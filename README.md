@@ -25,6 +25,8 @@ GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 4. `启动游戏-flashplayer_sa_debug.bat`：Debug Player 入口。
 5. `启动修改器.bat`：纯 BAT 启动修改器。
 
+第五阶段自动化验收：`scripts\verify_phase5.bat`。发行包生成：`scripts\build_release.bat`，默认输出 `release\1.26.3-source-synced`。
+
 纯 BAT 运行细节见 [`docs/BAT_RUNTIME.md`](docs/BAT_RUNTIME.md)，构建规则见 [`docs/REPRODUCIBLE_BUILD.md`](docs/REPRODUCIBLE_BUILD.md)。根目录游戏入口直接启动已有的 `build/server.exe` 与 `build/game.swf`，自动准备资源、寻找端口、等待健康检查，并在播放器退出后清理本次服务端。
 
 权威开发存档：

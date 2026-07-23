@@ -85,5 +85,6 @@
 - 构建：根目录 `构建.bat`
 - 运行：根目录 `启动游戏.bat`
 - 验收：`scripts/verify_phase3.bat`
+- 完整发行验收：`scripts/verify_phase5.bat`
 - Go 模块缓存：`D:\superalloy\.gopath`
 - 不要以 `runtime/` 为主运行目录
