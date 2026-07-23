@@ -1430,8 +1430,8 @@ package gameAll
          this.LG.level.bodyAdd(b0);
       }
       
-      public function bodyDie(b0:*) : *
-      {
+       public function bodyDie(b0:*) : *
+       {
          var expMul101:Number = Number(NaN);
          var coinMul101:Number = Number(NaN);
          var exp001:Number = Number(NaN);
@@ -1442,8 +1442,9 @@ package gameAll
          var achieve0:int = 0;
          var cd0:ChallengeTaskDefine = null;
          var eo:EventOrderDefineGroup = null;
-         var cd22:ChallengeTaskDefine = null;
-         var cd2:CollectTaskDefine = null;
+          var cd22:ChallengeTaskDefine = null;
+          var cd2:CollectTaskDefine = null;
+          var collectChapter:int = 0;
          if(b0 is Normal_FlyBody)
          {
             if(!b0.toDieB)
@@ -1539,7 +1540,8 @@ package gameAll
                   }
                }
             }
-            if(this.GD.newLevelData.getBeforeLevelPackNow2() == "ghost")
+            collectChapter = this.GD.newLevelData.levelPack == "p1" ? this.getStoryChapter("p1",this.LG.index) : 0;
+            if(this.LG.state == "normal" && collectChapter >= 6 && collectChapter <= 9)
             {
                for each(cd2 in this.GD.collectTaskData.arr)
                {

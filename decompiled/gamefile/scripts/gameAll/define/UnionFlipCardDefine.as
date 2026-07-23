@@ -28,9 +28,7 @@ package gameAll.define
       
       public var material_level:Array = [1,18,36,51,61,81,99999];
       
-      public var armsArr:Array = ["arms,arc_lv1"];
-      
-      public var type_arr:Array = ["coin","prop","superalloy","prop2","arms"];
+      public var type_arr:Array = ["coin","prop","superalloy","prop2","mcoin"];
       
       public var pro_arr:Array = [0.32,0.3,0.3,0.04,0.04];
       
@@ -110,7 +108,7 @@ package gameAll.define
             }
             str0 = "exp," + TextWay.getText(this.number10w) + ",1";
          }
-         else if(type0.indexOf("coin") >= 0)
+         else if(type0 == "coin")
          {
             if(level0 > this.coin_arr.length - 1)
             {
@@ -142,9 +140,9 @@ package gameAll.define
             name0 = this.propName_arr2[len];
             str0 = "props," + name0 + "," + this.propNum_arr2[len];
          }
-         else if(type0 == "arms")
+         else if(type0 == "mcoin")
          {
-            str0 = this.armsArr[int(this.armsArr.length * Math.random())] + ",1";
+            str0 = "MCoin,50,1";
          }
          return str0;
       }

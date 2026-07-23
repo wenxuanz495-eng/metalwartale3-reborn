@@ -406,21 +406,43 @@ package gameAll.level
          {
             ++this.enemyNumAffterBoss;
          }
-         if(b0.type == "boss")
-         {
-            if(bossLifeArr.length > 0)
-            {
-               b0.define.maxLife = Number(bossLifeArr[Game.gameData.nowDifficult]);
-               b0.define.mulLife();
-            }
+          if(b0.type == "boss")
+          {
+             if(bossLifeArr.length > 0)
+             {
+                var bossLife0:Number = Number(bossLifeArr[Game.gameData.nowDifficult]);
+                if(Game.LG.state == "union")
+                {
+                   bossLife0 = Number(bossLifeArr[0]) * [1,2,4,8][Game.gameData.giftData.getUnionBattleDifficulty()];
+                }
+                else if(isNaN(bossLife0))
+                {
+                   bossLife0 = Number(bossLifeArr[0]);
+                }
+                b0.define.maxLife = bossLife0;
+                b0.define.mulLife();
+             }
             if(bossAttackTurn.length > 0 && Boolean(b0.ai.hasOwnProperty("attackTurnArr")))
             {
                b0.ai.attackTurnArr = bossAttackTurn;
             }
-            if(bossAttackHurt.length > 0 && Boolean(b0.ai.hasOwnProperty("attackHurtArr")))
-            {
-               b0.ai.attackHurtArr = bossAttackHurt;
-            }
+             if(bossAttackHurt.length > 0 && Boolean(b0.ai.hasOwnProperty("attackHurtArr")))
+             {
+                if(Game.LG.state == "union")
+                {
+                   var unionHurtArr0:Array = [];
+                   var unionHurtRa0:Number = [1,1.35,1.75,2.25][Game.gameData.giftData.getUnionBattleDifficulty()];
+                   for each(var unionHurt0:String in bossAttackHurt)
+                   {
+                      unionHurtArr0.push(Number(unionHurt0) * unionHurtRa0);
+                   }
+                   b0.ai.attackHurtArr = unionHurtArr0;
+                }
+                else
+                {
+                   b0.ai.attackHurtArr = bossAttackHurt;
+                }
+             }
             xxx = 0;
          }
          this.otherCtrl.bodyAdd(b0);

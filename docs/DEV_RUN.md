@@ -26,8 +26,8 @@ Go 缓存：`D:\superalloy\.gopath\...`
 
 播放器查找顺序：
 
-- **sa**: `tools\debug\flashplayer_sa.exe` → `D:\superalloy\flashplayer_sa.exe`
-- **sa_debug**: `tools\debug\flashplayer_sa_debug.exe` → `D:\superalloy\flashplayer_32_sa_debug.exe`
+- **sa**: `tools\runtime\FlashPlayer.exe`
+- **sa_debug**: `tools\debug\flashplayer_sa_debug.exe`
 
 PowerShell：
 

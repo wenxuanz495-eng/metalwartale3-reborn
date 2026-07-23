@@ -237,16 +237,7 @@ package UI.gaming
       
       public function volumeClick(e:*) : *
       {
-         if(this.volume_btn.text == "volume_on")
-         {
-            this.volume_btn.setText("volume_off");
-            Game.uiGroup.stopAllSound();
-         }
-         else
-         {
-            this.volume_btn.setText("volume_on");
-            Game.uiGroup.openAllSound();
-         }
+         Game.uiGroup.allback.openSoundSettings();
       }
       
       public function gotoBag(e:*) : *

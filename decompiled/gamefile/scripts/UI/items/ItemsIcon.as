@@ -285,6 +285,15 @@ package UI.items
          }
          this.itemsData = d0;
          this.setNum(d0.num);
+         if(d0.id == "mcoin_reward_card" || d0.name == "M币")
+         {
+            this.setNum(int(d0.price));
+            this.num_mc.txt.width = 60;
+            this.num_mc.txt.x = -this.num_mc.txt.width;
+            this.num_mc.txt.y = -this.num_mc.txt.height;
+            this.num_mc.txt.text = int(d0.price) + "MB";
+            this.num_mc.visible = true;
+         }
          var temp:* = Game.swfLoaderManager.getResource("",d0.imgLabel);
          if(!(temp is DisplayObject))
          {

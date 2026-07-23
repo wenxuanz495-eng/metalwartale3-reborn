@@ -110,6 +110,7 @@ package enemy._die
             lighting_mc.x = rect0.x + rect0.width / 2;
             lighting_mc.y = rect0.y + rect0.height / 2;
             lighting_mc.play();
+            Game.SG.playDeathDelayElectric();
          }
       }
       

@@ -1345,7 +1345,7 @@ package UI
       
       public function openAllSound() : *
       {
-         SoundMixer.soundTransform = new SoundTransform(1);
+         SoundMixer.soundTransform = new SoundTransform(Game.SG.masterVolume * Game.SG.baseOutputGain);
       }
       
       public function pay(e:* = null) : *

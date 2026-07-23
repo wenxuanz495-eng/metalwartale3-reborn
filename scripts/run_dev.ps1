@@ -58,15 +58,12 @@ function Resolve-PlayerPath([string]$type, [string]$explicit) {
   switch ($type) {
     "sa" {
       $candidates = @(
-        (Join-Path $RepoRoot "tools\debug\flashplayer_sa.exe"),
-        "D:\superalloy\flashplayer_sa.exe"
+        (Join-Path $RepoRoot "tools\runtime\FlashPlayer.exe")
       )
     }
     "sa_debug" {
       $candidates = @(
-        (Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe"),
-        "D:\superalloy\flashplayer_32_sa_debug.exe",
-        "D:\superalloy\flashplayer_sa_debug.exe"
+        (Join-Path $RepoRoot "tools\debug\flashplayer_sa_debug.exe")
       )
     }
   }

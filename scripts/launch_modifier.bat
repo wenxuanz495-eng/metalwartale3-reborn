@@ -21,6 +21,8 @@ where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_curl
 
 if not exist "%BUILD_DIR%\.release-ready" (
+  echo [CHECK] Verifying 175 tracked runtime resources before launch...
+  echo [CHECK] If the window title starts with Select, press Esc to resume.
   call "%~dp0prepare_build_runtime.bat"
   if errorlevel 1 exit /b %ERRORLEVEL%
 )

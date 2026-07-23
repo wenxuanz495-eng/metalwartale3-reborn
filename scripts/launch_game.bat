@@ -25,13 +25,10 @@ set "SERVER_TITLE=SA_COLLAB_SERVER_%RANDOM%_%RANDOM%"
 set "PORT="
 
 if /i "%PLAYER_TYPE%"=="sa" (
-  if exist "%REPO_ROOT%\tools\debug\flashplayer_sa.exe" set "PLAYER=%REPO_ROOT%\tools\debug\flashplayer_sa.exe"
-  if not defined PLAYER if exist "D:\superalloy\flashplayer_sa.exe" set "PLAYER=D:\superalloy\flashplayer_sa.exe"
+  if exist "%REPO_ROOT%\tools\runtime\FlashPlayer.exe" set "PLAYER=%REPO_ROOT%\tools\runtime\FlashPlayer.exe"
 )
 if /i "%PLAYER_TYPE%"=="sa_debug" (
   if exist "%REPO_ROOT%\tools\debug\flashplayer_sa_debug.exe" set "PLAYER=%REPO_ROOT%\tools\debug\flashplayer_sa_debug.exe"
-  if not defined PLAYER if exist "D:\superalloy\flashplayer_32_sa_debug.exe" set "PLAYER=D:\superalloy\flashplayer_32_sa_debug.exe"
-  if not defined PLAYER if exist "D:\superalloy\flashplayer_sa_debug.exe" set "PLAYER=D:\superalloy\flashplayer_sa_debug.exe"
 )
 
 if not exist "%SERVER%" goto missing_build
@@ -41,6 +38,8 @@ where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_curl
 
 if not exist "%BUILD_DIR%\.release-ready" (
+  echo [CHECK] Verifying 175 tracked runtime resources before launch...
+  echo [CHECK] If the window title starts with Select, press Esc to resume.
   call "%~dp0prepare_build_runtime.bat"
   if errorlevel 1 exit /b %ERRORLEVEL%
 )

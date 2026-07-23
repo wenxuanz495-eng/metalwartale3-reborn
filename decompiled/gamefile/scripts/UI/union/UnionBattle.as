@@ -23,6 +23,10 @@ package UI.union
       private const UNIONCANFIGHT:int = 30;
       
       private const CITYVARID:Array = [this.UNIONCANFIGHT,31,32,33,34,35];
+
+      private const DIFFICULTY_NAMES:Array = ["普通","困难","专家","噩梦"];
+
+      private const REWARD_RATES:Array = [1,1.5,2,3];
       
       private var CITYARR:Array = [null,new CCityData(1,"北美",3,"未占领",-1,0,["props,GCoin_card_4,3","props,achieve_card_3,6","props,justice_badge,60","props,justice2_badge,30","materials,superalloy_X,300","props,superalloyStone,10"]),new CCityData(2,"欧洲",4,"未占领",-1,0,["props,GCoin_card_4,4","props,achieve_card_3,8","props,justice_badge,80","props,justice2_badge,40","materials,superalloy_X,400","props,superalloyStone,10"]),new CCityData(3,"亚洲",5,"未占领",-1,0,["props,GCoin_card_4,8","props,achieve_card_3,10","props,justice_badge,100","props,justice2_badge,50","materials,superalloy_X,500","props,superalloyStone,20"]),new CCityData(4,"南美",2,"未占领",-1,0,["props,GCoin_card_4,2","props,achieve_card_3,4","props,justice_badge,40","props,justice2_badge,20","materials,superalloy_X,200","props,superalloyStone,5"]),new CCityData(5,"非洲",1,"未占领",-1,0,["props,GCoin_card_4,1","props,achieve_card_3,2","props,justice_badge,20","props,justice2_badge,10","materials,superalloy_X,100","props,superalloyStone,5"])];
       
@@ -75,8 +79,6 @@ package UI.union
             this.mc_box["btn_city_" + i].addEventListener(MouseEvent.CLICK,this.onClick);
          }
          this.setCurrentCity();
-         Game.high_api.getRankListsData(this.RANKID,10,1,this.getRankOver);
-         Game.union_api.getVariables(Game.nowSaveIndex,this.CITYVARID,this.getVarOver);
       }
       
       private function getIdByIndex(id:int, arr:Array) : int
@@ -199,11 +201,41 @@ package UI.union
          {
             return;
          }
-         var id:int = int(this.CITYTASKID[this._cityId]);
          var ccd:CCityData = this.CITYARR[this._cityId];
-         Game.gameData.giftData.AddUnionCityFightId(id);
-         Game.union_api.doVariable(Game.nowSaveIndex,this.CITYVARID[0]);
-         Game.union_api.doVariable(Game.nowSaveIndex,this.CITYVARID[this._cityId],this.dovarover);
+         var difficulty0:int = Game.gameData.giftData.getUnionBattleDifficulty();
+         var result0:int = Game.gameData.giftData.completeUnionBattleCity(this._cityId);
+         if(result0 <= 0)
+         {
+            return;
+         }
+         Game.uiGroup.addGift_byArr(this.getScaledPrizeArr(ccd.PrizeArr,difficulty0),false,1,true);
+         if(result0 == 2)
+         {
+            Game.uiGroup.checkTip.showCheck2("本轮五个战区已全部完成，已开启" + this.DIFFICULTY_NAMES[difficulty0 + 1] + "难度。",2);
+         }
+         else if(result0 == 3)
+         {
+            Game.uiGroup.checkTip.showCheck2("四个难度已全部完成，公会战进入10分钟冷却。",2);
+         }
+         Game.uiGroup.saveDataNoUI("公会战胜利");
+      }
+
+      private function getScaledPrizeArr(arr0:Array, difficulty0:int) : Array
+      {
+         var result0:Array = [];
+         var one0:String = null;
+         var parts0:Array = null;
+         var rate0:Number = this.REWARD_RATES[Math.max(0,Math.min(3,difficulty0))];
+         for each(one0 in arr0)
+         {
+            parts0 = one0.split(",");
+            if(parts0.length >= 3)
+            {
+               parts0[2] = Math.max(1,Math.ceil(Number(parts0[2]) * rate0));
+            }
+            result0.push(parts0.join(","));
+         }
+         return result0;
       }
       
       private function getRankOver(dataAry:Array) : void
@@ -270,6 +302,16 @@ package UI.union
          {
             case "btn_fight":
                citydat = this.CITYARR[this._cityId];
+               if(Game.gameData.giftData.getUnionBattleCooldownLeft() > 0)
+               {
+                  Game.uiGroup.checkTip.showCheck2("公会战仍在冷却中。",2);
+                  return;
+               }
+               if(Game.gameData.giftData.getUnionBattleCityCompleted(this._cityId))
+               {
+                  Game.uiGroup.checkTip.showCheck2("本难度下该战区已经完成。",2);
+                  return;
+               }
                Game.eventGroup.chosenLevel(citydat.LevelId,"union");
                break;
             case "btn_getPrize":
@@ -343,10 +385,10 @@ package UI.union
       
       private function setCurrentCity() : void
       {
-         var uf:int = 0;
-         var sc:int = 0;
          var citydat:CCityData = this.CITYARR[this._cityId];
-         var taskid:int = int(this.CITYTASKID[this._cityId]);
+         var difficulty0:int = Game.gameData.giftData.getUnionBattleDifficulty();
+         var completed0:Boolean = Game.gameData.giftData.getUnionBattleCityCompleted(this._cityId);
+         var cooldown0:int = Game.gameData.giftData.getUnionBattleCooldownLeft();
          if(citydat == null)
          {
             return;
@@ -357,35 +399,21 @@ package UI.union
          }
          this.mc_box["txt_name"].text = citydat.Name;
          this.mc_box["btn_city_" + this._cityId].gotoAndStop(2);
-         if(citydat.UnionId < 0)
+         this.mc_box["txt_unionnum"].text = "" + Game.gameData.giftData.getUnionBattleRemainingCount();
+         this.mc_box["txt_unionname"].text = "当前难度：" + this.DIFFICULTY_NAMES[difficulty0];
+         if(cooldown0 > 0)
          {
-            uf = this._unionFightNum;
-            sc = citydat.Score;
-            if(uf < 0)
-            {
-               uf = 0;
-            }
-            if(sc < 0)
-            {
-               sc = 0;
-            }
-            this.mc_box["txt_unionnum"].text = "" + uf;
-            this.mc_box["txt_unionname"].text = "未占领";
-            this.mc_box["txt_score"].text = "还剩" + sc + "次攻下该战区";
+            this.mc_box["txt_score"].text = "全部难度已完成，冷却剩余" + Math.ceil(cooldown0 / 60) + "分钟";
+         }
+         else if(completed0)
+         {
+            this.mc_box["txt_score"].text = "本难度已完成";
          }
          else
          {
-            this.mc_box["txt_unionnum"].text = "0";
-            this.mc_box["txt_unionname"].text = citydat.UnionName;
-            this.mc_box["txt_score"].text = "被" + citydat.UnionName + "公会占领";
+            this.mc_box["txt_score"].text = "击败守卫者后立即获得本战区奖励";
          }
-         var fighted:Boolean = false;
-         var hascount:int = 1 - Game.gameData.giftData.GetUnionCityFightID(taskid);
-         if(hascount < 0)
-         {
-            hascount = 0;
-         }
-         if(citydat.UnionId < 0 && hascount > 0 && this._unionFightNum > 0)
+         if(!completed0 && cooldown0 <= 0)
          {
             this.mc_box["btn_fight"].alpha = 1;
             this.mc_box["btn_fight"].mouseEnabled = true;
@@ -398,18 +426,10 @@ package UI.union
                this.mc_box["btn_fight"].mouseEnabled = false;
             }
          }
-         if(citydat.CanPrize)
-         {
-            this.mc_box["btn_getPrize"].alpha = 1;
-            this.mc_box["btn_getPrize"].mouseEnabled = true;
-         }
-         else
-         {
-            this.mc_box["btn_getPrize"].alpha = 0.3;
-            this.mc_box["btn_getPrize"].mouseEnabled = false;
-         }
-         this.mc_box["txt_num"].text = hascount + "";
-         this.setIconAndText("mc_icon2_","txt_icon2_",this.CITYARR[this._cityId].PrizeArr);
+         this.mc_box["btn_getPrize"].alpha = 0.3;
+         this.mc_box["btn_getPrize"].mouseEnabled = false;
+         this.mc_box["txt_num"].text = completed0 ? "0" : "1";
+         this.setIconAndText("mc_icon2_","txt_icon2_",this.getScaledPrizeArr(this.CITYARR[this._cityId].PrizeArr,difficulty0));
       }
       
       protected function onItemOver(event:MouseEvent) : void
@@ -418,7 +438,7 @@ package UI.union
          if(mc.name == "mc_help")
          {
             this.tip_mc.title_txt.text = "玩法说明";
-            this.tip_mc.txt.text = "1、 点击战区挑战战区守卫者，成功击败守卫者后可以为公会增加1点对应战区积分\n" + "2、 玩家每天可以向所有战区发动攻击；同一个战区，玩家每天只能成功攻击1次，多次成功攻击公会积分不会增加\n" + "3、 第一个积分到达60分的公会就可以占领这个战区\n" + "4、 每个公会每天可以在所有战区获得的积分总和上限是50分\n" + "5、 战区的占领状态会在7天后重置\n" + "6、 公会在对应战区的积分会在7天后重置\n" + "7、 在挑战战区守卫者时死亡无法使用复活石\n" + "8、 新加入公会的玩家24小时才能在公会战中改变积分\n" + "9、 涉嫌修改的玩家无法改变公会积分";
+            this.tip_mc.txt.text = "1、 公会战分为普通、困难、专家、噩梦四个难度。\n" + "2、 每个难度包含五个战区，每个战区完成一次后不能重复领取。\n" + "3、 完成五个战区后自动开启下一难度。\n" + "4、 Boss生命倍率依次为1、2、4、8倍，攻击也会逐级提高。\n" + "5、 奖励倍率依次为1、1.5、2、3倍，胜利后立即发放。\n" + "6、 完成噩梦难度全部五个战区后，公会战冷却10分钟。\n" + "7、 冷却结束后从普通难度重新开始。";
             this.tipBox.showDialog(this.tip_mc,event.currentTarget,event.currentTarget.x,event.currentTarget.y);
             return;
          }

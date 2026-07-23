@@ -500,8 +500,14 @@
          var fixedCoin0:int = this.getCoreFixedCoin(cardType0);
          var fixedArr0:Array = null;
          var fixed0:GoodsDefine = null;
-         var rewardOrder0:Array = [];
-         var rewardTotals0:Object = {};
+          var rewardOrder0:Array = [];
+          var rewardTotals0:Object = {};
+          var fixedOrder0:Array = [];
+          var fixedTotals0:Object = {};
+          var easterOrder0:Array = [];
+          var easterTotals0:Object = {};
+          var easterArr0:Array = null;
+          var easter0:GoodsDefine = null;
          var requiredMaterial0:Object = null;
          var requiredProps0:Object = null;
          var requiredMaterialNum0:int = 0;
@@ -569,23 +575,29 @@
             {
                break;
             }
-            this.GD.addCoin(fixedCoin0);
-            this.addCoreRewardSummary(rewardOrder0,rewardTotals0,"G币",fixedCoin0);
+             this.GD.addCoin(fixedCoin0);
+             this.addCoreRewardSummary(fixedOrder0,fixedTotals0,"G币",fixedCoin0);
             for(n in fixedArr0)
             {
                fixed0 = fixedArr0[n];
                Game.uiGroup.addGift_byArr([fixed0],true,this.GD.level,false);
-               this.addCoreRewardSummary(rewardOrder0,rewardTotals0,fixed0.name,fixed0.num);
+                this.addCoreRewardSummary(fixedOrder0,fixedTotals0,fixed0.name,fixed0.num);
             }
             Game.uiGroup.addGift_byArr([d3],true,this.GD.level,false);
             if(d3.id == "GCoin_card_4")
             {
                this.addCoreRewardSummary(rewardOrder0,rewardTotals0,"G币",int(d3.price));
             }
-            else
-            {
-               this.addCoreRewardSummary(rewardOrder0,rewardTotals0,d3.name,d3.num);
-            }
+             else
+             {
+                this.addCoreRewardSummary(rewardOrder0,rewardTotals0,d3.name,d3.num);
+             }
+             easterArr0 = this.getRareCoreEasterRewards(cardType0);
+             for each(easter0 in easterArr0)
+             {
+                Game.uiGroup.addGift_byArr([easter0],true,this.GD.level,false);
+                this.addCoreRewardSummary(easterOrder0,easterTotals0,easter0.name,easter0.num);
+             }
             father0.useItemsData(it0,1);
             this.GD.propsItems.useItemsNum(toolLabel0,1);
             opened0++;
@@ -609,7 +621,7 @@
          }
          if(opened0 > 0)
          {
-            this.showCoreRewardPages(rewardOrder0,rewardTotals0,result0);
+             this.showCoreRewardPages(fixedOrder0,fixedTotals0,rewardOrder0,rewardTotals0,easterOrder0,easterTotals0,result0);
          }
          else
          {
@@ -621,13 +633,13 @@
       {
          if(cardType0 == "drop_box")
          {
-            return 50000;
+            return 75000;
          }
          if(cardType0 == "drop_box2")
          {
-            return 100000;
+            return 200000;
          }
-         return 200000;
+         return 500000;
       }
 
       private function getCoreFixedMaterials(cardType0:String) : Array
@@ -638,15 +650,47 @@
          var n:* = undefined;
          if(cardType0 == "drop_box2")
          {
-            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy,10",-1,true));
-            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy_Z,10",-1,true));
-            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy_X,10",-1,true));
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy,50",-1,true));
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy_Z,35",-1,true));
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials,superalloy_X,25",-1,true));
             return result0;
          }
          for(n in names0)
          {
             level0 = cardType0 == "drop_box" ? 2 + int(Math.random() * 3) : 5 + int(Math.random() * 3);
-            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials," + names0[n] + "_" + level0 + ",10",-1,true));
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("materials," + names0[n] + "_" + level0 + ",25",-1,true));
+         }
+         return result0;
+      }
+
+      private function getRareCoreEasterRewards(cardType0:String) : Array
+      {
+         var result0:Array = [];
+         var pool0:Array = null;
+         var canGet0:Array = [];
+         var one0:GoodsDefine = null;
+         if(cardType0 != "drop_box3")
+         {
+            return result0;
+         }
+         if(Math.random() < 0.001 && this.GD.armsItems.getSurplus() + this.GD.subItems.getSurplus() > 0)
+         {
+            pool0 = Game.goodsDefineGroup.Marms.concat(Game.goodsDefineGroup.Msub);
+            for each(one0 in pool0)
+            {
+               if(one0 != null && Game.gameData.checkArms_byIDArr([one0.define.id]) == "")
+               {
+                  canGet0.push(one0);
+               }
+            }
+            if(canGet0.length > 0)
+            {
+               result0.push((canGet0[int(Math.random() * canGet0.length)] as GoodsDefine).copy());
+            }
+         }
+         if(Math.random() < 0.01)
+         {
+            result0.push(Game.goodsDefineGroup.getDefine_byStr3("props,research_upgrade_card,1",-1,true));
          }
          return result0;
       }
@@ -661,25 +705,45 @@
          totals0[name0] += num0;
       }
 
-      private function showCoreRewardPages(order0:Array, totals0:Object, footer0:String = "") : *
+      private function addCoreRewardCategory(lines0:Array, title0:String, order0:Array, totals0:Object) : *
+      {
+         var name0:String = null;
+         lines0.push("【" + title0 + "】");
+         if(order0.length == 0)
+         {
+            lines0.push("无");
+            return;
+         }
+         for each(name0 in order0)
+         {
+            lines0.push(name0 + "×" + totals0[name0]);
+         }
+      }
+
+      private function showCoreRewardPages(fixedOrder0:Array, fixedTotals0:Object, randomOrder0:Array, randomTotals0:Object, easterOrder0:Array, easterTotals0:Object, footer0:String = "") : *
       {
          var page0:String = null;
-         var name0:String = null;
+         var lines0:Array = [];
          var i:int = 0;
          var pageCount0:int = 0;
+         this.addCoreRewardCategory(lines0,"固定奖励",fixedOrder0,fixedTotals0);
+         this.addCoreRewardCategory(lines0,"随机奖励",randomOrder0,randomTotals0);
+         if(easterOrder0.length > 0)
+         {
+            this.addCoreRewardCategory(lines0,"彩蛋奖励",easterOrder0,easterTotals0);
+         }
          this.coreRewardPages = [];
-         while(i < order0.length)
+         while(i < lines0.length)
          {
             page0 = "";
             pageCount0 = 0;
-            while(i < order0.length && pageCount0 < 6)
+            while(i < lines0.length && pageCount0 < 8)
             {
-               name0 = order0[i];
                if(page0 != "")
                {
-                  page0 += pageCount0 % 3 == 0 ? "\n" : "，";
+                  page0 += "\n";
                }
-               page0 += name0 + "×" + totals0[name0];
+               page0 += lines0[i];
                i++;
                pageCount0++;
             }

@@ -895,6 +895,7 @@ package
          stage.addEventListener(KeyboardEvent.KEY_UP,keysGroup.keyUp);
          gameSprite.shootMouseL.addEventListener(MouseEvent.MOUSE_DOWN,this.GamingMClick);
          gameSprite.shootMouseL.addEventListener(MouseEvent.MOUSE_UP,this.GamingMUp);
+         gameSprite.shootMouseL.addEventListener(MouseEvent.MOUSE_WHEEL,this.GamingMWheel);
          uiGroup.show("resumeGame");
       }
       
@@ -923,6 +924,7 @@ package
                stage.removeEventListener(KeyboardEvent.KEY_UP,keysGroup.keyUp);
                gameSprite.shootMouseL.removeEventListener(MouseEvent.MOUSE_DOWN,this.GamingMClick);
                gameSprite.shootMouseL.removeEventListener(MouseEvent.MOUSE_UP,this.GamingMUp);
+               gameSprite.shootMouseL.removeEventListener(MouseEvent.MOUSE_WHEEL,this.GamingMWheel);
             }
          }
       }
@@ -966,6 +968,28 @@ package
       internal function GamingMMove(e:*) : *
       {
       }
+
+      internal function GamingMWheel(e:MouseEvent) : *
+      {
+         var direction:int = e.delta > 0 ? -1 : 1;
+         var start:int = gameData.nowArmsIndex;
+         var site:int = start;
+         var count:int = 0;
+         if(gameState != "gaming" || !gamingTimerB)
+         {
+            return;
+         }
+         while(count < 8)
+         {
+            site = (site + direction + 8) % 8;
+            if(gameData.armsItems.getEquipBySite(site) != null)
+            {
+               eventGroup.changArms(site);
+               return;
+            }
+            count++;
+         }
+      }
       
       public function allTimer(event:Event) : *
       {
@@ -990,6 +1014,29 @@ package
       
       internal function keyUp(event:KeyboardEvent) : *
       {
+         if(event.keyCode == keysGroup.getBinding("menu"))
+         {
+            if(uiGroup.allback.isSettingsOpen())
+            {
+               uiGroup.allback.closeSoundSettings();
+            }
+            else if(gameState == "gaming")
+            {
+               if(uiGroup.menuUI.visible)
+               {
+                  uiGroup.show("resumeGame");
+               }
+               else
+               {
+                  uiGroup.show("menu");
+               }
+            }
+            else
+            {
+               uiGroup.allback.openSoundSettings();
+            }
+            return;
+         }
          if(!getTest())
          {
             return;

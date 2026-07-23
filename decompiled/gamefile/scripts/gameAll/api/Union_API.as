@@ -4,7 +4,7 @@ package gameAll.api
    import flash.display.Stage;
    import flash.utils.getTimer;
    import unit4399.events.UnionEvent;
-   
+
    public class Union_API
    {
       
@@ -641,18 +641,19 @@ package gameAll.api
          this._dissolveUnionNoFun = null;
          this._dissolveUnionYesFun = _yesFun;
          this._dissolveUnionNoFun = _noFun;
-         if(!Game.serviceHold)
-         {
-            var dissolveState:Object = this.getLocalState(false);
-            if(dissolveState.exists)
-            {
-               dissolveState.unionInfo.dissolveDate = actionType == 0 ? "0" : "1";
-               this.saveLocalState();
-               if(_yesFun is Function)
-               {
-                  _yesFun(actionType == 0 ? "已取消" : "离线存档保留期间");
-               }
-            }
+          if(!Game.serviceHold)
+          {
+             var dissolveState:Object = this.getLocalState(false);
+             if(dissolveState.exists)
+             {
+                var retainedContribution:int = actionType == 1 ? int(dissolveState.member.contribution) : 0;
+                Game.gameData.offlineUnion = this.makeEmptyLocalState(retainedContribution);
+                this.saveLocalState();
+                if(_yesFun is Function)
+                {
+                   _yesFun("已立即解散");
+                }
+             }
             this._dissolveUnionYesFun = null;
             this._dissolveUnionNoFun = null;
             return;
@@ -1229,20 +1230,26 @@ package gameAll.api
          };
       }
       
-      private function makeEmptyLocalState() : Object
-      {
-         return {
-            "version":1,
-            "exists":false,
-            "unionInfo":null,
-            "member":null,
-            "variables":this.makeLocalVariables()
-         };
-      }
-      
-      private function makeLocalUnion(title:String, idx:int, extra:String) : Object
-      {
-         var name:String = this.localPlayerName();
+       private function makeEmptyLocalState(retainedContribution:int = 0) : Object
+       {
+          return {
+             "version":1,
+             "exists":false,
+             "unionInfo":null,
+             "member":null,
+             "variables":this.makeLocalVariables(),
+             "retainedContribution":retainedContribution
+          };
+       }
+
+       private function makeLocalUnion(title:String, idx:int, extra:String) : Object
+       {
+          var name:String = this.localPlayerName();
+          var retainedContribution:int = 0;
+          if(Game.gameData.offlineUnion != null && Game.gameData.offlineUnion.hasOwnProperty("retainedContribution"))
+          {
+             retainedContribution = int(Game.gameData.offlineUnion.retainedContribution);
+          }
          if(title == null || title == "")
          {
             title = "离线公会";
@@ -1266,7 +1273,7 @@ package gameAll.api
             "uId":(Game.gameData.uid > 0 ? Game.gameData.uid : 1),
             "index":idx,
             "userName":name,
-            "contribution":450,
+             "contribution":retainedContribution > 0 ? retainedContribution : 450,
             "extra":memberExtra
          };
          var unionInfo:Object = {
@@ -1286,9 +1293,10 @@ package gameAll.api
          return {
             "version":1,
             "exists":true,
-            "unionInfo":unionInfo,
-            "member":member,
-            "variables":this.makeLocalVariables()
+             "unionInfo":unionInfo,
+             "member":member,
+             "variables":this.makeLocalVariables(),
+             "retainedContribution":0
          };
       }
       
@@ -1313,12 +1321,24 @@ package gameAll.api
             Game.gameData.offlineUnion = state;
             this.saveLocalState();
          }
-         if(!state.hasOwnProperty("variables") || state.variables == null)
-         {
-            state.variables = this.makeLocalVariables();
-            this.saveLocalState();
-         }
-         return state;
+          if(!state.hasOwnProperty("variables") || state.variables == null)
+          {
+             state.variables = this.makeLocalVariables();
+             this.saveLocalState();
+          }
+          if(!state.hasOwnProperty("retainedContribution"))
+          {
+             state.retainedContribution = 0;
+             this.saveLocalState();
+          }
+          if(state.exists && state.unionInfo != null && String(state.unionInfo.dissolveDate) != "0")
+          {
+             var legacyContribution:int = state.member == null ? 0 : int(state.member.contribution);
+             state = this.makeEmptyLocalState(legacyContribution);
+             Game.gameData.offlineUnion = state;
+             this.saveLocalState();
+          }
+          return state;
       }
       
       private function getLocalListItem(unionInfo:Object) : Object

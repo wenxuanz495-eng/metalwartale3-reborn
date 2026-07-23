@@ -50,10 +50,10 @@ package body.hero
          {
             if(this.enabled)
             {
-               kA = this.KG.arr[Keyboard.A];
-               kD = this.KG.arr[Keyboard.D];
-               kW = this.KG.arr[Keyboard.W];
-               kS = this.KG.arr[Keyboard.S];
+               kA = this.KG.arr[this.KG.getBinding("moveLeft")];
+               kD = this.KG.arr[this.KG.getBinding("moveRight")];
+               kW = this.KG.arr[this.KG.getBinding("jump")];
+               kS = this.KG.arr[this.KG.getBinding("interact")];
                if(kA.state == kD.state)
                {
                   if(kA.s == "up" || kD.s == "up")
@@ -131,10 +131,10 @@ package body.hero
          var k4:Keys = KG.arr[52];
          var kSpace:Keys = KG.arr[Keyboard.SPACE];
          var bb14:Boolean = Game.LG.level is SpecialExtraLevel_5;
-         for(var n:int = 49; n <= 58; n++)
+         for(var n:int = 0; n < 8; n++)
          {
-            knum = KG.arr[n];
-            index0 = n - 49;
+            knum = KG.arr[KG.weaponKeys[n]];
+            index0 = n;
             if(knum.s == "down")
             {
                if(!bb14)
@@ -161,7 +161,11 @@ package body.hero
          {
             s0 = arr0[n];
             d0 = s0.define;
-            code0 = int(Keyboard[s0.define.key]);
+            code0 = int(KG.skillKeys[s0.define.name]);
+            if(code0 <= 0)
+            {
+               code0 = int(Keyboard[s0.define.key]);
+            }
             key0 = KG.arr[code0];
             openB0 = false;
             closeB0 = false;

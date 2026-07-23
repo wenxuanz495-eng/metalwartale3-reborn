@@ -8,8 +8,8 @@ set "TEST_ROOT=%REPO_ROOT%\build\phase5-tests"
 set "SERVER=%REPO_ROOT%\build\server.exe"
 set "GAME=%REPO_ROOT%\build\game.swf"
 set "FRESH=%REPO_ROOT%\swf\empty-save-template.bin"
-set "PROGRESS=D:\superalloy\1.26\saves\game_save.bin"
-set "LEGACY=D:\superalloy\1.1老存档兼容迁移样本-20260722\saves\game_save.bin"
+set "PROGRESS=D:\superalloy\归档\旧版本与压缩包\1.26\saves\game_save.bin"
+set "LEGACY=D:\superalloy\归档\存档备份\1.1老存档兼容迁移样本-20260722\saves\game_save.bin"
 
 if /i not "%TEST_ROOT%"=="%REPO_ROOT%\build\phase5-tests" goto unsafe_path
 if not exist "%SERVER%" goto missing_input

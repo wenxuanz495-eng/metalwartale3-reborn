@@ -28,6 +28,7 @@ package enemy._die
          this.lighting_mc.x = rect0.x + rect0.width / 2;
          this.lighting_mc.y = rect0.y + rect0.height / 2;
          this.lighting_mc.play();
+         Game.SG.playDeathDelayElectric();
       }
       
       public function toDie() : *

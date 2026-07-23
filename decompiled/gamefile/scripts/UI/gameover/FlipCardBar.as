@@ -84,6 +84,14 @@ package UI.gameover
             {
                this.itemsIcon.visible = true;
                this.itemsIcon.inData_byGoodsDefine(d0,true);
+               if(this.goodsDefineStr.indexOf("MCoin,") == 0)
+               {
+                  this.itemsIcon.num_mc.txt.width = 60;
+                  this.itemsIcon.num_mc.txt.x = -this.itemsIcon.num_mc.txt.width;
+                  this.itemsIcon.num_mc.txt.y = -this.itemsIcon.num_mc.txt.height;
+                  this.itemsIcon.num_mc.txt.text = int(d0.price) + "MB";
+                  this.itemsIcon.num_mc.visible = true;
+               }
             }
             this.txt.visible = this.showYouGetB;
             this.box.alpha = 0;

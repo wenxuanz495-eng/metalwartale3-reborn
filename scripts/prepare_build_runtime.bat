@@ -8,6 +8,7 @@ set "BUILD_DIR=%REPO_ROOT%\build"
 set "MANIFEST=%REPO_ROOT%\docs\baselines\1.26.2.1-BAT.sha256"
 set "RESOURCE_SOURCE=%REPO_ROOT%\swf"
 set "RESOURCE_COUNT=0"
+set "RESOURCE_PROGRESS=0"
 set "COPY_FAILED="
 
 if not exist "%MANIFEST%" goto missing_input
@@ -21,8 +22,17 @@ for /f "usebackq tokens=1,*" %%H in ("%MANIFEST%") do call :copy_resource "%%H" 
 if defined COPY_FAILED goto copy_failed
 if not "!RESOURCE_COUNT!"=="175" goto count_failed
 
+if not exist "%REPO_ROOT%\config\build\resource-overrides\car1130.swf" goto missing_input
+if not exist "%REPO_ROOT%\config\build\resource-overrides\battle_boom.mp3" goto missing_input
+if not exist "%REPO_ROOT%\config\build\resource-overrides\death_electric.mp3" goto missing_input
+if not exist "%REPO_ROOT%\config\build\resource-overrides\death_delay_electric.mp3" goto missing_input
+if not exist "%REPO_ROOT%\config\build\resource-overrides\environment_break.mp3" goto missing_input
+copy /y "%REPO_ROOT%\config\build\resource-overrides\car1130.swf" "%BUILD_DIR%\swf\car1130.swf" >nul
+if errorlevel 1 goto copy_failed
+for %%F in ("%REPO_ROOT%\config\build\resource-overrides\*.mp3") do copy /y "%%~fF" "%BUILD_DIR%\swf\%%~nxF" >nul
+
 if exist "%REPO_ROOT%\runtime\modifier.html" copy /y "%REPO_ROOT%\runtime\modifier.html" "%BUILD_DIR%\modifier.html" >nul
-if exist "%REPO_ROOT%\runtime\公告.txt" copy /y "%REPO_ROOT%\runtime\公告.txt" "%BUILD_DIR%\公告.txt" >nul
+for %%F in ("%REPO_ROOT%\runtime\*.txt") do if "%%~zF"=="4608" copy /y "%%~fF" "%BUILD_DIR%\%%~nxF" >nul
 
 echo Runtime prepared from tracked repository resources: !RESOURCE_COUNT! files.
 exit /b 0
@@ -51,6 +61,8 @@ if errorlevel 1 (
   exit /b 0
 )
 set /a RESOURCE_COUNT+=1
+set /a RESOURCE_PROGRESS=RESOURCE_COUNT%%25
+if "!RESOURCE_PROGRESS!"=="0" echo [CHECK] Runtime resources verified: !RESOURCE_COUNT!/175
 exit /b 0
 
 :hash_file

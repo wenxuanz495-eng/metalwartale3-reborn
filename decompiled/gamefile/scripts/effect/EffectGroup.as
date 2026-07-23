@@ -70,13 +70,25 @@ package effect
          smc.mc.rotation = ra / Math.PI * 180;
          doc.addChild(smc.mc);
          smc._isPlaying = true;
+         if(label0 == "boom_effect")
+         {
+            Game.SG.playBattleBoom();
+         }
+         else if(label0 == "electric_effect")
+         {
+            Game.SG.playDeathElectric();
+         }
+         else if(label0 == "thingsBoom" || label0 == "thingsBoom2")
+         {
+            Game.SG.playEnvironmentBreak();
+         }
          if(Game.gamingTimerB)
          {
             smc.play();
          }
          return smc;
       }
-      
+
       public function pauseAllEffect() : *
       {
          var n:* = undefined;

@@ -1,3 +1,31 @@
 # Paths are relative to decompiled\gamefile\scripts.
 # The 1.26.2.1-BAT baseline already contains every source change through commit 0def067.
 # Add only classes changed after that baseline, one path per line.
+gameAll\EventGroup.as
+UI\union\MyUnion.as
+gameAll\api\Union_API.as
+UI\union\UnionBattle.as
+gameAll\data\GiftData.as
+gameAll\level\Levels.as
+items\ItemsController.as
+items\ItemsDefineGroup.as
+gameAll\define\ArenaFlipCardDefine.as
+gameAll\define\UnionFlipCardDefine.as
+gameAll\define\ExtraFlipCardDefine.as
+UI\items\ItemsIcon.as
+UI\gameover\FlipCardBar.as
+sound\SoundGroup.as
+UI\AllBack.as
+UI\UIGroup.as
+sound\OneSound.as
+sound\OneMusic.as
+UI\gaming\LeftMenuUI.as
+effect\EffectGroup.as
+effect\EffectSMC.as
+enemy\_die\DieDelay.as
+enemy\_die\DieDelayGroup.as
+Game.as
+body\key\KeysGroup.as
+body\hero\HeroCarKey.as
+UI\gaming\GamingUI.as
+UI\gaming\GamingPauseUI.as

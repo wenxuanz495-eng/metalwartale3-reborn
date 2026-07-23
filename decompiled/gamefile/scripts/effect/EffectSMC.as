@@ -11,6 +11,15 @@ package effect
       {
          super(mc0,label0,father0);
       }
+
+      override public function gotoAndPlay(num:int) : *
+      {
+         super.gotoAndPlay(num);
+         if(this.label == "electric_effect" && num == 1)
+         {
+            Game.SG.playDeathElectric();
+         }
+      }
    }
 }
 

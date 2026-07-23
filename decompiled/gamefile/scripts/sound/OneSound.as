@@ -39,7 +39,7 @@ package sound
          {
             return;
          }
-         this.SC = this.s.play(0,_loopNum,new SoundTransform(_v0));
+         this.SC = this.s.play(0,_loopNum,new SoundTransform(_v0 * Game.SG.effectsVolume * Game.SG.soundVolume));
       }
       
       public function getPlayB() : Boolean

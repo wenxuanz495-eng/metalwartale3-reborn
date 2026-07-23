@@ -66,6 +66,12 @@ package gameAll.data
       public var unionTaskGeted:String = "";
       
       public var unionFightPrize:String = "";
+
+      public var unionBattleDifficulty:int = 0;
+
+      public var unionBattleMask:int = 0;
+
+      public var unionBattleCooldown:Number = 0;
       
       public var unionBuild:String = "";
       
@@ -340,14 +346,42 @@ package gameAll.data
          {
             this.unionShoped = obj.unionShoped;
          }
-         if(!obj.hasOwnProperty("unionCityFighted"))
+          if(!obj.hasOwnProperty("unionCityFighted"))
          {
             this.unionCityFighted = "";
          }
          else
          {
-            this.unionCityFighted = obj.unionCityFighted;
-         }
+             this.unionCityFighted = obj.unionCityFighted;
+          }
+          if(obj.hasOwnProperty("unionBattleDifficulty"))
+          {
+             this.unionBattleDifficulty = Math.max(0,Math.min(3,int(obj.unionBattleDifficulty)));
+          }
+          else
+          {
+             this.unionBattleDifficulty = 0;
+          }
+          if(obj.hasOwnProperty("unionBattleMask"))
+          {
+             this.unionBattleMask = Math.max(0,Math.min(31,int(obj.unionBattleMask)));
+          }
+          else
+          {
+             this.unionBattleMask = 0;
+          }
+          if(obj.hasOwnProperty("unionBattleCooldown"))
+          {
+             this.unionBattleCooldown = Number(obj.unionBattleCooldown);
+             if(isNaN(this.unionBattleCooldown))
+             {
+                this.unionBattleCooldown = 0;
+             }
+          }
+          else
+          {
+             this.unionBattleCooldown = 0;
+          }
          if(!obj.hasOwnProperty("starShoped"))
          {
             this.starShoped = "";
@@ -1341,6 +1375,66 @@ package gameAll.data
       public function AddUnionFightPrize(str:String) : void
       {
          this.unionFightPrize += str + "|";
+      }
+
+      public function getUnionBattleDifficulty() : int
+      {
+         return Math.max(0,Math.min(3,this.unionBattleDifficulty));
+      }
+
+      public function getUnionBattleCooldownLeft() : int
+      {
+         var left0:Number = this.unionBattleCooldown - new Date().time;
+         if(left0 <= 0)
+         {
+            this.unionBattleCooldown = 0;
+            return 0;
+         }
+         return Math.ceil(left0 / 1000);
+      }
+
+      public function getUnionBattleCityCompleted(cityId0:int) : Boolean
+      {
+         if(cityId0 < 1 || cityId0 > 5)
+         {
+            return false;
+         }
+         return (this.unionBattleMask & 1 << (cityId0 - 1)) != 0;
+      }
+
+      public function getUnionBattleRemainingCount() : int
+      {
+         var completed0:int = 0;
+         for(var cityId0:int = 1; cityId0 <= 5; cityId0++)
+         {
+            if(this.getUnionBattleCityCompleted(cityId0))
+            {
+               completed0++;
+            }
+         }
+         return 5 - completed0;
+      }
+
+      public function completeUnionBattleCity(cityId0:int) : int
+      {
+         if(this.getUnionBattleCooldownLeft() > 0 || this.getUnionBattleCityCompleted(cityId0))
+         {
+            return 0;
+         }
+         this.unionBattleMask |= 1 << (cityId0 - 1);
+         if(this.unionBattleMask == 31)
+         {
+            this.unionBattleMask = 0;
+            if(this.unionBattleDifficulty < 3)
+            {
+               this.unionBattleDifficulty++;
+               return 2;
+            }
+            this.unionBattleDifficulty = 0;
+            this.unionBattleCooldown = new Date().time + 600000;
+            return 3;
+         }
+         return 1;
       }
       
       public function GetUnionFightGeted(str:String) : Boolean

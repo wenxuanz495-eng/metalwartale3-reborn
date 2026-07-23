@@ -128,9 +128,9 @@ package UI.union
             case "btn_leave":
                Game.uiGroup.checkTip.showCheck("退出公会后你的公会贡献将全部清零！是否确定？",this.sureExitUnion);
                break;
-            case "btn_dissolve":
-               Game.uiGroup.checkTip.showCheck("解散公会后你的公会贡献将全部清零！是否确定？",this.sureDissolve);
-               break;
+             case "btn_dissolve":
+                Game.uiGroup.checkTip.showCheck("公会将立即解散且没有冷却时间。\n是否保留个人公会贡献？\n确定：保留并解散；取消：清零并解散。",this.sureDissolveKeepContribution,this.sureDissolveClearContribution);
+                break;
             case "btn_undissolve":
                Game.uiGroup.checkTip.showCheck("是否要取消解散？",this.sureUnDissolve);
                break;
@@ -450,23 +450,31 @@ package UI.union
          Game.union_api.dissolveUnion(Game.nowSaveIndex,0,okFun,noFun);
       }
       
-      private function sureDissolve() : void
-      {
-         var okFun:Function = function(str:String):void
-         {
-            mc_box["btn_dissolve"].visible = false;
-            mc_box["btn_undissolve"].visible = true;
-            _data.unionInfo.dissolveDate = "1";
-            Game.uiGroup.checkTip.showCheck2("公会将在 " + str + " 解散",2);
-            father.hideAllWindows();
-         };
+       private function sureDissolveKeepContribution() : void
+       {
+          this.dissolveNow(true);
+       }
+
+       private function sureDissolveClearContribution() : void
+       {
+          this.dissolveNow(false);
+       }
+
+       private function dissolveNow(keepContribution:Boolean) : void
+       {
+          var okFun:Function = function(str:String):void
+          {
+             Game.uiGroup.checkTip.showCheck2(keepContribution ? "公会已解散，个人贡献已保留。" : "公会已解散，个人贡献已清零。",2);
+             father.InitBox(1);
+             father.hideAllWindows();
+          };
          var noFun:Function = function(errs:String):void
          {
             Game.uiGroup.checkTip.showCheck2(errs,2);
             father.hideAllWindows();
          };
-         Game.union_api.dissolveUnion(Game.nowSaveIndex,1,okFun,noFun);
-      }
+          Game.union_api.dissolveUnion(Game.nowSaveIndex,keepContribution ? 1 : 2,okFun,noFun);
+       }
       
       private function sureExitUnion() : void
       {

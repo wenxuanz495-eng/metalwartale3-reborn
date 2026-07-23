@@ -141,6 +141,40 @@ package UI.gaming
          this.skillBox.x = 227;
          this.skillBox.y = 470;
          this.arms_y = this.arms1.y;
+         this.fleshKeyLabels();
+      }
+
+      public function fleshKeyLabels() : *
+      {
+         var n:int = 0;
+         var skillDefine:* = null;
+         var skillIcon:* = null;
+         if(this.arms_icon != null)
+         {
+            for(n = 0; n < this.arms_icon.length; n++)
+            {
+               this.arms_icon[n].numTxt.text = this.keyName(Game.keysGroup.weaponKeys[n]);
+            }
+         }
+         if(this.skillBox != null)
+         {
+            for(n = 0; n < Game.defineGroup.skill.arr.length; n++)
+            {
+               skillDefine = Game.defineGroup.skill.arr[n];
+               skillIcon = this.skillBox.arr[n];
+               if(skillDefine.name != "jump" && skillIcon != null && Game.keysGroup.skillKeys[skillDefine.name] !== undefined)
+               {
+                  skillIcon.keyTxt.text = this.keyName(int(Game.keysGroup.skillKeys[skillDefine.name]));
+               }
+            }
+         }
+      }
+
+      private function keyName(code:int) : String
+      {
+         if(code == 32) return "空格";
+         if(code >= 48 && code <= 90) return String.fromCharCode(code);
+         return String(code);
       }
       
       public function showState(str0:String = "") : *
