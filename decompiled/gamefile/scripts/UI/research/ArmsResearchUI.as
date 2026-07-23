@@ -1189,11 +1189,9 @@ package UI.research
                   this.fleshBag();
                   Game.SG.playSound("dragDown");
                }
-               else if(this.dragFather == null && id0.chipHole === items0)
+               else if(this.dragFather == null && this.returnEquippedChipToBag(items0,id0))
                {
                   trace("芯片孔:" + items0.site + "   拖到背包");
-                  id0.chipHole = new Object();
-                  this.materialsItems.addItemsData(items0.copy(1),1,false);
                   this.fleshHole_byNowInlayArms();
                   this.fleshBag();
                   Game.SG.playSound("dragDown");
@@ -1245,11 +1243,9 @@ package UI.research
                   Game.uiGroup.checkTip.showTip("背包已满，无法完成此操作！",2);
                   Game.SG.playSound("failureItems");
                }
-               else if(items0.type == "chip" && inBagB && id0.chipHole === items0)
+               else if(items0.type == "chip" && inBagB && this.returnEquippedChipToBag(items0,id0))
                {
                   trace("芯片孔:" + items0.site + "   拖到背包");
-                  id0.chipHole = new Object();
-                  this.materialsItems.addItemsData(items0.copy(1),1,false);
                   this.fleshHole_byNowInlayArms();
                   this.fleshBag();
                   Game.SG.playSound("dragDown");
@@ -1329,29 +1325,38 @@ package UI.research
                      trace("嵌入芯片");
                      items2 = items0.copy(1);
                      items2.site = 0;
-                     id0.chipHole = items2;
-                     this.materialsItems.useItemsData(items0);
-                     this.fleshHole_byNowInlayArms();
-                     this.fleshBag();
-                     Game.SG.playSound("holeChip");
+                     if(this.materialsItems.useItemsDataReal(items0))
+                     {
+                        id0.chipHole = items2;
+                        this.fleshHole_byNowInlayArms();
+                        this.fleshBag();
+                        Game.SG.playSound("holeChip");
+                     }
                   }
                   else if(iai.state == "fill")
                   {
                      id3 = iai.itemsData;
                      if(id3.type == "chip")
                      {
-                        str3 = this.materialsItems.addItemsData(id3,1,false);
-                        if(str3 == null)
+                        items3 = items0.copy(1);
+                        items3.site = 0;
+                        if(!this.materialsItems.useItemsDataReal(items0))
                         {
-                           trace("添加物品不成功，则不执行操作");
+                           trace("芯片不存在或数量不足，不执行替换");
                            Game.SG.playSound("dragDown");
                         }
                         else
                         {
-                           items3 = items0.copy(1);
-                           items3.site = 0;
+                           str3 = this.materialsItems.addItemsData(id3,1,false);
+                           if(str3 == null)
+                           {
+                              this.materialsItems.addItemsData(items3,1,false);
+                              trace("旧芯片无法放回背包，已撤销替换");
+                              Game.SG.playSound("dragDown");
+                              this.fleshBag();
+                              return;
+                           }
                            id0.chipHole = items3;
-                           this.materialsItems.useItemsData(items0);
                            this.fleshHole_byNowInlayArms();
                            this.fleshBag();
                            trace("替换物品成功！");
@@ -1361,7 +1366,26 @@ package UI.research
                   }
                }
             }
+            if(this.dragTarget != null)
+            {
+               this.stopDraging();
+            }
          }
+      }
+
+      private function returnEquippedChipToBag(items0:GoodsItemsData, id0:ArmsItemsData) : Boolean
+      {
+         if(id0 == null || id0.chipHole !== items0)
+         {
+            return false;
+         }
+         if(this.materialsItems.addItemsData(items0.copy(1),1,false) == null)
+         {
+            return false;
+         }
+         id0.chipHole = new Object();
+         id0.fleshData();
+         return true;
       }
       
       private function chipDown(event:MouseEvent) : *

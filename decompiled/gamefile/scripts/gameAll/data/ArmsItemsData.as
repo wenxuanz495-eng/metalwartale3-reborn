@@ -83,8 +83,9 @@ package gameAll.data
          this.maxEnergy = 2 * this.baseEnergy * (this.add.energy_max + 1);
          this.maxEnergyRate = this.baseEnergyRate * (1 + this.add.energy_rate);
          var d0:OneArmsDefine = this.define;
-         this.dpsHurt = d0.baseDps * this.add.dps_pro + this.add.dps;
+         this.define.itemsData = this;
          this.define.fleshData();
+         this.dpsHurt = d0.baseDps * this.add.dps_pro + this.add.dps;
          if(Game.gameState != "gaming")
          {
             this.nowEnergy = this.maxEnergy;
@@ -238,6 +239,25 @@ package gameAll.data
             return this.chipHole.getPurpleGrowthLevel();
          }
          return 0;
+      }
+
+      public function getNativeGrowthLevel() : int
+      {
+         var growth0:int = 0;
+         if(this.define.specialType.indexOf("Level_Growth") >= 0)
+         {
+            growth0 = int(this.define.specialType.split("_Growth_")[1]);
+            if(this.define.id.indexOf("con") == 0)
+            {
+               growth0 += this.strengLevel;
+            }
+         }
+         return growth0;
+      }
+
+      public function allowsGrowthBeyond200() : Boolean
+      {
+         return this.define.id == "zhonglichongjipao" || this.define.id == "microwave" && this.define.name == "浩劫呼唤";
       }
 
       public function canInstallPurpleChip() : Boolean

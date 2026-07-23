@@ -484,6 +484,19 @@ package gameAll.data
             id.nowNum -= num0;
          }
       }
+
+      public function useItemsDataReal(id:GoodsItemsData, num0:int = 1) : Boolean
+      {
+         if(id == null || this.arr.indexOf(id) < 0 || id.nowNum < num0)
+         {
+            return false;
+         }
+         var oldValue:Boolean = Game.gameData.modCraftFree;
+         Game.gameData.modCraftFree = false;
+         this.useItemsData(id,num0);
+         Game.gameData.modCraftFree = oldValue;
+         return true;
+      }
       
       public function useItemsNum(str:String, num0:int = 1) : Boolean
       {

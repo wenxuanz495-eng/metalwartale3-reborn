@@ -14,6 +14,7 @@ gameAll\define\UnionFlipCardDefine.as
 gameAll\define\ExtraFlipCardDefine.as
 gameAll\define\other\DropBox3Define.as
 UI\items\ItemsIcon.as
+UI\items\ItemsInfoTip.as
 UI\change\MaterialsUI.as
 UI\_new\change\CtrlListCtrl.as
 UI\change\ArmsItemsTip.as

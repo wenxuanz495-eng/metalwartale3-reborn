@@ -389,21 +389,26 @@ package body.define
       
       public function fleshData() : *
       {
-         var addLevel0:int = 0;
+         var nativeGrowth0:int = 0;
+         var chipGrowth0:int = 0;
          var growthLevel0:int = this.originalCommonLevel;
          if(this.specialType.indexOf("Level_Growth") >= 0)
          {
-            addLevel0 = int(this.specialType.split("_Growth_")[1]);
-            growthLevel0 = Game.gameData.level + addLevel0 + 1;
+            nativeGrowth0 = int(this.specialType.split("_Growth_")[1]);
             if(this.id.indexOf("con") == 0)
             {
-               growthLevel0 += this.itemsData.strengLevel;
+               nativeGrowth0 += this.itemsData.strengLevel;
             }
+            growthLevel0 = Game.gameData.level + nativeGrowth0 + 1;
          }
-         addLevel0 = this.itemsData.getPurpleChipGrowthLevel();
-         if(addLevel0 > 0)
+         chipGrowth0 = this.itemsData.getPurpleChipGrowthLevel();
+         if(chipGrowth0 > 0)
          {
-            growthLevel0 = Math.max(growthLevel0,Math.min(200,Game.gameData.level + addLevel0 + 1));
+            growthLevel0 = Game.gameData.level + nativeGrowth0 + chipGrowth0 + 1;
+            if(!this.itemsData.allowsGrowthBeyond200())
+            {
+               growthLevel0 = Math.min(200,growthLevel0);
+            }
          }
          this.commonLevel = Math.max(this.originalCommonLevel,growthLevel0);
          this.baseDps = Game.gameDefine.getDpsByLevel(this.commonLevel);

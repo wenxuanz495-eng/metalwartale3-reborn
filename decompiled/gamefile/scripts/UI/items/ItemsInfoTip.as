@@ -48,6 +48,11 @@ package UI.items
          }
          var str0:String = "";
          str0 += this.getFontColor(define0.description,"#CCCCCC") + "\n";
+         if(aid.isPurpleChip())
+         {
+            str0 += this.getFontColor("\n成长型：人物等级+" + aid.getPurpleGrowthLevel(),"#FF72FF") + "\n";
+            str0 += this.getFontColor("（人物等级+原生成长+芯片成长高于武器基础等级时，才会触发共鸣。）","#FF72FF") + "\n";
+         }
          if(aid.type != "card")
          {
             str0 += this.getFontColor("\n价格：","#FFFF00") + aid.getSellPrice() + " G币";
