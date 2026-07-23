@@ -11,6 +11,8 @@
 5. [战术与 Roguelike 模式设计](TACTICAL_MODE.md)：增加操作和配装深度的长期方案。
 6. [开发与发布](DEVELOPMENT.md)：编译、测试、提交和发布约定。
 7. [FFDec开发工作流](FFDEC_WORKFLOW.md)：模块导出、源码/XML编辑、构建和部署。
+8. [1.26.2.1-BAT 黄金基准](BASELINE_1.26.2.1.md)：只读参考版、哈希范围和第一阶段差异结论。
+9. [纯 BAT 运行体系](BAT_RUNTIME.md)：合作版玩家入口、权威存档路径和自检方式。
 
 ## 文档状态约定
 

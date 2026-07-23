@@ -1,4 +1,4 @@
-﻿# 超合金战记 3 离线版源码
+# 超合金战记 3 离线版源码
 
 本仓库保存 Flash 反编译源码、原始 SWF 输入资源、Go 本地服务端，以及构建和 Debug 测试工具。
 
@@ -10,60 +10,57 @@ D:\superalloy\metalwartale3-reborn.git
 
 GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 
-**强制协作规则见根目录 [`AGENTS.md`](AGENTS.md)。**
+强制协作规则见根目录 [`AGENTS.md`](AGENTS.md)。
 
-> 注意：`D:\superalloy\metalwartale3-reborn` 是空目录，不要在那里开发。  
-> `超合金离线优化海豹版1.2` 是已验证玩法与发行壳参考，不是源码 SSOT。
+> `D:\superalloy\metalwartale3-reborn` 是空目录，不要在那里开发。
+> `D:\superalloy\1.26.2.1-BAT\1.26.2.1` 是只读黄金参考版，不是源码工作区。
 
-## 开发启动（当前）
+## 开发运行
 
-## 启动脚本（按播放器区分）
+玩家运行入口已改为纯 BAT，不再调用 PowerShell。构建链将在第三阶段改造成可复现的纯 BAT 构建；当前构建入口仍沿用原脚本。
 
-1. `构建.bat`：只构建
-2. `启动游戏-flashplayer_sa.bat`：`flashplayer_sa.exe`
-3. `启动游戏-flashplayer_sa_debug.bat`：`flashplayer_sa_debug.exe`
+1. `构建.bat`：构建服务端和游戏 SWF。
+2. `启动游戏.bat`：纯 BAT 启动普通 SA 播放器。
+3. `启动游戏-flashplayer_sa.bat`：普通 SA 对照入口。
+4. `启动游戏-flashplayer_sa_debug.bat`：Debug Player 入口。
+5. `启动修改器.bat`：纯 BAT 启动修改器。
 
+纯 BAT 运行细节见 [`docs/BAT_RUNTIME.md`](docs/BAT_RUNTIME.md)。根目录游戏入口直接启动已有的 `build/server.exe` 与 `build/game.swf`，自动准备资源、寻找端口、等待健康检查，并在播放器退出后清理本次服务端。
 
-见 [docs/DEV_RUN.md](docs/DEV_RUN.md)。根目录 启动游戏.bat 会：
+权威开发存档：
 
-1. go build server（缓存到 D:\\superalloy\\.gopath）
-2. FFDec 构建 uild/game.swf`n3. 用 	ools/debug/flashplayer_sa_debug.exe 打开
-
-> 不要再把 
-untime/ 当作主运行路径。
+```text
+build\saves\game_save.bin
+```
 
 ## 目录
 
 - `decompiled/`：ActionScript 源码、嵌入 XML、符号表和提取资源。
-- `swf/`：主游戏 SWF、提取出的内嵌 SWF 和全部原始资源 SWF。
-- `server/`：Go 本地资源、存档和接口模拟服务端（**权威存档链路**）。
-- `runtime/`：可运行壳部署目录（启动脚本、公告、修改器入口等；由构建填充）。
-- `scripts/`：构建、部署、发行体检脚本。
+- `swf/`：主游戏 SWF、提取出的内嵌 SWF和原始资源 SWF。
+- `server/`：Go 本地资源、存档和修改器 API 源码。
+- `runtime/`：运行壳模板、公告和修改器页面。
+- `scripts/`：纯 BAT 运行工具及现有构建、部署和发行体检脚本。
 - `tools/packaging/ffdec/`：构建 SWF 使用的 FFDec CLI。
-- `tools/debug/`：CleanFlash SA Debugger 和启动脚本。
+- `tools/debug/`：CleanFlash SA Debugger。
 - `docs/`：架构、规则、问题记录和开发文档。
 
-## 合并决策（摘要）
+## 合并决策
 
 | 维度 | 决策 |
 |---|---|
-| 玩法 | 以海豹 1.2 为准 |
-| 权威存档 | 本仓库 Go + `saves/game_save.bin` |
-| 运行壳/修改器体验 | 以 1.2 为准 |
-| 源码 | 本仓库 `decompiled/` SSOT |
+| 玩法 | 以现成版进度为当前黄金行为 |
+| 权威存档 | 本仓库 Go + `build/saves/game_save.bin` |
+| 运行壳 | 纯 BAT |
+| 源码 | 本仓库 `decompiled/` + `server/` SSOT |
 | 公会 | 本仓库本地单人公会 |
-| 定制武器商城价 | 统一 20,000 M币 |
+| 定制武器商城价 | 统一 20,000 MB |
 
-完整规则：[`docs/SEAL_RULES.md`](docs/SEAL_RULES.md)  
-差异台账：[`docs/MERGE_DIFF_1.2.md`](docs/MERGE_DIFF_1.2.md)
+完整规则见 [`docs/SEAL_RULES.md`](docs/SEAL_RULES.md)，黄金基准见 [`docs/BASELINE_1.26.2.1.md`](docs/BASELINE_1.26.2.1.md)。
 
 ## 仓库边界
 
-原始 SWF、源码资源、服务端源码和开发工具需要同步。  
-重新编译生成的 SWF、发行 ZIP、服务端 EXE、存档、日志和构建缓存不进入 Git。
+源码、配置、运行脚本和必要的原始资源需要同步。重新编译生成的 SWF、发行压缩包、服务端 EXE、存档、日志和历史备份不进入 Git。
 
-Flash 代码重新编译前，应阅读 [`docs/FFDEC_CONTROL_FLOW_REGRESSION.md`](docs/FFDEC_CONTROL_FLOW_REGRESSION.md)，并对复杂方法比较原始与构建后 P-code，避免反编译控制流回归。
+Flash 代码重新编译前，应阅读 [`docs/FFDEC_CONTROL_FLOW_REGRESSION.md`](docs/FFDEC_CONTROL_FLOW_REGRESSION.md)，并对复杂方法比较原始与构建后 P-code。
 
-备份统一放在仓库外：`D:\superalloy\1.2文件备份\`。
-
-
+备份统一放在仓库外的约定目录；禁止将玩家存档或临时验证目录提交进 Git。
