@@ -10,6 +10,6 @@ if not "%BUILD_ERROR%"=="0" (
   exit /b %BUILD_ERROR%
 )
 echo.
-echo Build completed. Run start-game-flashplayer_sa.bat to play.
+echo Build completed. Run 启动游戏.bat to play.
 pause
 exit /b 0
