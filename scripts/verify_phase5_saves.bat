@@ -34,6 +34,7 @@ call :test_fixture legacy-1.1 "%LEGACY%" 8893
 if errorlevel 1 exit /b %ERRORLEVEL%
 
 call :cleanup
+rd /s /q "%TEST_ROOT%" >nul 2>nul
 echo [OK] Three isolated save round trips passed.
 exit /b 0
 
@@ -101,6 +102,7 @@ exit /b 0
 :fixture_failed
 echo [ERROR] Save round trip failed: !NAME!
 call :cleanup
+rd /s /q "%TEST_ROOT%" >nul 2>nul
 exit /b 11
 
 :unsafe_path
