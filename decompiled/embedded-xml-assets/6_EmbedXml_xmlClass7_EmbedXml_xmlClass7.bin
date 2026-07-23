@@ -3477,7 +3477,7 @@
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>75</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
 			<mustLevel>60</mustLevel>    <!-- 需要的人物等级-->
 			<mustItems>2,240,100</mustItems>    <!-- 需要的物品标签集合-->
