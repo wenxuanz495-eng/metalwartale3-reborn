@@ -1189,7 +1189,7 @@ package UI.research
                   this.fleshBag();
                   Game.SG.playSound("dragDown");
                }
-               else if(this.dragFather == null)
+               else if(this.dragFather == null && id0.chipHole === items0)
                {
                   trace("芯片孔:" + items0.site + "   拖到背包");
                   id0.chipHole = new Object();
@@ -1245,7 +1245,7 @@ package UI.research
                   Game.uiGroup.checkTip.showTip("背包已满，无法完成此操作！",2);
                   Game.SG.playSound("failureItems");
                }
-               else if(items0.type == "chip" && inBagB)
+               else if(items0.type == "chip" && inBagB && id0.chipHole === items0)
                {
                   trace("芯片孔:" + items0.site + "   拖到背包");
                   id0.chipHole = new Object();
