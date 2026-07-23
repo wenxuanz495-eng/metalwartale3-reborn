@@ -1084,6 +1084,16 @@ package UI.research
             this.no_arr[2].visible = true;
             this.mustArmsIcon.visible = false;
          }
+         if(Game.gameData.modCraftFree)
+         {
+            this.upgrade_conditionB = true;
+            this.upgradeNonMaterialB = true;
+            this.upgradeMaterialsB = true;
+            this.upgradeCoinB = true;
+            this.condition_icon1.gotoAndStop(1);
+            this.condition_icon3.gotoAndStop(1);
+            this.condition_icon4.gotoAndStop(1);
+         }
          if(this.upgrade_conditionB || this.upgradeNonMaterialB && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
          {
             this.upgrade_btn.alpha = 1;
@@ -1443,7 +1453,7 @@ package UI.research
             }
             return;
          }
-         if(!this.useResearchUpgradeCardB)
+         if(!this.useResearchUpgradeCardB && !Game.gameData.modCraftFree)
          {
             for(n in this.mustItemsBox.arr)
             {
@@ -1460,7 +1470,7 @@ package UI.research
             Game.gameData.propsItems.useItemsNum("research_upgrade_card",1);
          }
          d0 = this.nowArms.itemsData;
-         if(!this.useResearchUpgradeCardB)
+         if(!this.useResearchUpgradeCardB && !Game.gameData.modCraftFree)
          {
             Game.gameData.addCoin(-d0.price);
          }
