@@ -254,7 +254,27 @@ package gameAll.data
          {
             return false;
          }
-         return this.define.originalCommonLevel < 180;
+         return this.getPurpleChipFamilyMaxLevel() < 180;
+      }
+
+      public function getPurpleChipFamilyMaxLevel() : int
+      {
+         var n:* = undefined;
+         var d0:OneArmsDefine = null;
+         var level0:int = 0;
+         var max0:int = 0;
+         var arr0:Array = Game.defineGroup.getArmsDefineArr(this.define.id);
+         for(n in arr0)
+         {
+            d0 = arr0[n];
+            level0 = d0.originalCommonLevel;
+            if(d0.specialType.indexOf("Level_Growth") >= 0)
+            {
+               level0 = 150 + int(d0.specialType.split("_Growth_")[1]);
+            }
+            max0 = Math.max(max0,level0);
+         }
+         return max0;
       }
 
       public function getPurpleChipBlockReason() : String
@@ -267,7 +287,7 @@ package gameAll.data
          {
             return "定制武器不能安装紫色芯片。";
          }
-         return "原始等级达到180级的后期武器不能安装紫色芯片。";
+         return "最终形态达到180级的后期武器系列不能安装紫色芯片。";
       }
 
       public function hasLevelGrowth() : Boolean
