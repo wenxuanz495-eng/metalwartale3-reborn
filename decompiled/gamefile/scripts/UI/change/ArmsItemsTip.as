@@ -75,12 +75,7 @@ package UI.change
          if(aid.chipHole is GoodsItemsData && aid.chipHole.isPurpleChip())
          {
             var growth0:int = aid.chipHole.getPurpleGrowthLevel();
-            var combinedGrowth0:int = aid.getNativeGrowthLevel() + growth0;
-            var chipLevel0:int = Game.gameData.level + combinedGrowth0 + 1;
-            if(!aid.allowsGrowthBeyond200())
-            {
-               chipLevel0 = Math.min(200,chipLevel0);
-            }
+            var chipLevel0:int = aid.getPurpleGrowthCalculatedLevel();
             str += this.getColor("紫芯片共鸣：原生+" + aid.getNativeGrowthLevel() + "，芯片+" + growth0 + "，计算等级" + chipLevel0 + "级" + (chipLevel0 > define0.originalCommonLevel ? "（已生效）" : "（未超过武器原始等级）"),"#FF66FF") + "<br />";
          }
          str += this.getFontColor("武器伤害：") + int(define0.getAllDataHurt()) + "<br />";

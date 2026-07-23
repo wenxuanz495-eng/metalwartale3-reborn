@@ -404,11 +404,7 @@ package body.define
          chipGrowth0 = this.itemsData.getPurpleChipGrowthLevel();
          if(chipGrowth0 > 0)
          {
-            growthLevel0 = Game.gameData.level + nativeGrowth0 + chipGrowth0 + 1;
-            if(!this.itemsData.allowsGrowthBeyond200())
-            {
-               growthLevel0 = Math.min(200,growthLevel0);
-            }
+            growthLevel0 = this.itemsData.getPurpleGrowthCalculatedLevel();
          }
          this.commonLevel = Math.max(this.originalCommonLevel,growthLevel0);
          this.baseDps = Game.gameDefine.getDpsByLevel(this.commonLevel);

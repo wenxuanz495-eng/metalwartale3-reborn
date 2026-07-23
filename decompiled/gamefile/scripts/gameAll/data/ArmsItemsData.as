@@ -260,6 +260,21 @@ package gameAll.data
          return this.define.id == "zhonglichongjipao" || this.define.id == "microwave" && this.define.name == "浩劫呼唤";
       }
 
+      public function getPurpleGrowthCalculatedLevel() : int
+      {
+         var chipGrowth0:int = this.getPurpleChipGrowthLevel();
+         var level0:int = Game.gameData.level + this.getNativeGrowthLevel() + chipGrowth0 + 1;
+         if(this.define.id == "zhonglichongjipao")
+         {
+            level0 = Math.max(Game.gameData.level + 1,this.define.originalCommonLevel) + chipGrowth0;
+         }
+         if(!this.allowsGrowthBeyond200())
+         {
+            level0 = Math.min(200,level0);
+         }
+         return Math.max(this.define.originalCommonLevel,level0);
+      }
+
       public function canInstallPurpleChip() : Boolean
       {
          if(this.define.discount == -1000)
