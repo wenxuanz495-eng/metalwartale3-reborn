@@ -610,7 +610,11 @@
             }
             if(d3.type == "materials")
             {
-               if(this.GD.materialsItems.getItemsByBase(d3.id) == null && !requiredMaterial0.hasOwnProperty(d3.id))
+               if(d3.define != null && d3.define.type == "chip")
+               {
+                  requiredMaterialNum0++;
+               }
+               else if(this.GD.materialsItems.getItemsByBase(d3.id) == null && !requiredMaterial0.hasOwnProperty(d3.id))
                {
                   requiredMaterial0[d3.id] = true;
                   requiredMaterialNum0++;
