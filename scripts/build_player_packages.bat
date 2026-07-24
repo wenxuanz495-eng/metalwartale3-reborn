@@ -19,6 +19,8 @@ for /f "usebackq delims=" %%H in (`powershell.exe -NoProfile -Command "(Get-File
 if not "%PLAYER_VERSION%"=="34.0.0.330" goto invalid_player
 if /i not "%PLAYER_ACTUAL_SHA256%"=="%PLAYER_SHA256%" goto invalid_player
 if not exist "%SILENT_SOURCE%\_diagnostics\silenced-sounds.csv" goto missing_silent
+if not exist "%SILENT_SOURCE%\静音版说明.txt" goto missing_silent_docs
+if not exist "%SILENT_SOURCE%\死亡音效替换文件清单.txt" goto missing_silent_docs
 
 call "%REPO_ROOT%\scripts\build_all.bat"
 if errorlevel 1 exit /b %ERRORLEVEL%
@@ -33,6 +35,8 @@ if errorlevel 1 exit /b %ERRORLEVEL%
  xcopy "%SILENT_SOURCE%\swf" "%SILENT%\build\swf\" /e /i /q /y >nul
 copy /y "%REPO_ROOT%\build\game.swf" "%SILENT%\build\game.swf" >nul
 copy /y "%REPO_ROOT%\build\server.exe" "%SILENT%\build\server.exe" >nul
+copy /y "%SILENT_SOURCE%\静音版说明.txt" "%SILENT%\静音版说明.txt" >nul
+copy /y "%SILENT_SOURCE%\死亡音效替换文件清单.txt" "%SILENT%\死亡音效替换文件清单.txt" >nul
 
 "%ProgramFiles%\7-Zip\7z.exe" a -t7z "%NORMAL%.7z" "%NORMAL%" -mx=9
 if errorlevel 1 exit /b %ERRORLEVEL%
@@ -74,3 +78,6 @@ exit /b 5
 :missing_silent
 echo [ERROR] Missing silent replacement manifest: %SILENT_SOURCE%
 exit /b 4
+:missing_silent_docs
+echo [ERROR] Missing 静音版说明.txt or 死亡音效替换文件清单.txt: %SILENT_SOURCE%
+exit /b 6
