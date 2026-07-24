@@ -32,6 +32,14 @@ func deflatedAMFObject(t *testing.T) []byte {
 	return compressed.Bytes()
 }
 
+func TestGameURLUsesBuildArtifact(t *testing.T) {
+	got := gameURL("127.0.0.1", 8765)
+	want := "http://127.0.0.1:8765/build/game.swf"
+	if got != want {
+		t.Fatalf("gameURL() = %q, want %q", got, want)
+	}
+}
+
 func rawDeflatedAMF3Object(t *testing.T) []byte {
 	t.Helper()
 	amf3 := []byte{

@@ -4,13 +4,10 @@
 
 ## 唯一工作区
 
-- **唯一 Git 工作区 / 源码 SSOT**：`D:\superalloy\metalwartale3-reborn.git`
+- **唯一 Git 工作区 / 源码 SSOT**：以当前检出的本 Git 仓库根目录为准；通过 `git rev-parse --show-toplevel` 解析，禁止依赖机器特定的绝对路径
 - **GitHub remote**：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 - 以后所有开发、提交、文档更新、功能合并，默认都在此仓库内进行。
-- 不要在以下路径继续当作主工程开发：
-  - `D:\superalloy\metalwartale3-reborn`（空壳，勿用）
-  - `D:\superalloy\11.4`（历史参考，只读）
-  - `D:\superalloy\超合金离线优化海豹版1.2`（当前可玩发行样例，仅作导出/对照，不是源码 SSOT）
+- 不要把同名空壳目录、11.4 历史参考目录或 1.2 可玩发行样例当作主工程；它们仅可用于只读导出或对照
 
 ## 合并总策略（已确认）
 
@@ -38,14 +35,14 @@
 
 ## 备份策略
 
-- 修改前备份放在仓库外：`D:\superalloy\1.2文件备份\`
+- 修改前备份必须放在仓库外；备份根目录由开发者按本机环境选择，禁止在项目规则或脚本中硬编码机器特定的绝对路径
 - 备份目录名必须标注用途与日期，例如：`VIP地图时间与冷却修改前-20260721`
 - **禁止**把备份、玩家存档、`saves/`、临时 verify 目录提交进 Git
 
 ## 开发流程（默认）
 
 1. 在本仓库改 `decompiled/` 或 `server/` 或 `docs/`
-2. 用根目录 `构建.bat` 或 `scripts/build_all.bat` 执行纯 BAT 构建
+2. 用 `scripts/dev.ps1 build` 执行 PowerShell 开发构建
 3. 部署到 `runtime/`（或约定的本地运行目录）
 4. 用 `flashplayer_32_sa_debug` 做最小回归
 5. 更新 `docs/PROJECT_STATUS.md` / `docs/SEAL_RULES.md`
@@ -60,7 +57,7 @@
 - 禁止未读 `docs/FFDEC_CONTROL_FLOW_REGRESSION.md` 就大范围回编译复杂方法
 - 禁止对 667 个反编译类执行整库 `importScript`；只允许使用 `config/build/` 的显式最小补丁清单
 - 禁止把 `EmbedXml_xmlClass*.as` 作为脚本导入；嵌入 XML 必须按 BinaryData 字符 ID 替换
-- `Game.as` 变更必须完成 P-code 对比和 Debug Player 回归，并为当前源码哈希登记审批
+- `Game.as` 变更必须通过自动 P-code控制流检查，并完成 Debug Player回归
 
 ## 近期优先任务
 
@@ -78,13 +75,14 @@
 - `docs/COLLAB_WORKSPACE.md`：工作区说明
 - `docs/OFFLINE_ARCHITECTURE.md`：离线架构
 - `docs/DEVELOPMENT.md`：开发与发布
-- `docs/REPRODUCIBLE_BUILD.md`：纯 BAT 可复现构建与高风险补丁审批
+- `docs/REPRODUCIBLE_BUILD.md`：PowerShell可复现构建与自动 P-code检查
 
 ## 开发启动
 
-- 构建：根目录 `构建.bat`
+- 构建：`powershell -File scripts\dev.ps1 build`
 - 运行：根目录 `启动游戏.bat`
-- 验收：`scripts/verify_phase3.bat`
-- 完整发行验收：`scripts/verify_phase5.bat`
-- Go 模块缓存：`D:\superalloy\.gopath`
+- 快速验收：`powershell -File scripts\dev.ps1 verify -Mode quick`
+- 完整验收：`powershell -File scripts\dev.ps1 verify -Mode full`
+- 发行验收：`powershell -File scripts\dev.ps1 verify -Mode release`
+- Go 模块与构建缓存使用 Go 默认环境，或由开发者通过标准 Go 环境变量显式配置；禁止依赖机器特定的绝对路径
 - 不要以 `runtime/` 为主运行目录

@@ -2,37 +2,32 @@
 
 本仓库保存 Flash 反编译源码、原始 SWF 输入资源、Go 本地服务端，以及构建和 Debug 测试工具。
 
-## 唯一工作区
-
-```text
-D:\superalloy\metalwartale3-reborn.git
-```
-
 GitHub：`https://github.com/wenxuanz495-eng/metalwartale3-reborn.git`
 
 强制协作规则见根目录 [`AGENTS.md`](AGENTS.md)。
 
-> `D:\superalloy\metalwartale3-reborn` 是空目录，不要在那里开发。
-> `D:\superalloy\1.26.2.1-BAT\1.26.2.1` 是只读黄金参考版，不是源码工作区。
+仓库可 clone到任意本地路径；开发脚本从自身位置解析仓库根目录。
 
 ## 开发运行
 
-玩家运行入口和正式构建链均为纯 BAT，不调用 PowerShell。主 SWF 从仓库内冻结的 `1.26.2.1-BAT` 基线开始，只导入清单中明确列出的 ActionScript 或 BinaryData 变更，避免整库回编译引入不可见回归。
+玩家发行包运行入口使用 BAT；源码开发、构建、验收和打包统一从
+`scripts/dev.ps1` 进入。主 SWF 从仓库内冻结的 `1.26.2.1-BAT` 基线开始，
+只导入清单中明确列出的 ActionScript 或 BinaryData 变更。
 
-1. `构建.bat`：构建服务端和游戏 SWF。
+1. `scripts/dev.ps1 build`：开发构建服务端和游戏 SWF。
 2. `启动游戏.bat`：纯 BAT 启动普通 SA 播放器。
-3. `启动游戏-flashplayer_sa.bat`：普通 SA 对照入口。
-4. `启动游戏-flashplayer_sa_debug.bat`：Debug Player 入口。
-5. `启动修改器.bat`：纯 BAT 启动修改器。
+3. `启动游戏-flashplayer_sa_debug.bat`：Debug Player入口。
+4. `启动修改器.bat`：纯 BAT启动修改器。
 
-第五阶段自动化验收：`scripts\verify_phase5.bat`。发行包生成：`scripts\build_release.bat`，默认输出 `release\1.26.3-source-synced`。
+快速/完整/发行验收统一使用 `scripts/dev.ps1 verify`。发行包使用
+`scripts/dev.ps1 release -Version <版本名>` 生成。
 
 纯 BAT 运行细节见 [`docs/BAT_RUNTIME.md`](docs/BAT_RUNTIME.md)，构建规则见 [`docs/REPRODUCIBLE_BUILD.md`](docs/REPRODUCIBLE_BUILD.md)。根目录游戏入口直接启动已有的 `build/server.exe` 与 `build/game.swf`，自动准备资源、寻找端口、等待健康检查，并在播放器退出后清理本次服务端。
 
 权威开发存档：
 
 ```text
-build\saves\game_save.bin
+saves\game_save.bin
 ```
 
 ## 目录
@@ -51,7 +46,7 @@ build\saves\game_save.bin
 | 维度 | 决策 |
 |---|---|
 | 玩法 | 以现成版进度为当前黄金行为 |
-| 权威存档 | 本仓库 Go + `build/saves/game_save.bin` |
+| 权威存档 | 本仓库 Go + 根目录 `saves/game_save.bin` |
 | 运行壳 | 纯 BAT |
 | 源码 | 本仓库 `decompiled/` + `server/` SSOT |
 | 公会 | 本仓库本地单人公会 |

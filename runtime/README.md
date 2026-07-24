@@ -2,7 +2,7 @@
 
 请改用：
 
-- scripts/run_dev.ps1
+- 根目录中文 BAT 入口
 - scripts/build_server.ps1
 - scripts/build_swf.ps1
 

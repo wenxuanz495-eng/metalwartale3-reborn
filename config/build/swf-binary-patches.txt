@@ -1,7 +1,24 @@
 # Format: characterId|path relative to repository root
-# The 1.26.2.1-BAT baseline already contains all 21 current embedded XML assets.
-# Add only BinaryData changed after that baseline, one entry per line.
+# All embedded XML is replaced explicitly so line endings and output bytes are
+# independent of the machine that cloned the repository.
+1|decompiled\embedded-xml-assets\1_EmbedXml_xmlClass5_EmbedXml_xmlClass5.bin
 2|decompiled\embedded-xml-assets\2_EmbedXml_xmlClass3_EmbedXml_xmlClass3.bin
 3|decompiled\embedded-xml-assets\3_EmbedXml_xmlClass2_EmbedXml_xmlClass2.bin
+4|decompiled\embedded-xml-assets\4_EmbedXml_xmlClass9_EmbedXml_xmlClass9.bin
+5|decompiled\embedded-xml-assets\5_EmbedXml_xmlClass8_EmbedXml_xmlClass8.bin
 6|decompiled\embedded-xml-assets\6_EmbedXml_xmlClass7_EmbedXml_xmlClass7.bin
+7|decompiled\embedded-xml-assets\7_EmbedXml_xmlClass6_EmbedXml_xmlClass6.bin
+8|decompiled\embedded-xml-assets\8_EmbedXml_xmlClass17_EmbedXml_xmlClass17.bin
+9|decompiled\embedded-xml-assets\9_EmbedXml_xmlClass18_EmbedXml_xmlClass18.bin
+10|decompiled\embedded-xml-assets\10_EmbedXml_xmlClass19_EmbedXml_xmlClass19.bin
+11|decompiled\embedded-xml-assets\11_EmbedXml_xmlClass14_EmbedXml_xmlClass14.bin
+12|decompiled\embedded-xml-assets\12_EmbedXml_xmlClass15_EmbedXml_xmlClass15.bin
+13|decompiled\embedded-xml-assets\13_EmbedXml_xmlClass16_EmbedXml_xmlClass16.bin
+14|decompiled\embedded-xml-assets\14_EmbedXml_xmlClass1_EmbedXml_xmlClass1.bin
+15|decompiled\embedded-xml-assets\15_EmbedXml_xmlClass10_EmbedXml_xmlClass10.bin
+16|decompiled\embedded-xml-assets\16_EmbedXml_xmlClass20_EmbedXml_xmlClass20.bin
+17|decompiled\embedded-xml-assets\17_EmbedXml_xmlClass11_EmbedXml_xmlClass11.bin
+18|decompiled\embedded-xml-assets\18_EmbedXml_xmlClass21_EmbedXml_xmlClass21.bin
 19|decompiled\embedded-xml-assets\19_EmbedXml_xmlClass12_EmbedXml_xmlClass12.bin
+20|decompiled\embedded-xml-assets\20_EmbedXml_xmlClass4.bin
+21|decompiled\embedded-xml-assets\21_EmbedXml_xmlClass13.bin

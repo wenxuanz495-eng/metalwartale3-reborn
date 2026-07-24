@@ -1,0 +1,7 @@
+method
+code
+ofs0000:
+jump ofs9999
+returnvoid
+end ; code
+end ; method

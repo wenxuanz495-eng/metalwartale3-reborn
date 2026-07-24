@@ -44,8 +44,8 @@ func main() {
 		}
 		return
 	}
-	if _, err := os.Stat(filepath.Join(root, "game.swf")); err != nil {
-		log.Fatalf("game.swf missing in %s", root)
+	if _, err := os.Stat(filepath.Join(root, "build", "game.swf")); err != nil {
+		log.Fatalf("build/game.swf missing in %s", root)
 	}
 
 	application := &app{root: root, store: store}

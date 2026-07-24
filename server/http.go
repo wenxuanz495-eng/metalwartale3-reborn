@@ -342,5 +342,5 @@ func logRequest(next http.Handler) http.Handler {
 }
 
 func gameURL(host string, port int) string {
-	return fmt.Sprintf("http://%s:%d/game.swf", host, port)
+	return fmt.Sprintf("http://%s:%d/build/game.swf", host, port)
 }

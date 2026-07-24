@@ -13,7 +13,7 @@
 火绒等安全软件仍可能误判 launch.ps1。若双击启动游戏后没有反应：
 1. 打开安全软件隔离区并恢复 launch.ps1。
 2. 将整个游戏文件夹加入信任区。
-3. 确认 FlashPlayer.exe、game.swf、launch.ps1 和 swf 文件夹均在原位。
+3. 确认 tools\runtime\flashplayer_sa.exe、build\game.swf 和 build\swf 文件夹均在原位。
 
 launch.ps1 只会建立独立的本地存储环境并调用独立播放器；它不会修改系统 Flash 信任目录、启动服务器或连接公网。
 

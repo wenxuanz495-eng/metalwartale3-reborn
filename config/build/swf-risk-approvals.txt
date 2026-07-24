@@ -1,3 +1,0 @@
-# Format: path relative to decompiled\gamefile\scripts|approved source SHA256
-# Add an entry only after baseline/candidate P-code comparison and Debug Player regression.
-Game.as|DBC60AAE3D7FD3E16CB3651F1426C3DDB36BF7909568139BD1904D85B22BBB84

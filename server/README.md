@@ -20,10 +20,6 @@ go test ./...
 
 ## 构建
 
-双击 `build-server.bat`。测试通过后，生成物会安全替换
-`offline/server.exe`。服务端运行时仍以 EXE 所在的 `offline/`
-作为静态资源和存档根目录。
-
-`offline/build-server.bat` 是兼容入口，会转发到这里。
-
-旧版 Python 参考实现仍位于 `offline/server.py`，不参与正式运行。
+从仓库根目录运行 `scripts/dev.ps1 build`。生成物为
+`build/server.exe`，运行时以仓库或发行包根目录作为静态资源和权威存档
+根目录。

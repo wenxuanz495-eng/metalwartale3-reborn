@@ -1,1 +1,3 @@
 *.bat text eol=crlf
+*.as text eol=lf
+decompiled/embedded-xml-assets/*.bin text eol=lf

@@ -1,15 +1,16 @@
-# scripts/
+# 开发与运行脚本
 
-构建、运行、回归和发行辅助脚本。正式链路使用纯 BAT。
+开发者只使用 `dev.ps1`：
 
-建议命令：
-
-```bat
-scripts\verify_phase3.bat
-scripts\verify_phase4.bat
-scripts\verify_phase5.bat
-scripts\build_release.bat
-scripts\check_release.bat release\1.26.3-source-synced
+```powershell
+.\scripts\dev.ps1 build
+.\scripts\dev.ps1 verify -Mode quick
+.\scripts\dev.ps1 verify -Mode full
+.\scripts\dev.ps1 verify -Mode release
+.\scripts\dev.ps1 release -Version 版本号
+.\scripts\dev.ps1 audit
+.\scripts\dev.ps1 check-release -Path release\版本号
 ```
 
-旧 PowerShell 脚本仅保留作历史诊断，不属于正式构建或发行入口。
+`runtime/` 中的四个 BAT 是发行运行链，由根目录中文入口调用。发行包不包含
+开发构建或验收脚本。

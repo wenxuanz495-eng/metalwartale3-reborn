@@ -36,19 +36,8 @@ D:\superalloy\metalwartale3-reborn.git
 - `yagao.json`
 - `client_errors.log` 和其它日志
 
-重新生成清单：
-
-```bat
-scripts\create_golden_manifest.bat
-```
-
-脚本只读取黄金目录，输出写入源码仓库的 `docs\baselines`。
-
-只读验证黄金版未发生变化：
-
-```bat
-scripts\verify_golden_manifest.bat
-```
+历史清单不再由开发脚本生成或作为构建门禁；当前开发验收使用
+`scripts/dev.ps1 verify`。正式构建只校验仓库内不可变主 SWF基线。
 
 ## 第一阶段差异结论
 

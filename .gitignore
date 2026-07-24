@@ -66,7 +66,6 @@ Desktop.ini
 # Runtime build artifacts and player binaries (rebuild locally)
 /runtime/server.exe
 /runtime/modifier-engine.exe
-/runtime/FlashPlayer.exe
 /runtime/flashplayer_sa_debug.exe
 /runtime/game.swf
 /runtime/game.base.swf

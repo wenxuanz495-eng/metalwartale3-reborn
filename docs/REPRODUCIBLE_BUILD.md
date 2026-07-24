@@ -18,13 +18,12 @@ SHA256 F54B78B5F3DC57101C62556B2D3830B051F686304D12C13B1DB8ABD0F833A37E
 ## 构建入口
 
 ```bat
-构建.bat
-scripts\build_all.bat
-scripts\verify_reproducible_build.bat
-scripts\verify_phase3.bat
+scripts\dev.ps1 build
+scripts\dev.ps1 verify -Mode full
 ```
 
-`build_all.bat` 构建 Go 服务端、主 SWF，再从仓库跟踪文件准备 175 个运行资源。正式链路不调用 PowerShell。
+`dev.ps1 build` 构建 Go 服务端、主 SWF，再从仓库跟踪文件准备175个运行资源。
+PowerShell用于开发；发行运行链仍为 BAT。
 
 ## 最小补丁清单
 
@@ -47,16 +46,39 @@ UI\_new\change\CtrlListCtrl.as
 逐类审计 667 个 ActionScript 类的结果是：645 个精确一致、22 个不同、0 个编译失败。22 个不同项包括 21 个 `EmbedXml_xmlClass*.as` 包装类和 `Game.as`。
 
 - 21 个包装类列在 `swf-forbidden-script-patches.txt`，构建会拒绝导入；对应数据只能走 BinaryData 替换。
-- `Game.as` 列在 `swf-risky-script-patches.txt`。修改后必须比较基线和候选 P-code，并用 Debug Player 完成人工回归。
-- 高风险类通过后，在 `swf-risk-approvals.txt` 登记 `路径|当前源码SHA256`。源码再次变化时旧审批自动失效。
-- `audit_source_baseline.bat` 可重新执行逐类审计，结果写入 `build/source-baseline-audit/results.tsv`。
+- `Game.as` 构建后自动导出 P-code，检查无效跳转、无出口控制流环和不可达退出。
+- 报告写入 `build/verification/pcode-report.txt`，不再维护依赖换行格式的人工源码哈希。
+- `dev.ps1 audit` 可重新执行逐类审计，结果写入 `build/source-baseline-audit/results.tsv`。
 
 ## 修改流程
 
 1. 修改 `decompiled/` 或 `server/` 中的源码。
 2. AS 类加入脚本补丁清单；嵌入 XML 加入 BinaryData 补丁清单。
 3. 复杂控制流先阅读 `FFDEC_CONTROL_FLOW_REGRESSION.md`；高风险类完成 P-code 审批。
-4. 运行 `scripts\verify_phase3.bat`。
+4. 运行 `scripts\dev.ps1 verify -Mode full`。
 5. 用 Debug Player 进入受影响玩法做人工回归，再提交源码、清单与文档。
 
-`verify_reproducible_build.bat` 会连续构建两次并做字节比较，导出并核对全部 21 份 BinaryData。补丁清单为空时，还要求最终 SWF 与不可变基线完全相同。
+`dev.ps1 verify -Mode full` 会连续构建两次并做字节比较，导出并核对全部
+21份 BinaryData。
+
+## 增量构建缓存
+
+日常 `dev.ps1 build` 和 `verify -Mode quick` 使用位于
+`build/cache/swf/` 的内容寻址缓存。缓存键覆盖不可变基线、FFDec、
+补丁清单及其引用文件、禁止清单和 P-code 检查器，不依赖文件时间戳。
+
+- 输入完全不变时直接恢复已经通过 P-code 检查的最终 `game.swf`。
+- ActionScript 不变时复用批量导入后的候选 SWF。
+- BinaryData 变化时复用变化位置之前的链式检查点。
+- 缓存文件或元数据损坏时自动视为未命中并安全重建。
+
+构建日志会显示 `final hit`、`AS-stage hit`、`BinaryData resume N/21`
+或 `final miss`。需要诊断冷构建时使用：
+
+```powershell
+.\scripts\dev.ps1 build -NoSwfCache
+```
+
+`verify -Mode full` 和 `release` 中的可复现性检查始终绕过缓存并真实构建
+两次。缓存不参与版本控制和发行输入；需要清理时可删除
+`build/cache/swf/`，下次构建会自动重新生成。

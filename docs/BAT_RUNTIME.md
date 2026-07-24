@@ -4,18 +4,20 @@
 
 ## 目标
 
-合作版的玩家运行入口不依赖 PowerShell。游戏、修改器、备份、清档、打开目录、战车修复和残留清理均由 BAT 直接驱动 Windows 工具及项目 EXE。
+合作版的玩家运行入口不依赖 PowerShell。根目录仅保留游戏、Debug、修改器
+和工具入口；备份、清档、打开目录、战车修复和残留清理由
+`工具.bat` 统一提供。
 
-权威运行目录：
+游戏从根目录运行，构建产物位于：
 
 ```text
 build\
 ```
 
-权威存档：
+权威存档位于游戏根目录：
 
 ```text
-build\saves\game_save.bin
+saves\game_save.bin
 ```
 
 ## 玩家入口
@@ -23,36 +25,33 @@ build\saves\game_save.bin
 | 入口 | 行为 |
 |---|---|
 | `启动游戏.bat` | 使用普通 SA 播放器启动 |
-| `启动游戏-flashplayer_sa.bat` | 普通 SA 对照入口 |
 | `启动游戏-flashplayer_sa_debug.bat` | Debug Player 入口 |
-| `启动修改器.bat` / `修改器.bat` | 备份后启动修改器 |
-| `一键备份存档.bat` | 备份到 `build\saves\backups` |
-| `清除存档.bat` | 二次确认后清除合作版存档 |
-| `打开存档目录.bat` | 打开权威存档目录 |
-| `打开存档备份文件夹.bat` | 打开合作版备份目录 |
-| `战车属性为零修复.bat` | 直接调用 `build\server.exe` 修复 |
-| `清理后台残留.bat` | 只清理合作版专用窗口标题的进程树 |
+| `启动修改器.bat` | 备份后启动修改器 |
+| `工具.bat` | 备份、清档、打开存档目录及其他维护操作 |
 
 ## 内部 BAT
 
-- `scripts\build_all.bat`：依次构建 Go 服务端、主 SWF，并准备完整运行目录。
-- `scripts\build_swf.bat`：从不可变基线应用显式最小补丁清单。
-- `scripts\prepare_build_runtime.bat`：只用仓库已跟踪资源重建 `build/` 的 175 个运行资源。
-- `scripts\launch_game.bat`：端口探测、服务健康检查、播放器启动和退出清理。
-- `scripts\launch_modifier.bat`：存档备份、端口探测、浏览器应用窗口和退出清理。
+- `scripts\dev.ps1 build`：构建 Go、主 SWF并准备175个运行资源。
+- `scripts\dev.ps1 verify`：执行quick/full/release三档验收。
+- `scripts\dev.ps1 release`：生成并检查玩家发行目录。
+- `scripts\runtime\launch_game.bat`：端口探测、服务健康检查、播放器启动和退出清理。
+- `scripts\runtime\launch_modifier.bat`：存档备份、端口探测、浏览器应用窗口和退出清理。
 
 资源准备只读取仓库内已跟踪的 `swf/` 与 `runtime/` 文件，不读取或写入外部黄金版。所有生成和写入目标都位于合作版 `build/`。
 
 ## 边界
 
-第三阶段已经消除正式构建流程的 PowerShell 依赖。`构建.bat` 调用纯 BAT 构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
+发行包运行流程不依赖 PowerShell。开发仓库使用 `scripts/dev.ps1` 组织构建、
+验收和打包；主 SWF采用不可变基线和显式最小补丁，构建后自动检查
+`Game.as` P-code 控制流。
+详细边界见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
 
 ## 静态自检
 
 ```bat
-scripts\launch_game.bat --check sa
-scripts\launch_game.bat --check sa_debug
-scripts\launch_modifier.bat --check
+scripts\runtime\run.bat check-game
+scripts\runtime\run.bat check-debug
+scripts\runtime\run.bat check-modifier
 ```
 
 自检不会启动游戏、服务端或浏览器。
@@ -60,8 +59,8 @@ scripts\launch_modifier.bat --check
 服务端短时冒烟测试：
 
 ```bat
-scripts\launch_game.bat --smoke sa
-scripts\launch_modifier.bat --smoke
+scripts\runtime\run.bat smoke-game
+scripts\runtime\run.bat smoke-modifier
 ```
 
 冒烟测试会短时启动合作版服务端并检查 HTTP，然后立即清理；不会启动 Flash 或浏览器，也不会创建、清除或备份存档。

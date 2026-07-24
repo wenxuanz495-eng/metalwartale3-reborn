@@ -1,79 +1,40 @@
-# 开发启动方式（构建 / 启动分离，多播放器对照）
+# 开发启动方式
 
-## 1. 构建（会花时间）
+## 构建
 
-- `构建.bat` / `build.bat`
-- 或 `.\scripts\build_all.ps1`
+开发仓库使用 PowerShell：
 
-产物：
+```powershell
+.\scripts\dev.ps1 build
+```
 
-- `build/server.exe`
-- `build/game.swf`
+产物位于 `build/server.exe`、`build/game.swf` 和 `build/swf/`。
 
-Go 缓存：`D:\superalloy\.gopath\...`
+构建不覆盖 `GOPATH`、`GOMODCACHE` 或 `GOCACHE`，使用开发者当前 Go环境。
 
-## 2. 启动（不重新构建，按播放器分开）
+## 启动
 
-| 脚本 | 播放器 |
+| 根目录入口 | 用途 |
 |---|---|
-| `启动游戏-flashplayer_sa.bat` | `flashplayer_sa.exe`（新对照，非 debug） |
-| `启动游戏-flashplayer_sa_debug.bat` | `flashplayer_sa_debug.exe`（旧 debug） |
+| `启动游戏.bat` | 普通播放器 |
+| `启动游戏-flashplayer_sa_debug.bat` | Debug Player |
+| `启动修改器.bat` | 本地修改器 |
+| `工具.bat` | 备份、清档、打开目录、清理残留和战车修复 |
 
-英文同名：
+启动不会重新构建；缺少产物时会提示开发者先运行 PowerShell 构建命令。
 
-- `start-game-flashplayer_sa.bat`
-- `start-game-flashplayer_sa_debug.bat`
-
-播放器查找顺序：
-
-- **sa**: `tools\runtime\FlashPlayer.exe`
-- **sa_debug**: `tools\debug\flashplayer_sa_debug.exe`
-
-PowerShell：
+## 验收与发行
 
 ```powershell
-.\scripts\run_dev.ps1 -PlayerType sa
-.\scripts\run_dev.ps1 -PlayerType sa_debug
+.\scripts\dev.ps1 verify -Mode quick
+.\scripts\dev.ps1 verify -Mode full
+.\scripts\dev.ps1 verify -Mode release
+.\scripts\dev.ps1 release -Version 版本号
 ```
 
-## 3. 构建并启动（可选）
+`quick` 检查构建、Go、修改器和入口；`full` 增加可复现性和服务
+冒烟；`release` 增加存档兼容验证。
 
-```powershell
-.\scripts\run_dev.ps1 -Build -PlayerType sa
-```
+## 存档
 
-## 注意
-
-- 启动脚本不会自动构建；缺产物时提示先运行 `构建.bat`
-- 资源优先使用海豹 1.2 层级目录（`swf/ui` 等）
-- 不要把 `runtime/` 当主运行路径
-
-## 存档目录
-
-- 权威目录：`build/saves`
-- 快捷打开：`打开存档目录.bat` / `open-saves.bat`
-
-## 修改器
-
-- `启动修改器.bat` / `start-modifier.bat`
-- 启动本地 server，并打开 `/modifier.html`
-- 修改存档：`build/saves/game_save.bin`
-- 使用前请先完全退出游戏
-
-## 自动关闭 CMD
-
-- 游戏：关闭 Flash 播放器后，脚本结束，CMD 自动关闭
-- 修改器：关闭修改器浏览器窗口后，本地 server 停止，CMD 自动关闭
-- 仅在启动失败时才会 pause 等待查看错误
-
-## 后台残留清理
-
-合作版游戏和修改器都会启动 `build/server.exe`。
-
-现已处理：
-
-1. 启动前清理本目录残留 `server.exe`
-2. 关闭游戏/修改器窗口后强制结束本会话 server
-3. 再扫一遍并清理同 `build` 根目录的残留 server
-4. CMD 成功路径自动关闭
-
+权威目录为根目录 `saves/`。低频存档操作统一从 `工具.bat` 进入。
