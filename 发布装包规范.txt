@@ -3,11 +3,11 @@
 一、最高优先级：Flash Player 版本
 
 1. 玩家包必须使用非 Debug 的 Flash Player SA 34.0.0.330。
-2. 正确文件可从 F:\快捷\下载\flashplayer_sa.exe 获取。
+2. 仓库内 tools\runtime\FlashPlayer.exe 是游戏启动与装包的唯一权威来源；外部文件只允许用于校验或恢复，禁止装包脚本绕过仓库播放器。
 3. 正确文件大小：10735016 字节。
 4. 正确 SHA-256：7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979。
 5. 包内目标位置固定为 tools\runtime\FlashPlayer.exe，启动入口固定为 启动游戏-flashplayer_sa.bat。
-6. 绝对禁止用 Flash Player 29 替换它。仓库中的 tools\runtime\FlashPlayer.exe 曾经是 29.0.0.171，不能因为文件名相同就直接打包。
+6. 绝对禁止使用 Flash Player 29。仓库启动 BAT 和装包 BAT 都必须在运行前校验 34.0.0.330 的真实版本与固定哈希，校验不符立即停止。
 7. 也不能使用 flashplayer_sa_debug.exe；Debug 播放器不属于玩家版本。
 8. 装包前后必须读取 EXE 的 FileVersion，并再次校验 SHA-256。不能只检查文件名、目录名或旧脚本中的哈希常量。
 
@@ -72,7 +72,7 @@
 5. 扫描压缩包，确认没有存档、备份、Debug 播放器、日志和临时文件。
 6. 最后计算并记录 7z、game.swf、FlashPlayer.exe、modifier.html 的 SHA-256。
 
-历史错误提醒：曾经因为只按 FlashPlayer.exe 文件名和仓库旧哈希装包，误把 29.0.0.171 当成 34 版。以后任何 AI 或人工装包都必须把真实版本检查放在最高优先级。
+历史错误提醒：仓库曾经同时保留普通 Flash Player 29 并由启动器直接调用，导致仓库版本实际使用 29。现在仓库普通播放器已固定为 CleanFlash 34；以后任何 AI 或人工构建、启动和装包都必须把真实版本与 SHA-256 检查放在最高优先级，禁止重新引入 29。
 
 七、构建与装包优先级
 

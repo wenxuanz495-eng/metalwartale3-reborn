@@ -7,12 +7,17 @@ for %%I in ("%REPO_ROOT%") do set "REPO_ROOT=%%~fI"
 set "OUT_ROOT=D:\superalloy"
 set "NORMAL=%OUT_ROOT%\2.0合作内测版（内测）"
 set "SILENT=%OUT_ROOT%\2.0合作内测版（静音内测）"
-set "PLAYER_SOURCE=F:\快捷\下载\flashplayer_sa.exe"
+set "PLAYER_SOURCE=%REPO_ROOT%\tools\runtime\FlashPlayer.exe"
+set "PLAYER_SHA256=7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979"
 set "SILENT_SOURCE=%OUT_ROOT%\静音版"
 
 if exist "%NORMAL%.7z" goto target_exists
 if exist "%SILENT%.7z" goto target_exists
 if not exist "%PLAYER_SOURCE%" goto missing_player
+for /f "usebackq delims=" %%V in (`powershell.exe -NoProfile -Command "(Get-Item -LiteralPath '%PLAYER_SOURCE%').VersionInfo.FileVersion -replace ',', '.'"`) do set "PLAYER_VERSION=%%V"
+for /f "usebackq delims=" %%H in (`powershell.exe -NoProfile -Command "(Get-FileHash -Algorithm SHA256 -LiteralPath '%PLAYER_SOURCE%').Hash"`) do set "PLAYER_ACTUAL_SHA256=%%H"
+if not "%PLAYER_VERSION%"=="34.0.0.330" goto invalid_player
+if /i not "%PLAYER_ACTUAL_SHA256%"=="%PLAYER_SHA256%" goto invalid_player
 if not exist "%SILENT_SOURCE%\_diagnostics\silenced-sounds.csv" goto missing_silent
 
 call "%REPO_ROOT%\scripts\build_all.bat"
@@ -62,6 +67,10 @@ exit /b 2
 :missing_player
 echo [ERROR] Missing CleanFlash Player 34: %PLAYER_SOURCE%
 exit /b 3
+:invalid_player
+echo [ERROR] Repository player is not CleanFlash SA 34.0.0.330.
+echo [ERROR] Flash Player 29 and Debug Player are forbidden in packages.
+exit /b 5
 :missing_silent
 echo [ERROR] Missing silent replacement manifest: %SILENT_SOURCE%
 exit /b 4

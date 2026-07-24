@@ -168,7 +168,7 @@
 - `scripts/verify_phase5.bat` 串联第四阶段门禁、三类存档隔离往返、发行目录体检和黄金版复查。
 - 三类样本均通过“读取 → 修改器保存 → 再读取”：全新空档 39 字节、正常高进度档 25016 字节、1.1 老档 15097 字节；每类原始备份均逐字节保留。
 - `scripts/build_release.bat` 已生成新目录 `release/1.26.3-source-synced`，不覆盖 `1.26.2.1-BAT`；发行体检检查 367 个文件，无玩家存档、备份、日志或临时文件。
-- 普通播放器已纳入仓库 `tools/runtime/FlashPlayer.exe`，并由 `config/build/flashplayer-baseline.sha256` 固定哈希。
+- 普通播放器已纳入仓库 `tools/runtime/FlashPlayer.exe`，固定为非 Debug 的 CleanFlash SA 34.0.0.330，并由 `config/build/flashplayer-baseline.sha256` 固定哈希；Flash Player 29 禁止用于仓库启动和玩家装包。
 - 自动化第五阶段已完成；剩余人工项是三类存档进入 Flash 后的界面/玩法回归。人工回归未完成前，不宣布进入 2.0。
 
 ## 当前限制

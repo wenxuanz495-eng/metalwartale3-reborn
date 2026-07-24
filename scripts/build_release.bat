@@ -8,7 +8,7 @@ set "VERSION=1.26.3-source-synced"
 if not "%~1"=="" set "VERSION=%~1"
 set "RELEASE=%REPO_ROOT%\release\%VERSION%"
 set "PLAYER=%REPO_ROOT%\tools\runtime\FlashPlayer.exe"
-set "PLAYER_HASH=B6BA115C2B43D87AADDF0060C44726E7AF1A12C9501FC63DE652A9517D7367DB"
+set "PLAYER_HASH=7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979"
 
 if exist "%RELEASE%" (
   echo [ERROR] Release target already exists; refusing to overwrite:
@@ -32,13 +32,14 @@ if errorlevel 1 exit /b %ERRORLEVEL%
 mkdir "%RELEASE%\build\saves\backups"
 mkdir "%RELEASE%\scripts"
 mkdir "%RELEASE%\tools\debug"
+mkdir "%RELEASE%\tools\runtime"
 xcopy "%REPO_ROOT%\build\swf" "%RELEASE%\build\swf\" /e /i /q /y >nul
 copy /y "%REPO_ROOT%\build\game.swf" "%RELEASE%\build\game.swf" >nul
 copy /y "%REPO_ROOT%\build\server.exe" "%RELEASE%\build\server.exe" >nul
 copy /y "%REPO_ROOT%\build\modifier.html" "%RELEASE%\build\modifier.html" >nul
 if exist "%REPO_ROOT%\build\公告.txt" copy /y "%REPO_ROOT%\build\公告.txt" "%RELEASE%\build\公告.txt" >nul
 copy /y nul "%RELEASE%\build\.release-ready" >nul
-copy /y "%PLAYER%" "%RELEASE%\tools\debug\flashplayer_sa.exe" >nul
+copy /y "%PLAYER%" "%RELEASE%\tools\runtime\FlashPlayer.exe" >nul
 copy /y "%REPO_ROOT%\tools\debug\flashplayer_sa_debug.exe" "%RELEASE%\tools\debug\flashplayer_sa_debug.exe" >nul
 copy /y "%REPO_ROOT%\scripts\launch_game.bat" "%RELEASE%\scripts\launch_game.bat" >nul
 copy /y "%REPO_ROOT%\scripts\launch_modifier.bat" "%RELEASE%\scripts\launch_modifier.bat" >nul

@@ -22,6 +22,7 @@ set "SERVER=%BUILD_DIR%\server.exe"
 set "GAME=%BUILD_DIR%\game.swf"
 set "PLAYER="
 set "PLAYER_IMAGE="
+set "CLEANFLASH_SHA256=7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979"
 set "SERVER_TITLE=SA_COLLAB_SERVER_%RANDOM%_%RANDOM%"
 set "PORT="
 
@@ -35,6 +36,8 @@ if /i "%PLAYER_TYPE%"=="sa_debug" (
 if not exist "%SERVER%" goto missing_build
 if not exist "%GAME%" goto missing_build
 if not defined PLAYER goto missing_player
+if /i "%PLAYER_TYPE%"=="sa" call :verify_cleanflash
+if errorlevel 1 exit /b %ERRORLEVEL%
 where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_curl
 
@@ -102,6 +105,20 @@ exit /b 1
 taskkill /f /t /fi "WINDOWTITLE eq SA_COLLAB_SERVER_*" >nul 2>nul
 ping 127.0.0.1 -n 2 -w 200 >nul
 exit /b 0
+
+:verify_cleanflash
+for /f "usebackq delims=" %%V in (`powershell.exe -NoProfile -Command "(Get-Item -LiteralPath '%PLAYER%').VersionInfo.FileVersion -replace ',', '.'"`) do set "PLAYER_VERSION=%%V"
+for /f "usebackq delims=" %%H in (`powershell.exe -NoProfile -Command "(Get-FileHash -Algorithm SHA256 -LiteralPath '%PLAYER%').Hash"`) do set "PLAYER_SHA256=%%H"
+if not "%PLAYER_VERSION%"=="34.0.0.330" goto invalid_player
+if /i not "%PLAYER_SHA256%"=="%CLEANFLASH_SHA256%" goto invalid_player
+exit /b 0
+
+:invalid_player
+echo [ERROR] The repository player must be CleanFlash SA 34.0.0.330.
+echo [ERROR] Flash Player 29 and Debug Player are forbidden for SA launches.
+echo Version: %PLAYER_VERSION%
+echo SHA-256: %PLAYER_SHA256%
+exit /b 5
 
 :missing_build
 echo [ERROR] Missing build\server.exe or build\game.swf.
