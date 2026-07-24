@@ -9,9 +9,10 @@ if /i "%~1"=="--smoke" set "SMOKE_ONLY=1"
 set "REPO_ROOT=%~dp0.."
 for %%I in ("%REPO_ROOT%") do set "REPO_ROOT=%%~fI"
 set "BUILD_DIR=%REPO_ROOT%\build"
-set "SAVE_DIR=%REPO_ROOT%\saves"
+set "SAVE_DIR=%BUILD_DIR%\saves"
 set "ENGINE=%BUILD_DIR%\server.exe"
 set "MODIFIER_SOURCE=%REPO_ROOT%\modifier.html"
+set "MODIFIER=%BUILD_DIR%\modifier.html"
 set "ENGINE_TITLE=SA_COLLAB_MODIFIER_%RANDOM%_%RANDOM%"
 set "BROWSER="
 set "PORT="
@@ -28,8 +29,7 @@ if not exist "%BUILD_DIR%\.release-ready" (
   if errorlevel 1 exit /b %ERRORLEVEL%
 )
 if not exist "%MODIFIER_SOURCE%" goto missing_modifier
-call :prepare_saves
-if errorlevel 1 exit /b %ERRORLEVEL%
+copy /y "%MODIFIER_SOURCE%" "%MODIFIER%" >nul
 
 if exist "%ProgramFiles%\Microsoft\Edge\Application\msedge.exe" set "BROWSER=%ProgramFiles%\Microsoft\Edge\Application\msedge.exe"
 if not defined BROWSER if exist "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" set "BROWSER=%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe"
@@ -64,7 +64,7 @@ echo Starting collaboration modifier with pure BAT...
 for /l %%P in (8766,1,8806) do (
   if not defined PORT (
     set "ENGINE_TITLE=SA_COLLAB_MODIFIER_!RANDOM!_!RANDOM!"
-    start "!ENGINE_TITLE!" /min cmd.exe /d /c ""%ENGINE%" -host 127.0.0.1 -port %%P -root "%REPO_ROOT%""
+    start "!ENGINE_TITLE!" /min cmd.exe /d /c ""%ENGINE%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%""
     call :wait_engine %%P
     if not errorlevel 1 (
       set "PORT=%%P"
@@ -98,17 +98,6 @@ if defined BROWSER (
 
 call :cleanup_modifier
 if exist "!BROWSER_PROFILE!" rd /s /q "!BROWSER_PROFILE!" >nul 2>nul
-exit /b 0
-
-:prepare_saves
-if not exist "%SAVE_DIR%" mkdir "%SAVE_DIR%"
-if not exist "%SAVE_DIR%\backups" mkdir "%SAVE_DIR%\backups"
-if exist "%BUILD_DIR%\saves\game_save.bin" if not exist "%SAVE_DIR%\game_save.bin" (
-  echo [MIGRATE] Moving legacy build\saves data to root saves...
-  copy /y "%BUILD_DIR%\saves\game_save.bin" "%SAVE_DIR%\game_save.bin" >nul
-  if errorlevel 1 exit /b 8
-)
-if exist "%BUILD_DIR%\saves\game_save.bin" if exist "%SAVE_DIR%\game_save.bin" echo [NOTICE] Root saves\game_save.bin is authoritative; build\saves is ignored.
 exit /b 0
 
 :wait_engine

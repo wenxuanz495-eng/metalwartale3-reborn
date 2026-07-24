@@ -14,17 +14,17 @@ tasklist /v /fi "WINDOWTITLE eq SA_COLLAB_MODIFIER_*" 2>nul | find /i "SA_COLLAB
 if not errorlevel 1 goto game_running
 
 echo This permanently deletes all files under:
-echo %CD%\saves
+echo %CD%\build\saves
 echo.
 choice /C YN /N /M "Continue? [Y/N]: "
 if errorlevel 2 exit /b 0
 
-if not exist "saves" mkdir "saves"
-pushd "saves"
+if not exist "build\saves" mkdir "build\saves"
+pushd "build\saves"
 del /f /q * >nul 2>nul
 for /d %%D in (*) do rd /s /q "%%D"
 popd
-if not exist "saves\backups" mkdir "saves\backups"
+if not exist "build\saves\backups" mkdir "build\saves\backups"
 
 echo All collaboration saves have been cleared.
 pause

@@ -10,8 +10,6 @@ set "SILENT=%OUT_ROOT%\2.0合作内测版（静音内测）"
 set "PLAYER_SOURCE=F:\快捷\下载\flashplayer_sa.exe"
 set "SILENT_SOURCE=%OUT_ROOT%\静音版"
 
-if exist "%NORMAL%" goto target_exists
-if exist "%SILENT%" goto target_exists
 if exist "%NORMAL%.7z" goto target_exists
 if exist "%SILENT%.7z" goto target_exists
 if not exist "%PLAYER_SOURCE%" goto missing_player
