@@ -146,6 +146,10 @@
          {
             Game.uiGroup.changeUI.materialsUI.fleshAll();
             Game.uiGroup.changeUI.propsUI.fleshAll();
+            if(Game.uiGroup._changeUI != null && Game.uiGroup._changeUI.bag != null)
+            {
+               Game.uiGroup._changeUI.bag.fleshData();
+            }
             Game.uiGroup.saveDataNoUI("批量开启紫色芯片袋");
          }
          var result0:String = "批量开启完成。\n已开启芯片袋：" + opened0 + " 个\n获得紫色芯片：" + won0 + " 个";
@@ -687,6 +691,10 @@
             Game.SG.playSound("upgradeArms");
             Game.uiGroup.changeUI.materialsUI.fleshAll();
             Game.uiGroup.changeUI.propsUI.fleshAll();
+            if(Game.uiGroup._changeUI != null && Game.uiGroup._changeUI.bag != null)
+            {
+               Game.uiGroup._changeUI.bag.fleshData();
+            }
             Game.uiGroup.infoUI.fleshData();
             Game.uiGroup.saveDataNoUI("批量开启战斗核心");
          }
