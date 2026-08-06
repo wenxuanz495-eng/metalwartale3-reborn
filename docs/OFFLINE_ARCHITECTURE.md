@@ -6,7 +6,7 @@
 启动脚本
   ├─ 启动 Go server.exe
   ├─ 检查 /api/status
-  └─ FlashPlayer.exe 打开 http://127.0.0.1:8765/game.swf
+  └─ FlashPlayer.exe 打开 http://127.0.0.1:52100/game.swf
                               │
                               ├─ 加载 swf/ 下的分包资源
                               ├─ 通过 /api/game-save 读写存档

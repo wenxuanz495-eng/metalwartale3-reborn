@@ -6,7 +6,7 @@
 从仓库根目录启动：
 
 ```powershell
-.\tools\debug\run-debug.ps1 http://127.0.0.1:8765/game.swf
+.\tools\debug\run-debug.ps1 http://127.0.0.1:52100/game.swf
 ```
 
 Debug 日志默认写入：

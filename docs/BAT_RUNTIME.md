@@ -22,8 +22,7 @@ build\saves\game_save.bin
 
 | 入口 | 行为 |
 |---|---|
-| `启动游戏.bat` | 使用普通 SA 播放器启动 |
-| `启动游戏-flashplayer_sa.bat` | 普通 SA 对照入口 |
+| `启动游戏-flashplayer_sa.bat` | 玩家包唯一游戏入口，使用普通 SA 播放器启动 |
 | `启动游戏-flashplayer_sa_debug.bat` | Debug Player 入口 |
 | `启动修改器.bat` / `修改器.bat` | 备份后启动修改器 |
 | `一键备份存档.bat` | 备份到 `build\saves\backups` |
@@ -44,6 +43,8 @@ build\saves\game_save.bin
 资源准备只读取仓库内已跟踪的 `swf/` 与 `runtime/` 文件，不读取或写入外部黄金版。所有生成和写入目标都位于合作版 `build/`。
 
 ## 边界
+
+从2.04玩家包开始，根目录不再附带内容重复的 `启动游戏.bat`，只保留名称明确的 `启动游戏-flashplayer_sa.bat`。仓库内开发入口不受此装包规则影响。
 
 第三阶段已经消除正式构建流程的 PowerShell 依赖。`构建.bat` 调用纯 BAT 构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
 
