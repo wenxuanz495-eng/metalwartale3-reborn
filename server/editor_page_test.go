@@ -11,6 +11,8 @@ func TestEditorPageExposesSlotProtocol(t *testing.T) {
 		"function indexedValue(container,index)",
 		"function selectedEditorData(root)",
 		"function editorSavePayload(value)",
+		"军衔与功勋",
+		"function applyRankEditor(level,current)",
 	}
 	for _, marker := range required {
 		if !strings.Contains(editorHTML, marker) {

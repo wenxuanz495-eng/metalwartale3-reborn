@@ -61,9 +61,13 @@ th{color:var(--cyan);background:#102337;position:sticky;top:0}.path{font:12px Co
 const EDITOR_SLOT_INDEX=-1;
 let data=null, rootData=null, dirty=false;
 const $=id=>document.getElementById(id);
+const rankNames=["新兵","下士","中士","上士","少尉","中尉","上尉","少校","中校","上校","少将","中将","上将","五星上将","元帅","大元帅","大元帅+1","大元帅+2","大元帅+3","大元帅+4","钢铁元帅","钢铁元帅+1","钢铁元帅+2","钢铁元帅+3","钢铁元帅+4","行星元帅","行星元帅+1","行星元帅+2","行星元帅+3","行星元帅+4"];
 const quickGroups=[
  {title:"玩家",fields:[
-  ["玩家名称","playerName","text"],["人物等级","level","number"],["当前经验","nowExp","number"],["成就","achieve","number"]
+  ["玩家名称","playerName","text"],["人物等级","level","number"],["当前经验","nowExp","number"]
+ ]},
+ {title:"军衔与功勋",fields:[
+  ["军衔","rankLevel","rank"],["当前军衔功勋","achieve","merit"]
  ]},
    {title:"货币（备用字段保存时自动同步）",fields:[
    ["G 币","GCoin","number"],["M 币","MCoin","number"]
@@ -116,10 +120,15 @@ async function loadData(){
  }catch(error){data=null;$("saveMeta").textContent="没有可编辑存档";showError(error.message);renderAll()}
 }
 function renderAll(){renderCommon();renderItems();renderFields();syncJSON()}
+function quickDisplayValue(path,value){if(path==="level"&&value!==null&&value!==undefined&&value!=="")return Number(value)+1;return value}
+function quickStoredValue(path,inputValue,oldValue,type){if(path==="level"){const actual=Number(inputValue);if(!Number.isInteger(actual)||actual<1)throw new Error("人物等级必须是大于等于1的整数。");return actual-1}return parseInput(inputValue,oldValue,type)}
+function rankRequirement(level){const rank=Math.max(1,level);if(level>=24)return 600000;if(level>=19)return 500000;if(level>=15)return 400000;if(level>=14)return 300000;return rank*rank*500}
+function cumulativeRankMerit(level,current){let total=0;for(let i=0;i<level;i++)total+=rankRequirement(i);return total+current}
+function applyRankEditor(level,current){level=Math.max(0,Math.min(rankNames.length-1,Math.trunc(Number(level)||0)));const max=rankRequirement(level);current=Math.max(0,Math.min(max,Math.trunc(Number(current)||0)));data.rankLevel=level;data.playerRank=rankNames[level];data.achieve=current;data.allAchieve=cumulativeRankMerit(level,current);changed()}
 function renderCommon(){
  const root=$("commonGrid");root.innerHTML="";
  for(const group of quickGroups){const card=document.createElement("div");card.className="card";card.innerHTML="<h2>"+group.title+"</h2>";
-  for(const [label,path,type] of group.fields){const l=document.createElement("label");l.textContent=label;const input=document.createElement("input");input.type=type==="number"?"number":"text";input.step="any";const value=getPath(path);input.value=value??"";input.disabled=!data;input.onchange=()=>{try{setPath(path,parseInput(input.value,value,type));renderFields()}catch(e){toast(e.message,true)}};card.append(l,input)}
+  for(const [label,path,type] of group.fields){const l=document.createElement("label");l.textContent=label;let input;if(type==="rank"){input=document.createElement("select");rankNames.forEach((name,index)=>{const option=document.createElement("option");option.value=String(index);option.textContent=String(index+1)+". "+name;input.append(option)});input.value=String(Math.max(0,Math.min(rankNames.length-1,Number(getPath(path))||0)));input.onchange=()=>{applyRankEditor(input.value,getPath("achieve"));renderAll()}}else{input=document.createElement("input");input.type=type==="number"||type==="merit"?"number":"text";input.step=path==="level"?"1":"any";const value=getPath(path);input.value=quickDisplayValue(path,value)??"";input.onchange=()=>{try{if(type==="merit"){applyRankEditor(getPath("rankLevel"),input.value);renderAll()}else{setPath(path,quickStoredValue(path,input.value,value,type));renderFields()}}catch(e){toast(e.message,true)}}}input.disabled=!data;card.append(l,input)}
   root.append(card)
  }
 }
