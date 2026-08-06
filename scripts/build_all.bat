@@ -6,6 +6,10 @@ echo ==== Build server ====
 call "%~dp0build_server.bat"
 if errorlevel 1 exit /b %ERRORLEVEL%
 
+echo ==== Build launcher ====
+call "%~dp0build_launcher.bat"
+if errorlevel 1 exit /b %ERRORLEVEL%
+
 echo ==== Build game SWF ====
 call "%~dp0build_swf.bat"
 if errorlevel 1 exit /b %ERRORLEVEL%
