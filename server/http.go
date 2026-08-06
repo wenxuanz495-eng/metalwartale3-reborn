@@ -16,8 +16,10 @@ import (
 )
 
 type app struct {
-	root  string
-	store *saveStore
+	root     string
+	store    *saveStore
+	instance string
+	bgm      *bgmPlayer
 }
 
 func (a *app) routes() http.Handler {
@@ -45,6 +47,116 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	switch {
+	case r.Method == http.MethodGet && path == "/api/bgm/status":
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case r.Method == http.MethodGet && path == "/api/bgm/catalog":
+		a.sendJSON(w, a.bgm.catalogStatus(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/catalog/rescan":
+		a.sendJSON(w, a.bgm.rescanCatalog(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/player-library/open":
+		if err := a.bgm.openPlayerLibrary(); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+			return
+		}
+		a.sendJSON(w, map[string]any{"ok": true}, http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/playlist/start":
+		ids := strings.Split(r.URL.Query().Get("tracks"), ",")
+		forceSwitch := r.URL.Query().Get("force") == "1"
+		seq, err := bgmCommandSequence(r)
+		if err == nil {
+			_, err = a.bgm.startPlaylist(r.URL.Query().Get("context"), r.URL.Query().Get("mode"), ids, forceSwitch, seq)
+		}
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/playlist/update":
+		ids := strings.Split(r.URL.Query().Get("tracks"), ",")
+		if err := a.bgm.updatePlaylist(r.URL.Query().Get("context"), r.URL.Query().Get("mode"), ids); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/play":
+		label := r.URL.Query().Get("label")
+		seq, err := bgmCommandSequence(r)
+		if err == nil {
+			_, err = a.bgm.play(label, seq)
+		}
+		if os.IsNotExist(err) {
+			a.sendJSON(w, map[string]any{"ok": false, "fallback": true, "error": "BGM track not found"}, http.StatusNotFound)
+			return
+		}
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "fallback": true, "error": err.Error()}, http.StatusServiceUnavailable)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/track/play":
+		seq, err := bgmCommandSequence(r)
+		if err == nil {
+			_, err = a.bgm.playTrack(r.URL.Query().Get("id"), seq)
+		}
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/seek":
+		seconds, err := strconv.ParseFloat(r.URL.Query().Get("seconds"), 64)
+		if err == nil {
+			err = a.bgm.seek(seconds)
+		}
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/pause":
+		if err := a.bgm.pause(); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/resume":
+		if err := a.bgm.resume(); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/previous":
+		if err := a.bgm.changePlaylistTrack(-1); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/next":
+		if err := a.bgm.changePlaylistTrack(1); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/stop":
+		seq, err := bgmCommandSequence(r)
+		if err == nil {
+			_, err = a.bgm.stop(seq)
+		}
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusServiceUnavailable)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/bgm/volume":
+		value, err := strconv.ParseFloat(r.URL.Query().Get("value"), 64)
+		if err == nil {
+			err = a.bgm.setVolume(value)
+		}
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+			return
+		}
+		a.sendJSON(w, a.bgm.status(), http.StatusOK)
 	case r.Method == http.MethodGet && (path == "/" || path == "/index.html"):
 		a.sendBytes(w, []byte(indexHTML), "text/html; charset=utf-8", http.StatusOK)
 	case r.Method == http.MethodGet && path == "/crossdomain.xml":
@@ -54,7 +166,7 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 	case r.Method == http.MethodGet && path == "/api/status":
 		a.sendJSON(w, map[string]any{
 			"ok": true, "backend": "go", "game": "/game.swf",
-			"time": nowISO(), "saves_dir": a.store.saves,
+			"time": nowISO(), "saves_dir": a.store.saves, "instance": a.instance,
 		}, http.StatusOK)
 	case r.Method == http.MethodGet && path == "/api/saves/export":
 		result, err := a.store.exportSOL(true)
@@ -95,6 +207,22 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		a.sendJSON(w, result, http.StatusOK)
+	case r.Method == http.MethodPost && path == "/api/game-save/backup":
+		raw, err := a.store.getPrimary()
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusNotFound)
+			return
+		}
+		if _, _, err := parseGamePayload(raw); err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": "invalid game save: " + err.Error()}, http.StatusBadRequest)
+			return
+		}
+		backup, err := a.store.createEditorBackup(raw, "in-game")
+		if err != nil {
+			a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusInternalServerError)
+			return
+		}
+		a.sendJSON(w, map[string]any{"ok": true, "backup": backup}, http.StatusOK)
 	case r.Method == http.MethodPost && path == "/api/client-log":
 		a.clientLog(w, r)
 	case strings.HasPrefix(path, "/api/4399/") || strings.Contains(path, "save.api"):
@@ -104,6 +232,14 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 	default:
 		http.NotFound(w, r)
 	}
+}
+
+func bgmCommandSequence(r *http.Request) (uint64, error) {
+	raw := r.URL.Query().Get("seq")
+	if raw == "" {
+		return 0, nil
+	}
+	return strconv.ParseUint(raw, 10, 64)
 }
 
 func (a *app) serveStatic(w http.ResponseWriter, r *http.Request, requestPath string) {
@@ -235,7 +371,6 @@ const indexHTML = `<!DOCTYPE html>
 </div>
 <script>document.getElementById('url').textContent=location.origin+'/game.swf';</script>
 </body></html>`
-
 
 func (a *app) clientLog(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 64*1024+1))

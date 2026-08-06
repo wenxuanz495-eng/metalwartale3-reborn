@@ -16,10 +16,11 @@ import (
 
 func main() {
 	host := flag.String("host", "127.0.0.1", "listen host")
-	port := flag.Int("port", 8765, "listen port")
+	port := flag.Int("port", 52100, "listen port")
 	exportOnly := flag.Bool("export-only", false, "export latest SOL and exit")
 	fixZeroCarAffixOnce := flag.Bool("fix-zero-car-affix-once", false, "one-time fix for cars whose random affix values are all zero")
 	rootFlag := flag.String("root", "", "static root; defaults to server.exe directory")
+	instanceFlag := flag.String("instance", "", "launcher instance token returned by /api/status")
 	flag.Parse()
 
 	root, err := resolveRoot(*rootFlag)
@@ -48,7 +49,9 @@ func main() {
 		log.Fatalf("game.swf missing in %s", root)
 	}
 
-	application := &app{root: root, store: store}
+	bgm := newBGMPlayer(root)
+	defer bgm.close()
+	application := &app{root: root, store: store, instance: *instanceFlag, bgm: bgm}
 	server := &http.Server{
 		Addr:              net.JoinHostPort(*host, fmt.Sprint(*port)),
 		Handler:           logRequest(application.routes()),
@@ -61,6 +64,11 @@ func main() {
 		fmt.Printf("  Static root : %s\n", root)
 		fmt.Printf("  Game URL    : %s\n", gameURL(*host, *port))
 		fmt.Printf("  Saves       : %s\n", store.saves)
+		if status := bgm.status(); status.Ready {
+			fmt.Println("  External BGM: ready")
+		} else {
+			fmt.Printf("  External BGM: unavailable (%s); Flash fallback active\n", status.Error)
+		}
 		fmt.Println("============================================================")
 		errs <- server.ListenAndServe()
 	}()
