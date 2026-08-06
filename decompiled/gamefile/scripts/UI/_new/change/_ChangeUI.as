@@ -3,7 +3,9 @@ package UI._new.change
    import UI.ClickEvent;
    import UI._new.icon.ChangeIconBox;
    import UI._new.icon.NormalAllIcon;
+   import UI.page.PageBox;
    import flash.display.Sprite;
+   import flash.utils.getTimer;
    import gameAll.data.ArmsItemsData;
    import gameAll.data.CarItemsData;
    
@@ -99,6 +101,10 @@ package UI._new.change
       
       private function iconDown(e:ClickEvent) : *
       {
+         if(getTimer() - PageBox.lastUISwitchAt < 220)
+         {
+            return;
+         }
          var icon0:NormalAllIcon = e.goal;
          if(icon0.state == "fill")
          {
@@ -114,6 +120,15 @@ package UI._new.change
          var car_d0:CarItemsData = null;
          var car_d1:CarItemsData = null;
          this.dragCtrl.stopDraging();
+         if(getTimer() - PageBox.lastUISwitchAt < 220)
+         {
+            this.dragCtrl.clear();
+            Game.uiGroup.itemsIconOut();
+            this.bag.oneSell_box.visible = false;
+            this.bag.oneSellCar_box.visible = false;
+            CtrlListCtrl.hideList();
+            return;
+         }
          var ic2:NormalAllIcon = e.goal;
          var now_ic:NormalAllIcon = this.dragCtrl.dragTarget;
          var fa2:* = e.target;
@@ -166,7 +181,12 @@ package UI._new.change
                      car_d1 = ic2.itemsData;
                      if(fa2.dataType == "equip")
                      {
-                        if(car_d0.getNowInstallLevel() > Game.gameData.level + 1)
+                        if(car_d0.skinB)
+                        {
+                           moveB0 = false;
+                           Game.uiGroup.checkTip.showCheck2("战车皮肤没有属性，不能装备到战车栏。",2);
+                        }
+                        else if(car_d0.getNowInstallLevel() > Game.gameData.level + 1)
                         {
                            moveB0 = false;
                         }
@@ -175,13 +195,18 @@ package UI._new.change
                      {
                         if(Boolean(car_d1))
                         {
-                           if(car_d1.getNowInstallLevel() > Game.gameData.level + 1)
+                           if(car_d1.skinB)
+                           {
+                              moveB0 = false;
+                              Game.uiGroup.checkTip.showCheck2("战车皮肤没有属性，不能与已装备战车交换。",2);
+                           }
+                           else if(car_d1.getNowInstallLevel() > Game.gameData.level + 1)
                            {
                               moveB0 = false;
                            }
                         }
                      }
-                     if(!moveB0)
+                     if(!moveB0 && !car_d0.skinB && !(car_d1 != null && car_d1.skinB))
                      {
                         Game.uiGroup.checkTip.showCheck2("车身装备等级太高，无法装备。",2);
                      }
@@ -223,7 +248,6 @@ package UI._new.change
       
       private function iconOver(e:ClickEvent) : *
       {
-         CtrlListCtrl.hideList();
       }
       
       private function iconOut(e:ClickEvent) : *

@@ -1094,7 +1094,7 @@ package UI.research
             this.condition_icon3.gotoAndStop(1);
             this.condition_icon4.gotoAndStop(1);
          }
-         if(this.upgrade_conditionB || this.upgradeNonMaterialB && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
+         if(this.upgrade_conditionB || (this.upgradeNonMaterialB || d0.id == "zhonglichongjipao") && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
          {
             this.upgrade_btn.alpha = 1;
             this.upgrade_btn.enabled = true;
@@ -1174,20 +1174,21 @@ package UI.research
             items0 = this.dragTarget.itemsData;
             id0 = this.nowInlayArms.itemsData;
             inBagB = this.materialsItems.inBagTest(items0);
-            if(this.materialsItems.getFillB())
+            if(!inBagB)
             {
                Game.uiGroup.checkTip.showTip("背包已满，无法完成此操作！",2);
                Game.SG.playSound("failureItems");
             }
-            else if(inBagB)
+            else
             {
                if(this.dragFather == this.holeItemsBox)
                {
-                  id0.holeArr[items0.site] = new Object();
-                  this.materialsItems.addItemsData(items0.copy(1),1,false);
-                  this.fleshHole_byNowInlayArms();
-                  this.fleshBag();
-                  Game.SG.playSound("dragDown");
+                  if(this.returnEquippedCrystalToBag(items0,id0))
+                  {
+                     this.fleshHole_byNowInlayArms();
+                     this.fleshBag();
+                     Game.SG.playSound("dragDown");
+                  }
                }
                else if(this.dragFather == null && this.returnEquippedChipToBag(items0,id0))
                {
@@ -1222,28 +1223,29 @@ package UI.research
             if(box0 == this.bagItemsBox && this.dragFather == this.holeItemsBox)
             {
                trace("镶嵌孔:" + items0.site + "   拖到背包");
-               if(this.materialsItems.getFillB())
+               if(!inBagB)
                {
                   Game.uiGroup.checkTip.showTip("背包已满，无法完成此操作！",2);
                   Game.SG.playSound("failureItems");
                }
-               else if(inBagB)
+               else
                {
-                  id0.holeArr[items0.site] = new Object();
-                  this.materialsItems.addItemsData(items0.copy(1),1,false);
-                  this.fleshHole_byNowInlayArms();
-                  this.fleshBag();
-                  Game.SG.playSound("dragDown");
+                  if(this.returnEquippedCrystalToBag(items0,id0))
+                  {
+                     this.fleshHole_byNowInlayArms();
+                     this.fleshBag();
+                     Game.SG.playSound("dragDown");
+                  }
                }
             }
             else if(this.dragTarget == this.chipHoleItems && box0 == this.bagItemsBox)
             {
-               if(this.materialsItems.getFillB())
+               if(!inBagB)
                {
                   Game.uiGroup.checkTip.showTip("背包已满，无法完成此操作！",2);
                   Game.SG.playSound("failureItems");
                }
-               else if(items0.type == "chip" && inBagB && this.returnEquippedChipToBag(items0,id0))
+               else if(items0.type == "chip" && this.returnEquippedChipToBag(items0,id0))
                {
                   trace("芯片孔:" + items0.site + "   拖到背包");
                   this.fleshHole_byNowInlayArms();
@@ -1260,33 +1262,44 @@ package UI.research
                   {
                      items2 = items0.copy(1);
                      items2.site = event.index;
-                     id0.holeArr[items2.site] = items2;
-                     this.materialsItems.useItemsData(items0);
-                     this.fleshHole_byNowInlayArms();
-                     this.fleshBag();
-                     Game.SG.playSound("holeChip");
+                     if(this.materialsItems.useItemsDataReal(items0))
+                     {
+                        id0.holeArr[items2.site] = items2;
+                        this.fleshHole_byNowInlayArms();
+                        this.fleshBag();
+                        Game.SG.playSound("holeChip");
+                     }
+                     else
+                     {
+                        Game.SG.playSound("dragDown");
+                     }
                   }
                   else if(iai.state == "fill")
                   {
                      id3 = iai.itemsData;
                      if(id3.name != items0.name || id3.type == "chip")
                      {
-                        str3 = this.materialsItems.addItemsData(id3,1,false);
-                        if(str3 == null)
+                        items3 = items0.copy(1);
+                        items3.site = event.index;
+                        if(!this.materialsItems.useItemsDataReal(items0))
                         {
-                           trace("添加物品不成功，则不执行操作");
                            Game.SG.playSound("dragDown");
                         }
                         else
                         {
-                           items3 = items0.copy(1);
-                           items3.site = event.index;
-                           id0.holeArr[items3.site] = items3;
-                           this.materialsItems.useItemsData(items0);
-                           this.fleshHole_byNowInlayArms();
-                           this.fleshBag();
-                           trace("替换物品成功！");
-                           Game.SG.playSound("holeChip");
+                           str3 = this.materialsItems.addItemsData(id3.copy(1),1,false);
+                           if(str3 == null)
+                           {
+                              this.materialsItems.addItemsData(items3,1,false);
+                              Game.SG.playSound("dragDown");
+                           }
+                           else
+                           {
+                              id0.holeArr[items3.site] = items3;
+                              this.fleshHole_byNowInlayArms();
+                              this.fleshBag();
+                              Game.SG.playSound("holeChip");
+                           }
                         }
                      }
                   }
@@ -1387,6 +1400,31 @@ package UI.research
          id0.fleshData();
          return true;
       }
+
+      private function returnEquippedCrystalToBag(items0:GoodsItemsData, id0:ArmsItemsData) : Boolean
+      {
+         var holeIndex0:int = -1;
+         if(id0 == null || items0 == null || items0.type == "chip")
+         {
+            return false;
+         }
+         holeIndex0 = id0.holeArr.indexOf(items0);
+         if(holeIndex0 < 0 && items0.site >= 0 && items0.site < id0.holeArr.length && id0.holeArr[items0.site] === items0)
+         {
+            holeIndex0 = items0.site;
+         }
+         if(holeIndex0 < 0)
+         {
+            return false;
+         }
+         if(this.materialsItems.addItemsData(items0.copy(1),1,false) == null)
+         {
+            return false;
+         }
+         id0.holeArr[holeIndex0] = new Object();
+         id0.fleshData();
+         return true;
+      }
       
       private function chipDown(event:MouseEvent) : *
       {
@@ -1472,11 +1510,14 @@ package UI.research
          var items2:ArmsItemsData = null;
          var items0:ItemsDefine = null;
          var bocc:Boolean = false;
+         var blackHoleCardB:Boolean = false;
          if(this.upgrade_btn.alpha < 1)
          {
             return;
          }
-         if((!this.upgradeMaterialsB || !this.upgradeCoinB) && !this.useResearchUpgradeCardB)
+         d0 = this.nowArms.itemsData;
+         blackHoleCardB = !Game.gameData.modCraftFree && d0.id == "zhonglichongjipao" && d0.mustArenaScore > Game.gameData.arenaData.score;
+         if((!this.upgradeMaterialsB || !this.upgradeCoinB || blackHoleCardB) && !this.useResearchUpgradeCardB)
          {
             if(Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
             {
@@ -1484,7 +1525,7 @@ package UI.research
             }
             return;
          }
-         if(!this.useResearchUpgradeCardB && !Game.gameData.modCraftFree)
+         if(!Game.gameData.modCraftFree && !this.useResearchUpgradeCardB)
          {
             for(n in this.mustItemsBox.arr)
             {
@@ -1496,11 +1537,10 @@ package UI.research
                }
             }
          }
-         else
+         else if(!Game.gameData.modCraftFree)
          {
             Game.gameData.propsItems.useItemsNum("research_upgrade_card",1);
          }
-         d0 = this.nowArms.itemsData;
          if(!this.useResearchUpgradeCardB && !Game.gameData.modCraftFree)
          {
             Game.gameData.addCoin(-d0.price);

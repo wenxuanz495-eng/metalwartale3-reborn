@@ -7,10 +7,13 @@ package net
    import flash.events.EventDispatcher;
    import flash.events.IOErrorEvent;
    import flash.events.ProgressEvent;
+   import flash.events.SecurityErrorEvent;
    import flash.geom.Point;
+   import flash.utils.setTimeout;
    
    public class SWFLoaderManager extends EventDispatcher
    {
+      public static const CRITICAL_LOAD_FAILED:String = "criticalLoadFailed";
       
       private var waiting_arr:Array = new Array();
       
@@ -31,6 +34,14 @@ package net
       private const MAXLOADING:int = 5;
       
       private var _nowLoadingArr:Array = [];
+
+      private var failedCritical:Boolean = false;
+
+      private var criticalFailureText:String = "";
+
+      private var pendingRetryCount:int = 0;
+
+      private var loadSession:int = 0;
       
       public function SWFLoaderManager()
       {
@@ -57,6 +68,10 @@ package net
       
       public function startLoad() : *
       {
+         ++this.loadSession;
+         this.pendingRetryCount = 0;
+         this.failedCritical = false;
+         this.criticalFailureText = "";
          this.nowMax = this.waiting_arr.length;
          this.beforeMax = this.loader_arr.length;
          this._startLoad();
@@ -65,16 +80,19 @@ package net
       public function stopLoad() : *
       {
          var nowLoader:SWFLoader = null;
-         for(var i:int = 0; i < this._nowLoadingArr.length; i++)
+         ++this.loadSession;
+         this.pendingRetryCount = 0;
+         while(this._nowLoadingArr.length > 0)
          {
             nowLoader = this._nowLoadingArr.shift();
             if(nowLoader != null)
             {
-               nowLoader.unloadAndStop();
                nowLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE,this.loadCompleteHandler);
                nowLoader.contentLoaderInfo.removeEventListener(ProgressEvent.PROGRESS,this.loadProcessHandler);
                nowLoader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR,this.loadErrorHandler);
-               this.waiting_arr.length = 0;
+               nowLoader.contentLoaderInfo.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.loadErrorHandler);
+               try{ nowLoader.close(); }catch(eClose:*){}
+               try{ nowLoader.unloadAndStop(); }catch(eUnload:*){}
             }
          }
          this.waiting_arr = [];
@@ -115,15 +133,21 @@ package net
                nowLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.loadCompleteHandler);
                nowLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS,this.loadProcessHandler);
                nowLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.loadErrorHandler);
+               nowLoader.contentLoaderInfo.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.loadErrorHandler);
             }
          }
-         if(this._nowLoadingArr.length == 0 && this.waiting_arr.length == 0)
+         if(this._nowLoadingArr.length == 0 && this.waiting_arr.length == 0 && this.pendingRetryCount == 0 && !this.failedCritical)
          {
             trace("列表中没有swf可以加载了");
             completeEvent = new Event(Event.COMPLETE);
             trace("swf全部加载完成");
             this._nowLoadingArr = [];
             dispatchEvent(completeEvent);
+         }
+         else if(this._nowLoadingArr.length == 0 && this.waiting_arr.length == 0 && this.pendingRetryCount == 0 && this.failedCritical)
+         {
+            this.stateText = "关键资源";
+            this.baifenText = this.criticalFailureText;
          }
       }
       
@@ -281,6 +305,7 @@ package net
          event.target.removeEventListener(Event.COMPLETE,this.loadCompleteHandler);
          event.target.removeEventListener(ProgressEvent.PROGRESS,this.loadProcessHandler);
          event.target.removeEventListener(IOErrorEvent.IO_ERROR,this.loadErrorHandler);
+         event.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.loadErrorHandler);
          for(var i:int = 0; i < this._nowLoadingArr.length; i++)
          {
             sl = this._nowLoadingArr[i];
@@ -307,37 +332,105 @@ package net
          this.baifenText = int(this.baifen * 100) + "%";
       }
       
-      private function loadErrorHandler(event:IOErrorEvent) : *
+      private function loadErrorHandler(event:*) : *
       {
          var sl:SWFLoader = null;
+         var errorText:String = event.text == null ? "" : event.text;
          for(var i:int = 0; i < this._nowLoadingArr.length; i++)
          {
             sl = this._nowLoadingArr[i];
             if(sl.contentLoaderInfo == event.target)
             {
                this._nowLoadingArr.splice(i,1);
+               event.target.removeEventListener(Event.COMPLETE,this.loadCompleteHandler);
+               event.target.removeEventListener(ProgressEvent.PROGRESS,this.loadProcessHandler);
+               event.target.removeEventListener(IOErrorEvent.IO_ERROR,this.loadErrorHandler);
+               event.target.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,this.loadErrorHandler);
+               try{ sl.close(); }catch(eClose:*){}
+               try{ sl.unloadAndStop(); }catch(eUnload:*){}
                this.baifenText = "加载swf错误，正在重试：" + sl.url;
-               trace("加载swf错误: " + sl.url + " " + event);
+               trace("加载swf错误: " + sl.url + " " + errorText);
                if(sl.loadcount <= 0)
                {
-                  // Keep loading queue alive. Historical bug: a single failed SWF
-                  // (often sound.swf under flaky path) froze the boot screen at 100%.
+                  if(sl.info != "音效" && sl.info != "音乐")
+                  {
+                     this.failedCritical = true;
+                     ++this.loadSession;
+                     this.pendingRetryCount = 0;
+                     this.waiting_arr = [];
+                     this.stateText = "关键资源";
+                     this.criticalFailureText = "加载失败，请关闭游戏后重新启动：" + sl.url;
+                     this.baifenText = this.criticalFailureText;
+                     trace("关键swf加载失败，停止进入游戏: " + sl.url);
+                     try{ Game.reportClientError("swf-load","critical load failed: " + sl.url + " | " + errorText,"",sl.info); }catch(eCritical:*){}
+                     dispatchEvent(new Event(CRITICAL_LOAD_FAILED));
+                     this._startLoad();
+                     break;
+                  }
                   this.baifenText = "加载swf失败，已跳过：" + sl.url;
-                  trace("加载swf最终失败并跳过: " + sl.url);
-                  try{ Game.reportClientError("swf-load","load failed: " + sl.url,"",sl.info); }catch(eLog:*){}
+                  trace("非关键swf加载失败并跳过: " + sl.url);
+                  try{ Game.reportClientError("swf-load","load failed: " + sl.url + " | " + errorText,"",sl.info); }catch(eLog:*){}
                   this._startLoad();
                   break;
                }
                --sl.loadcount;
-               this.waiting_arr.push(sl);
+               this.scheduleRetry(sl);
                this._startLoad();
                break;
             }
          }
       }
+
+      private function scheduleRetry(failedLoader:SWFLoader) : void
+      {
+         var retryLoader:SWFLoader = new SWFLoader();
+         var session0:int = this.loadSession;
+         retryLoader.url = failedLoader.url;
+         retryLoader.label = failedLoader.label;
+         retryLoader.info = failedLoader.info;
+         retryLoader.loadcount = failedLoader.loadcount;
+         retryLoader.retryToken = failedLoader.retryToken + 1;
+         ++this.pendingRetryCount;
+         setTimeout(function() : void
+         {
+            if(session0 != loadSession)
+            {
+               return;
+            }
+            --pendingRetryCount;
+            if(!failedCritical)
+            {
+               waiting_arr.push(retryLoader);
+            }
+            _startLoad();
+         },150);
+      }
       
       public function delResource() : *
       {
+      }
+
+      public function removeResourcesByLabels(labels:Array) : *
+      {
+         var i:int = 0;
+         var loader0:SWFLoader = null;
+         for(i = this.loader_arr.length - 1; i >= 0; i--)
+         {
+            loader0 = this.loader_arr[i];
+            if(labels.indexOf(loader0.label) >= 0)
+            {
+               this.loader_arr.splice(i,1);
+               try{ loader0.unloadAndStop(); }catch(eUnload:*){}
+            }
+         }
+         for(i = this.waiting_arr.length - 1; i >= 0; i--)
+         {
+            loader0 = this.waiting_arr[i];
+            if(labels.indexOf(loader0.label) >= 0)
+            {
+               this.waiting_arr.splice(i,1);
+            }
+         }
       }
    }
 }

@@ -7,6 +7,7 @@
 		<armsLevel>
 			<!--武器属性 -->
 			<name>小黄豆</name>					<!-- 武器名称【必备】-->
+			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>					<!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    	<!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    		<!-- 能量总量【必备】 -->
@@ -67,6 +68,7 @@
 		<armsLevel>
 			<!--武器属性 -->
 			<name>小黄豆Z</name>    <!-- 武器名称【必备】-->
+			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
@@ -101,6 +103,7 @@
 		<armsLevel>
 			<!--武器属性 -->
 			<name>真·小黄豆Z</name>    <!-- 武器名称【必备】-->
+			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
@@ -136,6 +139,7 @@
 		<armsLevel>
 			<!--武器属性 -->
 			<name>极·小黄豆Z</name>    <!-- 武器名称【必备】-->
+			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
@@ -171,6 +175,7 @@
 		<armsLevel>
 			<!--武器属性 -->
 			<name>大黄豆</name>    <!-- 武器名称【必备】-->
+			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
@@ -204,6 +209,7 @@
 		<armsLevel>
 			<!--武器属性 -->
 			<name>巨黄豆</name>    <!-- 武器名称【必备】-->
+			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->

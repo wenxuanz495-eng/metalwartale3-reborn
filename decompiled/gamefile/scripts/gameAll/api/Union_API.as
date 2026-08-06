@@ -1356,7 +1356,7 @@ package gameAll.api
       
       private function refreshLocalUnionLevel(state:Object) : void
       {
-         var exp:Array = [0,4400,20600,65400,139400,265400,473400,785400,1409400,3281400,99999999];
+         var exp:Array = [0,147,687,2180,4647,8847,15780,26180,46980,109380,99999999];
          var level:int = 1;
          while(level < exp.length - 1 && int(state.unionInfo.contribution) >= int(exp[level]))
          {
@@ -1414,6 +1414,10 @@ package gameAll.api
             {
                value--;
             }
+         }
+         else if(id >= 36 && id <= 40)
+         {
+            value += 50;
          }
          else
          {

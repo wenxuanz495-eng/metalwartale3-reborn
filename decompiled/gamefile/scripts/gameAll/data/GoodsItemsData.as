@@ -44,16 +44,33 @@ package gameAll.data
       
       override public function inData_byObj(obj0:Object) : *
       {
+         var define0:ItemsDefine = null;
          super.inData_byObj(obj0);
          this.nowNum = obj0.nowNum;
          this.affixLevel = obj0.affixLevel;
          if(type == "chip")
          {
-            this.addArr = obj0.addArr;
+            this.addArr = obj0.addArr is Array ? obj0.addArr : [];
          }
          else
          {
-            this.addArr = this.getDefine().addArr;
+            define0 = this.getDefine();
+            if(define0 != null)
+            {
+               this.define = define0;
+               this.addArr = define0.addArr;
+            }
+            else
+            {
+               define0 = new ItemsDefine();
+               define0.type = type;
+               define0.name = name;
+               define0.cnName = cnName;
+               define0.imgLabel = imgLabel;
+               define0.addArr = obj0.addArr is Array ? obj0.addArr : [];
+               this.define = define0;
+               this.addArr = define0.addArr;
+            }
          }
       }
       

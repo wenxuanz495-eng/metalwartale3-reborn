@@ -6,13 +6,15 @@ package net
    public class SWFLoader extends Loader
    {
       
-      public var loadcount:int = 3;
+      public var loadcount:int = 8;
       
       public var url:String;
       
       public var label:String;
       
       public var info:String = "敌人";
+
+      public var retryToken:int = 0;
       
       public function SWFLoader()
       {
@@ -21,7 +23,12 @@ package net
       
       public function loadMe() : *
       {
-         load(new URLRequest(this.url));
+         var requestUrl:String = this.url;
+         if(this.retryToken > 0)
+         {
+            requestUrl += (requestUrl.indexOf("?") >= 0 ? "&" : "?") + "swfretry=" + this.retryToken + "_" + new Date().time;
+         }
+         load(new URLRequest(requestUrl));
       }
    }
 }

@@ -6,6 +6,8 @@ package UI._new.change
    import UI.change.CtrlArmsList;
    import body.define.OneArmsDefine;
    import body.hero.CarDefine;
+   import flash.display.DisplayObject;
+   import flash.events.MouseEvent;
    import flash.geom.Point;
    import gameAll.NormalMustDefine;
    import gameAll.data.ArmsItemsData;
@@ -95,11 +97,29 @@ package UI._new.change
          {
             ctrlList.y = p0.y + ic0.height - ctrlList.height;
          }
+         if(ctrlList.stage != null)
+         {
+            ctrlList.stage.removeEventListener(MouseEvent.MOUSE_DOWN,stageMouseDown,true);
+            ctrlList.stage.addEventListener(MouseEvent.MOUSE_DOWN,stageMouseDown,true,0,true);
+         }
       }
       
       public static function hideList() : *
       {
+         if(ctrlList.stage != null)
+         {
+            ctrlList.stage.removeEventListener(MouseEvent.MOUSE_DOWN,stageMouseDown,true);
+         }
          ctrlList.visible = false;
+      }
+
+      private static function stageMouseDown(event:MouseEvent) : *
+      {
+         var target0:DisplayObject = event.target as DisplayObject;
+         if(target0 == null || !ctrlList.contains(target0))
+         {
+            hideList();
+         }
       }
       
       public static function ctrlClick(e:ClickEvent) : *
@@ -151,7 +171,7 @@ package UI._new.change
             {
                if(ic0.index == 0 && father.type == "arms")
                {
-                  list_arr = [2,5];
+                  list_arr = id0.baseLabel == "soya" ? [1,2,5] : [2,5];
                }
                else
                {
@@ -405,6 +425,16 @@ package UI._new.change
             id0 = ic0.itemsData;
             d0 = id0.getDefine();
             list_arr = [];
+            if(id0.skinB)
+            {
+               if(Game.gameState == "no")
+               {
+                  list_arr = [Game.gameData.carItems.activeSkinId == id0.id ? 14 : 13,3];
+                  ctrlList.fleshName(list_arr);
+                  return true;
+               }
+               return false;
+            }
             if(fa0.dataType == "equip")
             {
                if(Game.gameState == "no")
@@ -423,11 +453,11 @@ package UI._new.change
             {
                if(d0.getType() == "G")
                {
-                  list_arr = [5,3];
+                  list_arr = [5,3,12];
                }
                else
                {
-                  list_arr = [2,5,3];
+                  list_arr = [2,5,15];
                }
                if(id0.getNowInstallLevel() > Game.gameData.level + 1)
                {
@@ -469,9 +499,22 @@ package UI._new.change
             }
             else if(index0 == 3)
             {
-               str0 = "你确定要卖出 <font color=\'#FFFF00\'>" + d0.name + "</font> 吗？";
-               str0 += "\n" + "出售价格为：<font color=\'#FFFF00\'>" + da0.getSellPrice() + "</font> G币 。";
-               Game.uiGroup.checkTip.showCheck(str0,sellCar);
+               if(da0.skinB)
+               {
+                  str0 = "你确定要卖出 <font color=\'#FFFF00\'>" + d0.name + "</font> 战车皮肤吗？";
+                  str0 += "\n" + "按原价出售：<font color=\'#FFFF00\'>" + da0.getSkinSellPrice() + "</font> G币。";
+                  if(dg0.activeSkinId == da0.id)
+                  {
+                     str0 += "\n出售后将恢复实际战车外观。";
+                  }
+                  Game.uiGroup.checkTip.showCheck(str0,sellCarSkin);
+               }
+               else
+               {
+                  str0 = "你确定要卖出 <font color=\'#FFFF00\'>" + d0.name + "</font> 吗？";
+                  str0 += "\n" + "出售价格为：<font color=\'#FFFF00\'>" + da0.getSellPrice() + "</font> G币 。";
+                  Game.uiGroup.checkTip.showCheck(str0,sellCar);
+               }
             }
             else if(index0 == 5)
             {
@@ -485,6 +528,29 @@ package UI._new.change
             {
                Game.uiGroup.checkTip.showTip("人物等级不足，无法装备此车身。",2);
                Game.SG.playSound("failureItems");
+            }
+            else if(index0 == 12)
+            {
+               Game.uiGroup.checkTip.showCheck("确定将 <font color=\'#FFFF00\'>" + d0.name + "</font> 永久制作为战车皮肤吗？\n该战车的等级、强化和全部附加属性将永久消失，且无法还原。",convertCarToSkin);
+            }
+            else if(index0 == 13)
+            {
+               if(dg0.setActiveSkin(da0.id))
+               {
+                  refreshCarSkin("使用战车皮肤");
+                  Game.uiGroup.checkTip.showTip("已使用 " + d0.name + " 战车皮肤。",1);
+               }
+            }
+            else if(index0 == 14)
+            {
+               dg0.clearActiveSkin();
+               refreshCarSkin("取消战车皮肤");
+               Game.uiGroup.checkTip.showTip("已恢复实际战车外观。",1);
+            }
+            else if(index0 == 15)
+            {
+               ctrlList.fleshName([3,12]);
+               showList(icon);
             }
          }
          if(Game.gameState != "no")
@@ -511,6 +577,49 @@ package UI._new.change
          Game.gameData.addCoin(da0.getSellPrice());
          Game.SG.playSound("sellItems");
          fleshData();
+      }
+
+      private static function sellCarSkin() : *
+      {
+         var dg0:CarItemsDataGroup = father.dataGroup;
+         var da0:CarItemsData = icon.itemsData;
+         var price0:int = 0;
+         if(da0 == null || !da0.skinB || dg0.arr.indexOf(da0) < 0)
+         {
+            return;
+         }
+         price0 = da0.getSkinSellPrice();
+         if(dg0.activeSkinId == da0.id)
+         {
+            dg0.clearActiveSkin();
+         }
+         dg0.delItems_arr(dg0.arr,da0.id);
+         Game.gameData.addCoin(price0);
+         Game.SG.playSound("sellItems");
+         refreshCarSkin("出售战车皮肤");
+      }
+
+      private static function convertCarToSkin() : *
+      {
+         var dg0:CarItemsDataGroup = father.dataGroup;
+         var da0:CarItemsData = icon.itemsData;
+         if(da0 == null || da0.skinB || dg0.arr.indexOf(da0) < 0)
+         {
+            Game.uiGroup.checkTip.showCheck2("只有车库中未装备的战车可以制作皮肤。",2);
+            return;
+         }
+         da0.convertToSkin();
+         dg0.setActiveSkin(da0.id);
+         refreshCarSkin("制作战车皮肤");
+         Game.uiGroup.checkTip.showCheck2("制作完成！该战车已变为无属性皮肤并立即启用。",2);
+      }
+
+      private static function refreshCarSkin(reason0:String) : *
+      {
+         fleshData();
+         Game.eventGroup.fleshCar();
+         Game.uiGroup.carShow.copyAll();
+         Game.uiGroup.saveDataNoUI(reason0);
       }
       
       private static function itemsList() : *

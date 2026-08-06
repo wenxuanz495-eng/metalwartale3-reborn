@@ -32,7 +32,7 @@ package UI.change
       
       public var colorNameArr:Array = ["白色芯片","<font color=\'#00FFFF\'>蓝色芯片</font>","<font color=\'#FFFF00\'>金色芯片</font>","<font color=\'#FF6600\'>橙色芯片</font>","<font color=\'#00FF00\'>绿色芯片</font>"];
       
-      public var levelArr:Array = [10,20,30,40,50,60,70,80,90,100,-10];
+      public var levelArr:Array = [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,-10];
       
       public var levelNameArr:Array = ["1级~10级","1级~20级","1级~30级","1级~40级","1级~50级","1级~60级","1级~70级","1级~80级","1级~90级","1级~100级","所有"];
       

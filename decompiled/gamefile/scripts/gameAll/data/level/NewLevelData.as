@@ -159,23 +159,31 @@ package gameAll.data.level
       
       public function setScore(score0:int, level0:int, diff0:int, packName:String = "") : *
       {
+         var lowerDiff0:int = 0;
+         var name0:String = null;
          if(packName == "")
          {
             packName = this.levelPack;
          }
-         var name0:String = packName + "_" + diff0 + "_" + level0;
-         if(name0 == "p1_0_0")
+         lowerDiff0 = Math.max(0,Math.min(3,diff0));
+         while(lowerDiff0 >= 0)
          {
-            score0 = 1;
-         }
-         if(this.scoreObj.hasOwnProperty(name0))
-         {
-            if(this.scoreObj[name0] < score0)
+            name0 = packName + "_" + lowerDiff0 + "_" + level0;
+            if(name0 == "p1_0_0")
             {
-               this.scoreObj[name0] = score0;
+               this.storeScore(name0,1);
             }
+            else
+            {
+               this.storeScore(name0,score0);
+            }
+            lowerDiff0--;
          }
-         else
+      }
+
+      private function storeScore(name0:String, score0:int) : *
+      {
+         if(!this.scoreObj.hasOwnProperty(name0) || this.scoreObj[name0] < score0)
          {
             this.scoreObj[name0] = score0;
          }

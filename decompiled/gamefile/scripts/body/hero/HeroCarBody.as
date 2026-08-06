@@ -208,8 +208,15 @@ package body.hero
       
       public function changeCar(id0:String, _itemsData:CarItemsData = null) : *
       {
+         var skin0:CarItemsData = null;
+         var skinDefine0:CarDefine = null;
          this.carDefine.inData(id0,_itemsData);
-         this.img.car.showMC(this.carDefine.imgLabel);
+         skin0 = Game.gameData.carItems.getActiveSkin();
+         if(skin0 != null)
+         {
+            skinDefine0 = skin0.getDefine();
+         }
+         this.img.car.showMC(skinDefine0 != null ? skinDefine0.imgLabel : this.carDefine.imgLabel);
          this.img.ArmsFollowCar();
          this.img.plasmaShield.y = this.carDefine.hitRect.y + this.carDefine.hitRect.height / 2 - 20;
       }

@@ -26,6 +26,7 @@ package gameAll
    import gameAll.define.OneTaskDefine;
    import gameAll.honor.OneHonorDefine;
    import gameAll.level.LevelGroup;
+   import gameAll.level.ArenaLevel;
    import gameAll.level.Level_3_13;
    import gameAll.level.extra.VipExtraLevel;
    import gameAll.level.extra.WeekExtraLevel;
@@ -60,6 +61,12 @@ package gameAll
       public var dieDelay:DieDelayGroup = new DieDelayGroup();
       
       public var modelType:String = "";
+
+      private var pendingLevel:int = 0;
+
+      private var pendingLevelState:String = "normal";
+
+      private var pendingLevelPack:String = "p1";
       
       public function EventGroup()
       {
@@ -145,6 +152,58 @@ package gameAll
       
       public function chosenLevel(level0:int = 0, state0:String = "normal", levelPack0:String = "p1") : *
       {
+         this.pendingLevel = level0;
+         this.pendingLevelState = state0;
+         this.pendingLevelPack = levelPack0;
+         if(Game.uiGroup.allback != null && !Game.uiGroup.allback.getBackupPromptEnabled())
+         {
+            this.saveOnlyBeforeLevel();
+            return;
+         }
+         // Automatic level transitions accept the backup confirmation implicitly.
+         if(Game.gameData.autoRestartLevel || Game.gameData.autoNextLevel)
+         {
+            this.saveBackupBeforeLevel();
+            return;
+         }
+         Game.uiGroup.checkTip.showCheck("进入关卡时可能遇到资源加载异常，是否先备份存档？\n取消：仅保存；确定：保存并备份。",this.saveBackupBeforeLevel,this.saveOnlyBeforeLevel);
+      }
+
+      private function saveOnlyBeforeLevel() : *
+      {
+         Game.save_api.save(true,this.continueChosenLevel,this.saveBeforeLevelFailed);
+      }
+
+      private function saveBackupBeforeLevel() : *
+      {
+         Game.save_api.save(true,this.backupBeforeLevel,this.saveBeforeLevelFailed);
+      }
+
+      private function backupBeforeLevel() : *
+      {
+         Game.uiGroup.requestSaveBackup(this.backupBeforeLevelComplete);
+      }
+
+      private function backupBeforeLevelComplete(ok:Boolean) : *
+      {
+         if(!ok)
+         {
+            Game.uiGroup.checkTip.showTip("存档已保存，但备份失败；仍可进入关卡。",2);
+         }
+         this.continueChosenLevel();
+      }
+
+      private function saveBeforeLevelFailed() : *
+      {
+         Game.uiGroup.checkTip.showTip("存档保存失败，已取消进入关卡。",2);
+         Game.SG.playSound("failureItems");
+      }
+
+      private function continueChosenLevel() : *
+      {
+         var level0:int = this.pendingLevel;
+         var state0:String = this.pendingLevelState;
+         var levelPack0:String = this.pendingLevelPack;
          this.LG.state = state0;
          if(levelPack0 == "p2")
          {
@@ -361,6 +420,8 @@ package gameAll
       private function awardFirstClearMCoin() : *
       {
          var reward:int = 0;
+         var oneDifficultyReward:int = 0;
+         var newClearCount:int = 0;
          var checkIndex:int = 0;
          var chapter:int = 0;
          var finalIndex:int = 0;
@@ -376,17 +437,21 @@ package gameAll
             checkIndex -= 100;
          }
          difficult = 0;
-         while(difficult < 4)
+         while(difficult <= this.GD.nowDifficult)
          {
-            if(this.GD.newLevelData.getScore(checkIndex,difficult,pack) != -1)
+            if(this.GD.newLevelData.getScore(checkIndex,difficult,pack) == -1)
             {
-               return;
+               newClearCount++;
             }
             difficult++;
          }
+         if(newClearCount <= 0)
+         {
+            return;
+         }
          if(pack == "p1" && checkIndex == 0)
          {
-            reward = 10;
+            oneDifficultyReward = 10;
          }
          else
          {
@@ -396,12 +461,13 @@ package gameAll
             {
                return;
             }
-            reward = Math.min(chapter + 4,11);
+            oneDifficultyReward = Math.min(chapter + 4,11);
             if(checkIndex == finalIndex)
             {
-               reward += Math.min((chapter + 1) * 10,80);
+               oneDifficultyReward += Math.min((chapter + 1) * 10,80);
             }
          }
+         reward = oneDifficultyReward * newClearCount;
          this.GD.addMCoin(reward);
          Game.dialogboxGroup.showGameTip("首次通关奖励：" + reward + " M币",5,true);
       }
@@ -713,6 +779,7 @@ package gameAll
       public function gamingInit() : *
       {
          this.GAME.music.stop();
+         this.BG.prewarmEnemyImages(this.LG.level.enemyNameArr);
          if(this.hero.die > 0)
          {
             this.hero.rebirth();
@@ -794,6 +861,9 @@ package gameAll
          var hurtDefence0:Number = Number(NaN);
          var redu00:Number = Number(NaN);
          var dropBB:Boolean = false;
+         var arenaLevel0:ArenaLevel = null;
+         var arenaOpponentAttack0:Boolean = false;
+         var arenaDamage0:Number = Number(NaN);
          if(b0 is HeroCarBody)
          {
             if(b0.die != 0)
@@ -847,6 +917,8 @@ package gameAll
             }
             hurt0 = HurtCount.getHurt(value,attackType,defenceType);
             hurt0 *= 1 - this.GD.defenceHurtRedu;
+            arenaLevel0 = this.LG.level as ArenaLevel;
+            arenaOpponentAttack0 = b1 is EnemyHeroBody || b1 is SubBody && b1.father is EnemyHeroBody;
             if(hurtTextShow)
             {
                if(hurt0 < 1)
@@ -862,13 +934,23 @@ package gameAll
                {
                   if(bullet0.specialType == "Slow_Missile")
                   {
-                     this.GD.setLife(-this.GD.maxLife * 0.2);
+                     arenaDamage0 = this.GD.maxLife * 0.2;
+                     if(arenaLevel0 != null)
+                     {
+                        arenaDamage0 = arenaLevel0.filterHeroDamage(arenaDamage0,arenaOpponentAttack0);
+                     }
+                     this.GD.setLife(-arenaDamage0);
                   }
                }
             }
             if(mulHurt > 0)
             {
-               this.GD.setLife(-this.GD.maxLife * mulHurt);
+               arenaDamage0 = this.GD.maxLife * mulHurt;
+               if(arenaLevel0 != null)
+               {
+                  arenaDamage0 = arenaLevel0.filterHeroDamage(arenaDamage0,arenaOpponentAttack0);
+               }
+               this.GD.setLife(-arenaDamage0);
             }
             else
             {
@@ -876,6 +958,10 @@ package gameAll
                if(isnn)
                {
                   hurt0 = this.GD.maxLife / 10;
+               }
+               if(arenaLevel0 != null)
+               {
+                  hurt0 = arenaLevel0.filterHeroDamage(hurt0,arenaOpponentAttack0);
                }
                this.GD.setLife(-hurt0);
             }

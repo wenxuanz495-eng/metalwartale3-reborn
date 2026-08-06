@@ -76,6 +76,8 @@ package UI.gameover
       
       public function flipStart_init(levelState0:String = "normal") : *
       {
+         this.listenB = false;
+         this.index = -1;
          if(levelState0 == "normal")
          {
             this.DD = Game.gameDefine.flipCard;
@@ -177,12 +179,34 @@ package UI.gameover
       
       private function cardClick(e:*) : *
       {
+         this.flipCard(e.target.parent);
+      }
+
+      public function autoFlipOne() : Boolean
+      {
+         var bar0:* = undefined;
+         if(this.card_arr.length <= 0 || this.listenB || this.nowNum <= 0)
+         {
+            return false;
+         }
+         for each(bar0 in this.card_arr)
+         {
+            if(!bar0.showTextB)
+            {
+               this.flipCard(bar0);
+               return true;
+            }
+         }
+         return false;
+      }
+
+      private function flipCard(bar0:*) : *
+      {
          var type0:String = null;
          var d_str0:String = null;
          var d0:GoodsDefine = null;
          var bagFillB:Boolean = false;
          var aid0:* = undefined;
-         var bar0:* = e.target.parent;
          if(!this.listenB && !bar0.showTextB && this.nowNum > 0)
          {
             this.index = bar0.index;
@@ -254,6 +278,7 @@ package UI.gameover
                      this.showAllCard();
                      trace("翻牌后自动保存  Game.uiGroup.saveDataNoUI()");
                   }
+                  this.dispatchEvent(new Event("autoFlipComplete"));
                }
             }
          }

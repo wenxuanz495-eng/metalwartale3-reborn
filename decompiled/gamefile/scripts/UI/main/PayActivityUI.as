@@ -127,8 +127,8 @@ package UI.main
          }
          if(e.target == this.context.getGift2_btn)
          {
-            Game.IC.addPurpleChip_byLevel(Game.gameData.level + 1);
-            Game.IC.addPurpleChip_byLevel(Game.gameData.level + 1);
+            Game.IC.addPurpleChip_byLevel(Game.gameData.level);
+            Game.IC.addPurpleChip_byLevel(Game.gameData.level);
             Game.uiGroup.addGift_byArr(Game.gameDefine.gift.getPay10(),true);
             gd0.nationalDayPayB = true;
          }

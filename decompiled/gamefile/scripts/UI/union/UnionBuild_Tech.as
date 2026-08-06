@@ -144,7 +144,6 @@ package UI.union
                }
                citydat = this.BUILDARR[this._buildId];
                Game.gameData.materialsItems.useItemsNum("superalloy_Y",2);
-               Game.gameData.giftData.AddTechBuildByID(citydat.Id,false);
                Game.uiGroup.addGift_byArr(citydat.ExtraPrizeArr,false,1,true);
                Game.union_api.doVariable(Game.nowSaveIndex,citydat.Id);
                Game.uiGroup.saveDataNoUI();
@@ -159,7 +158,6 @@ package UI.union
                }
                citydat = this.BUILDARR[this._buildId];
                Game.gameData.materialsItems.useItemsNum("superalloy_X",100);
-               Game.gameData.giftData.AddTechBuildByID(citydat.Id,true);
                Game.uiGroup.addGift_byArr(citydat.ExtraPrizeArr,false,1,true);
                Game.union_api.doVariable(Game.nowSaveIndex,citydat.Id);
                Game.uiGroup.saveDataNoUI();
@@ -176,8 +174,8 @@ package UI.union
       {
          var citydat:CBuildData = this.BUILDARR[this._buildId];
          this.mc_box["mc_build_" + this._buildId].gotoAndStop(2);
-         var normalcount:int = 1 - Game.gameData.giftData.GetTechBuildByID(citydat.Id,true);
-         var extracount:int = 2 - Game.gameData.giftData.GetTechBuildByID(citydat.Id,false);
+         var normalcount:int = 1;
+         var extracount:int = 2;
          var buildlevel:int = this._build.GetBuildLevel(0);
          var levelCan:Boolean = false;
          if(buildlevel * 10 < citydat.Level)
@@ -188,7 +186,7 @@ package UI.union
          {
             levelCan = true;
          }
-         if(normalcount <= 0 || levelCan == false)
+         if(levelCan == false)
          {
             normalcount = 0;
             this.mc_box["btn_normal"].alpha = 0.3;
@@ -199,7 +197,7 @@ package UI.union
             this.mc_box["btn_normal"].alpha = 1;
             this.mc_box["btn_normal"].mouseEnabled = true;
          }
-         if(extracount <= 0 || levelCan == false)
+         if(levelCan == false)
          {
             extracount = 0;
             this.mc_box["btn_extra"].alpha = 0.3;
@@ -209,6 +207,15 @@ package UI.union
          {
             this.mc_box["btn_extra"].alpha = 1;
             this.mc_box["btn_extra"].mouseEnabled = true;
+         }
+         if(citydat.Level >= citydat.LevelExpArr.length - 1)
+         {
+            normalcount = 0;
+            extracount = 0;
+            this.mc_box["btn_normal"].alpha = 0.3;
+            this.mc_box["btn_normal"].mouseEnabled = false;
+            this.mc_box["btn_extra"].alpha = 0.3;
+            this.mc_box["btn_extra"].mouseEnabled = false;
          }
          this.mc_box["txt_skillname"].text = citydat.Name;
          this.mc_box["txt_skilllevel"].text = citydat.Level;

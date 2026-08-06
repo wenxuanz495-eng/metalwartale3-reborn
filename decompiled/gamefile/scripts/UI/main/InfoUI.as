@@ -61,13 +61,19 @@ package UI.main
       public var random_btn:SimpleButton;
       
       public var top_txt:TextField;
+
+      private var meritExchange_btn:Sprite;
+
+      private var pendingMeritMCoin:int = 0;
       
       public function InfoUI()
       {
          var n:* = undefined;
          this.rankArr = ["group","groupScore","GCoin","MCoin","dps","lifeMax","defence","exp","achieve","lifeAdd","attackAdd","subAdd","defenceAdd"];
          super();
-         this.pay_btn.addEventListener(MouseEvent.CLICK,this.toPay);
+         this.pay_btn.visible = false;
+         this.meritExchange_btn = this.createMeritExchangeButton();
+         addChild(this.meritExchange_btn);
          this.gotoShop_btn.addEventListener(MouseEvent.CLICK,Game.uiGroup.gotoPropsShop);
          this.pk_btn.addEventListener(MouseEvent.CLICK,this.pkClick);
          this.mouseEnabled = false;
@@ -101,7 +107,66 @@ package UI.main
       
       public function toPay(e:*) : *
       {
-         Game.uiGroup.show("rank");
+         Game.uiGroup.checkTip.showNumberInput("输入要兑换的 MB 数量：\n兑换比例：1 MB = 100 功勋值。\n当前拥有：" + Game.gameData.MCoin + " MB","1",this.prepareMeritExchange,null,8);
+      }
+
+      private function createMeritExchangeButton() : Sprite
+      {
+         var button0:Sprite = new Sprite();
+         var text0:TextField = new TextField();
+         button0.x = this.pay_btn.x;
+         button0.y = this.pay_btn.y;
+         button0.graphics.beginFill(20502,1);
+         button0.graphics.lineStyle(1,65535,1);
+         button0.graphics.drawRect(0,0,Math.max(104,this.pay_btn.width),Math.max(28,this.pay_btn.height));
+         button0.graphics.endFill();
+         text0.width = Math.max(104,this.pay_btn.width);
+         text0.height = Math.max(28,this.pay_btn.height);
+         text0.selectable = false;
+         text0.mouseEnabled = false;
+         text0.textColor = 16777215;
+         text0.text = "MB兑换功勋";
+         text0.defaultTextFormat = new flash.text.TextFormat("_sans",14,16777215,true,null,null,null,null,"center");
+         text0.setTextFormat(text0.defaultTextFormat);
+         text0.y = 4;
+         button0.addChild(text0);
+         button0.buttonMode = true;
+         button0.mouseChildren = false;
+         button0.addEventListener(MouseEvent.CLICK,this.toPay);
+         return button0;
+      }
+
+      private function prepareMeritExchange() : void
+      {
+         var amount0:Number = Number(Game.uiGroup.checkTip.input_txt.text);
+         if(isNaN(amount0) || amount0 < 1 || amount0 != int(amount0))
+         {
+            Game.uiGroup.checkTip.showCheck2("请输入大于0的整数 MB 数量。",2);
+            return;
+         }
+         if(amount0 > Game.gameData.MCoin)
+         {
+            Game.uiGroup.checkTip.showCheck2("MB不足，当前只有 " + Game.gameData.MCoin + " MB。",2);
+            return;
+         }
+         this.pendingMeritMCoin = int(amount0);
+         Game.uiGroup.checkTip.showCheck2("将消耗 " + this.pendingMeritMCoin + " MB，兑换 " + this.pendingMeritMCoin * 100 + " 点功勋值。\n确定兑换吗？",1,this.confirmMeritExchange);
+      }
+
+      private function confirmMeritExchange() : void
+      {
+         var amount0:int = this.pendingMeritMCoin;
+         this.pendingMeritMCoin = 0;
+         if(amount0 < 1 || Game.gameData.MCoin < amount0)
+         {
+            Game.uiGroup.checkTip.showCheck2("MB余额已经变化，请重新兑换。",2);
+            return;
+         }
+         Game.gameData.addMCoin(-amount0);
+         Game.gameData.addAchieve(amount0 * 100);
+         this.fleshData();
+         Game.uiGroup.saveDataNoUI("MB兑换功勋");
+         Game.uiGroup.checkTip.showTip("兑换成功，获得 " + amount0 * 100 + " 点功勋值！",1);
       }
       
       public function pkClick(event:MouseEvent) : *
@@ -262,6 +327,8 @@ package UI.main
          }
          this.pay_btn.mouseEnabled = false;
          this.pay_btn.alpha = 0.4;
+         this.meritExchange_btn.mouseEnabled = false;
+         this.meritExchange_btn.alpha = 0.4;
          this.gotoShop_btn.mouseEnabled = false;
          this.gotoShop_btn.alpha = 0.4;
          this.pk_btn.alpha = 0.4;
@@ -277,6 +344,8 @@ package UI.main
          }
          this.pay_btn.mouseEnabled = true;
          this.pay_btn.alpha = 1;
+         this.meritExchange_btn.mouseEnabled = true;
+         this.meritExchange_btn.alpha = 1;
          this.gotoShop_btn.mouseEnabled = true;
          this.gotoShop_btn.alpha = 1;
          this.pk_btn.alpha = 1;
@@ -501,7 +570,7 @@ package UI.main
             else if(str0 == "achieve")
             {
                str1 += this.getColor("功勋获取加成：" + int(GD.itemsAdd.achieve * 100) + "%","#FFFF00") + "\n";
-               str1 += "击杀精英怪或者充值M币可获得\n功勋值，进而提升军衔。";
+               str1 += "击杀精英怪或使用MB兑换可获得\n功勋值，兑换比例为1 MB=100功勋。";
                this.tipBox.showText(str1);
             }
             else if(str0 == "lifeAdd")

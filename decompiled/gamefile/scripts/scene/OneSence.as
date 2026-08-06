@@ -116,6 +116,50 @@ package scene
          }
          trace("没找到场景：" + _id);
       }
+
+      public function validateSceneResource(_id:String) : Boolean
+      {
+         var n:* = undefined;
+         var m:* = undefined;
+         var xml0:XML = null;
+         var root0:Sprite = null;
+         var levelXML:* = undefined;
+         var childName:String = null;
+         try
+         {
+            for(n in this.id_arr)
+            {
+               if(_id == this.id_arr[n])
+               {
+                  xml0 = this.allXML.scene[n];
+                  break;
+               }
+            }
+            if(xml0 == null)
+            {
+               return false;
+            }
+            root0 = Game.swfLoaderManager.getResource("",String(xml0.sceneImgLable)) as Sprite;
+            if(root0 == null || root0.getChildByName(String(xml0.hitLevelName)) == null)
+            {
+               return false;
+            }
+            levelXML = xml0.level;
+            for(m in levelXML)
+            {
+               childName = String(levelXML[m].mcName);
+               if(childName != "" && root0.getChildByName(childName) == null)
+               {
+                  return false;
+               }
+            }
+         }
+         catch(error:Error)
+         {
+            return false;
+         }
+         return true;
+      }
       
       public function clear() : *
       {

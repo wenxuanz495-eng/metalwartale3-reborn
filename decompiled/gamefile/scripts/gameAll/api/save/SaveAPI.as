@@ -17,6 +17,10 @@ package gameAll.api.save
       private var localCreateRequested:Boolean = false;
       
       private var returnBusy:Boolean = false;
+
+      private var saveSuccessCallback:Function;
+
+      private var saveFailureCallback:Function;
       
       public function SaveAPI()
       {
@@ -134,8 +138,13 @@ package gameAll.api.save
          }
       }
       
-      public function save(showLoading:Boolean = true) : *
+      public function save(showLoading:Boolean = true, successCallback:Function = null, failureCallback:Function = null) : *
       {
+         if(successCallback != null || failureCallback != null)
+         {
+            this.saveSuccessCallback = successCallback;
+            this.saveFailureCallback = failureCallback;
+         }
          Game.testText.addTestText("开始存档……");
          var obj0:Object = Game.gameData.copyObj();
          if(this.isLocal())
@@ -154,6 +163,9 @@ package gameAll.api.save
       
       private function yes_save(str0:String = "") : *
       {
+         var callback0:Function = this.saveSuccessCallback;
+         this.saveSuccessCallback = null;
+         this.saveFailureCallback = null;
          Game.testText.addTestText("存档成功");
          this.loadUI.hide();
          if(Game.uiGroup.showSaveReturn)
@@ -162,10 +174,17 @@ package gameAll.api.save
             Game.SG.playSound("upgradeArms");
             Game.uiGroup.showSaveReturn = false;
          }
+         if(callback0 != null)
+         {
+            callback0();
+         }
       }
       
       private function no_save(str0:String = "") : *
       {
+         var callback0:Function = this.saveFailureCallback;
+         this.saveSuccessCallback = null;
+         this.saveFailureCallback = null;
          Game.testText.addTestText("存档失败……");
          this.loadUI.hide();
          if(Game.uiGroup.showSaveReturn)
@@ -174,6 +193,10 @@ package gameAll.api.save
             Game.SG.playSound("failureItems");
             Game.uiGroup.showSaveReturn = false;
             Game.payController.getStoreState();
+         }
+         if(callback0 != null)
+         {
+            callback0();
          }
       }
       

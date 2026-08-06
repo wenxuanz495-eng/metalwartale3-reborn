@@ -6,8 +6,6 @@ package gameAll.data
    public class ArmsItemsData extends ItemsData
    {
 
-      public static var purpleChipGrowthWhitelist:Array = ["snow","microwave","ioncanon","youdaodianjiangpao","jujiaoguangshupao","zhonglichongjipao","schoolArms","lightKnife"];
-      
       public var baseLabel:String = "";
       
       public var type2:String = "arms";
@@ -96,10 +94,15 @@ package gameAll.data
       {
          this.nowEnergy = this.maxEnergy;
       }
+
+      public function hasInfiniteEnergy() : Boolean
+      {
+         return this.baseLabel == "soya" || this.define != null && this.define.id == "soya";
+      }
       
       public function addEnergy(value:Number) : *
       {
-         if(Game.gameData.modInfiniteEnergy && value < 0)
+         if((Game.gameData.modInfiniteEnergy || this.hasInfiniteEnergy()) && value < 0)
          {
             this.nowEnergy = this.maxEnergy;
             return;
@@ -117,7 +120,7 @@ package gameAll.data
       
       public function setEnergy(value:Number) : *
       {
-         if(Game.gameData.modInfiniteEnergy && value < 0)
+         if((Game.gameData.modInfiniteEnergy || this.hasInfiniteEnergy()) && value < 0)
          {
             this.nowEnergy = this.maxEnergy;
             return;
@@ -135,7 +138,7 @@ package gameAll.data
       
       public function getEnergyPer() : Number
       {
-         if(Game.gameData.modInfiniteEnergy)
+         if(Game.gameData.modInfiniteEnergy || this.hasInfiniteEnergy())
          {
             this.nowEnergy = this.maxEnergy;
             return 1;
@@ -255,11 +258,6 @@ package gameAll.data
          return growth0;
       }
 
-      public function allowsGrowthBeyond200() : Boolean
-      {
-         return this.define.id == "zhonglichongjipao" || this.define.id == "microwave" && this.define.name == "浩劫呼唤";
-      }
-
       public function getPurpleGrowthCalculatedLevel() : int
       {
          var chipGrowth0:int = this.getPurpleChipGrowthLevel();
@@ -268,61 +266,22 @@ package gameAll.data
          {
             level0 = Math.max(Game.gameData.level + 1,this.define.originalCommonLevel) + chipGrowth0;
          }
-         if(!this.allowsGrowthBeyond200())
-         {
-            level0 = Math.min(200,level0);
-         }
+         level0 = Math.min(230,level0);
          return Math.max(this.define.originalCommonLevel,level0);
       }
 
       public function canInstallPurpleChip() : Boolean
       {
-         if(this.define.discount == -1000)
-         {
-            return false;
-         }
-         if(purpleChipGrowthWhitelist.indexOf(this.define.id) >= 0)
-         {
-            return true;
-         }
-         if(this.define.specialType.indexOf("Level_Growth") >= 0)
-         {
-            return false;
-         }
-         return this.getPurpleChipFamilyMaxLevel() < 180;
-      }
-
-      public function getPurpleChipFamilyMaxLevel() : int
-      {
-         var n:* = undefined;
-         var d0:OneArmsDefine = null;
-         var level0:int = 0;
-         var max0:int = 0;
-         var arr0:Array = Game.defineGroup.getArmsDefineArr(this.define.id);
-         for(n in arr0)
-         {
-            d0 = arr0[n];
-            level0 = d0.originalCommonLevel;
-            if(d0.specialType.indexOf("Level_Growth") >= 0)
-            {
-               level0 = 150 + int(d0.specialType.split("_Growth_")[1]);
-            }
-            max0 = Math.max(max0,level0);
-         }
-         return max0;
+         return this.define.discount != -1000;
       }
 
       public function getPurpleChipBlockReason() : String
       {
-         if(this.define.specialType.indexOf("Level_Growth") >= 0)
-         {
-            return "成长型武器不能安装紫色芯片。";
-         }
          if(this.define.discount == -1000)
          {
             return "定制武器不能安装紫色芯片。";
          }
-         return "最终形态达到180级的后期武器系列不能安装紫色芯片。";
+         return "";
       }
 
       public function hasLevelGrowth() : Boolean

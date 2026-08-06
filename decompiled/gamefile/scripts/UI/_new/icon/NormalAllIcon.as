@@ -348,7 +348,14 @@ package UI._new.icon
             {
                carColor0 = "#FFFFFF";
             }
-            cnstr = "<font color=\'" + carColor0 + "\'>" + define0.name + "(" + (id0 as CarItemsData).getNowLevel() + ")" + "</font>";
+            if((id0 as CarItemsData).skinB)
+            {
+               cnstr = "<font color=\'#00FFFF\'>[皮肤] " + define0.name + "</font>";
+            }
+            else
+            {
+               cnstr = "<font color=\'" + carColor0 + "\'>" + define0.name + "(" + (id0 as CarItemsData).getNowLevel() + ")" + "</font>";
+            }
          }
          this.setText(cnstr);
          var dp:* = Game.swfLoaderManager.getResource("",id0.imgLabel);

@@ -72,6 +72,7 @@ package gameAll.data
             target.name = "chipBag";
             target.cnName = "紫色芯片袋";
             target.nowNum = total0;
+            target.inData_byMe();
          }
       }
       
@@ -123,6 +124,11 @@ package gameAll.data
                add0 = Game.gameDefine.addDefine.getAdditionalData(define0.dropLevel,define0.affixLevel,labelArr);
                items0.addArr = add0.getStrArr();
             }
+         }
+         if(newB && Game.gameData != null && this == Game.gameData.materialsItems && Game.gameData.shouldAutoSellChip(items0.name))
+         {
+            Game.gameData.addCoin(items0.getSellPrice());
+            return items0;
          }
          return this.addItemsData(items0,num0,newB);
       }

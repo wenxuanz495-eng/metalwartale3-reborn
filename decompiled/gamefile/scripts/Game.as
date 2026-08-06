@@ -31,9 +31,11 @@ package
    import flash.net.URLRequest;
    import flash.net.URLRequestMethod;
    import flash.text.TextField;
+   import flash.text.TextFieldType;
    import flash.ui.Keyboard;
    import flash.ui.Mouse;
    import flash.utils.getTimer;
+   import flash.utils.setTimeout;
    import gameAll.EventGroup;
    import gameAll.GameDefine;
    import gameAll.High_API;
@@ -230,6 +232,10 @@ package
       public var music:OneMusic;
       
       private var loaderTarget:int = 0;
+
+      private var levelResourceRetryCount:int = 0;
+
+      private const MAX_LEVEL_RESOURCE_RETRIES:int = 2;
       
       public var logoMc:*;
       
@@ -830,6 +836,12 @@ package
          trace("选择关卡：" + level0 + "   当前状态：" + gameState);
          uiGroup.show("loader");
          LG.chosenLevel(level0);
+         this.levelResourceRetryCount = 0;
+         this.queueLevelResources();
+      }
+
+      private function queueLevelResources() : *
+      {
          swfLoaderManager.addSWFLoader("swf/effect/levelUp.swf","levelUp","特效");
          swfLoaderManager.addSWFLoader("swf/effect/emp.swf","emp","特效");
          swfLoaderManager.addSWFLoader("swf/enemy/Spider.swf","Spider","敌人");
@@ -840,6 +852,7 @@ package
          swfLoaderManager.addSWFLoader("swf/scene/" + LG.level.father + ".swf",LG.level.father,"场景");
          swfLoaderManager.addSWFLoader("swf/music/" + LG.level.musicLabel + ".swf",LG.level.musicLabel,"音乐");
          swfLoaderManager.addEventListener(Event.COMPLETE,this.swfLoader_complete);
+         swfLoaderManager.addEventListener(SWFLoaderManager.CRITICAL_LOAD_FAILED,this.swfLoader_failed);
          swfLoaderManager.startLoad();
          this.loaderTarget = 1;
          faseUI.showLoaderBar();
@@ -848,10 +861,77 @@ package
       
       internal function swfLoader_complete(e:Event) : *
       {
+         swfLoaderManager.removeEventListener(Event.COMPLETE,this.swfLoader_complete);
+         swfLoaderManager.removeEventListener(SWFLoaderManager.CRITICAL_LOAD_FAILED,this.swfLoader_failed);
+         if(!this.validateLevelResources())
+         {
+            this.reloadInvalidLevelResources();
+            return;
+         }
+         this.levelResourceRetryCount = 0;
          faseUI.hideLoaderBar();
          this.removeEventListener(Event.ENTER_FRAME,this.loaderShowTimer);
-         swfLoaderManager.removeEventListener(Event.COMPLETE,this.swfLoader_complete);
          this.startLevel();
+      }
+
+      internal function swfLoader_failed(e:Event) : *
+      {
+         swfLoaderManager.removeEventListener(Event.COMPLETE,this.swfLoader_complete);
+         swfLoaderManager.removeEventListener(SWFLoaderManager.CRITICAL_LOAD_FAILED,this.swfLoader_failed);
+         try{ reportClientError("level-resource-load","critical level resource load failed","",LG.level.sceneID); }catch(eLog:*){}
+         this.reloadInvalidLevelResources();
+      }
+
+      private function validateLevelResources() : Boolean
+      {
+         var enemiesOK:Boolean = false;
+         var sceneOK:Boolean = false;
+         try
+         {
+            enemiesOK = BG.prewarmEnemyImages(LG.level.enemyNameArr);
+            sceneOK = oneScene.validateSceneResource(LG.level.sceneID);
+         }
+         catch(error:Error)
+         {
+            try{ reportClientError("level-resource-validate","validation exception: " + error,"",LG.level.sceneID); }catch(eLog:*){}
+            return false;
+         }
+         if(!enemiesOK || !sceneOK)
+         {
+            try{ reportClientError("level-resource-validate","enemy animations=" + enemiesOK + ", scene=" + sceneOK,"",LG.level.sceneID); }catch(eLog2:*){}
+            return false;
+         }
+         return true;
+      }
+
+      private function reloadInvalidLevelResources() : *
+      {
+         var labels:Array = LG.level.enemyNameArr.concat(["Spider","SmallWarden","Satellite_small",LG.level.father,LG.level.musicLabel,"levelUp","emp"]);
+         swfLoaderManager.stopLoad();
+         swfLoaderManager.removeResourcesByLabels(labels);
+         if(this.levelResourceRetryCount < this.MAX_LEVEL_RESOURCE_RETRIES)
+         {
+            ++this.levelResourceRetryCount;
+            swfLoaderManager.stateText = "关卡资源校验失败";
+            swfLoaderManager.baifenText = "正在原地重新加载（" + this.levelResourceRetryCount + "/" + this.MAX_LEVEL_RESOURCE_RETRIES + "）";
+            setTimeout(this.queueLevelResources,200);
+            return;
+         }
+         faseUI.hideLoaderBar();
+         this.removeEventListener(Event.ENTER_FRAME,this.loaderShowTimer);
+         gameState = "no";
+         uiGroup.show("startGame");
+         uiGroup.checkTip.showCheck("关卡资源无法实例化，已阻止进入关卡。是否原地重新加载？",this.retryLevelResourcesAfterPrompt);
+      }
+
+      private function retryLevelResourcesAfterPrompt() : *
+      {
+         this.levelResourceRetryCount = 0;
+         gameState = "chosen";
+         uiGroup.show("loader");
+         faseUI.showLoaderBar();
+         this.addEventListener(Event.ENTER_FRAME,this.loaderShowTimer);
+         this.queueLevelResources();
       }
       
       public function startLevel() : *
@@ -1001,7 +1081,10 @@ package
             hero = BG.hero;
             if(gameState == "gaming")
             {
-               stage.focus = stage;
+               if(!(stage.focus is TextField) || TextField(stage.focus).type != TextFieldType.INPUT)
+               {
+                  stage.focus = stage;
+               }
                if(hero.getCtrlB())
                {
                   hero.inMouseXY(gameSprite.gameL.mouseX,gameSprite.gameL.mouseY);

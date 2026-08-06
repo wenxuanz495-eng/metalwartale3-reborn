@@ -266,7 +266,7 @@ package body.lieutenant
          var ran0:Number = Math.random();
          if(ran0 > 0.5)
          {
-            armsSite = ["amplitude_lv3","microwave_lv3","schoolArms_lv3"];
+            armsSite = LieutenantBody.SWITCH_MAIN_WEAPONS;
             index0 = Math.random() * armsSite.length;
             this.BB.changeArms(armsSite[index0]);
          }

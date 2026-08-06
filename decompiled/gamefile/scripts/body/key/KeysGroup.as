@@ -1,6 +1,8 @@
 package body.key
 {
    import flash.events.KeyboardEvent;
+   import flash.text.TextField;
+   import flash.text.TextFieldType;
    
    public class KeysGroup
    {
@@ -70,6 +72,10 @@ package body.key
       public function keyDown(event:KeyboardEvent) : *
       {
          var key0:Keys = null;
+         if(event.target is TextField && TextField(event.target).type == TextFieldType.INPUT)
+         {
+            return;
+         }
          var code:int = int(event.keyCode);
          if(code < this.arr.length)
          {
@@ -84,6 +90,10 @@ package body.key
       public function keyUp(event:KeyboardEvent) : *
       {
          var key0:Keys = null;
+         if(event.target is TextField && TextField(event.target).type == TextFieldType.INPUT)
+         {
+            return;
+         }
          var code:int = int(event.keyCode);
          if(code < this.arr.length)
          {

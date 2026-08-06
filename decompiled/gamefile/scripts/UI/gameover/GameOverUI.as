@@ -14,7 +14,7 @@ package UI.gameover
       public var continueGame_btn:PicButton = new PicButton();
       
       public var restart_btn:PicButton = new PicButton();
-      
+
       public var txt1:TextField;
       
       public var txt2:TextField;

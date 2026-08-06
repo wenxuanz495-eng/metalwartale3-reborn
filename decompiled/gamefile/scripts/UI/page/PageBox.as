@@ -2,9 +2,17 @@ package UI.page
 {
    import flash.display.Sprite;
    import flash.events.MouseEvent;
+   import flash.utils.getTimer;
    
    public class PageBox extends Sprite
    {
+
+      public static var lastUISwitchAt:int = -1000;
+
+      public static function markUISwitch() : *
+      {
+         lastUISwitchAt = getTimer();
+      }
       
       public var prev_btn:PageTurnButton;
       
@@ -182,6 +190,7 @@ package UI.page
          --this.nowPage;
          if(this.nowPage >= 0)
          {
+            markUISwitch();
             this.fleshAll();
          }
          else
@@ -195,6 +204,7 @@ package UI.page
          ++this.nowPage;
          if(this.nowPage < this.totalPage)
          {
+            markUISwitch();
             this.fleshAll();
          }
          else
@@ -209,6 +219,7 @@ package UI.page
          var cindex:int = pb1.getText() - 1;
          if(cindex != this.nowPage)
          {
+            markUISwitch();
             this.nowPage = cindex;
             this.fleshAll();
          }

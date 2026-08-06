@@ -16,7 +16,7 @@ package UI.extra
    
    public class ExtraUI extends Sprite
    {
-      
+
       internal var name_arr:Array = ["extra","weekExtra","specialExtra"];
       
       public var extraNameArr:Array = [];
@@ -172,6 +172,11 @@ package UI.extra
                return;
             }
             state0 = int(this.extraData.allState[this.extraData.nowDiff][index0]);
+            if(this.canSweepExtra(index0))
+            {
+               Game.uiGroup.checkTip.showCheck("该精英副本已通关。\n是否使用今日免费次数直接扫荡？\n扫荡只获得固定奖励，不产生场内掉落和翻牌奖励。\n确定：扫荡　取消：正常进入",this.sweepExtra,this.gotoExtraWithFirstFree);
+               return;
+            }
             if(state0 == 1)
             {
                // The first unlocked run is this level's one available free run;
@@ -250,6 +255,85 @@ package UI.extra
       {
          Game.eventGroup.chosenLevel(this.nowIndex,this.extraState);
       }
+
+      private function gotoExtraWithFirstFree(e:* = null) : *
+      {
+         if(!this.extraData.hasFirstFree(this.nowIndex))
+         {
+            Game.uiGroup.checkTip.showCheck2("今日免费次数已经使用。",2);
+            return;
+         }
+         this.extraData.useFirstFree(this.nowIndex);
+         Game.uiGroup.checkTip.showTip("使用该精英副本今日免费挑战机会。",1);
+         this.gotoExtra();
+      }
+
+      private function canSweepExtra(index0:int) : Boolean
+      {
+         if(this.extraState != "extra" || this.extraData.nowDiff != 0)
+         {
+            return false;
+         }
+         if(!this.extraData.hasFirstFree(index0))
+         {
+            return false;
+         }
+         if(this.extraData.getScore(index0) <= 0)
+         {
+            return false;
+         }
+         if(int(this.extraData.allState[0][index0]) == 0)
+         {
+            return false;
+         }
+         return true;
+      }
+
+      private function sweepExtra(e:* = null) : *
+      {
+         var giftArr0:Array = null;
+         var rewardArr0:Array = null;
+         var enough0:String = null;
+         var fixedMCoin0:int = 0;
+         if(!this.canSweepExtra(this.nowIndex))
+         {
+            Game.uiGroup.checkTip.showCheck2("当前副本已不满足扫荡条件。",2);
+            return;
+         }
+         giftArr0 = Game.gameDefine.extra.getGift(0,this.nowIndex);
+         rewardArr0 = Game.goodsDefineGroup.getArr_byStrArr(giftArr0,Game.gameData.level,true);
+         enough0 = Game.uiGroup.panGift_BagEnough(rewardArr0);
+         if(enough0 != "")
+         {
+            Game.uiGroup.checkTip.showCheck2(enough0,3);
+            return;
+         }
+         this.extraData.useFirstFree(this.nowIndex);
+         this.extraData.allState[0][this.nowIndex] = 2;
+         fixedMCoin0 = this.getSweepFixedMCoin(this.nowIndex);
+         Game.gameData.addMCoin(fixedMCoin0);
+         Game.uiGroup.addGift_byArr(rewardArr0,true,this.extraData.getMustLevel(0,this.nowIndex),false);
+         Game.gameData.livenessData.addTaskNum("extra");
+         Game.uiGroup.infoUI.fleshData();
+         Game.uiGroup.saveDataNoUI("精英副本免费扫荡");
+         Game.uiGroup.checkTip.showCheck2("扫荡完成！已获得副本固定奖励和 " + fixedMCoin0 + " M币。\n本次没有场内掉落和翻牌奖励。",2);
+         this.fleshExtraData(false);
+      }
+
+      private function getSweepFixedMCoin(index0:int) : int
+      {
+         var row0:int = int(index0 / 6);
+         var arr0:Array = [15,20,30,40,50,60,70,80];
+         if(row0 < 0)
+         {
+            row0 = 0;
+         }
+         if(row0 > 7)
+         {
+            row0 = 7;
+         }
+         return int(arr0[row0]);
+      }
       
       private function gotoExtraNoReward(e:* = null) : *
       {
@@ -324,6 +408,10 @@ package UI.extra
             {
                str0 += "\n今日免费次数：" + (this.extraData.hasFirstFree(event.index) ? "1次" : "已使用");
                str0 += "\n挑战卡：" + Game.gameData.propsItems.getNumByBase("elite_challenge_card") + "张";
+               if(this.canSweepExtra(event.index))
+               {
+                  str0 += "\n" + StringToDefine.getFontColor("可使用今日免费次数扫荡（无场内掉落、无翻牌）","#00FF00");
+               }
                if(this.extraData.isLevelCooling(event.index))
                {
                   str0 += "\n" + StringToDefine.getFontColor("冷却剩余：" + this.extraData.getLevelCooldownSeconds(event.index) + "秒（期间无奖励）","#FF9900");

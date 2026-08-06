@@ -34,6 +34,12 @@ package UI.change
             carColor0 = "#FFFFFF";
          }
          var title_str0:String = define0.name;
+         if(aid.skinB)
+         {
+            this.title_txt.htmlText = this.getColor("[皮肤] " + title_str0,"#00FFFF");
+            this.txt.htmlText = this.getColor("无战斗属性","#00FFFF") + "<br />" + this.getFontColor("使用后覆盖实际战车外观，并采用该战车原版武器挂点。") + "<br />" + this.getColor("实际战车继续提供全部属性、技能和碰撞。","#FFFF00");
+            return;
+         }
          if(define0.getType() != "G")
          {
             title_str0 += "(" + aid.getNowLevel() + ")";

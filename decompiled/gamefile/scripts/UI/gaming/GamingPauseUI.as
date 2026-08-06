@@ -1,9 +1,14 @@
 package UI.gaming
 {
    import UI.button.PicButton;
+   import flash.display.DisplayObject;
+   import flash.display.Loader;
    import flash.display.Sprite;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
    import flash.events.MouseEvent;
-   import flash.geom.Point;
+   import flash.geom.Rectangle;
+   import flash.net.URLRequest;
    import flash.text.TextField;
    import flash.text.TextFieldAutoSize;
    import flash.text.TextFormat;
@@ -20,6 +25,8 @@ package UI.gaming
       private var btn_arr:Array;
 
       private var settings_btn:Sprite;
+
+      private var settingsButtonWidth:Number = 160;
       
       public function GamingPauseUI()
       {
@@ -31,11 +38,12 @@ package UI.gaming
          this.btn_arr = [this.resumeGame_btn,this.restartLevel_btn,this.overLevel_btn];
          this.resumeGame_btn.setBack("orange1");
          this.initBtn();
+         var resumeBounds0:Rectangle = this.resumeGame_btn.back.getBounds(this);
+         var overBounds0:Rectangle = this.overLevel_btn.back.getBounds(this);
+         this.settingsButtonWidth = resumeBounds0.width;
          this.settings_btn = this.createSettingsButton();
-         var resumePoint:Point = this.globalToLocal(this.resumeGame_btn.parent.localToGlobal(new Point(this.resumeGame_btn.x,this.resumeGame_btn.y)));
-         var overPoint:Point = this.globalToLocal(this.overLevel_btn.parent.localToGlobal(new Point(this.overLevel_btn.x,this.overLevel_btn.y)));
-         this.settings_btn.x = resumePoint.x;
-         this.settings_btn.y = overPoint.y + this.overLevel_btn.height + 8;
+         this.settings_btn.x = resumeBounds0.x;
+         this.settings_btn.y = overBounds0.bottom + 8;
          addChild(this.settings_btn);
       }
 
@@ -43,24 +51,71 @@ package UI.gaming
       {
          var button:Sprite = new Sprite();
          var label:TextField = new TextField();
-         var width0:Number = this.resumeGame_btn.width;
-         if(width0 < 120) width0 = 160;
-         button.graphics.beginFill(263177,1);
-         button.graphics.lineStyle(2,65535,1);
-         button.graphics.drawRect(0,0,width0,30);
+         button.graphics.beginFill(0,0);
+         button.graphics.drawRect(0,0,this.settingsButtonWidth,36);
          button.graphics.endFill();
-         label.defaultTextFormat = new TextFormat("_sans",14,16777215,false);
-         label.autoSize = TextFieldAutoSize.LEFT;
+         this.addSettingsImage(button,"ui/pause-settings/button-normal.png","normal");
+         this.addSettingsImage(button,"ui/pause-settings/button-hover.png","hover");
+         label.defaultTextFormat = new TextFormat("_sans",14,16777215,false,null,null,null,null,"center");
+         label.width = this.settingsButtonWidth;
+         label.height = 24;
          label.selectable = false;
          label.mouseEnabled = false;
          label.text = "设置";
-         label.x = (width0 - label.width) / 2;
-         label.y = 5;
+         label.y = 7;
          button.addChild(label);
          button.buttonMode = true;
          button.mouseChildren = false;
+         button.addEventListener(MouseEvent.MOUSE_OVER,this.settingsOver);
+         button.addEventListener(MouseEvent.MOUSE_OUT,this.settingsOut);
          button.addEventListener(MouseEvent.CLICK,this.openSettings);
          return button;
+      }
+
+      private function addSettingsImage(button0:Sprite, path0:String, role0:String) : *
+      {
+         var loader0:Loader = new Loader();
+         loader0.name = role0;
+         loader0.mouseEnabled = false;
+         loader0.contentLoaderInfo.addEventListener(Event.COMPLETE,this.settingsImageComplete);
+         loader0.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.settingsImageError);
+         button0.addChild(loader0);
+         loader0.load(new URLRequest(path0));
+      }
+
+      private function settingsImageComplete(e:Event) : *
+      {
+         var loader0:Loader = e.target.loader as Loader;
+         loader0.content.width = this.settingsButtonWidth;
+         loader0.content.height = 36;
+         loader0.visible = loader0.name == "normal";
+      }
+
+      private function settingsImageError(e:IOErrorEvent) : *
+      {
+      }
+
+      private function settingsOver(e:MouseEvent) : *
+      {
+         this.setSettingsState(true);
+      }
+
+      private function settingsOut(e:MouseEvent) : *
+      {
+         this.setSettingsState(false);
+      }
+
+      private function setSettingsState(over0:Boolean) : *
+      {
+         var child0:DisplayObject = null;
+         var i0:int = 0;
+         while(i0 < this.settings_btn.numChildren)
+         {
+            child0 = this.settings_btn.getChildAt(i0);
+            if(child0.name == "normal") child0.visible = !over0;
+            if(child0.name == "hover") child0.visible = over0;
+            i0++;
+         }
       }
 
       private function openSettings(e:MouseEvent) : *

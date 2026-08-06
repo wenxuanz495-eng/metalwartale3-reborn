@@ -2,9 +2,15 @@ package UI.gaming
 {
    import UI.button.PicButton;
    import UI.extra.ExtraGiftUI;
+   import flash.display.DisplayObject;
+   import flash.display.Loader;
    import flash.display.MovieClip;
    import flash.display.Sprite;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
    import flash.events.MouseEvent;
+   import flash.geom.Rectangle;
+   import flash.net.URLRequest;
    import flash.text.TextField;
    import flash.text.TextFormat;
    
@@ -58,19 +64,25 @@ package UI.gaming
 
       private function initVipAutoToggle() : *
       {
+         var heroButtonBounds0:Rectangle = this.heroai_btn.back.getBounds(this);
          this.vipAutoToggle = new Sprite();
          this.vipAutoToggle.buttonMode = true;
          this.vipAutoToggle.mouseChildren = false;
-         this.vipAutoToggle.x = this.heroai_btn.x + (this.heroai_btn.width - 180) / 2;
-         this.vipAutoToggle.y = this.heroai_btn.y + this.heroai_btn.height + 6;
+         this.vipAutoToggle.x = heroButtonBounds0.x;
+         this.vipAutoToggle.y = heroButtonBounds0.bottom + 6;
+         this.vipAutoToggle.graphics.beginFill(0,0);
+         this.vipAutoToggle.graphics.drawRect(0,0,114,36);
+         this.vipAutoToggle.graphics.endFill();
+         this.addVipAutoImage("ui/auto-level/button-normal.png","normal");
+         this.addVipAutoImage("ui/auto-level/button-selected.png","selected");
          this.vipAutoToggle.addEventListener(MouseEvent.CLICK,this.vipAutoClick);
          this.vipAutoText = new TextField();
-         var textFormat0:TextFormat = new TextFormat("_sans",15,16777215,true);
+         var textFormat0:TextFormat = new TextFormat("_sans",14,16777215,true);
          textFormat0.align = "center";
          this.vipAutoText.defaultTextFormat = textFormat0;
-         this.vipAutoText.width = 180;
-         this.vipAutoText.height = 28;
-         this.vipAutoText.y = 5;
+         this.vipAutoText.width = 114;
+         this.vipAutoText.height = 24;
+         this.vipAutoText.y = 7;
          this.vipAutoText.selectable = false;
          this.vipAutoText.mouseEnabled = false;
          this.vipAutoToggle.addChild(this.vipAutoText);
@@ -78,17 +90,44 @@ package UI.gaming
          this.vipAutoToggle.visible = false;
       }
 
+      private function addVipAutoImage(path0:String, role0:String) : *
+      {
+         var loader0:Loader = new Loader();
+         loader0.name = role0;
+         loader0.mouseEnabled = false;
+         loader0.contentLoaderInfo.addEventListener(Event.COMPLETE,this.vipAutoImageComplete);
+         loader0.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.vipAutoImageError);
+         this.vipAutoToggle.addChild(loader0);
+         loader0.load(new URLRequest(path0));
+      }
+
+      private function vipAutoImageComplete(e:Event) : *
+      {
+         var loader0:Loader = e.target.loader as Loader;
+         loader0.content.width = 114;
+         loader0.content.height = 36;
+         this.fleshVipAuto();
+      }
+
+      private function vipAutoImageError(e:IOErrorEvent) : *
+      {
+      }
+
       public function fleshVipAuto() : *
       {
          var enabled0:Boolean = Game.gameData.vipAideAutoB;
          this.vipAutoToggle.visible = this.heroai_btn.visible && this.heroai_btn.actived && Game.gameData.vipData.nowVip != "";
-         this.vipAutoToggle.graphics.clear();
-         this.vipAutoToggle.graphics.lineStyle(1,enabled0 ? 5025616 : 6710886,1);
-         this.vipAutoToggle.graphics.beginFill(enabled0 ? 2384414 : 3355443,0.94);
-         this.vipAutoToggle.graphics.drawRoundRect(0,0,180,32,8,8);
-         this.vipAutoToggle.graphics.endFill();
+         var child0:DisplayObject = null;
+         var i0:int = 0;
+         while(i0 < this.vipAutoToggle.numChildren)
+         {
+            child0 = this.vipAutoToggle.getChildAt(i0);
+            if(child0.name == "normal") child0.visible = !enabled0;
+            if(child0.name == "selected") child0.visible = enabled0;
+            i0++;
+         }
          this.vipAutoText.text = enabled0 ? "连续托管：开" : "连续托管：关";
-         this.vipAutoText.textColor = enabled0 ? 10092390 : 13421772;
+         this.vipAutoText.textColor = 16777215;
       }
 
       private function vipAutoClick(e:MouseEvent) : *

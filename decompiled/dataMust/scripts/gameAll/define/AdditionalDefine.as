@@ -4,6 +4,8 @@ package gameAll.define
    
    public class AdditionalDefine
    {
+
+      private var forceMaxValue:Boolean = false;
       
       public var lvl:Array = [1,26,41,51,55];
       
@@ -86,9 +88,28 @@ package gameAll.define
       {
          return int(this[param2](param1) * 1000) / 1000;
       }
+
+      public function getMaxValue(param1:int, param2:String) : Number
+      {
+         var value0:Number = NaN;
+         this.forceMaxValue = true;
+         try
+         {
+            value0 = this.getValue(param1,param2);
+         }
+         finally
+         {
+            this.forceMaxValue = false;
+         }
+         return value0;
+      }
       
       public function getRa(param1:Number, param2:Number) : Number
       {
+         if(this.forceMaxValue)
+         {
+            return param2 == param1 ? param2 : param2 - 0.000001;
+         }
          return param1 + Math.random() * (param2 - param1);
       }
       
@@ -102,7 +123,7 @@ package gameAll.define
          {
             return int(param1 * 10) / 10;
          }
-         return int(param1 * 100) / 100;
+         return int(param1 * 1000) / 1000;
       }
       
       public function getValueByArr2(param1:int, param2:Array, param3:Array) : Number

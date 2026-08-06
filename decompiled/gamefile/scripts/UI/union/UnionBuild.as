@@ -140,7 +140,6 @@ package UI.union
                }
                citydat = this.BUILDARR[this._buildId];
                Game.gameData.propsItems.useItemsNum("jianzhuling",1);
-               Game.gameData.giftData.AddUnionBuildByID(citydat.Id,false);
                Game.uiGroup.addGift_byArr(citydat.ExtraPrizeArr,false,1,true);
                Game.union_api.doVariable(Game.nowSaveIndex,citydat.Id);
                Game.uiGroup.saveDataNoUI();
@@ -157,7 +156,6 @@ package UI.union
                citydat = this.BUILDARR[this._buildId];
                Game.gameData.materialsItems.useItemsNum("superalloy",100);
                Game.gameData.materialsItems.useItemsNum("superalloy_Z",50);
-               Game.gameData.giftData.AddUnionBuildByID(citydat.Id,true);
                Game.uiGroup.addGift_byArr(citydat.NormalPrizeArr,false,1,true);
                Game.union_api.doVariable(Game.nowSaveIndex,citydat.Id);
                Game.uiGroup.saveDataNoUI();
@@ -169,29 +167,20 @@ package UI.union
       {
          var citydat:CBuildData = this.BUILDARR[this._buildId];
          this.mc_box["mc_build_" + this._buildId].gotoAndStop(2);
-         var normalcount:int = 1 - Game.gameData.giftData.GetUnionBuildByID(citydat.Id,true);
-         var extracount:int = 2 - Game.gameData.giftData.GetUnionBuildByID(citydat.Id,false);
-         if(normalcount <= 0)
+         var normalcount:int = 1;
+         var extracount:int = 2;
+         this.mc_box["btn_normal"].alpha = 1;
+         this.mc_box["btn_normal"].mouseEnabled = true;
+         this.mc_box["btn_extra"].alpha = 1;
+         this.mc_box["btn_extra"].mouseEnabled = true;
+         if(citydat.Level >= citydat.LevelExpArr.length - 1)
          {
             normalcount = 0;
+            extracount = 0;
             this.mc_box["btn_normal"].alpha = 0.3;
             this.mc_box["btn_normal"].mouseEnabled = false;
-         }
-         else
-         {
-            this.mc_box["btn_normal"].alpha = 1;
-            this.mc_box["btn_normal"].mouseEnabled = true;
-         }
-         if(extracount <= 0)
-         {
-            extracount = 0;
             this.mc_box["btn_extra"].alpha = 0.3;
             this.mc_box["btn_extra"].mouseEnabled = false;
-         }
-         else
-         {
-            this.mc_box["btn_extra"].alpha = 1;
-            this.mc_box["btn_extra"].mouseEnabled = true;
          }
          this.mc_box["txt_name"].text = citydat.Name;
          this.mc_box["txt_level"].text = citydat.Level;

@@ -3,6 +3,7 @@ package gameAll.level
    import UI.gaming.ArenaGamingUI;
    import body.enemy.EnemyHeroBody;
    import flash.text.TextField;
+   import flash.utils.getTimer;
    import gameAll.high.HighArena_All;
    
    public class ArenaLevel extends Levels
@@ -15,6 +16,24 @@ package gameAll.level
       public var now_t:Number = 0;
       
       public var time_num:int = 3;
+
+      private static const ENEMY_DAMAGE_SCALE:Number = 0.7;
+
+      private static const OPENING_PROTECTION_SCALE:Number = 0.3;
+
+      private static const OPENING_PROTECTION_MS:int = 2000;
+
+      private static const LAST_STAND_LIFE_RATE:Number = 0.1;
+
+      private static const LAST_STAND_INVULNERABLE_MS:int = 1000;
+
+      private var openingProtectionUntil:int = 0;
+
+      private var lastStandInvulnerableUntil:int = 0;
+
+      private var lastStandUsed:Boolean = false;
+
+      private var battleStarted:Boolean = false;
       
       public function ArenaLevel()
       {
@@ -27,10 +46,61 @@ package gameAll.level
          this.arenaUI = Game.uiGroup.gamingUI._mc2;
          this.now_t = 0;
          this.time_num = 3;
+         this.openingProtectionUntil = 0;
+         this.lastStandInvulnerableUntil = 0;
+         this.lastStandUsed = false;
+         this.battleStarted = false;
          super.startLevel();
+         this.unlockPlayerSkills();
          this.addArival();
+         Game.gameData.setLife(Game.gameData.maxLife,"value");
          Game.uiGroup.saveDataNoUI();
          Game.gameData.lifeRateB2 = false;
+      }
+
+      private function unlockPlayerSkills() : *
+      {
+         var name0:String = null;
+         var level0:int = 0;
+         var skill0:* = undefined;
+         var names0:Array = ["rocket","plasma","change","lighting"];
+         for each(name0 in names0)
+         {
+            level0 = Math.max(1,Game.gameData.playerData.getSkillLevel(name0));
+            skill0 = hero.skill.getSkill(name0);
+            skill0.initData_byDefine(Game.defineGroup.skill.getOneLevelDefine(name0,level0));
+         }
+         hero.changeRocket(Math.max(1,Game.gameData.playerData.getSkillLevel("rocket")));
+         hero.changePlasma(Math.max(1,Game.gameData.playerData.getSkillLevel("plasma")));
+      }
+
+      public function filterHeroDamage(value:Number, opponentAttack:Boolean) : Number
+      {
+         var now0:int = getTimer();
+         var minimumLife0:Number = Game.gameData.maxLife * LAST_STAND_LIFE_RATE;
+         if(!this.battleStarted)
+         {
+            return 0;
+         }
+         if(now0 < this.lastStandInvulnerableUntil)
+         {
+            return 0;
+         }
+         if(opponentAttack)
+         {
+            value *= ENEMY_DAMAGE_SCALE;
+         }
+         if(now0 < this.openingProtectionUntil)
+         {
+            value *= OPENING_PROTECTION_SCALE;
+         }
+         if(!this.lastStandUsed && Game.gameData.nowLife - value <= minimumLife0)
+         {
+            this.lastStandUsed = true;
+            this.lastStandInvulnerableUntil = now0 + LAST_STAND_INVULNERABLE_MS;
+            value = Math.max(0,Game.gameData.nowLife - minimumLife0);
+         }
+         return value;
       }
       
       public function addArival() : *
@@ -101,6 +171,8 @@ package gameAll.level
             {
                this.now_t = -1;
                this.arenaUI.showGo();
+               this.battleStarted = true;
+               this.openingProtectionUntil = getTimer() + OPENING_PROTECTION_MS;
                nowBoss.ai.attackBody(hero);
                hero.key.enabled = true;
                Game.gameState = "gaming";

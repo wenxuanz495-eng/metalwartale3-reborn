@@ -238,6 +238,7 @@
          var rareDisassemble:GoodsDefine = null;
          var honorBadge:GoodsDefine = null;
          var honorBadgeMB:GoodsDefine = null;
+         var superalloyStoneHeart:GoodsDefine = null;
          // Snow: 1 Children's Day heart -> 1 snow, quantity selectable in shop UI.
          if(this.findGoods_inArr(this.materials,"xuehua") == null)
          {
@@ -408,6 +409,21 @@
             honorBadgeMB.num = 1;
             honorBadgeMB.baseNum = 1;
             honorBadgeMB.specialType = "";
+         }
+         // Add a second superalloy stone entry paid with hearts; keep the existing entry unchanged.
+         superalloyStoneHeart = this.findSpecialGoods_inArr(this.props,"superalloyStone","heartPrice50");
+         if(superalloyStoneHeart == null)
+         {
+            superalloyStoneHeart = this.getItemsDefine_byID("superalloyStone","props","Mprice");
+            if(superalloyStoneHeart is GoodsDefine)
+            {
+               superalloyStoneHeart.Mprice = 0;
+               superalloyStoneHeart.price = 0;
+               superalloyStoneHeart.num = 1;
+               superalloyStoneHeart.baseNum = 1;
+               superalloyStoneHeart.specialType = "heartPrice50";
+               this.props.push(superalloyStoneHeart);
+            }
          }
          // Keep Mmaterials in sync for fallback materials tab.
          if(this.Mmaterials != null)
@@ -748,6 +764,21 @@ private function getCustomWeaponPrice(label0:String) : int
          {
             gd0 = arr0[n];
             if(gd0 != exclude0 && gd0.id == name0)
+            {
+               return gd0;
+            }
+         }
+         return null;
+      }
+
+      private function findSpecialGoods_inArr(arr0:Array, name0:String, specialType0:String) : GoodsDefine
+      {
+         var n:* = undefined;
+         var gd0:GoodsDefine = null;
+         for(n in arr0)
+         {
+            gd0 = arr0[n];
+            if(gd0.id == name0 && gd0.specialType == specialType0)
             {
                return gd0;
             }

@@ -23,6 +23,8 @@ package UI.union
       private var _unionShopList:Array = [];
       
       private var _tempID:int = -1;
+
+      private var _tempBuyCount:int = 1;
       
       private var father:UnionUI = null;
       
@@ -50,6 +52,7 @@ package UI.union
          this._shoplistPage = 1;
          this._unionShopList = Game.unionShopDefineGroup.GetUnionShopArr();
          this.addOfflineBadgeShop();
+         this.addOfflineCrystalShop();
          this.mc_box.btn_lastpage.addEventListener(MouseEvent.CLICK,this.onClickBtn);
          this.mc_box.btn_nextpage.addEventListener(MouseEvent.CLICK,this.onClickBtn);
          this.updateMember(null);
@@ -232,6 +235,47 @@ package UI.union
          this._unionShopList.push(badge);
       }
 
+      private function addOfflineCrystalShop() : void
+      {
+         var old:UnionShopData = null;
+         for(var i:int = this._unionShopList.length - 1; i >= 0; i--)
+         {
+            old = this._unionShopList[i] as UnionShopData;
+            if(old != null && old.GoodsID.indexOf("_crystal_") >= 0)
+            {
+               this._unionShopList.splice(i,1);
+            }
+         }
+         this.addOfflineCrystal(1001,"red_crystal_9","\u4E5D\u7EA7\u7EA2\u8272\u6676\u4F53*1");
+         this.addOfflineCrystal(1002,"yellow_crystal_9","\u4E5D\u7EA7\u9EC4\u8272\u6676\u4F53*1");
+         this.addOfflineCrystal(1003,"green_crystal_9","\u4E5D\u7EA7\u7EFF\u8272\u6676\u4F53*1");
+         this.addOfflineCrystal(1004,"purple_crystal_9","\u4E5D\u7EA7\u7D2B\u8272\u6676\u4F53*1");
+      }
+
+      private function addOfflineCrystal(id:int, goodsID:String, name:String) : void
+      {
+         var old:UnionShopData = null;
+         var crystal:UnionShopData = null;
+         for each(old in this._unionShopList)
+         {
+            if(old.Id == id || old.GoodsID == goodsID)
+            {
+               return;
+            }
+         }
+         crystal = new UnionShopData();
+         crystal.Id = id;
+         crystal.GoodsID = goodsID;
+         crystal.Price = 10;
+         crystal.Count = 1;
+         crystal.DayCanTime = 9999999;
+         crystal.BuyType = "X";
+         crystal.Name = name;
+         crystal.ConditionUnion = 0;
+         crystal.ConditionMember = 0;
+         this._unionShopList.push(crystal);
+      }
+
       private function isRepeatable(obj:UnionShopData) : Boolean
       {
          return Game.itemsDefineGroup.getDefine(obj.GoodsID) != null;
@@ -252,8 +296,42 @@ package UI.union
          if(ep["buyID"] != null)
          {
             this._tempID = ep["buyID"];
-            Game.uiGroup.checkTip.showCheck("确认要购买该物品吗？",this.onBuyClick);
+            var obj:UnionShopData = this._unionShopList[this._tempID];
+            if(this.isRepeatable(obj))
+            {
+               var gd:GoodsDefine = this.getPurchaseDefine(obj);
+               if(gd == null)
+               {
+                  Game.uiGroup.checkTip.showCheck2("商品数据不存在，无法购买。",2);
+                  return;
+               }
+               var group:* = Game.gameData[gd.type + "Items"];
+               if(group.getItemsByBase(gd.id) == null && group.getSurplus() <= 0)
+               {
+                  Game.uiGroup.checkTip.showCheck2("目标背包已满，无法购买商品。",3);
+                  return;
+               }
+               var currency:int = obj.BuyType == "G" ? int(Game.gameData.GCoin) : int(Game.gameData.propsItems.getNumByBase("justice2_badge"));
+               var maxCount:int = obj.Price > 0 ? int(currency / obj.Price) : 9999999;
+               if(maxCount < 1)
+               {
+                  Game.uiGroup.checkTip.showCheck2(obj.BuyType == "G" ? "金币不足!" : "公会奖章不足!",2);
+                  return;
+               }
+               Game.uiGroup.checkTip.showQuantityPurchaseCheck(obj.Name,this.getMoneyType(obj.BuyType),obj.Price,maxCount,"目标背包还有空位：<font color=\'#FFFF00\'>" + group.getSurplus() + "</font> 个",this.onQuantityBuyClick);
+            }
+            else
+            {
+               this._tempBuyCount = 1;
+               Game.uiGroup.checkTip.showCheck("确认要购买该物品吗？",this.onBuyClick);
+            }
          }
+      }
+
+      private function onQuantityBuyClick() : void
+      {
+         this._tempBuyCount = Game.uiGroup.checkTip.getSelectedNum();
+         this.onBuyClick();
       }
       
       protected function onBuyClick(event:MouseEvent = null) : void
@@ -261,44 +339,44 @@ package UI.union
          var hasm:int = 0;
          var hasx:int = 0;
          var obj:UnionShopData = this._unionShopList[this._tempID];
-         if(obj.BuyType == "G")
+         var buyCount:int = this.isRepeatable(obj) ? this._tempBuyCount : 1;
+         var totalPrice:int = int(obj.Price) * buyCount;
+         if(buyCount < 1)
          {
-            hasm = Game.gameData.GCoin;
-            if(hasm < obj.Price)
-            {
-               Game.uiGroup.checkTip.showCheck2("金币不足!",2);
-               return;
-            }
-            Game.gameData.addCoin(-obj.Price);
+            return;
          }
-         else if(obj.BuyType == "X")
-         {
-            hasx = Game.gameData.propsItems.getNumByBase("justice2_badge");
-            if(hasx < obj.Price)
-            {
-               Game.uiGroup.checkTip.showCheck2("公会奖章不足!",2);
-               return;
-            }
-            Game.gameData.propsItems.useItemsNum("justice2_badge",obj.Price);
-         }
-         var gd:GoodsDefine = Game.goodsDefineGroup.GetGoodsByName(obj.GoodsID);
-         if(Boolean(gd))
-         {
-            if(gd.type == "material" || gd.type == "crystal" || gd.type == "chip")
-            {
-               gd.type = "materials";
-            }
-            if(gd.type == "card")
-            {
-               gd.type = "props";
-            }
-         }
+         var gd:GoodsDefine = this.getPurchaseDefine(obj);
          if(gd == null)
          {
             Game.uiGroup.checkTip.showCheck2("商品数据不存在，无法购买。",2);
             return;
          }
-         gd.num = int(obj.Count);
+         if(Game.gameData[gd.type + "Items"].getItemsByBase(gd.id) == null && Game.gameData[gd.type + "Items"].getSurplus() <= 0)
+         {
+            Game.uiGroup.checkTip.showCheck2("目标背包已满，无法购买商品。",3);
+            return;
+         }
+         if(obj.BuyType == "G")
+         {
+            hasm = Game.gameData.GCoin;
+            if(hasm < totalPrice)
+            {
+               Game.uiGroup.checkTip.showCheck2("金币不足!",2);
+               return;
+            }
+            Game.gameData.addCoin(-totalPrice);
+         }
+         else if(obj.BuyType == "X")
+         {
+            hasx = Game.gameData.propsItems.getNumByBase("justice2_badge");
+            if(hasx < totalPrice)
+            {
+               Game.uiGroup.checkTip.showCheck2("公会奖章不足!",2);
+               return;
+            }
+            Game.gameData.propsItems.useItemsNum("justice2_badge",totalPrice);
+         }
+         gd.num = int(obj.Count) * buyCount;
          Game.uiGroup.addGift_byArr([gd],true,Game.gameData.level,true);
          if(!this.isRepeatable(obj))
          {
@@ -306,6 +384,25 @@ package UI.union
          }
          this.updateMember(this._unionShopList);
          Game.uiGroup.saveDataNoUI();
+      }
+
+      private function getPurchaseDefine(obj:UnionShopData) : GoodsDefine
+      {
+         var source:GoodsDefine = Game.goodsDefineGroup.GetGoodsByName(obj.GoodsID);
+         if(source == null)
+         {
+            return null;
+         }
+         var gd:GoodsDefine = source.copy();
+         if(gd.type == "material" || gd.type == "crystal" || gd.type == "chip")
+         {
+            gd.type = "materials";
+         }
+         if(gd.type == "card")
+         {
+            gd.type = "props";
+         }
+         return gd;
       }
       
       private function addIcon(mccontains:DisplayObjectContainer, imgLabel:String, father:String = "") : void
@@ -352,6 +449,7 @@ package UI.union
          this._shoplistPage = 1;
          this._unionShopList = [];
          this._tempID = -1;
+         this._tempBuyCount = 1;
          this.updateMember(null);
       }
    }

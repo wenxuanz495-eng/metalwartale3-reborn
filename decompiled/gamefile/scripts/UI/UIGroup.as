@@ -61,6 +61,12 @@ package UI
    import flash.display.Sprite;
    import flash.events.Event;
    import flash.events.MouseEvent;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
+   import flash.events.SecurityErrorEvent;
+   import flash.net.URLLoader;
+   import flash.net.URLRequest;
+   import flash.net.URLRequestMethod;
    import flash.events.TimerEvent;
    import flash.geom.Point;
    import flash.media.SoundMixer;
@@ -108,6 +114,10 @@ package UI
       public var gamingUI:GamingUI;
       
       public var gameoverUI:GameOverUI;
+
+      private var nextLevelButton:Sprite;
+
+      private var pendingAutoLevelAction:String = "";
       
       public var changeUI:ChangeUI;
       
@@ -254,6 +264,8 @@ package UI
          this.gameoverUI = new GameOverUI();
          this.gameSprite.topUIL.addChild(this.gameoverUI);
          this.gameoverUI.init();
+         this.gameoverUI.cardUI.addEventListener("autoFlipComplete",this.autoFlipComplete);
+         this.createNextLevelButton();
          this.chooseLevelUI = new LevelChooseUI();
          this.gameSprite.topUIL.addChild(this.chooseLevelUI);
          this.extraUI = new ExtraUI();
@@ -668,6 +680,7 @@ package UI
                   this.returnMenuTab.visible = true;
                   this.returnMenuTab.mouseEnabled = true;
                   this.returnMenuTargetWidth = 14;
+                  this.updateReturnMenuHitArea(false);
                }
                else
                {
@@ -809,15 +822,19 @@ package UI
             }
             else if(str == "gameFail")
             {
+               this.pendingAutoLevelAction = "";
                this.gameoverUItween();
                this.gameoverUI.visible = true;
+               this.refreshNextLevelButton(false);
                this.gameoverUI.failShow();
             }
             else if(str == "gameWin")
             {
                this.gameoverUItween();
                this.gameoverUI.visible = true;
+               this.refreshNextLevelButton(true);
                this.gameoverUI.winShow();
+               this.beginAutoLevelAction();
             }
          }
       }
@@ -915,6 +932,10 @@ package UI
       {
          var order0:String = null;
          var mc0:* = event.target;
+         if(mc0 == this.gameoverUI.restart_btn || mc0 == this.gameoverUI.continueGame_btn)
+         {
+            this.pendingAutoLevelAction = "";
+         }
          if(mc0 is PicButton || mc0 is MainTitleButton)
          {
             order0 = mc0.text;
@@ -1002,9 +1023,79 @@ package UI
       
       public function saveData(e:* = null) : *
       {
-         Game.save_api.save();
-         this.mainUI.startSaveDelay();
+         this.checkTip.showCheck("是否同时备份当前存档？\n取消：仅保存；确定：保存并备份。",this.saveDataWithBackup,this.saveDataOnly);
+      }
+
+      private function saveDataOnly() : *
+      {
          this.showSaveReturn = true;
+         Game.save_api.save(true);
+      }
+
+      private function saveDataWithBackup() : *
+      {
+         this.showSaveReturn = false;
+         Game.save_api.save(true,this.manualSaveComplete,this.manualSaveFailed);
+      }
+
+      private function manualSaveComplete() : *
+      {
+         this.requestSaveBackup(this.manualBackupComplete);
+      }
+
+      public function requestSaveBackup(callback:Function = null) : *
+      {
+         var req:URLRequest = null;
+         var loader:URLLoader = null;
+         var finished:Boolean = false;
+         var finish:Function = function(ok:Boolean):void
+         {
+            if(finished)
+            {
+               return;
+            }
+            finished = true;
+            if(callback != null)
+            {
+               callback(ok);
+            }
+         };
+         try
+         {
+            req = new URLRequest("api/game-save/backup");
+            req.method = URLRequestMethod.POST;
+            req.contentType = "application/json; charset=utf-8";
+            req.data = "{}";
+            loader = new URLLoader();
+            loader.addEventListener(Event.COMPLETE,function(e:Event):void{ finish(true); });
+            loader.addEventListener(IOErrorEvent.IO_ERROR,function(e:IOErrorEvent):void{ finish(false); });
+            loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,function(e:SecurityErrorEvent):void{ finish(false); });
+            loader.load(req);
+         }
+         catch(e:*)
+         {
+            finish(false);
+         }
+      }
+
+      private function manualSaveFailed() : *
+      {
+         this.checkTip.showTip("存档保存失败，未创建备份。",2);
+         Game.SG.playSound("failureItems");
+      }
+
+      private function manualBackupComplete(ok:Boolean) : *
+      {
+         if(ok)
+         {
+            this.checkTip.showTip("存档保存并备份成功！",1);
+            Game.SG.playSound("upgradeArms");
+         }
+         else
+         {
+            this.checkTip.showTip("存档已保存，但备份失败。",2);
+            Game.SG.playSound("failureItems");
+         }
       }
       
       public function saveDataNoUI(e:* = null) : *
@@ -1055,7 +1146,119 @@ package UI
       {
          this.show("restartLevel");
       }
-      
+
+      private function createNextLevelButton() : *
+      {
+         var label:TextField = null;
+         this.nextLevelButton = new Sprite();
+         this.nextLevelButton.graphics.beginFill(13260,1);
+         this.nextLevelButton.graphics.lineStyle(2,65535,1);
+         this.nextLevelButton.graphics.drawRoundRect(-58,-14,116,30,8,8);
+         this.nextLevelButton.graphics.endFill();
+         label = new TextField();
+         label.defaultTextFormat = new TextFormat("_sans",14,16777215,true,null,null,null,null,"center");
+         label.text = "进入下一关";
+         label.width = 116;
+         label.height = 24;
+         label.x = -58;
+         label.y = -10;
+         label.mouseEnabled = false;
+         this.nextLevelButton.addChild(label);
+         this.nextLevelButton.x = 480;
+         this.nextLevelButton.y = 488;
+         this.nextLevelButton.buttonMode = true;
+         this.nextLevelButton.mouseChildren = false;
+         this.nextLevelButton.visible = false;
+         this.nextLevelButton.addEventListener(MouseEvent.CLICK,this.enterNextNormalLevel);
+         this.gameoverUI.addChild(this.nextLevelButton);
+      }
+
+      private function refreshNextLevelButton(won:Boolean) : *
+      {
+         if(this.nextLevelButton == null) return;
+         this.nextLevelButton.visible = won && Game.LG.state == "normal" && Game.gameData.nowGameLevel != 0 && Game.gameData.nowGameLevel < 999 && Game.gameData.nowGameLevel % 100 < Game.gameData.newLevelData.nowPack.levelsMax - 1;
+      }
+
+      private function enterNextNormalLevel(e:MouseEvent = null) : *
+      {
+         if(e != null)
+         {
+            this.pendingAutoLevelAction = "";
+         }
+         var next0:int = Game.gameData.nowGameLevel % 100 + 1;
+         if(Game.LG.state != "normal" || next0 >= Game.gameData.newLevelData.nowPack.levelsMax) return;
+         this.nextLevelButton.visible = false;
+         Game.eventGroup.chosenLevel(next0,"normal",Game.gameData.newLevelData.levelPack);
+      }
+
+      private function beginAutoLevelAction() : *
+      {
+         this.pendingAutoLevelAction = "";
+         if(Game.LG.state != "normal" || Game.gameData.nowGameLevel == 0 || Game.gameData.nowGameLevel >= 999)
+         {
+            return;
+         }
+         if(Game.gameData.autoRestartLevel)
+         {
+            this.pendingAutoLevelAction = "restart";
+         }
+         else if(Game.gameData.autoNextLevel && this.nextLevelButton != null && this.nextLevelButton.visible)
+         {
+            this.pendingAutoLevelAction = "next";
+         }
+         if(this.pendingAutoLevelAction != "")
+         {
+            TweenLite.delayedCall(0.6,this.startAutoLevelFlip);
+         }
+      }
+
+      private function startAutoLevelFlip() : *
+      {
+         if(this.pendingAutoLevelAction == "")
+         {
+            return;
+         }
+         if(!this.gameoverUI.cardUI.autoFlipOne() && this.gameoverUI.cardUI.nowNum <= 0)
+         {
+            this.finishAutoLevelAction();
+         }
+      }
+
+      private function autoFlipComplete(e:Event) : *
+      {
+         if(this.pendingAutoLevelAction == "")
+         {
+            return;
+         }
+         if(this.gameoverUI.cardUI.nowNum > 0)
+         {
+            TweenLite.delayedCall(0.15,this.startAutoLevelFlip);
+            return;
+         }
+         Game.uiGroup.saveDataNoUI();
+         this.finishAutoLevelAction();
+      }
+
+      private function finishAutoLevelAction() : *
+      {
+         var action0:String = this.pendingAutoLevelAction;
+         this.pendingAutoLevelAction = "";
+         this.gameoverUI.cardUI.visible = false;
+         this.gameoverUI.visible = false;
+         if(this.nextLevelButton != null)
+         {
+            this.nextLevelButton.visible = false;
+         }
+         if(action0 == "restart")
+         {
+            this.restartLevel();
+         }
+         else if(action0 == "next")
+         {
+            this.enterNextNormalLevel();
+         }
+      }
+
       public function overLevel() : *
       {
          Game.eventGroup.closeLevel(false);
@@ -1498,10 +1701,17 @@ package UI
       private function createReturnMenuTab() : Sprite
       {
          var tab:Sprite = new Sprite();
+         var hit0:Sprite = new Sprite();
          tab.x = 0;
          tab.y = 350;
          tab.buttonMode = true;
          tab.mouseChildren = false;
+         hit0.graphics.beginFill(0,1);
+         hit0.graphics.drawRect(-2,0,16,46);
+         hit0.graphics.endFill();
+         hit0.visible = false;
+         tab.addChild(hit0);
+         tab.hitArea = hit0;
          this.returnMenuTitle = new TextField();
          this.returnMenuTitle.defaultTextFormat = new TextFormat("_sans",18,16776960,true);
          this.returnMenuTitle.autoSize = TextFieldAutoSize.LEFT;
@@ -1526,11 +1736,13 @@ package UI
       private function openReturnMenuTab(e:MouseEvent) : *
       {
          this.returnMenuTargetWidth = 138;
+         this.updateReturnMenuHitArea(true);
       }
       
       private function closeReturnMenuTab(e:MouseEvent) : *
       {
          this.returnMenuTargetWidth = 14;
+         this.updateReturnMenuHitArea(false);
       }
       
       private function clickReturnMenuTab(e:MouseEvent) : *
@@ -1538,6 +1750,7 @@ package UI
          if(this.returnMenuWidth < 80)
          {
             this.returnMenuTargetWidth = 138;
+            this.updateReturnMenuHitArea(true);
             return;
          }
          this.returnMenuTab.mouseEnabled = false;
@@ -1547,6 +1760,7 @@ package UI
       private function confirmReturnMenu() : *
       {
          this.returnMenuTargetWidth = 14;
+         this.updateReturnMenuHitArea(false);
          this.returnMenuTab.visible = false;
          Game.save_api.returnToMainMenu();
       }
@@ -1554,6 +1768,19 @@ package UI
       private function cancelReturnMenu() : *
       {
          this.returnMenuTab.mouseEnabled = true;
+      }
+
+      private function updateReturnMenuHitArea(expanded0:Boolean) : *
+      {
+         var hit0:Sprite = this.returnMenuTab.hitArea as Sprite;
+         if(hit0 == null)
+         {
+            return;
+         }
+         hit0.graphics.clear();
+         hit0.graphics.beginFill(0,1);
+         hit0.graphics.drawRect(-2,0,expanded0 ? 142 : 16,46);
+         hit0.graphics.endFill();
       }
       
       private function animateReturnMenuTab(e:Event) : *

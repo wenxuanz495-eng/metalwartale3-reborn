@@ -16,7 +16,7 @@ package UI.change
       
       public var bu3:CtrlArmsButton;
       
-      public var nameArr:Array = ["装备","卸下","升级","卖出","开启1个","强化","无法装备","使用全部","批量开启","选择形态","继续研发","研发/形态"];
+      public var nameArr:Array = ["装备","卸下","升级","卖出","开启1个","强化","无法装备","使用全部","批量开启","选择形态","继续研发","研发/形态","制作皮肤","使用皮肤","取消皮肤","更多操作"];
       
       public var idArr:Array = [0,2,3];
       

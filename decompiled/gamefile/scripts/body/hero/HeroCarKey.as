@@ -259,7 +259,7 @@ package body.hero
             {
                bb12 = Game.LG.level is SpecialExtraLevel_2 && this.BB.skill.getSkill("plasma").getUseNum() >= 3;
                bb13 = Game.LG.level is SpecialExtraLevel_1 && this.BB.skill.getSkill("plasma").getUseNum() >= 3;
-               bb15 = Game.LG.level is SpecialExtraLevel_7 || isArenaB || Game.LG.level is JuneExtraLevel;
+               bb15 = Game.LG.level is SpecialExtraLevel_7 || Game.LG.level is JuneExtraLevel;
                if(bb12 || bb13 || bb15)
                {
                   return false;
@@ -274,7 +274,7 @@ package body.hero
             else if(name0 == "change")
             {
                trace("isArenaB:" + isArenaB);
-               if(this.img.bodyState == "stand" && !isArenaB)
+               if(this.img.bodyState == "stand")
                {
                   this.BB.changeState("fly",s0.levelDefine.maxTime);
                   s0.useSkill();
@@ -283,12 +283,9 @@ package body.hero
             }
             else if(name0 == "lighting")
             {
-               if(!isArenaB)
-               {
-                  Game.BG.skill.fullLighting(s0.levelDefine.hurt);
-                  s0.useSkill();
-                  return true;
-               }
+               Game.BG.skill.fullLighting(s0.levelDefine.hurt);
+               s0.useSkill();
+               return true;
             }
          }
          return false;

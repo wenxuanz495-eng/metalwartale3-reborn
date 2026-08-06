@@ -205,6 +205,30 @@
       public var autoCollectLifePer:Boolean = true;
 
       public var disableAutoCollectLifePer:Boolean = true;
+
+      public var autoSellWhiteChip:Boolean = false;
+
+      public var autoSellGreenChip:Boolean = false;
+
+      public var autoSellBlueChip:Boolean = false;
+
+      public var autoSellYellowChip:Boolean = false;
+
+      public var autoSellOrangeChip:Boolean = false;
+
+      public var autoSellWhiteCar:Boolean = false;
+
+      public var autoSellBlueCar:Boolean = false;
+
+      public var autoSellYellowCar:Boolean = false;
+
+      public var autoSellOrangeCar:Boolean = false;
+
+      public var autoSellGreenCar:Boolean = false;
+
+      public var autoRestartLevel:Boolean = false;
+
+      public var autoNextLevel:Boolean = false;
       
       public var knowingData:KnowingData = new KnowingData();
       
@@ -362,6 +386,22 @@
          this.modNoTaskCooldown = obj.hasOwnProperty("modNoTaskCooldown") ? Boolean(obj.modNoTaskCooldown) : false;
          this.autoCollectLifePer = obj.hasOwnProperty("autoCollectLifePer") ? Boolean(obj.autoCollectLifePer) : true;
          this.disableAutoCollectLifePer = obj.hasOwnProperty("disableAutoCollectLifePer") ? Boolean(obj.disableAutoCollectLifePer) : true;
+         this.autoSellWhiteChip = obj.hasOwnProperty("autoSellWhiteChip") ? Boolean(obj.autoSellWhiteChip) : false;
+         this.autoSellGreenChip = obj.hasOwnProperty("autoSellGreenChip") ? Boolean(obj.autoSellGreenChip) : false;
+         this.autoSellBlueChip = obj.hasOwnProperty("autoSellBlueChip") ? Boolean(obj.autoSellBlueChip) : false;
+         this.autoSellYellowChip = obj.hasOwnProperty("autoSellYellowChip") ? Boolean(obj.autoSellYellowChip) : false;
+         this.autoSellOrangeChip = obj.hasOwnProperty("autoSellOrangeChip") ? Boolean(obj.autoSellOrangeChip) : false;
+         this.autoSellWhiteCar = obj.hasOwnProperty("autoSellWhiteCar") ? Boolean(obj.autoSellWhiteCar) : false;
+         this.autoSellBlueCar = obj.hasOwnProperty("autoSellBlueCar") ? Boolean(obj.autoSellBlueCar) : false;
+         this.autoSellYellowCar = obj.hasOwnProperty("autoSellYellowCar") ? Boolean(obj.autoSellYellowCar) : false;
+         this.autoSellOrangeCar = obj.hasOwnProperty("autoSellOrangeCar") ? Boolean(obj.autoSellOrangeCar) : false;
+         this.autoSellGreenCar = obj.hasOwnProperty("autoSellGreenCar") ? Boolean(obj.autoSellGreenCar) : false;
+         this.autoRestartLevel = obj.hasOwnProperty("autoRestartLevel") ? Boolean(obj.autoRestartLevel) : false;
+         this.autoNextLevel = obj.hasOwnProperty("autoNextLevel") ? Boolean(obj.autoNextLevel) : false;
+         if(this.autoRestartLevel && this.autoNextLevel)
+         {
+            this.autoNextLevel = false;
+         }
          this.modAllLevelsPassed = obj.hasOwnProperty("modAllLevelsPassed") ? Boolean(obj.modAllLevelsPassed) : false;
          this.vipAideAutoB = obj.hasOwnProperty("vipAideAutoB") ? Boolean(obj.vipAideAutoB) : false;
          this.isZuobi = false;
@@ -472,6 +512,10 @@
          }
          this.migrateClaimedLevelGiftWeapons();
          this.playerData.inData_byObj(obj.playerData);
+         if(this.modCraftFree)
+         {
+            this.completeModCraftResearch();
+         }
          this.rankAdd.inData_byObj(obj.rankAdd);
          if(fleshB)
          {
@@ -490,6 +534,24 @@
                return;
             }
             this.subItems.addItems("cutter_gold_lv1",true);
+         }
+      }
+
+      private function completeModCraftResearch() : void
+      {
+         var n:* = undefined;
+         var skill0:* = undefined;
+         for(n = 0; n < this.armsItems.equMaxNum; n++)
+         {
+            this.armsItems.unlockSite(int(n));
+         }
+         for(n = 0; n < this.subItems.equMaxNum; n++)
+         {
+            this.subItems.unlockSite(int(n));
+         }
+         for each(skill0 in Game.defineGroup.skill.arr)
+         {
+            this.playerData.setSkillLevel(skill0.name,skill0.maxLevel);
          }
       }
 
@@ -891,7 +953,25 @@
          }
          this.GCoin2 = this.GCoin;
       }
-      
+
+      public function shouldAutoSellChip(name0:String) : Boolean
+      {
+         if(name0 == null)
+         {
+            return false;
+         }
+         return this.autoSellWhiteChip && name0.indexOf("white_chip") >= 0 || this.autoSellGreenChip && name0.indexOf("green_chip") >= 0 || this.autoSellBlueChip && name0.indexOf("blue_chip") >= 0 || this.autoSellYellowChip && name0.indexOf("yellow_chip") >= 0 || this.autoSellOrangeChip && name0.indexOf("orange_chip") >= 0;
+      }
+
+      public function shouldAutoSellCar(color0:String) : Boolean
+      {
+         if(color0 == null)
+         {
+            return false;
+         }
+         return color0 == "white" && this.autoSellWhiteCar || color0 == "blue" && this.autoSellBlueCar || color0 == "yellow" && this.autoSellYellowCar || color0 == "orange" && this.autoSellOrangeCar || color0 == "green" && this.autoSellGreenCar;
+      }
+
       public function addMCoin(value:int) : *
       {
          var g1:* = this.MCoin;

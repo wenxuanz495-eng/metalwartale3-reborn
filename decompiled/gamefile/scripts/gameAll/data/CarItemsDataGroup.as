@@ -2,6 +2,7 @@ package gameAll.data
 {
    import body.hero.CarDefine;
    import gameAll.data.car.CarDataCreator;
+   import flash.utils.setTimeout;
    
    public class CarItemsDataGroup
    {
@@ -17,6 +18,8 @@ package gameAll.data
       public var equArr:Array = [];
       
       public var equMaxNum:int = 1;
+
+      public var activeSkinId:String = "";
       
       public var verNumber:String = "3.0";
       
@@ -41,6 +44,7 @@ package gameAll.data
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
          }
+         this.activeSkinId = obj.hasOwnProperty("activeSkinId") ? String(obj.activeSkinId) : "";
          if(this.bagMaxNum < 60)
          {
             this.bagMaxNum = 60;
@@ -73,7 +77,11 @@ package gameAll.data
          {
             this.changeToVer3();
          }
-         this.verNumber = "3.1";
+         this.verNumber = "3.2";
+         if(this.getActiveSkin() == null)
+         {
+            this.activeSkinId = "";
+         }
       }
       
       public function changeToVer3() : *
@@ -215,6 +223,37 @@ package gameAll.data
       {
          return this.equArr[0];
       }
+
+      public function getActiveSkin() : CarItemsData
+      {
+         var skin0:CarItemsData = null;
+         if(this.activeSkinId == "")
+         {
+            return null;
+         }
+         skin0 = this.getItemsById(this.activeSkinId);
+         if(skin0 != null && skin0.skinB)
+         {
+            return skin0;
+         }
+         return null;
+      }
+
+      public function setActiveSkin(id0:String) : Boolean
+      {
+         var skin0:CarItemsData = this.getItemsById(id0);
+         if(skin0 == null || !skin0.skinB)
+         {
+            return false;
+         }
+         this.activeSkinId = id0;
+         return true;
+      }
+
+      public function clearActiveSkin() : *
+      {
+         this.activeSkinId = "";
+      }
       
       public function addItems(label0:String, newB:Boolean = false, define:* = null) : CarItemsData
       {
@@ -232,7 +271,33 @@ package gameAll.data
             aid.color = (define as CarDefine).itemsData.color;
          }
          this.addItemsData(aid);
+         if(newB)
+         {
+            setTimeout(this.finishAutoSellNewCar,0,aid);
+         }
          return aid;
+      }
+
+      private function finishAutoSellNewCar(aid:CarItemsData) : *
+      {
+         if(aid == null || aid.skinB || this.arr.indexOf(aid) < 0 || Game.gameData == null || !Game.gameData.shouldAutoSellCar(aid.color))
+         {
+            return;
+         }
+         this.delItems_arr(this.arr,aid.id);
+         Game.gameData.addCoin(aid.getSellPrice());
+         if(Game.SG != null)
+         {
+            Game.SG.playSound("sellItems");
+         }
+         if(Game.uiGroup != null)
+         {
+            Game.uiGroup.saveDataNoUI("自动出售新获得的战车");
+            if(Game.uiGroup.infoUI != null)
+            {
+               Game.uiGroup.infoUI.fleshData();
+            }
+         }
       }
       
       public function addItemsData(aid:CarItemsData) : int
@@ -266,7 +331,7 @@ package gameAll.data
          for(n in this.arr)
          {
             car0 = this.arr[n];
-            if(car0.baseLabel == label0)
+            if(!car0.skinB && car0.baseLabel == label0)
             {
                return car0;
             }
@@ -274,7 +339,7 @@ package gameAll.data
          for(m in this.equArr)
          {
             car1 = this.equArr[m];
-            if(car1.baseLabel == label0)
+            if(!car1.skinB && car1.baseLabel == label0)
             {
                return car1;
             }
@@ -598,7 +663,7 @@ package gameAll.data
          for(n in this.arr)
          {
             aid = this.arr[n];
-            if(aid.baseLabel == str)
+            if(!aid.skinB && aid.baseLabel == str)
             {
                arr0.push(aid);
             }
@@ -614,7 +679,7 @@ package gameAll.data
          for(n in this.arr)
          {
             aid = this.arr[n];
-            if(aid.color == str)
+            if(!aid.skinB && aid.color == str)
             {
                arr0.push(aid);
             }
@@ -630,6 +695,10 @@ package gameAll.data
          for(n in this.arr)
          {
             aid = this.arr[n];
+            if(aid.skinB)
+            {
+               continue;
+            }
             if(affixMaxLevel0 != -1)
             {
                if(aid.affixLevel >= affixMinLevel0 && aid.affixLevel <= affixMaxLevel0)

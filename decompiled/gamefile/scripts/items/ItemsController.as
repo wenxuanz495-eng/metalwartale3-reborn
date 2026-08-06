@@ -592,11 +592,13 @@
          var requiredProps0:Object = null;
          var requiredMaterialNum0:int = 0;
          var requiredPropsNum0:int = 0;
+         var duplicateGoldenAbyss0:Boolean = false;
          var n:* = undefined;
          while(opened0 < openNum0)
          {
             str0 = this.getCoreGift(cardType0);
             d3 = Game.goodsDefineGroup.getDefine_byStr3(str0,-1,true);
+            duplicateGoldenAbyss0 = this.isGoldenAbyssReward(d3) && this.GD.checkArms_byIDArr([d3.define.id]) != "";
             fixedArr0 = this.getCoreFixedMaterials(cardType0);
             canAdd0 = true;
             requiredMaterial0 = {};
@@ -634,7 +636,12 @@
             }
             else if(d3.type == "sub" || d3.type == "arms")
             {
-               if(this.GD.checkArms_byIDArr([d3.define.id]) != "")
+               if(duplicateGoldenAbyss0)
+               {
+                  // A duplicate Golden Abyss is converted below.  It does
+                  // not require a weapon slot and must not stop batch-open.
+               }
+               else if(this.GD.checkArms_byIDArr([d3.define.id]) != "")
                {
                   canAdd0 = false;
                   stopReason0 = "随机到了已拥有的 " + d3.name + "，剩余核心未消耗。";
@@ -667,12 +674,29 @@
                Game.uiGroup.addGift_byArr([fixed0],true,this.GD.level,false);
                 this.addCoreRewardSummary(fixedOrder0,fixedTotals0,fixed0.name,fixed0.num);
             }
-            Game.uiGroup.addGift_byArr([d3],true,this.GD.level,false);
-            if(d3.id == "GCoin_card_4")
+            if(duplicateGoldenAbyss0)
+            {
+               // The player already owns Golden Abyss: award the complete
+               // fixed/base reward a second time instead of another weapon.
+               this.GD.addCoin(fixedCoin0);
+               this.addCoreRewardSummary(fixedOrder0,fixedTotals0,"G币",fixedCoin0);
+               for(n in fixedArr0)
+               {
+                  fixed0 = fixedArr0[n];
+                  Game.uiGroup.addGift_byArr([fixed0],true,this.GD.level,false);
+                  this.addCoreRewardSummary(fixedOrder0,fixedTotals0,fixed0.name,fixed0.num);
+               }
+               this.addCoreRewardSummary(rewardOrder0,rewardTotals0,"黄金深渊重复转化（基础奖励）",1);
+            }
+            else
+            {
+               Game.uiGroup.addGift_byArr([d3],true,this.GD.level,false);
+            }
+            if(!duplicateGoldenAbyss0 && d3.id == "GCoin_card_4")
             {
                this.addCoreRewardSummary(rewardOrder0,rewardTotals0,"G币",int(d3.price));
             }
-             else
+             else if(!duplicateGoldenAbyss0)
              {
                 this.addCoreRewardSummary(rewardOrder0,rewardTotals0,d3.name,d3.num);
              }
@@ -728,6 +752,16 @@
             return 200000;
          }
          return 500000;
+      }
+
+      private function isGoldenAbyssReward(reward0:GoodsDefine) : Boolean
+      {
+         if(reward0 == null || reward0.type != "sub" || reward0.define == null)
+         {
+            return false;
+         }
+         var id0:String = String(reward0.define.id);
+         return id0 == "cutter_gold" || id0 == "cutter_gold_lv1" || id0.indexOf("cutter_gold") >= 0 || reward0.name == "黄金深渊";
       }
 
       private function getCoreFixedMaterials(cardType0:String) : Array
@@ -914,7 +948,7 @@
          if(chipArr0.length > 0)
          {
             chipName0 = chipArr0[int(chipArr0.length * Math.random())] + "_purple_chip";
-            d0 = this.GD.materialsItems.addItems(chipName0,1,level0 - 1);
+            d0 = this.GD.materialsItems.addItems(chipName0,1,level0);
             d0.addArr = Game.gameDefine.purpleChip.getAddArr(chipName0,d0.affixLevel);
             return d0;
          }

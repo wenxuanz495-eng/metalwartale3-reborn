@@ -18,7 +18,7 @@ package UI.union
       
       public const postPrize2:Array = [1,2,3,4,5,6];
       
-      public const unionExp:Array = [0,4400,20600,65400,139400,265400,473400,785400,1409400,3281400,99999999,999999999];
+      public const unionExp:Array = [0,147,687,2180,4647,8847,15780,26180,46980,109380,99999999,999999999];
       
       public const unionCount:Array = [0,20,25,30,35,40,45,50,50,50,50,50,50];
       

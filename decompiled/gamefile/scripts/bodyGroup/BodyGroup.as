@@ -206,10 +206,53 @@ package bodyGroup
       private function inputMC_list(img0:*, father:String, arr0:Array, pointB:Boolean = false) : *
       {
          var n:* = undefined;
+         var smc0:SingleMovieclip = null;
          for(n in arr0)
          {
-            img0.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip(father,arr0[n],pointB));
+            smc0 = this.swfLoaderManager.getSingleMovieclip(father,arr0[n],pointB);
+            if(smc0 != null)
+            {
+               img0.addSingleMovieclip(smc0);
+            }
+            else
+            {
+               try{ Game.reportClientError("missing-image","missing MovieClip: " + father + "/" + arr0[n],"","enemy-image"); }catch(eLog:*){}
+            }
          }
+      }
+
+      public function prewarmEnemyImages(enemyNames:Array) : Boolean
+      {
+         var enemyName0:String = null;
+         var xml0:XML = null;
+         var imageNames:Array = null;
+         var imageName0:String = null;
+         var smc0:SingleMovieclip = null;
+         var ok0:Boolean = true;
+         var names0:Array = enemyNames.concat(["Spider","SmallWarden","Satellite_small"]);
+         for each(enemyName0 in names0)
+         {
+            xml0 = this.textLoaderManager.getEnemyXML(enemyName0);
+            if(xml0 == null)
+            {
+               continue;
+            }
+            imageNames = String(xml0.imgList).split(",");
+            for each(imageName0 in imageNames)
+            {
+               smc0 = this.swfLoaderManager.getSingleMovieclip(enemyName0,imageName0);
+               if(smc0 == null)
+               {
+                  ok0 = false;
+                  try{ Game.reportClientError("missing-image","prewarm failed: " + enemyName0 + "/" + imageName0,"","enemy-image"); }catch(eLog:*){}
+               }
+               else
+               {
+                  smc0.gotoAndStop(1);
+               }
+            }
+         }
+         return ok0;
       }
       
       public function getUnit(str:String) : *
@@ -640,7 +683,7 @@ package bodyGroup
          var hero0:LieutenantBody = new LieutenantBody();
          hero0.carDefine.xml = XML(this.textLoaderManager.getResource("car").data);
          hero0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("car","razer",true));
-         this.inputMC_list(hero0.img.arms,"arms",Game.defineGroup.armsImgLabelArr,true);
+         this.inputMC_list(hero0.img.arms,"arms",LieutenantBody.MAIN_WEAPON_IMAGES,true);
          hero0.img.car.rocket.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("parts","rocket_lv6"));
          hero0.img.car.rocket.showMC("rocket_lv6");
          hero0.img.car.plasma.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("parts","plasma_lv3"));
@@ -649,7 +692,7 @@ package bodyGroup
          hero0.img.plasmaShield.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("parts","plasmaShield"));
          hero0.img.plasmaShield.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("parts","plasmaShield_close"));
          hero0.changeCar("razer");
-         hero0.changeArms("soya",5);
+         hero0.changeArms(LieutenantBody.INITIAL_MAIN_WEAPON);
          hero0.img.ArmsFollowCar();
          hero0.mot.x0 = 100;
          hero0.mot.y0 = 200;
@@ -1632,6 +1675,7 @@ package bodyGroup
          var n:* = undefined;
          var m:* = undefined;
          var i:* = undefined;
+         var j:* = undefined;
          for(n in this.enemy_arr)
          {
             if(this.enemy_arr[n].length > 0)
@@ -1640,7 +1684,7 @@ package bodyGroup
                {
                   for(m in this.enemy_arr[n])
                   {
-                     if(this.enemy_arr[n][m].hitHurtB == 0)
+                     if(this.enemy_arr[n][m].die == 0 && this.enemy_arr[n][m].hitHurtB == 0)
                      {
                         return true;
                      }
@@ -1650,7 +1694,7 @@ package bodyGroup
                {
                   for(i in this.enemy_arr[n])
                   {
-                     if(this.enemy_arr[n][i].define.maxLife < 99999999)
+                     if(this.enemy_arr[n][i].die == 0 && this.enemy_arr[n][i].define.maxLife < 99999999)
                      {
                         return true;
                      }
@@ -1658,7 +1702,13 @@ package bodyGroup
                }
                else if(this.enemy_arr[n] != this.SmallSatellite_arr)
                {
-                  return true;
+                  for(j in this.enemy_arr[n])
+                  {
+                     if(this.enemy_arr[n][j].die == 0)
+                     {
+                        return true;
+                     }
+                  }
                }
             }
          }

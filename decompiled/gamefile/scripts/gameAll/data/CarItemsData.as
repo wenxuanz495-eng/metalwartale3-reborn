@@ -25,6 +25,8 @@ package gameAll.data
       public var defenceType:String = "mixed";
       
       public var extraObj:Object = {};
+
+      public var skinB:Boolean = false;
       
       private var _define:CarDefine = null;
       
@@ -67,6 +69,7 @@ package gameAll.data
          {
             this.strengthenNum = 0;
          }
+         this.skinB = obj.hasOwnProperty("skinB") && Boolean(obj.skinB);
       }
       
       public function swapToData(da0:CarItemsData) : *
@@ -116,6 +119,11 @@ package gameAll.data
          var mul0:Number = CarDataCreator.getColorMul(this.color);
          return Game.newDG.getCarPrice_byLevel(this.getNowLevel()) * mul0;
       }
+
+      public function getSkinSellPrice() : int
+      {
+         return this.getDefine().price;
+      }
       
       public function fleshByDefine() : *
       {
@@ -124,6 +132,18 @@ package gameAll.data
          name = d0.id;
          cnName = d0.name;
          imgLabel = d0.getImgLabel();
+      }
+
+      public function convertToSkin() : *
+      {
+         this.skinB = true;
+         this.upgradeNum = 0;
+         this.strengthenNum = 0;
+         this.affixLevel = 0;
+         this.defenceType = "";
+         this.extraObj = {};
+         this.buyDate = "";
+         this.newB = true;
       }
       
       public function setMcarNowLevel(lv0:int) : *

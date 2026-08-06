@@ -874,8 +874,8 @@
 			                <name>奥</name>
 				            <type>G</type>
 				            <!-- 现在的等级，只有G币车身有 -->
-				            <baseLevel>200</baseLevel>
-				            <installLevel>130</installLevel>
+			            <baseLevel>210</baseLevel>
+			            <installLevel>140</installLevel>
 							
 				            <hitRect>-57,-33,97,28</hitRect>
 			            	<hurtRect>-57,-33,97,28</hurtRect>
@@ -896,8 +896,8 @@
 			                <name>双刺战机</name>
 				            <type>G</type>
 				            <!-- 现在的等级，只有G币车身有 -->
-				            <baseLevel>210</baseLevel>
-				            <installLevel>140</installLevel>
+			            <baseLevel>200</baseLevel>
+			            <installLevel>130</installLevel>
 							
 				            <hitRect>-45,-52,90,52</hitRect>
 			            	<hurtRect>-45,-52,90,52</hurtRect>

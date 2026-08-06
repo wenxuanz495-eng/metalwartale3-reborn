@@ -209,6 +209,7 @@ package UI.union
             return;
          }
          Game.uiGroup.addGift_byArr(this.getScaledPrizeArr(ccd.PrizeArr,difficulty0),false,1,true);
+         this.refreshRewardBags();
          if(result0 == 2)
          {
             Game.uiGroup.checkTip.showCheck2("本轮五个战区已全部完成，已开启" + this.DIFFICULTY_NAMES[difficulty0 + 1] + "难度。",2);
@@ -318,10 +319,17 @@ package UI.union
                citydat = this.CITYARR[this._cityId];
                Game.gameData.giftData.AddUnionFightPrize(citydat.FightFlag + "");
                Game.uiGroup.addGift_byArr(citydat.PrizeArr,false,1,true);
+               this.refreshRewardBags();
                citydat.CanPrize = false;
                Game.uiGroup.saveDataNoUI();
                this.Init();
          }
+      }
+
+      private function refreshRewardBags() : void
+      {
+         Game.uiGroup.changeUI.materialsUI.fleshAll();
+         Game.uiGroup.changeUI.propsUI.fleshAll();
       }
       
       private function setIconAndText(iconStr:String, txtStr:String, arr:Array) : void

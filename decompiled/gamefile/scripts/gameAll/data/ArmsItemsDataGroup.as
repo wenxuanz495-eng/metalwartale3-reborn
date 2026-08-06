@@ -333,7 +333,10 @@ package gameAll.data
             if(n > 0)
             {
                aid = this.equArr[n];
-               aid.nowEnergy = 0;
+               if(aid != null && !aid.hasInfiniteEnergy())
+               {
+                  aid.nowEnergy = 0;
+               }
             }
          }
       }
@@ -360,38 +363,11 @@ package gameAll.data
       
       public function bag_to_equip(site1:int, site2:int, isTobag:Boolean = false) : *
       {
-         var fid:ArmsItemsData = null;
-         var e:ArmsItemsData = null;
-         if(isTobag == false)
-         {
-            fid = this.getItemsBySite(this.arr,site1);
-            for each(e in this.equArr)
-            {
-               if(fid.baseLabel == e.baseLabel)
-               {
-                  Game.uiGroup.checkTip.showCheck2("不能装备同样的武器!",2);
-                  return;
-               }
-            }
-         }
          this.swapTo(this.equArr,site2,this.equMaxNum,this.arr,site1,this.bagMaxNum);
       }
       
       public function equip_to_bag(site1:int, site2:int) : *
       {
-         var e:ArmsItemsData = null;
-         var fid:ArmsItemsData = this.getItemsBySite(this.arr,site2);
-         if(Boolean(fid))
-         {
-            for each(e in this.equArr)
-            {
-               if(fid.baseLabel == e.baseLabel)
-               {
-                  Game.uiGroup.checkTip.showCheck2("不能装备同样的武器!",2);
-                  return;
-               }
-            }
-         }
          this.bag_to_equip(site2,site1,true);
       }
       

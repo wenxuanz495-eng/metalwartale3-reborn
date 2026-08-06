@@ -97,6 +97,10 @@ package items
       {
          var mc:MovieClip = null;
          var bit:Bitmap = null;
+         if(Game.LG.level is VipExtraLevel && (d0.name == "car_capsule" || d0.type == "chip"))
+         {
+            return;
+         }
          var items0:ItemsBody = new ItemsBody();
          items0.label = d0.name;
          items0.define = d0;
@@ -381,6 +385,7 @@ package items
          var d20:* = undefined;
          var materialBonus0:Number = 0;
          var moneyBonus0:Number = 0;
+         var coreDropMultiplier0:Number = 1;
          var vipBonus0:Number = 0;
          var carStr0:String = this.DD.drop.getCarItemsType(b0.type,this.GD.nowDifficult);
          if(carStr0 == "car")
@@ -391,23 +396,39 @@ package items
          var lv0:int = int(b0.define.level);
          var moreCoinNum:* = 1;
          var num0:int = 1;
-         if(b0.type == "super" || b0.type == "champion")
+         if(Game.LG.level is VipExtraLevel)
          {
-            if(Math.random() < 0.1)
+            if(this.GD.vipData.nowVip == "vipCard_11")
             {
-               dropran = Math.random();
-               if(dropran < 0.6)
-               {
-                  this.addItemsBody_byLabel("drop_box",b0.MX,b0.MY);
-               }
-               else if(dropran < 0.9)
-               {
-                  this.addItemsBody_byLabel("drop_box_2",b0.MX,b0.MY);
-               }
-               else
-               {
-                  this.addItemsBody_byLabel("drop_box_3",b0.MX,b0.MY);
-               }
+               coreDropMultiplier0 = 1.25;
+            }
+            else if(this.GD.vipData.nowVip == "vipCard_12")
+            {
+               coreDropMultiplier0 = 1.5;
+            }
+            else if(this.GD.vipData.nowVip == "vipCard_13")
+            {
+               coreDropMultiplier0 = 1.75;
+            }
+            else if(this.GD.vipData.nowVip == "vipCard_14")
+            {
+               coreDropMultiplier0 = 2;
+            }
+         }
+         if(levelState0 == "normal")
+         {
+            dropran = Math.random();
+            if(dropran < 0.12 * coreDropMultiplier0)
+            {
+               this.addItemsBody_byLabel("drop_box",b0.MX,b0.MY);
+            }
+            else if(dropran < 0.21 * coreDropMultiplier0)
+            {
+               this.addItemsBody_byLabel("drop_box_2",b0.MX,b0.MY);
+            }
+            else if(dropran < 0.27 * coreDropMultiplier0)
+            {
+               this.addItemsBody_byLabel("drop_box_3",b0.MX,b0.MY);
             }
          }
          if(b0.type == "super" || b0.type == "champion")
@@ -557,22 +578,7 @@ package items
          }
          if(levelState0 == "normal" && Game.LG.level is VipExtraLevel)
          {
-            if(this.GD.vipData.nowVip == "vipCard_11")
-            {
-               vipBonus0 = 0.25;
-            }
-            else if(this.GD.vipData.nowVip == "vipCard_12")
-            {
-               vipBonus0 = 0.5;
-            }
-            else if(this.GD.vipData.nowVip == "vipCard_13")
-            {
-               vipBonus0 = 0.75;
-            }
-            else if(this.GD.vipData.nowVip == "vipCard_14")
-            {
-               vipBonus0 = 1;
-            }
+            vipBonus0 = coreDropMultiplier0 - 1;
             if(vipBonus0 >= 1 || Math.random() < vipBonus0)
             {
                this.dropItems(b0,coin0,zra0,"vipBonus");

@@ -4,6 +4,8 @@ package gameAll.define
    
    public class AdditionalDefine
    {
+
+      private var forceMaxValue:Boolean = false;
       
       public var lvl:Array = [1,26,41,51,55];
       
@@ -84,9 +86,32 @@ package gameAll.define
       {
          return int(this[type0](lvl0) * 1000) / 1000;
       }
+
+      public function getMaxValue(lvl0:int, type0:String) : Number
+      {
+         var value0:Number = NaN;
+         this.forceMaxValue = true;
+         try
+         {
+            value0 = this.getValue(lvl0,type0);
+         }
+         finally
+         {
+            this.forceMaxValue = false;
+         }
+         return value0;
+      }
       
       public function getRa(v0:Number, v1:Number) : Number
       {
+         if(this.forceMaxValue)
+         {
+            // Random ranges are open at the upper end.  Use the greatest
+            // representable value below the endpoint so setPer()/int()
+            // produce the actual maximum a roll can reach.  Preserve
+            // fixed ranges such as 0.04..0.04 exactly.
+            return v1 == v0 ? v1 : v1 - 0.000001;
+         }
          return v0 + Math.random() * (v1 - v0);
       }
       
@@ -100,7 +125,10 @@ package gameAll.define
          {
             return int(num0 * 10) / 10;
          }
-         return int(num0 * 100) / 100;
+         // Percentage affixes are stored with three decimal places in the
+         // original data (for example 0.111 -> 11.1%).  Keeping only two
+         // decimals here makes legitimate one-decimal UI values impossible.
+         return int(num0 * 1000) / 1000;
       }
       
       public function getValueByArr2(lv0:int, lvArr:Array, valueArr:Array) : Number

@@ -141,6 +141,8 @@ package UI.server
             this.sBar.setHigh(this.cover_mc.height - 6);
             this.context_mc.addChild(mc0);
             this.sBar.setTarget(this.context_mc);
+            this.context_mc.addEventListener(MouseEvent.MOUSE_WHEEL,this.scrollOfflineNotice);
+            this.cover_mc.addEventListener(MouseEvent.MOUSE_WHEEL,this.scrollOfflineNotice);
             this.loadOfflineNotice();
          }
          addChild(this.producer_mc);
@@ -243,6 +245,22 @@ package UI.server
             }
          }
          this.clearNoticeLoader();
+      }
+
+      private function scrollOfflineNotice(event:MouseEvent) : void
+      {
+         var scrollRange:Number = 0;
+         if(this.sBar == null || this.context_mc == null)
+         {
+            return;
+         }
+         scrollRange = this.context_mc.height + 30 - this.sBar.limitHigh;
+         if(scrollRange <= 0)
+         {
+            return;
+         }
+         this.sBar.setPer(this.sBar.getPer() - event.delta * 36 / scrollRange);
+         event.stopPropagation();
       }
       
       private function offlineNoticeLoadFailed(event:IOErrorEvent) : void

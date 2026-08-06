@@ -16,6 +16,12 @@ package body.lieutenant
    
    public class LieutenantBody
    {
+
+      public static const INITIAL_MAIN_WEAPON:String = "soya_lv6";
+
+      public static const SWITCH_MAIN_WEAPONS:Array = ["amplitude_lv3","microwave_lv3","schoolArms_lv3"];
+
+      public static const MAIN_WEAPON_IMAGES:Array = ["soya_lv6","amplitude_lv3","microwave_lv3","schoolArms_lv3"];
       
       public var define:HeroCarDefine = new HeroCarDefine();
       
@@ -111,6 +117,7 @@ package body.lieutenant
       public function changeArms(id0:String, level0:int = 0) : *
       {
          var arr:Array = id0.split("_lv");
+         this.attack.stopAttack();
          if(arr.length > 1)
          {
             id0 = arr[0];
@@ -118,6 +125,7 @@ package body.lieutenant
          }
          this.armsDefine.inData(id0,level0);
          this.img.arms.showMC(this.armsDefine.armsImgLabel);
+         this.img.ArmsFollowCar();
          this.img.arms.startHurtEffect(0.1);
       }
       

@@ -84,7 +84,10 @@ package UI.research
          var arr1:Array = [];
          for(n in arr0)
          {
-            arr1.push(arr0[n]);
+            if(!(arr0[n] as CarItemsData).skinB)
+            {
+               arr1.push(arr0[n]);
+            }
          }
          this.carBox.inData_byItems(arr1);
          this.pageBox.table = this.carBox;

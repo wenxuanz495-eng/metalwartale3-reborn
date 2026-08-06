@@ -74,6 +74,16 @@ package UI.shop
       public var barterSourceName:String = "";
       
       public var barterTargetName:String = "";
+
+      public var quantityPurchaseMode:Boolean = false;
+
+      public var quantityPurchaseMax:int = 0;
+
+      public var quantityPurchaseUnitPrice:int = 0;
+
+      public var quantityPurchaseCurrency:String = "";
+
+      public var quantityPurchaseBagText:String = "";
       
       public function TopDialogBox()
       {
@@ -264,6 +274,35 @@ package UI.shop
          this.shop_mc.num_txt.type = "input";
          this.fleshPrice();
       }
+
+      public function showQuantityPurchaseCheck(goodsName:String, currencyName:String, unitPrice:int, maxNum:int, bagText:String, _yesFun:Function = null) : *
+      {
+         this.showCheck("");
+         this.quantityPurchaseMode = true;
+         this.quantityPurchaseMax = maxNum;
+         this.quantityPurchaseUnitPrice = unitPrice;
+         this.quantityPurchaseCurrency = currencyName;
+         this.quantityPurchaseBagText = bagText;
+         this.yesFun = _yesFun;
+         this.buyDefine = new GoodsDefine();
+         this.buyDefine.baseNum = 1;
+         this.buyDefine.num = 1;
+         this.shop_mc.num_txt.text = "1";
+         this.txt.visible = false;
+         this.shop_mc.visible = true;
+         this.shop_mc.title_txt.htmlText = "你要购买 <font color=\'#FFFF00\'>" + goodsName + "</font> 吗？";
+         this.shop_mc.numCnTxt.x = -142;
+         this.shop_mc.price_txt.x = 12;
+         this.shop_mc.price_txt.width = 188;
+         this.shop_mc.price_txt.autoSize = TextFieldAutoSize.LEFT;
+         this.shop_mc.numCnTxt.visible = true;
+         this.shop_mc.num_txt.visible = true;
+         this.shop_mc.numBack_mc.visible = true;
+         this.shop_mc.prev_btn.visible = true;
+         this.shop_mc.next_btn.visible = true;
+         this.shop_mc.num_txt.type = "input";
+         this.fleshPrice();
+      }
       
       public function show50M_unlock(fun0:Function) : *
       {
@@ -276,6 +315,18 @@ package UI.shop
       
       public function fleshPrice() : *
       {
+         if(this.quantityPurchaseMode)
+         {
+            this.fleshBuyNum();
+            if(this.buyNum > this.quantityPurchaseMax)
+            {
+               this.buyNum = this.quantityPurchaseMax;
+            }
+            this.yes_btn.actived = this.buyNum >= 1 && this.buyNum <= this.quantityPurchaseMax;
+            this.shop_mc.price_txt.htmlText = "需要：<font color=\'#FFFF00\'>" + this.buyNum * this.quantityPurchaseUnitPrice + "</font> " + this.quantityPurchaseCurrency;
+            this.shop_mc.bag_txt.htmlText = this.quantityPurchaseBagText;
+            return;
+         }
          if(this.barterMode)
          {
             this.fleshBuyNum();
@@ -409,6 +460,7 @@ package UI.shop
       public function show(str:String, _hideDelay:Number = -1, _icon:int = 0, _btn:int = 0, fun1:Function = null, fun2:Function = null) : *
       {
          this.barterMode = false;
+         this.quantityPurchaseMode = false;
          this.yes_btn.actived = true;
          this.txt.visible = true;
          this.shop_mc.visible = false;

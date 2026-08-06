@@ -3,9 +3,13 @@ package UI._new.main
    import UI.main.MainUI;
    import flash.display.DisplayObject;
    import flash.display.DisplayObjectContainer;
+   import flash.display.Loader;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
    import flash.events.MouseEvent;
+   import flash.net.URLRequest;
    import flash.text.TextField;
    import gameAll.data.GameData;
    
@@ -75,6 +79,10 @@ package UI._new.main
       public var saveData_t:Number;
 
       private var growNewBadge:DisplayObject;
+
+      private var autoRestartButton:Sprite;
+
+      private var autoNextButton:Sprite;
       
       public function _MainUI()
       {
@@ -100,6 +108,109 @@ package UI._new.main
          this.replaceButtonText(this.firstPayGift_btn,["首充礼包"],"新手礼包");
          // The visible label is a sibling timeline TextField, not a child of allGift_btn.
          this.replaceDisplayText(this,["累计充值值奖励","累计充值值礼包","累计充值奖励","累计充值礼包","累计MB礼包"],"累计MB奖励");
+         this.createAutoLevelControls();
+      }
+
+      private function createAutoLevelControls() : *
+      {
+         this.autoRestartButton = this.makeAutoLevelButton("自动重新挑战","autoRestartLevel",24,350);
+         this.autoNextButton = this.makeAutoLevelButton("自动进入下一关","autoNextLevel",24,388);
+         addChild(this.autoRestartButton);
+         addChild(this.autoNextButton);
+         this.refreshAutoLevelControls();
+      }
+
+      private function makeAutoLevelButton(label0:String, key0:String, x0:Number, y0:Number) : Sprite
+      {
+         var button0:Sprite = new Sprite();
+         var text0:TextField = new TextField();
+         button0.name = key0;
+         button0.x = x0;
+         button0.y = y0;
+         button0.buttonMode = true;
+         button0.mouseChildren = false;
+         button0.graphics.beginFill(0,0);
+         button0.graphics.drawRect(0,0,114,36);
+         button0.graphics.endFill();
+         this.addAutoLevelImage(button0,"ui/auto-level/button-normal.png","normal");
+         this.addAutoLevelImage(button0,"ui/auto-level/button-selected.png","selected");
+         text0.defaultTextFormat = new flash.text.TextFormat("_sans",14,16777215,true,null,null,null,null,"center");
+         text0.width = 114;
+         text0.height = 24;
+         text0.y = 7;
+         text0.text = label0;
+         text0.mouseEnabled = false;
+         button0.addChild(text0);
+         button0.addEventListener(MouseEvent.CLICK,this.autoLevelButtonClick);
+         return button0;
+      }
+
+      private function addAutoLevelImage(target0:Sprite, path0:String, role0:String) : *
+      {
+         var loader0:Loader = new Loader();
+         loader0.name = role0;
+         loader0.mouseEnabled = false;
+         loader0.contentLoaderInfo.addEventListener(Event.COMPLETE,this.autoLevelImageComplete);
+         loader0.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,this.autoLevelImageError);
+         target0.addChild(loader0);
+         loader0.load(new URLRequest(path0));
+      }
+
+      private function autoLevelImageComplete(e:Event) : *
+      {
+         var loader0:Loader = e.target.loader as Loader;
+         loader0.content.width = 114;
+         loader0.content.height = 36;
+         this.refreshAutoLevelControls();
+      }
+
+      private function autoLevelImageError(e:IOErrorEvent) : *
+      {
+      }
+
+      private function autoLevelButtonClick(e:MouseEvent) : *
+      {
+         if(e.currentTarget == this.autoRestartButton)
+         {
+            Game.gameData.autoRestartLevel = !Game.gameData.autoRestartLevel;
+            if(Game.gameData.autoRestartLevel)
+            {
+               Game.gameData.autoNextLevel = false;
+            }
+         }
+         else
+         {
+            Game.gameData.autoNextLevel = !Game.gameData.autoNextLevel;
+            if(Game.gameData.autoNextLevel)
+            {
+               Game.gameData.autoRestartLevel = false;
+            }
+         }
+         this.refreshAutoLevelControls();
+         Game.uiGroup.saveDataNoUI();
+      }
+
+      private function refreshAutoLevelControls() : *
+      {
+         this.setAutoLevelButtonState(this.autoRestartButton,Game.gameData.autoRestartLevel);
+         this.setAutoLevelButtonState(this.autoNextButton,Game.gameData.autoNextLevel);
+      }
+
+      private function setAutoLevelButtonState(button0:Sprite, selected0:Boolean) : *
+      {
+         var child0:DisplayObject = null;
+         var i0:int = 0;
+         if(button0 == null)
+         {
+            return;
+         }
+         while(i0 < button0.numChildren)
+         {
+            child0 = button0.getChildAt(i0);
+            if(child0.name == "normal") child0.visible = !selected0;
+            if(child0.name == "selected") child0.visible = selected0;
+            i0++;
+         }
       }
 
       private function findGrowNewBadge() : DisplayObject
@@ -178,11 +289,16 @@ package UI._new.main
       public function fleshData() : *
       {
          this.fleshBtn();
+         this.refreshAutoLevelControls();
       }
       
       public function fleshBtn() : *
       {
-         this.conChoose_btn.visible = !Game.gameData.giftData.haveConB;
+         // Keep the constellation-weapon entry visible after the player has
+         // claimed all (or some) of the 12 weapons.  The claim screen still
+         // disables individual claimed entries, but the navigation button is
+         // intentionally persistent.
+         this.conChoose_btn.visible = true;
          this.firstPayGift_btn.y = this.firstGift_y;
          this.conChoose_btn.y = this.conArms_y;
          if(!this.firstPayGift_btn.visible && this.conChoose_btn.visible)
@@ -193,11 +309,10 @@ package UI._new.main
       
       public function startSaveDelay() : *
       {
-         this.saveData_btn.alpha = 0.3;
-         this.saveData_btn.mouseEnabled = false;
-         this.saveDelay_txt.visible = true;
-         this.saveData_t = this.SAVEDATA_TIME;
-         this.saveDelay_txt.text = "" + int(this.saveData_t);
+         this.saveData_t = -1000;
+         this.saveData_btn.alpha = 1;
+         this.saveData_btn.mouseEnabled = true;
+         this.saveDelay_txt.visible = false;
       }
       
       private function bigBtnClick(e:*) : *
@@ -217,18 +332,9 @@ package UI._new.main
          var sname:Array = ["双线二区","双线三区","双线一区"];
          this.sever_txt.text = "当前版本号：" + Game.versionNumber + "\n" + exp_str0;
          Game.uiGroup.gamingUI.expTime_txt.text = exp_str0;
-         if(this.saveData_t <= 0 && this.saveData_t > -1000)
-         {
-            this.saveData_t = -1000;
-            this.saveData_btn.alpha = 1;
-            this.saveData_btn.mouseEnabled = true;
-            this.saveDelay_txt.visible = false;
-         }
-         else if(this.saveData_t != -1000)
-         {
-            this.saveData_t -= 1;
-         }
-         this.saveDelay_txt.text = int(this.saveData_t) + "";
+         this.saveData_btn.alpha = 1;
+         this.saveData_btn.mouseEnabled = true;
+         this.saveDelay_txt.visible = false;
       }
    }
 }
