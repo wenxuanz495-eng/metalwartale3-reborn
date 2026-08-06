@@ -138,7 +138,7 @@ Start-Sleep -Milliseconds 250
 
 $hostName = "127.0.0.1"
 $port = $null
-foreach ($candidatePort in 8766..8796) {
+foreach ($candidatePort in 52200..52240) {
   if (Test-PortFree $candidatePort) { $port = $candidatePort; break }
 }
 if ($null -eq $port) { throw "没有可用的本地修改器端口，请关闭旧修改器后重试。" }

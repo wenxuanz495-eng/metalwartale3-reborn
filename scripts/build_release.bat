@@ -33,7 +33,16 @@ mkdir "%RELEASE%\build\saves\backups"
 mkdir "%RELEASE%\scripts"
 mkdir "%RELEASE%\tools\debug"
 mkdir "%RELEASE%\tools\runtime"
+mkdir "%RELEASE%\build\bgm"
+mkdir "%RELEASE%\build\tools\audio"
+mkdir "%RELEASE%\build\ui"
 xcopy "%REPO_ROOT%\build\swf" "%RELEASE%\build\swf\" /e /i /q /y >nul
+xcopy "%REPO_ROOT%\build\bgm" "%RELEASE%\build\bgm\" /e /i /q /y >nul
+xcopy "%REPO_ROOT%\build\ui" "%RELEASE%\build\ui\" /e /i /q /y >nul
+if exist "%RELEASE%\build\bgm\player" rmdir /s /q "%RELEASE%\build\bgm\player"
+mkdir "%RELEASE%\build\bgm\player" >nul 2>nul
+xcopy "%REPO_ROOT%\build\tools\audio" "%RELEASE%\build\tools\audio\" /e /i /q /y >nul
+xcopy "%REPO_ROOT%\build\ui" "%RELEASE%\build\ui\" /e /i /q /y >nul
 copy /y "%REPO_ROOT%\build\game.swf" "%RELEASE%\build\game.swf" >nul
 copy /y "%REPO_ROOT%\build\server.exe" "%RELEASE%\build\server.exe" >nul
 copy /y "%REPO_ROOT%\build\modifier.html" "%RELEASE%\build\modifier.html" >nul
@@ -44,7 +53,7 @@ copy /y "%REPO_ROOT%\tools\debug\flashplayer_sa_debug.exe" "%RELEASE%\tools\debu
 copy /y "%REPO_ROOT%\scripts\launch_game.bat" "%RELEASE%\scripts\launch_game.bat" >nul
 copy /y "%REPO_ROOT%\scripts\launch_modifier.bat" "%RELEASE%\scripts\launch_modifier.bat" >nul
 
-for %%F in ("启动游戏.bat" "启动游戏-flashplayer_sa.bat" "启动游戏-flashplayer_sa_debug.bat" "启动修改器.bat" "修改器.bat" "一键备份存档.bat" "清除存档.bat" "打开存档目录.bat" "打开存档备份文件夹.bat" "清理后台残留.bat" "战车属性为零修复.bat") do copy /y "%REPO_ROOT%\%%~F" "%RELEASE%\%%~F" >nul
+for %%F in ("启动游戏-flashplayer_sa.bat" "启动游戏-flashplayer_sa_debug.bat" "启动修改器.bat" "修改器.bat" "一键备份存档.bat" "清除存档.bat" "打开存档目录.bat" "打开存档备份文件夹.bat" "清理后台残留.bat" "战车属性为零修复.bat") do copy /y "%REPO_ROOT%\%%~F" "%RELEASE%\%%~F" >nul
 
 call "%~dp0check_release.bat" "%RELEASE%"
 if errorlevel 1 exit /b %ERRORLEVEL%

@@ -25,6 +25,9 @@ set "PLAYER_IMAGE="
 set "CLEANFLASH_SHA256=7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979"
 set "SERVER_TITLE=SA_COLLAB_SERVER_%RANDOM%_%RANDOM%"
 set "PORT="
+set /a PORT_START=52000 + !RANDOM! %% 12000
+set /a PORT_END=PORT_START + 40
+set "INSTANCE_TOKEN=%RANDOM%%RANDOM%%RANDOM%"
 
 if /i "%PLAYER_TYPE%"=="sa" (
   if exist "%REPO_ROOT%\tools\runtime\FlashPlayer.exe" set "PLAYER=%REPO_ROOT%\tools\runtime\FlashPlayer.exe"
@@ -40,6 +43,11 @@ if /i "%PLAYER_TYPE%"=="sa" call :verify_cleanflash
 if errorlevel 1 exit /b %ERRORLEVEL%
 where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_curl
+
+if not exist "%SAVE_DIR%" mkdir "%SAVE_DIR%"
+if not exist "%SAVE_DIR%" goto save_dir_failed
+if not exist "%SAVE_DIR%\game_save.bin" if exist "%BUILD_DIR%\swf\empty-save-template.bin" copy /y "%BUILD_DIR%\swf\empty-save-template.bin" "%SAVE_DIR%\game_save.bin" >nul
+if not exist "%SAVE_DIR%\game_save.bin" goto save_seed_failed
 
 if not exist "%BUILD_DIR%\.release-ready" (
   echo [CHECK] Verifying 175 tracked runtime resources before launch...
@@ -59,11 +67,11 @@ call :cleanup_servers
 echo Starting collaboration build with pure BAT...
 echo Player: %PLAYER%
 
-for /l %%P in (8765,1,8805) do (
+for /l %%P in (!PORT_START!,1,!PORT_END!) do (
   if not defined PORT (
     set "SERVER_TITLE=SA_COLLAB_SERVER_!RANDOM!_!RANDOM!"
-    start "!SERVER_TITLE!" /min cmd.exe /d /c ""%SERVER%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%""
-    call :wait_server %%P
+    start "!SERVER_TITLE!" /min cmd.exe /d /c ""%SERVER%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%" -instance "!INSTANCE_TOKEN!""
+    call :wait_server %%P !INSTANCE_TOKEN!
     if not errorlevel 1 (
       set "PORT=%%P"
     ) else (
@@ -79,7 +87,6 @@ if defined SMOKE_ONLY (
   echo [OK] Pure BAT game server smoke test passed.
   exit /b 0
 )
-if not exist "%SAVE_DIR%\game_save.bin" if exist "%BUILD_DIR%\swf\empty-save-template.bin" copy /y "%BUILD_DIR%\swf\empty-save-template.bin" "%SAVE_DIR%\game_save.bin" >nul
 "%PLAYER%" "http://127.0.0.1:!PORT!/game.swf?localrun=!RANDOM!!RANDOM!"
 set "GAME_ERROR=!ERRORLEVEL!"
 call :cleanup_servers
@@ -90,11 +97,13 @@ exit /b 0
 for /l %%W in (1,1,30) do (
   curl.exe --silent --fail --max-time 1 -o "%TEMP%\sa-collab-status-%~1.tmp" "http://127.0.0.1:%~1/api/status" 2>nul
   if not errorlevel 1 (
-    findstr /i /c:"backend" "%TEMP%\sa-collab-status-%~1.tmp" >nul 2>nul
+    findstr /i /c:"%~2" "%TEMP%\sa-collab-status-%~1.tmp" >nul 2>nul
     if not errorlevel 1 (
       del /q "%TEMP%\sa-collab-status-%~1.tmp" >nul 2>nul
       exit /b 0
     )
+    del /q "%TEMP%\sa-collab-status-%~1.tmp" >nul 2>nul
+    exit /b 2
   )
   ping 127.0.0.1 -n 2 -w 200 >nul
 )
@@ -107,16 +116,15 @@ ping 127.0.0.1 -n 2 -w 200 >nul
 exit /b 0
 
 :verify_cleanflash
-for /f "usebackq delims=" %%V in (`powershell.exe -NoProfile -Command "(Get-Item -LiteralPath '%PLAYER%').VersionInfo.FileVersion -replace ',', '.'"`) do set "PLAYER_VERSION=%%V"
-for /f "usebackq delims=" %%H in (`powershell.exe -NoProfile -Command "(Get-FileHash -Algorithm SHA256 -LiteralPath '%PLAYER%').Hash"`) do set "PLAYER_SHA256=%%H"
-if not "%PLAYER_VERSION%"=="34.0.0.330" goto invalid_player
+set "PLAYER_SHA256="
+for /f "skip=1 tokens=*" %%H in ('certutil -hashfile "%PLAYER%" SHA256 2^>nul') do if not defined PLAYER_SHA256 set "PLAYER_SHA256=%%H"
+set "PLAYER_SHA256=%PLAYER_SHA256: =%"
 if /i not "%PLAYER_SHA256%"=="%CLEANFLASH_SHA256%" goto invalid_player
 exit /b 0
 
 :invalid_player
 echo [ERROR] The repository player must be CleanFlash SA 34.0.0.330.
 echo [ERROR] Flash Player 29 and Debug Player are forbidden for SA launches.
-echo Version: %PLAYER_VERSION%
 echo SHA-256: %PLAYER_SHA256%
 exit /b 5
 
@@ -134,9 +142,23 @@ echo [ERROR] Windows curl.exe is required for the local server health check.
 exit /b 3
 
 :server_failed
-echo [ERROR] Could not start the local server on ports 8765-8805.
+echo [ERROR] Could not start the local server on high ports !PORT_START!-!PORT_END!.
 pause
 exit /b 4
+
+:save_dir_failed
+echo [ERROR] Cannot create the authoritative save directory:
+echo %SAVE_DIR%
+echo Check folder permissions or security software, then move the game to a writable folder.
+pause
+exit /b 6
+
+:save_seed_failed
+echo [ERROR] Cannot create the initial authoritative save file:
+echo %SAVE_DIR%\game_save.bin
+echo Check folder permissions or security software. The game will not start without a writable save path.
+pause
+exit /b 7
 
 :player_failed
 echo [ERROR] Flash Player exited with code !GAME_ERROR!.

@@ -1,6 +1,6 @@
 param(
   [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
-  [int]$Port = 8766
+  [int]$Port = 52200
 )
 $ErrorActionPreference = "Stop"
 . (Join-Path $PSScriptRoot "go_env.ps1")

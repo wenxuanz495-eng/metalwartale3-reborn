@@ -16,6 +16,8 @@ set "MODIFIER=%BUILD_DIR%\modifier.html"
 set "ENGINE_TITLE=SA_COLLAB_MODIFIER_%RANDOM%_%RANDOM%"
 set "BROWSER="
 set "PORT="
+set /a PORT_START=52000 + !RANDOM! %% 12000
+set /a PORT_END=PORT_START + 40
 set "BROWSER_PROFILE=%TEMP%\sa-collab-modifier-%RANDOM%-%RANDOM%"
 
 if not exist "%ENGINE%" goto missing_build
@@ -61,7 +63,7 @@ if exist "%SAVE_DIR%\game_save.bin" (
 call :cleanup_modifier
 echo Starting collaboration modifier with pure BAT...
 
-for /l %%P in (8766,1,8806) do (
+for /l %%P in (!PORT_START!,1,!PORT_END!) do (
   if not defined PORT (
     set "ENGINE_TITLE=SA_COLLAB_MODIFIER_!RANDOM!_!RANDOM!"
     start "!ENGINE_TITLE!" /min cmd.exe /d /c ""%ENGINE%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%""
@@ -143,7 +145,7 @@ pause
 exit /b 5
 
 :engine_failed
-echo [ERROR] Modifier engine could not start on ports 8766-8806.
+echo [ERROR] Modifier engine could not start on high ports !PORT_START!-!PORT_END!.
 pause
 exit /b 6
 

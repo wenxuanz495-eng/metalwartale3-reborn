@@ -1,6 +1,6 @@
 param(
   [string]$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path,
-  [int]$Port = 8765,
+  [int]$Port = 52100,
   [switch]$Build,
   [switch]$SkipBuild,
   [ValidateSet("sa", "sa_debug")]

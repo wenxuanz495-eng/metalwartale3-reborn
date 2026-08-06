@@ -109,7 +109,7 @@ elseif (-not (Test-Path -LiteralPath $savePath -PathType Leaf)) {
 Start-Sleep -Milliseconds 200
 
 $port = $null
-foreach ($candidate in 8765..8795) {
+foreach ($candidate in 52100..52140) {
   if (Test-PortFree $candidate) { $port = $candidate; break }
 }
 if ($null -eq $port) { throw "No free local game port was found." }

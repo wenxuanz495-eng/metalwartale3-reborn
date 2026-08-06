@@ -34,6 +34,8 @@ echo ==== Synchronize current resources into silent preview ====
 xcopy "%CURRENT_SWF%" "%TARGET%\swf\" /e /i /q /y >nul
 copy /y "%REPO_ROOT%\build\game.swf" "%TARGET%\game.swf" >nul
 copy /y "%REPO_ROOT%\build\server.exe" "%TARGET%\server.exe" >nul
+xcopy "%REPO_ROOT%\build\bgm" "%TARGET%\bgm\" /e /i /q /y >nul
+xcopy "%REPO_ROOT%\build\tools\audio" "%TARGET%\tools\audio\" /e /i /q /y >nul
 if exist "%REPO_ROOT%\build\公告.txt" copy /y "%REPO_ROOT%\build\公告.txt" "%TARGET%\公告.txt" >nul
 
 echo ==== Restore silent enemy overrides ====

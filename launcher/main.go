@@ -99,12 +99,17 @@ func executableDir() (string, error) {
 		return "", fmt.Errorf("无法解析启动器目录：%w", err)
 	}
 	dir := filepath.Dir(path)
-	// Packaged launchers live in the game root. Development builds live in
-	// root/build, beside game.swf and server.exe, so accept both layouts.
-	if fileExists(filepath.Join(dir, "game.swf")) && fileExists(filepath.Join(dir, "server.exe")) {
-		parent := filepath.Dir(dir)
-		if fileExists(filepath.Join(parent, "tools", "runtime", "FlashPlayer.exe")) {
-			return parent, nil
+	// Accept both release packages (launcher at root) and repository builds
+	// where the executable is kept in launcher/ or build/.
+	for candidate := dir; ; candidate = filepath.Dir(candidate) {
+		if fileExists(filepath.Join(candidate, "build", "server.exe")) &&
+			fileExists(filepath.Join(candidate, "build", "game.swf")) &&
+			fileExists(filepath.Join(candidate, "tools", "runtime", "FlashPlayer.exe")) {
+			return candidate, nil
+		}
+		parent := filepath.Dir(candidate)
+		if parent == candidate {
+			break
 		}
 	}
 	return dir, nil

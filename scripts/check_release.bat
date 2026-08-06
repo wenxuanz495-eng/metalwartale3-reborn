@@ -9,8 +9,10 @@ if "%~1"=="" (
 for %%I in ("%~1") do set "RELEASE=%%~fI"
 if not exist "%RELEASE%\build\game.swf" goto missing
 if not exist "%RELEASE%\build\server.exe" goto missing
+if not exist "%RELEASE%\build\tools\audio\miniaudio.dll" goto missing
+if not exist "%RELEASE%\build\bgm\default\Decisions.mp3" goto missing
 if not exist "%RELEASE%\build\modifier.html" goto missing
-if not exist "%RELEASE%\启动游戏.bat" goto missing
+if not exist "%RELEASE%\启动游戏-flashplayer_sa.bat" goto missing
 if not exist "%RELEASE%\启动修改器.bat" goto missing
 
 set "BAD=0"
