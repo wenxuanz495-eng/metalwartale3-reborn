@@ -81,6 +81,10 @@ Desktop.ini
 # Runtime copied resources (use repo /swf or prepare script)
 /runtime/swf/
 
-D path caches are outside repo; ignore accidental local copies
+# Go path caches are outside repo; ignore accidental local copies
 /.gopath/
+
+# Temporary audit/review directories and external toolchains (not source)
+/tmp-*/
+/tools/ffmpeg/
 
