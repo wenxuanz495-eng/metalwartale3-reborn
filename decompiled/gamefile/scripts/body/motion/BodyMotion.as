@@ -83,6 +83,9 @@ package body.motion
       public var jumpNow:int = 0;
       
       public var jumpNum:int = 10;
+
+      // Counts only airborne extra jumps; the ground jump is intentionally excluded.
+      public var airJumpNow:int = 0;
       
       private var _floorB:Boolean = false;
       
@@ -130,6 +133,34 @@ package body.motion
       {
          ++this.jumpNow;
          this.vy0 = -this.JUMP_VY;
+      }
+
+      public function toAirJump() : *
+      {
+         ++this.airJumpNow;
+         this.vy0 = -this.JUMP_VY;
+      }
+
+      public function toAirGravity() : *
+      {
+         ++this.airJumpNow;
+         this.vy0 = -this.JUMP_VY;
+      }
+
+      public function toLimitedAirJump(limit0:int = 4) : Boolean
+      {
+         if(this.getFloorB())
+         {
+            this.toJump();
+            return true;
+         }
+         if(this.airJumpNow >= limit0)
+         {
+            this.vy0 = this.vymax_Fi;
+            return false;
+         }
+         this.toAirGravity();
+         return true;
       }
       
       public function delayToJump(tt:Number) : *
@@ -362,6 +393,7 @@ package body.motion
                if(!this._floorB)
                {
                   this.jumpNow = 0;
+                  this.airJumpNow = 0;
                }
             }
             this._floorB = this.getFloorB();

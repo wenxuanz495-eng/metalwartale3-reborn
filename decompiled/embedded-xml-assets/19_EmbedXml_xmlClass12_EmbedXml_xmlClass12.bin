@@ -1639,6 +1639,30 @@
 				<description>可以提升公会建筑等级。</description>
 			</items>
 			<items index="0">
+				<name>subCar_tvc_red</name>
+				<cnName>红尾浮游战机TVC</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub25/subCar_red</iconImgLabel>
+				<imgLabel>sub25/subCar_red</imgLabel>
+				<price>1</price>
+				<Mprice>100</Mprice>
+				<propId>25</propId>
+				<propId2>516</propId2>
+				<description>购买后，将浮游战机外观切换为2.5经典三尾样式。</description>
+			</items>
+			<items index="0">
+				<name>subCar_tvc_yellow</name>
+				<cnName>金尾浮游战机TVC</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub25/subCar_yellow</iconImgLabel>
+				<imgLabel>sub25/subCar_yellow</imgLabel>
+				<price>1</price>
+				<Mprice>100</Mprice>
+				<propId>26</propId>
+				<propId2>517</propId2>
+				<description>购买后，将浮游战机外观切换为2.5经典三尾样式。</description>
+			</items>
+			<items index="0">
 				<name>elite_challenge_card</name>
 				<cnName>精英副本挑战卡</cnName>
 				<dropLevel>9999</dropLevel>
@@ -2154,8 +2178,34 @@
 			
 		<!-- 浮游战机	-->	
 			<items index="0">
+				<name>subCar_tvc_blue</name>
+				<cnName>蓝尾浮游战机TVC</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub25/subCar_blue</iconImgLabel>
+				<imgLabel>sub25/subCar_blue</imgLabel>
+				<price>1</price>
+				<Mprice>100</Mprice>
+				<propId>24</propId>
+				<propId2>515</propId2>
+				<description>购买后，将浮游战机外观切换为2.5经典三尾样式。</description>
+			</items>
+			<items index="0">
+				<name>subCar_blue</name>
+				<cnName>蓝尾鸡翅浮游战机</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub/subCar_blue</iconImgLabel>
+				<imgLabel>sub/subCar_blue</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>100</Mprice>
+				<propId>21</propId>
+				<propId2>512</propId2>
+				
+				<description>购买后，直接改变浮游战机机体。</description>
+			</items>
+			<items index="0">
 				<name>subCar_red</name>
-				<cnName>红尾浮游战机</cnName>
+				<cnName>红尾鸡翅浮游战机</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>sub/subCar_red</iconImgLabel>
 				<imgLabel>sub/subCar_red</imgLabel>
@@ -2169,7 +2219,7 @@
 			</items>
 			<items index="0">
 				<name>subCar_yellow</name>
-				<cnName>金尾浮游战机</cnName>
+				<cnName>金尾鸡翅浮游战机</cnName>
 				<dropLevel>9999</dropLevel>
 				<iconImgLabel>sub/subCar_yellow</iconImgLabel>
 				<imgLabel>sub/subCar_yellow</imgLabel>

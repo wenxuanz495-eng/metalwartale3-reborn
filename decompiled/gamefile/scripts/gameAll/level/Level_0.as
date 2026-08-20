@@ -293,7 +293,7 @@ package gameAll.level
       private function skillShow() : *
       {
          this.gamingUI.showSkillIcon();
-         Game.gameData.playerData.setFullSkillArr([9,1,1,0,0]);
+         Game.gameData.playerData.setFullSkillArr([1,1,1,0,0]);
          Game.eventGroup.fleshSkill();
       }
       

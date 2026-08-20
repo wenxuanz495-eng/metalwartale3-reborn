@@ -2,6 +2,8 @@ package UI.top
 {
    import body.define.OneArmsDefine;
    import body.hero.CarDefine;
+   import body.hero.CarImage;
+   import body.image.SingleMovieclip;
    import flash.display.MovieClip;
    import flash.display.Sprite;
    import flash.geom.Point;
@@ -41,12 +43,13 @@ package UI.top
       public function flesh_byGameData(GD:GameData) : *
       {
          var d0:HighDps_ExtraData = GD.getHighDps_ExtraData();
-         this.flesh_byData(d0);
+         this.flesh_byData(d0,true);
       }
       
-      public function flesh_byData(d0:*) : *
+      public function flesh_byData(d0:*, useLocalAppearanceB:Boolean = false) : *
       {
          var carLabel0:String = null;
+         var subCarLabel0:String = "subCar_blue";
          var skillNum0:Array = null;
          var armsLabel0:String = null;
          var subArr0:Array = null;
@@ -65,15 +68,30 @@ package UI.top
             armsLabel0 = d0.armsLabel;
             subArr0 = d0.subArr;
          }
-         var car_mc:MovieClip = this.showCar(carLabel0);
+         if(useLocalAppearanceB)
+         {
+            if(Game.gameData != null)
+            {
+               subCarLabel0 = Game.gameData.subCarLabel;
+            }
+            if(subCarLabel0 != "subCar_blue" && subCarLabel0 != "subCar_red" && subCarLabel0 != "subCar_yellow" && subCarLabel0 != "subCar_tvc_blue" && subCarLabel0 != "subCar_tvc_red" && subCarLabel0 != "subCar_tvc_yellow")
+            {
+               subCarLabel0 = "subCar_blue";
+            }
+         }
+         var car_mc:* = this.showCar(carLabel0,useLocalAppearanceB);
+         if(car_mc == null)
+         {
+            return;
+         }
          var rocket_p:Point = this.getPoint(car_mc,"rocketPoint");
          this.showRocket(skillNum0[1],rocket_p,"rocket");
          var plasma_p:Point = this.getPoint(car_mc,"plasmaPoint");
          this.showRocket(skillNum0[2],plasma_p,"plasma");
          var arms_p:Point = this.getPoint(car_mc,"armsPoint");
          this.showArms(armsLabel0,arms_p);
-         this.showSub(subArr0);
-         this.clearMc_inMc(car_mc,["rocketPoint","plasmaPoint","armsPoint"]);
+         this.showSub(subArr0,subCarLabel0);
+         this.clearCarMount(car_mc);
       }
       
       public function flesh_byArena(d0:*) : *
@@ -96,13 +114,41 @@ package UI.top
          this.clearMc_inMc(mc0,["basePoint","shootPoint"]);
       }
       
-      private function showCar(label0:String) : MovieClip
+      private function showCar(label0:String, useLocalAppearanceB:Boolean = false) : *
       {
          var d0:CarDefine = Game.defineGroup.getCarDefine(label0);
-         var mc0:MovieClip = Game.swfLoaderManager.getResource("car",d0.imgLabel);
-         mc0.stop();
-         this.car_sp.addChild(mc0);
-         return mc0;
+         if(d0 == null)
+         {
+            return null;
+         }
+         var car0:CarImage = new CarImage();
+         var smc0:SingleMovieclip = null;
+         var n:* = undefined;
+         for(n in Game.defineGroup.carImgLabelArr)
+         {
+            smc0 = Game.swfLoaderManager.getSingleMovieclip("car",Game.defineGroup.carImgLabelArr[n],true);
+            if(smc0 != null)
+            {
+               car0.addSingleMovieclip(smc0);
+            }
+         }
+         if(car0.mc_arr.length == 0)
+         {
+            return null;
+         }
+         car0.showMC(d0.imgLabel);
+         if(useLocalAppearanceB)
+         {
+            var skin0:* = Game.gameData != null && Game.gameData.carItems != null ? Game.gameData.carItems.getActiveSkin() : null;
+            var skinDefine0:* = skin0 != null ? skin0.getDefine() : null;
+            if(skinDefine0 != null && skinDefine0.imgLabel != null && skinDefine0.imgLabel != "")
+            {
+               car0.showMC(skinDefine0.imgLabel);
+            }
+         }
+         car0.stop();
+         this.car_sp.addChild(car0);
+         return car0;
       }
       
       private function showRocket(level0:int, p0:Point, label0:String) : *
@@ -142,16 +188,16 @@ package UI.top
          this.clearMc_inMc(mc0,["basePoint","shootPoint"]);
       }
       
-      private function showSub(arr0:Array) : *
+      private function showSub(arr0:Array, carLabel0:String = "subCar_blue") : *
       {
          var n:* = undefined;
          for(n in arr0)
          {
-            this.showOneSub(n,arr0[n]);
+            this.showOneSub(n,arr0[n],carLabel0);
          }
       }
       
-      private function showOneSub(index0:int, label0:String) : *
+      private function showOneSub(index0:int, label0:String, carLabel0:String = "subCar_blue") : *
       {
          var sub0:MovieClip = null;
          if(label0 == "")
@@ -159,7 +205,24 @@ package UI.top
             return;
          }
          var p0:Point = Game.gameDefine.pointArr[index0];
-         sub0 = Game.swfLoaderManager.getResource("sub","subCar_blue");
+         if(carLabel0 == "subCar_tvc_blue" || carLabel0 == "subCar_tvc_red" || carLabel0 == "subCar_tvc_yellow")
+         {
+            var tvcColor0:String = carLabel0.substr("subCar_tvc_".length);
+            var tvcSource0:String = tvcColor0 == "red" ? "subCar_red" : (tvcColor0 == "yellow" ? "subCar_yellow" : "subCar_blue");
+            sub0 = Game.swfLoaderManager.getResource("sub25",tvcSource0);
+         }
+         else
+         {
+            sub0 = Game.swfLoaderManager.getResource("sub",carLabel0);
+         }
+         if(sub0 == null)
+         {
+            sub0 = Game.swfLoaderManager.getResource("sub","subCar_blue");
+         }
+         if(sub0 == null)
+         {
+            return;
+         }
          this.sub_sp.addChild(sub0);
          sub0.stop();
          sub0.x = p0.x;
@@ -175,8 +238,23 @@ package UI.top
          this.clearMc_inMc(mc0,["basePoint","shootPoint"]);
       }
       
-      public function getPoint(mc0:MovieClip, pName:String) : Point
+      public function getPoint(mc0:*, pName:String) : Point
       {
+         if(mc0 is CarImage)
+         {
+            if(pName == "armsPoint")
+            {
+               return (mc0 as CarImage).armsPoint;
+            }
+            if(pName == "rocketPoint")
+            {
+               return (mc0 as CarImage).rocketPoint;
+            }
+            if(pName == "plasmaPoint")
+            {
+               return (mc0 as CarImage).plasmaPoint;
+            }
+         }
          var mc1:* = mc0.getChildByName(pName);
          if(Boolean(mc1))
          {
@@ -213,6 +291,22 @@ package UI.top
             {
                mc0.removeChild(mc1);
             }
+         }
+      }
+
+      public function clearCarMount(car0:*) : *
+      {
+         if(car0 is CarImage)
+         {
+            var now0:SingleMovieclip = (car0 as CarImage).getNowMC();
+            if(now0 != null)
+            {
+               this.clearMc_inMc(now0.mc,["armsPoint"]);
+            }
+         }
+         else
+         {
+            this.clearMc_inMc(car0,["armsPoint"]);
          }
       }
    }

@@ -29,7 +29,7 @@ package body.enemy
          {
             b0.ai.armsArr = ["soya_lv2","fireFairy_lv4","cannon_lv4","laserPulse_lv4"];
             b0.ai.subArr = ["missile_lv4","elastic_lv4"];
-            b0.ai.skillNum = [3,4,3];
+            b0.ai.skillNum = [8,4,3];
             b0.ai.carLabel = "nightrider";
             if(diff == 0)
             {
@@ -52,7 +52,7 @@ package body.enemy
          {
             b0.ai.armsArr = ["soya_lv3","shotgun_lv4","induction_lv4","wave_lv4"];
             b0.ai.subArr = ["laser_lv4","cutter_lv4"];
-            b0.ai.skillNum = [5,5,5];
+            b0.ai.skillNum = [10,5,5];
             b0.ai.carLabel = "fireDemon";
             if(diff == 0)
             {
@@ -75,7 +75,7 @@ package body.enemy
          {
             b0.ai.armsArr = ["soya_lv4","etcg_lv4","lightning_lv4","charged_lv4"];
             b0.ai.subArr = ["hotline_lv4","lightningBall_lv4"];
-            b0.ai.skillNum = [8,8,8];
+            b0.ai.skillNum = [15,8,8];
             b0.ai.carLabel = "predator";
             if(diff == 0)
             {

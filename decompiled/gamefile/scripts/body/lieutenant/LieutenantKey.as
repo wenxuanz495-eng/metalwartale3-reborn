@@ -15,14 +15,9 @@ package body.lieutenant
       
       public function toJump() : *
       {
-         if(this.BB.mot.getFloorB())
+         if(this.BB.mot.toLimitedAirJump(4))
          {
-            this.BB.mot.toJump();
             Game.EG.addEffect("car","jet_effect",Game.gameSprite.effectL,this.BB.img.x,this.BB.img.y);
-         }
-         else if(this.BB.mot.jumpNow < 2)
-         {
-            this.BB.mot.toJump();
          }
       }
       

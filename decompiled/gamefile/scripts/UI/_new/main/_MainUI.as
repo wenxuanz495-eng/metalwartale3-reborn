@@ -106,6 +106,8 @@ package UI._new.main
             this.growNewBadge.visible = false;
          }
          this.replaceButtonText(this.firstPayGift_btn,["首充礼包"],"新手礼包");
+         this.replaceButtonText(this.giftExchange_btn,["礼包兑换"],"感谢赞助");
+         this.replaceDisplayText(this,["礼包兑换"],"感谢赞助");
          // The visible label is a sibling timeline TextField, not a child of allGift_btn.
          this.replaceDisplayText(this,["累计充值值奖励","累计充值值礼包","累计充值奖励","累计充值礼包","累计MB礼包"],"累计MB奖励");
          this.createAutoLevelControls();

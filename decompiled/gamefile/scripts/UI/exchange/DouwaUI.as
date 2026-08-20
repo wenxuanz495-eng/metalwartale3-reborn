@@ -2,13 +2,20 @@ package UI.exchange
 {
    import com.adobe.serialization.json.JSON2;
    import data.TextWay;
+   import flash.display.Bitmap;
+   import flash.display.BitmapData;
+   import flash.display.DisplayObjectContainer;
+   import flash.display.Loader;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
+   import flash.events.Event;
    import flash.events.MouseEvent;
+   import flash.geom.Matrix;
    import flash.net.URLRequest;
    import flash.net.navigateToURL;
    import flash.text.TextField;
    import flash.text.TextFieldType;
+   import flash.text.TextFormat;
    
    public class DouwaUI extends Sprite
    {
@@ -28,12 +35,118 @@ package UI.exchange
       public var return_btn:SimpleButton;
       
       public var api:Douwa_Exchange_API = new Douwa_Exchange_API();
+
+      private static const SUPPORT_URL:String = "https://ifdian.net/a/369158QW";
+
+      private var supportPanel:Sprite;
+
+      private var supportQR:Sprite;
+
+      private var supportTitle:TextField;
+
+      private var supportLink:TextField;
+
+      private var supportLoader:Loader;
       
       public function DouwaUI()
       {
          super();
          this.disableCodeControls();
+         this.showSupportPanel();
          this.return_btn.addEventListener(MouseEvent.CLICK,this.hide);
+      }
+
+      private function showSupportPanel() : void
+      {
+         this.hideLegacyText(this);
+         this._btn.visible = false;
+         this.goto_btn.visible = false;
+         this.goto_btn2.visible = false;
+         this.goto_btn3.visible = false;
+         this.goto_btn4.visible = false;
+         this.code_txt.visible = false;
+
+         this.supportPanel = new Sprite();
+         this.supportPanel.graphics.beginFill(16,0.97);
+         this.supportPanel.graphics.lineStyle(1,3381759,0.9);
+         this.supportPanel.graphics.drawRect(180,60,590,420);
+         this.supportPanel.graphics.endFill();
+         addChild(this.supportPanel);
+
+         this.supportTitle = new TextField();
+         this.supportTitle.defaultTextFormat = new TextFormat("SimSun",24,16763904,true,null,null,null,null,"center");
+         this.supportTitle.text = "感谢赞助";
+         this.supportTitle.x = 225;
+         this.supportTitle.y = 62;
+         this.supportTitle.width = 500;
+         this.supportTitle.height = 36;
+         this.supportTitle.selectable = false;
+         this.supportTitle.mouseEnabled = false;
+         addChild(this.supportTitle);
+
+         this.supportQR = new Sprite();
+         this.supportQR.x = 340;
+         this.supportQR.y = 95;
+         addChild(this.supportQR);
+
+         this.supportLink = new TextField();
+         this.supportLink.defaultTextFormat = new TextFormat("SimSun",16,6750207,true,null,true,SUPPORT_URL,"_blank","center");
+         this.supportLink.text = SUPPORT_URL;
+         this.supportLink.x = 225;
+         this.supportLink.y = 395;
+         this.supportLink.width = 500;
+         this.supportLink.height = 36;
+         this.supportLink.selectable = false;
+         this.supportLink.mouseEnabled = true;
+         this.supportLink.addEventListener(MouseEvent.CLICK,this.openSupportLink);
+         addChild(this.supportLink);
+
+         this.supportLoader = new Loader();
+         this.supportLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,this.supportImageLoaded);
+         this.supportLoader.load(new URLRequest("ui/support/afdian-support.jpg"));
+         if(this.return_btn != null && contains(this.return_btn))
+         {
+            setChildIndex(this.return_btn,numChildren - 1);
+         }
+      }
+
+      private function hideLegacyText(container0:DisplayObjectContainer) : void
+      {
+         var i:int = 0;
+         var child0:* = null;
+         for(i = 0; i < container0.numChildren; i++)
+         {
+            child0 = container0.getChildAt(i);
+            if(child0 is TextField)
+            {
+               child0.visible = false;
+            }
+            else if(child0 is DisplayObjectContainer)
+            {
+               this.hideLegacyText(child0 as DisplayObjectContainer);
+            }
+         }
+      }
+
+      private function supportImageLoaded(event:Event) : void
+      {
+         var source0:Bitmap = this.supportLoader.content as Bitmap;
+         if(source0 == null)
+         {
+            return;
+         }
+         var crop0:BitmapData = new BitmapData(270,270,false,16777215);
+         var matrix0:Matrix = new Matrix();
+         matrix0.translate(-150,-75);
+         crop0.draw(source0.bitmapData,matrix0);
+         var qr0:Bitmap = new Bitmap(crop0);
+         qr0.smoothing = false;
+         this.supportQR.addChild(qr0);
+      }
+
+      private function openSupportLink(event:MouseEvent) : void
+      {
+         navigateToURL(new URLRequest(SUPPORT_URL),"_blank");
       }
 
       private function disableCodeControls() : *

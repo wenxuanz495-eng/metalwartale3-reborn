@@ -2,7 +2,7 @@ package body.skill
 {
    public class OneSkill
    {
-      
+
       public var index:int = 0;
       
       public var define:SkillDefine = null;
@@ -41,45 +41,57 @@ package body.skill
          this.timeUseB = false;
       }
       
-      public function useSkill() : Boolean
-      {
-         if(this.getUseB())
-         {
-            if(this.define.skillType == "time")
-            {
-               this.timeUseB = true;
-               if(this.timeUseFun is Function)
-               {
-                  this.timeUseFun();
-               }
-            }
-            else if(this.define.skillType == "number")
-            {
-               --this.nowNum;
-            }
-            return true;
-         }
-         return false;
+       public function useSkill() : Boolean
+       {
+          if(this.getUseB())
+          {
+             if(this.define.skillType == "time")
+             {
+                this.timeUseB = true;
+                if(this.timeUseFun is Function)
+                {
+                   this.timeUseFun();
+                }
+             }
+             else if(this.define.skillType == "number")
+             {
+                --this.nowNum;
+                if(this.timeTimeFun is Function)
+                {
+                   this.timeUseB = true;
+                }
+             }
+             return true;
+          }
+          return false;
       }
-      
+
       public function closeSkill() : *
-      {
-         if(this.define.skillType == "time")
-         {
-            this.timeUseB = false;
-            if(this.levelDefine.coolingTime > 0)
-            {
-               this.cool_t = 0;
-            }
-            if(this.timeCloseFun is Function)
-            {
-               this.timeCloseFun();
-            }
-         }
-      }
+       {
+          if(this.define.skillType == "time")
+          {
+             this.timeUseB = false;
+             if(this.levelDefine.coolingTime > 0)
+             {
+                this.cool_t = 0;
+             }
+             if(this.timeCloseFun is Function)
+             {
+                this.timeCloseFun();
+             }
+          }
+          else if(this.timeTimeFun is Function)
+          {
+             this.timeUseB = false;
+          }
+       }
       
       public function getUseB() : Boolean
       {
+         if(!this.enabled)
+         {
+            return false;
+         }
          if(this.define.skillType == "time")
          {
             return this.cool_t < 0 && this.time_t >= 0.5;
@@ -160,17 +172,21 @@ package body.skill
                }
             }
          }
-         else
-         {
-            this.jump_t = 10000;
-            if(this.time_t >= this.levelDefine.maxTime)
-            {
-               this.time_t = this.levelDefine.maxTime;
-            }
-            else
-            {
-               this.time_t += 1 / 30 / this.levelDefine.recoveryTime;
-            }
+          else
+          {
+             this.jump_t = 10000;
+             if(this.time_t >= this.levelDefine.maxTime)
+             {
+                this.time_t = this.levelDefine.maxTime;
+             }
+             else if(this.levelDefine.recoveryTime > 0)
+             {
+                this.time_t += 1 / 30 / this.levelDefine.recoveryTime;
+             }
+             else
+             {
+                this.time_t = this.levelDefine.maxTime;
+             }
             if(this.cool_t >= 0 && this.levelDefine.coolingTime > 0)
             {
                this.cool_t += 1 / 30;
@@ -186,20 +202,24 @@ package body.skill
          }
       }
       
-      public function skillTimer() : *
-      {
-         if(this.enabled)
-         {
-            if(this.define.skillType == "time")
-            {
-               this.timeTimer();
-            }
-            else if(this.define.skillType == "number")
-            {
-               this.numberTimer();
-            }
-         }
-      }
+       public function skillTimer() : *
+       {
+          if(this.enabled)
+          {
+             if(this.define.skillType == "time")
+             {
+                this.timeTimer();
+             }
+             else if(this.define.skillType == "number")
+             {
+                this.numberTimer();
+                if(this.timeTimeFun is Function)
+                {
+                   this.timeTimer();
+                }
+             }
+          }
+       }
    }
 }
 

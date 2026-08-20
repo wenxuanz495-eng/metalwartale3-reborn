@@ -72,8 +72,7 @@ xcopy "%REPO_ROOT%\build\tools\audio" "%DEST%\build\tools\audio\" /e /i /q /y >n
 if not "%RESOURCE_SOURCE%"=="%REPO_ROOT%\build\swf" xcopy "%RESOURCE_SOURCE%" "%DEST%\build\swf\" /e /i /q /y >nul
 copy /y "%REPO_ROOT%\build\game.swf" "%DEST%\build\game.swf" >nul
 copy /y "%REPO_ROOT%\build\server.exe" "%DEST%\build\server.exe" >nul
-copy /y "%REPO_ROOT%\build\超合金战记启动器.exe" "%DEST%\超合金战记启动器.exe" >nul
-copy /y "%REPO_ROOT%\build\超合金战记启动器-x86.exe" "%DEST%\超合金战记启动器-x86.exe" >nul
+for %%F in ("%REPO_ROOT%\build\*.exe") do if /i not "%%~nxF"=="server.exe" copy /y "%%~fF" "%DEST%\%%~nxF" >nul
 copy /y "%REPO_ROOT%\build\modifier.html" "%DEST%\build\modifier.html" >nul
 for %%F in ("%REPO_ROOT%\runtime\*.txt") do copy /y "%%~fF" "%DEST%\build\%%~nxF" >nul
 type nul > "%DEST%\build\.release-ready"

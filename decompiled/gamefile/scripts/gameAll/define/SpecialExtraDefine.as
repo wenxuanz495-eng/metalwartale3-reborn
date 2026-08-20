@@ -11,7 +11,7 @@ package gameAll.define
       {
          var d0:SpecialExtraOneDefine = null;
          this.arr = [];
-         this.weekLevelArr = [10,999,10,10,10,10,10,35,35,35,1,999,999,999,999,999,999,999,999,999];
+         this.weekLevelArr = [10,10,10,10,10,10,10,35,35,35,1,999,999,999,999,999,999,999,999,999];
          super();
          var giftArr0:Array = [];
          d0 = new SpecialExtraOneDefine();
@@ -25,7 +25,7 @@ package gameAll.define
          d0 = new SpecialExtraOneDefine();
          d0.maxNum = 3;
          d0.nowNum = d0.maxNum;
-         d0.info = "地图正在制作中，\n每种技能都限制使用次数，\n无法使用复活水晶。";
+         d0.info = "地面间有缝隙，掉落即死，\n每种技能都限制使用次数，\n无法使用复活水晶。";
          giftArr0 = [];
          giftArr0.push("achieve,\t\t100,\t\t1");
          d0.giftArr = giftArr0;

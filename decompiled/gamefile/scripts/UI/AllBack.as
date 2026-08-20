@@ -145,9 +145,9 @@ package UI
 
       private var keyButtons:Array = [];
 
-      private var keyActions:Array = ["moveLeft","moveRight","jump","interact","weapon0","weapon1","weapon2","weapon3","weapon4","weapon5","weapon6","weapon7","rocket","plasma","change","lighting","menu"];
+      private var keyActions:Array = ["moveLeft","moveRight","jump","interact","weapon0","weapon1","weapon2","weapon3","weapon4","weapon5","weapon6","weapon7","rocket","plasma","change","lighting","jumpSkill","menu"];
 
-      private var keyLabels:Array = ["左移","右移","推进/跳跃","下降/传送","武器 1","武器 2","武器 3","武器 4","武器 5","武器 6","武器 7","武器 8","火箭推进器","等离子护盾","机甲","卫星闪电炮","菜单/设置"];
+      private var keyLabels:Array = ["左移","右移","推进/跳跃","下降/传送","武器 1","武器 2","武器 3","武器 4","武器 5","武器 6","武器 7","武器 8","火箭推进器","等离子护盾","机甲","卫星闪电炮","反重力装置","菜单/设置"];
 
       private var capturingKey:int = -1;
       
@@ -388,10 +388,10 @@ package UI
          var label:TextField = null;
          var button:Sprite = null;
          page.y = 88;
-         for(i = 0; i < this.keyActions.length; i++)
-         {
-            col = i < 8 || i == 16 ? 0 : 1;
-            row = i == 16 ? 8 : i % 8;
+          for(i = 0; i < this.keyActions.length; i++)
+          {
+             col = i < 8 || i == 17 ? 0 : 1;
+             row = i >= 16 ? 8 : i % 8;
             label = this.makeText(this.keyLabels[i],12,16777215,false);
             label.x = col * 145 + 8;
             label.y = row * 38;
@@ -1662,7 +1662,8 @@ package UI
          oldCode = Game.keysGroup.getBinding(action);
          for(i = 0; i < this.keyActions.length; i++)
          {
-            if(i != this.capturingKey && Game.keysGroup.getBinding(this.keyActions[i]) == code)
+            var sameJumpPair:Boolean = (action == "jump" && this.keyActions[i] == "jumpSkill") || (action == "jumpSkill" && this.keyActions[i] == "jump");
+            if(i != this.capturingKey && !sameJumpPair && Game.keysGroup.getBinding(this.keyActions[i]) == code)
             {
                Game.keysGroup.setBinding(this.keyActions[i],oldCode);
             }

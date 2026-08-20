@@ -6,10 +6,12 @@ package UI.research
    import body.skill.OneLevelSkillDefine;
    import body.skill.SkillDefine;
    import flash.display.MovieClip;
+   import flash.display.Shape;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
    import flash.geom.Point;
+   import flash.geom.Rectangle;
    import flash.text.TextField;
    import gameAll.data.GameData;
    import gameAll.data.GoodsItemsDataGroup;
@@ -98,12 +100,91 @@ package UI.research
          this.titleArr2 = ["主武器攻击","副武器攻击","耐久","防御","全属性"];
          this.trainNameArr = ["attack","sub","life","defence","all"];
          this.labelCtrl = new LabelCtrl();
-         super();
-         with(this.label_mc)
-         {
-            labelCtrl.inData([attack_btn,sub_btn,life_btn,defence_btn,all_btn,rocket_btn,jump_btn,plasma_btn,lighting_btn,change_btn],light_sp);
-         }
-         this.labelCtrl.addEventListener(ClickEvent.ON_CLICK,this.labelClick);
+          super();
+          // 反重力装置(jump)升级入口修复:
+          // 时间轴资源中 jump 技能对应的可视技能图标按钮是 label_mc 内位于 (0,0) 的
+          // 未命名六边形按钮(左列第一个槽位);触发按键 jump_btn(48x17 小方块)位于屏幕外 (-243)。
+          // 做法:不移动、不改名任何按钮,只在 labelCtrl 的按钮数组里把 jump 位置的引用
+          // 从屏幕外的 jump_btn 替换为 (0,0) 的可视技能图标按钮,并显式传入 label 数组,
+          // 使技能图标本身可点击打开反重力装置升级界面(点击后高亮也会正确落在该图标上)。
+          var jumpIcon0:* = null;
+          var btnCount:int = this.label_mc.numChildren;
+          var i0:int = 0;
+          while(i0 < btnCount)
+          {
+             var b0:* = this.label_mc.getChildAt(i0);
+             if(b0 is SimpleButton && b0.x == 0 && b0.y == 0)
+             {
+                jumpIcon0 = b0;
+                break;
+             }
+             i0++;
+          }
+          // 升级按钮的原版规格是84x76，内部图块约为68x62。把战斗HUD中的jump帧
+          // 按这个规格拉伸并居中，再用内六边形裁切；外框仍由原版按钮时间轴绘制。
+          if(jumpIcon0 != null)
+          {
+             try
+             {
+                var skillIcon0:* = Game.swfLoaderManager.getResource("ui","UI.gaming.SkillIcon");
+                if(skillIcon0 != null && skillIcon0.icon != null)
+                {
+                   var iconView0:MovieClip = skillIcon0.icon as MovieClip;
+                   var iconHolder0:Sprite = new Sprite();
+                   iconView0.gotoAndStop("jump");
+                   iconHolder0.addChild(iconView0);
+                   var rawBounds0:Rectangle = iconView0.getBounds(iconHolder0);
+                   iconView0.scaleX *= 68 / rawBounds0.width;
+                   iconView0.scaleY *= 62 / rawBounds0.height;
+                   var fittedBounds0:Rectangle = iconView0.getBounds(iconHolder0);
+                   iconView0.x += 8 - fittedBounds0.x;
+                   iconView0.y += 7 - fittedBounds0.y;
+                   iconHolder0.x = jumpIcon0.x;
+                   iconHolder0.y = jumpIcon0.y;
+                   iconHolder0.mouseEnabled = false;
+                   iconHolder0.mouseChildren = false;
+                   this.label_mc.addChild(iconHolder0);
+
+                   var iconMask0:Shape = new Shape();
+                   iconMask0.graphics.beginFill(16777215,1);
+                   iconMask0.graphics.moveTo(24,7);
+                   iconMask0.graphics.lineTo(60,7);
+                   iconMask0.graphics.lineTo(78,38);
+                   iconMask0.graphics.lineTo(60,69);
+                   iconMask0.graphics.lineTo(24,69);
+                   iconMask0.graphics.lineTo(6,38);
+                   iconMask0.graphics.lineTo(24,7);
+                   iconMask0.graphics.endFill();
+                   iconMask0.x = jumpIcon0.x;
+                   iconMask0.y = jumpIcon0.y;
+                   this.label_mc.addChild(iconMask0);
+                   iconHolder0.mask = iconMask0;
+                }
+             }
+             catch(error:Error)
+             {
+             }
+          }
+          var btnArr:Array = [this.label_mc.attack_btn,this.label_mc.sub_btn,this.label_mc.life_btn,this.label_mc.defence_btn,this.label_mc.all_btn,this.label_mc.rocket_btn,this.label_mc.jump_btn,this.label_mc.plasma_btn,this.label_mc.lighting_btn,this.label_mc.change_btn];
+          var labelArr:Array = ["attack","sub","life","defence","all","rocket","jump","plasma","lighting","change"];
+          if(jumpIcon0 != null)
+          {
+             btnArr[6] = jumpIcon0;
+          }
+          // PlayerTrainUI450.swf 把整组技能图片烘焙在一个大 Shape 中，其中反重力图片
+          // 位于 label_mc 上方约 260 像素。窗口被全屏填充后，这块越界内容会泄漏到界面
+          // 左上方。给 label_mc 增加只覆盖正常按钮区的遮罩，保留槽位内的新图标，同时
+          // 裁掉资源中原本越界的反重力图片和测试按钮。
+          var labelMask0:Shape = new Shape();
+          labelMask0.graphics.beginFill(16777215,1);
+          labelMask0.graphics.drawRect(-40,-40,950,400);
+          labelMask0.graphics.endFill();
+          labelMask0.x = this.label_mc.x;
+          labelMask0.y = this.label_mc.y;
+          this.addChild(labelMask0);
+          this.label_mc.mask = labelMask0;
+          this.labelCtrl.inData(btnArr,this.label_mc.light_sp,labelArr);
+          this.labelCtrl.addEventListener(ClickEvent.ON_CLICK,this.labelClick);
          this.label_mc.mouseEnabled = false;
          this.quickUpgrade100_btn.visible = false;
          this.quickUpgrade200_btn.visible = false;
@@ -125,11 +206,11 @@ package UI.research
          this.label_mc.change_btn.addEventListener(MouseEvent.MOUSE_OUT,this.btnOut);
       }
       
-      public function init() : *
-      {
-         this.GD = Game.gameData;
-         this.materialsItems = this.GD.materialsItems;
-      }
+       public function init() : *
+       {
+          this.GD = Game.gameData;
+          this.materialsItems = this.GD.materialsItems;
+       }
       
       public function gotoShop(e:*) : *
       {
@@ -373,26 +454,24 @@ package UI.research
             "mustLevel":1
          };
          var i:int = startLevel0;
-         var pay0:OneLevelSkillDefine = null;
          var target0:OneLevelSkillDefine = null;
          while(i < startLevel0 + num0)
          {
-            pay0 = skill0.getLevel(i);
             target0 = skill0.getLevel(i + 1);
-            if(pay0 != null)
+            if(target0 != null)
             {
-               if(pay0.mustMcoin > 0)
+               if(target0.mustMcoin > 0)
                {
-                  result0.MCoin += pay0.mustMcoin;
+                  result0.MCoin += target0.mustMcoin;
                }
                else
                {
-                  result0.GCoin += pay0.mustGcoin;
+                  result0.GCoin += target0.mustGcoin;
                }
-            }
-            if(target0 != null && target0.mustLevel > result0.mustLevel)
-            {
-               result0.mustLevel = target0.mustLevel;
+               if(target0.mustLevel > result0.mustLevel)
+               {
+                  result0.mustLevel = target0.mustLevel;
+               }
             }
             i++;
          }

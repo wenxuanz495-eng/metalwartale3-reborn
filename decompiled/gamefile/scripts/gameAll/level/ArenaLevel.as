@@ -66,9 +66,16 @@ package gameAll.level
          var names0:Array = ["rocket","plasma","change","lighting"];
          for each(name0 in names0)
          {
-            level0 = Math.max(1,Game.gameData.playerData.getSkillLevel(name0));
+            level0 = Game.gameData.playerData.getSkillLevel(name0);
             skill0 = hero.skill.getSkill(name0);
-            skill0.initData_byDefine(Game.defineGroup.skill.getOneLevelDefine(name0,level0));
+            skill0.enabled = level0 > 0 || name0 == "rocket" || name0 == "plasma";
+            skill0.initData_byDefine(Game.defineGroup.skill.getOneLevelDefine(name0,Math.max(1,level0)));
+            if(!skill0.enabled)
+            {
+               skill0.nowNum = 0;
+               skill0.time_t = 0;
+               skill0.timeUseB = false;
+            }
          }
          hero.changeRocket(Math.max(1,Game.gameData.playerData.getSkillLevel("rocket")));
          hero.changePlasma(Math.max(1,Game.gameData.playerData.getSkillLevel("plasma")));

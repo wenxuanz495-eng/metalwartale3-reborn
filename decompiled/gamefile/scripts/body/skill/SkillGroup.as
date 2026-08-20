@@ -29,11 +29,7 @@ package body.skill
             da0.initData_byDefine(d0.getLevel(1));
             this.dataObj[d0.name] = da0;
             this.dataArr.push(da0);
-            if(d0.name == "jump")
-            {
-               da0.timeTimeFun = this.jumpTimeFun;
-            }
-            else if(d0.name == "plasma")
+            if(d0.name == "plasma")
             {
                da0.timeCloseFun = this.plasmaCloseFun;
             }
@@ -96,24 +92,6 @@ package body.skill
          this.BB.closePlasma();
       }
       
-      private function jumpTimeFun() : *
-      {
-         var s0:OneSkill = null;
-         if(this.BB.mot.y0 > Game.oneScene.viewRangeRect2.y + 100)
-         {
-            if(this.BB.mot.vy0 > -this.BB.mot.JUMP_VY / 3)
-            {
-               this.BB.mot.vy0 = -this.BB.mot.JUMP_VY / 3;
-            }
-            s0 = this.dataObj["jump"];
-            if(s0.time_t < s0.jump_t)
-            {
-               Game.EG.addEffect("car","jet_effect",Game.gameSprite.effectL,this.BB.img.x,this.BB.img.y);
-               s0.jump_t = s0.time_t - 0.3;
-            }
-         }
-      }
-      
       public function skillTimer() : *
       {
          var n:* = undefined;
@@ -123,6 +101,10 @@ package body.skill
             for(n in this.dataArr)
             {
                s0 = this.dataArr[n];
+               if(s0.define.name == "jump")
+               {
+                  continue;
+               }
                s0.skillTimer();
                if(s0.define.name == "change")
                {

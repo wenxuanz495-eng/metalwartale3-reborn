@@ -358,6 +358,32 @@ package UI._new.icon
             }
          }
          this.setText(cnstr);
+         if(id0 is CarItemsData && !(id0 as CarItemsData).skinB && Game.gameData != null && Game.gameData.carItems != null && Game.gameData.carItems.equArr.length > 0 && Game.gameData.carItems.equArr[0] === id0)
+         {
+            var activeSkin:CarItemsData = Game.gameData.carItems.getActiveSkin();
+            if(activeSkin != null)
+            {
+               var skinDp:* = Game.swfLoaderManager.getResource("",activeSkin.imgLabel);
+               if(skinDp != null)
+               {
+                  if(!(skinDp is DisplayObject))
+                  {
+                     mc = new MovieClip();
+                     mc.addChild(new Bitmap(skinDp));
+                     skinDp.x = -skinDp.width / 2;
+                     skinDp.y = -skinDp.height / 2;
+                  }
+                  else
+                  {
+                     mc = skinDp as MovieClip;
+                  }
+                  this.setIcon(mc);
+                  this.setNew(id0.newB);
+                  this.setAttackType(HurtCount.getDefenceLabel(id0.getDefine().defenceType));
+                  return;
+               }
+            }
+         }
          var dp:* = Game.swfLoaderManager.getResource("",id0.imgLabel);
          if(!(dp is DisplayObject))
          {

@@ -13,17 +13,14 @@ package body.enemy
          this.BB = _BB;
       }
       
-      public function toJump() : *
+      public function toJump() : Boolean
       {
-         if(Boolean(this.BB.mot.getFloorB()))
+         if(this.BB.mot.toLimitedAirJump(4))
          {
-            this.BB.mot.toJump();
             Game.EG.addEffect("car","jet_effect",Game.gameSprite.effectL,this.BB.img.x,this.BB.img.y);
+            return true;
          }
-         else if(this.BB.mot.jumpNow < 2)
-         {
-            this.BB.mot.toJump();
-         }
+         return false;
       }
       
       public function openPlasma() : *

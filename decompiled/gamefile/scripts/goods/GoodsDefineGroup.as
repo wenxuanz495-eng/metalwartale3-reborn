@@ -202,9 +202,10 @@
             upgradePack0.Mprice = 10;
             this.props.push(upgradePack0);
          }
-         this.addCustomGoods();
-         this.addLegacyGoods();
-         this.ensureChildrensDayShopGoods();
+          this.addCustomGoods();
+          this.addLegacyGoods();
+          this.ensureChildrensDayShopGoods();
+          this.addBangerDrawingGoods();
          for(n in nameArr)
          {
             name0 = nameArr[n];
@@ -458,6 +459,28 @@
          }
       }
 
+      private function addBangerDrawingGoods() : *
+      {
+         var drawing0:GoodsDefine = this.findGoods_inArr(this.props,"tuzhi_zhuanyipao2");
+         if(drawing0 == null)
+         {
+            drawing0 = this.getItemsDefine_byID("tuzhi_zhuanyipao2","props","Mprice");
+            if(drawing0 is GoodsDefine)
+            {
+               this.props.push(drawing0);
+            }
+         }
+         if(drawing0 is GoodsDefine)
+         {
+            drawing0.Mprice = 100;
+            drawing0.price = 0;
+            drawing0.priceType = "Mprice";
+            drawing0.num = 1;
+            drawing0.baseNum = 1;
+            drawing0.specialType = "";
+         }
+      }
+
 private function getCustomWeaponPrice(label0:String) : int
       {
          var seed:int = 0;
@@ -563,7 +586,7 @@ private function getCustomWeaponPrice(label0:String) : int
 
       private function addLegacyGoods() : *
       {
-         var armsLabels:Array = ["lightKnife_lv1","edge_lv1","snow_lv1","liebopao_lv1","conAries_lv1","conTaurus_lv1","conCancer_lv1","conCapricornus_lv1","conSagittarius_lv1","conLeo_lv1","conPisces_lv1","conGemini_lv1","conAquarius_lv1","conLibra_lv1","conScorpio_lv1"];
+         var armsLabels:Array = ["lightKnife_lv1","edge_lv1","snow_lv1","liebopao_lv1","conAries_lv1","conVirgo_lv1","conTaurus_lv1","conCancer_lv1","conCapricornus_lv1","conSagittarius_lv1","conLeo_lv1","conPisces_lv1","conGemini_lv1","conAquarius_lv1","conLibra_lv1","conScorpio_lv1"];
          var subLabels:Array = ["snake_lv1","goldflyBlade_lv1","Goldbanger_lv1"];
          var carLabels:Array = ["audi_r8","angelWings","taxues1","taxues2","taxues3","taxues4"];
          this.addLegacyArmsGoods(armsLabels,"arms",600);

@@ -25,13 +25,10 @@ package UI.gaming
          {
             d0 = arr0[n];
             i0 = new SkillIcon();
-            if(d0.name != "jump")
-            {
-               i0.init(d0);
-               i0.x = n * 67;
-               i0.y = 0;
-               addChild(i0);
-            }
+            i0.init(d0);
+            i0.x = n * 67;
+            i0.y = 0;
+            addChild(i0);
             this.arr.push(i0);
          }
       }
@@ -46,7 +43,14 @@ package UI.gaming
          {
             i0 = this.arr[n];
             s0 = arr1[n];
-            i0.inData(s0);
+            if(s0 != null && s0.define != null && s0.define.name == "jump" && Game.BG.hero != null)
+            {
+               i0.inAirGravityData(Game.BG.hero.getAirGravityCharges(),Game.BG.hero.getAirGravityMaxCharges(),Game.BG.hero.getAirGravityRecoveryPer());
+            }
+            else
+            {
+               i0.inData(s0);
+            }
          }
       }
    }

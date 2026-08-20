@@ -112,8 +112,7 @@ package body.hero
       
       private function toJump() : void
       {
-         this.BB.key.useSkillName("jump");
-         this.BB.key.toJump();
+         this.BB.key.toAIJump();
          this.isJump = false;
       }
       

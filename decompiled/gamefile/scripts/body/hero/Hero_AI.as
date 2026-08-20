@@ -443,7 +443,7 @@ package body.hero
       
       private function toJump() : *
       {
-         this.BB.key.useSkillName("jump");
+         this.BB.key.toAIJump();
       }
       
       private function openPlasma() : *

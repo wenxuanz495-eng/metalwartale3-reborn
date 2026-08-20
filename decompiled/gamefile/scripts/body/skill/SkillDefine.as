@@ -38,6 +38,11 @@ package body.skill
          this.key = String(xml0.key);
          this.keyEvent = String(xml0.keyEvent);
          this.skillType = String(xml0.skillType);
+         // The jump skill uses the legacy charge-count model. Keep other skills' XML types unchanged.
+         if(this.name == "jump")
+         {
+            this.skillType = "number";
+         }
          this.effectDescribe = String(xml0.effectDescribe);
          this.defaultDefine.inData_byXML(xml0["default"][0]);
          if(this.skillType == "number")

@@ -112,7 +112,14 @@ package gameAll.data
          {
             data0 = this.arr[n];
             level0 = this.getMustLevel(n);
-            if(level0 > Game.gameData.level)
+            // The original game exposes Endless Abyss (index 1) with the
+            // other early special stages; keep it explicitly unlocked even
+            // when an older embedded definition or save has a stale gate.
+            if(int(n) == 1)
+            {
+               arr0.push(1);
+            }
+            else if(level0 > Game.gameData.level)
             {
                arr0.push(0);
             }

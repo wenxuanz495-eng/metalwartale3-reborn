@@ -2,9 +2,9 @@ package body.hero
 {
    import UI.gaming.HeadTitle;
    import body.attack.ArmsAttack;
-   import body.motion.BodyMotion;
-   import body.skill.SkillGroup;
-   import body.skill.SpeedUpSkill;
+import body.motion.BodyMotion;
+import body.skill.SkillGroup;
+import body.skill.SpeedUpSkill;
    import data.INIT;
    import effect.EffectSMC;
    import flash.geom.Point;
@@ -50,6 +50,13 @@ package body.hero
       public var SG:SubBodyGroup = new SubBodyGroup();
       
       public var speedUpSkill:SpeedUpSkill;
+
+      // Standalone air-gravity state kept inside an existing timeline class.
+      // A new ABC class is not safe to inject into this SWF with FFDec.
+      private var airGravityMaxCharges:int = 0;
+      private var airGravityCharges:int = 0;
+      private var airGravityRecoveryTime:Number = 3.5;
+      private var airGravityRecoveryTimer:Number = -1;
       
       private var plasmaTime:int = -1;
       
@@ -140,6 +147,7 @@ package body.hero
          this.mot.baseVxmax_Fi = BodyMotion.MOVE_VX;
          this.img.otherGamingInit();
          this.skill.initSkillState();
+         this.configureAirGravitySkill();
          this.dieEffect = null;
          this.plasmaEnabled = true;
          this.SG.attackB = true;
@@ -154,6 +162,93 @@ package body.hero
          this.img.plasmaShield.stop();
          this.speedUpSkill.stopSpeedUp();
          this.SG.fleshAllPosition();
+      }
+
+      public function configureAirGravitySkill() : *
+      {
+         var jumpSkill:* = this.skill.getSkill("jump");
+         if(jumpSkill != null && jumpSkill.levelDefine != null)
+         {
+            this.airGravityMaxCharges = int(jumpSkill.levelDefine.maxNum);
+            if(this.airGravityMaxCharges < 0)
+            {
+               this.airGravityMaxCharges = 0;
+            }
+            this.airGravityCharges = this.airGravityMaxCharges;
+            this.airGravityRecoveryTime = 3.5;
+            this.airGravityRecoveryTimer = -1;
+         }
+      }
+
+      public function canUseAirGravity() : Boolean
+      {
+         // Skill level controls stored charges; one airborne sequence is capped separately.
+         return this.airGravityCharges > 0 && this.mot.airJumpNow < 10;
+      }
+
+      public function getAirGravityCharges() : int
+      {
+         return this.airGravityCharges;
+      }
+
+      public function getAirGravityMaxCharges() : int
+      {
+         return this.airGravityMaxCharges;
+      }
+
+      public function getAirGravityRecoveryPer() : Number
+      {
+         var per:Number = 0;
+         if(this.airGravityCharges >= this.airGravityMaxCharges)
+         {
+            return 0;
+         }
+         if(this.airGravityRecoveryTime > 0 && this.airGravityRecoveryTimer > 0)
+         {
+            per = this.airGravityRecoveryTimer / this.airGravityRecoveryTime;
+         }
+         if(per < 0)
+         {
+            return 0;
+         }
+         if(per > 1)
+         {
+            return 1;
+         }
+         return per;
+      }
+
+      public function consumeAirGravity() : Boolean
+      {
+         if(!this.canUseAirGravity())
+         {
+            return false;
+         }
+         --this.airGravityCharges;
+         if(this.airGravityCharges < this.airGravityMaxCharges && this.airGravityRecoveryTimer < 0)
+         {
+            this.airGravityRecoveryTimer = 0;
+         }
+         return true;
+      }
+
+      private function airGravityTimer() : *
+      {
+         if(this.airGravityCharges >= this.airGravityMaxCharges)
+         {
+            this.airGravityRecoveryTimer = -1;
+            return;
+         }
+         if(this.airGravityRecoveryTimer < 0)
+         {
+            this.airGravityRecoveryTimer = 0;
+         }
+         this.airGravityRecoveryTimer += 1 / 30;
+         if(this.airGravityRecoveryTimer >= this.airGravityRecoveryTime)
+         {
+            ++this.airGravityCharges;
+            this.airGravityRecoveryTimer = this.airGravityCharges < this.airGravityMaxCharges ? 0 : -1;
+         }
       }
       
       public function get die() : int
@@ -481,6 +576,7 @@ package body.hero
          this.img.x = int(this.mot.x0) + this.shake.x;
          this.img.y = int(this.mot.y0) + this.shake.y;
          this.speedUpSkill.speedUpTimer();
+         this.airGravityTimer();
          this.plasmaTimer();
          this.energyUse();
          this.hitRectCount();

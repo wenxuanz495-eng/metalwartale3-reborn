@@ -8,115 +8,113 @@
 		<maxLevel>20</maxLevel>
 		<key>W</key>
 		<keyEvent>downOpen_upClose</keyEvent>
-		<effectDescribe>有效时间上限："maxTime"秒</effectDescribe>
+		<effectDescribe>使用次数上限："maxNum"次</effectDescribe>
 		<!-- 默认效果-->
 		<default>
-			<maxNum>2</maxNum>
-			<!-- 最大次数，时效型默认为1-->
-			<maxTime>3</maxTime>
-			<!-- 有效时间-->
-			<recoveryTime>0</recoveryTime>
-			<!-- 恢复1秒有效时间所需的时间-->
+			<maxNum>1</maxNum>
+			<!-- 每次空中反重力消耗1次，升级增加储存次数 -->
+			<recoveryTime>3.5</recoveryTime>
+			<!-- 每恢复1次反重力所需的秒数 -->
 			<coolingTime>0</coolingTime>
 		</default>
 		<!-- 各等级效果，如果没有某项参数，则该参数使用默认效果-->
 		<level id="1">
-			<maxTime>4</maxTime>
+			<maxNum>1</maxNum>
 			<mustLevel>2</mustLevel>
 			<mustGcoin>0</mustGcoin>
 		</level>
 		<level id="2">
-			<maxTime>5</maxTime>
+			<maxNum>2</maxNum>
 			<mustLevel>6</mustLevel>
 			<mustGcoin>2000</mustGcoin>
 		</level>
 		<level id="3">
-			<maxTime>6</maxTime>
+			<maxNum>3</maxNum>
 			<mustLevel>11</mustLevel>
 			<mustGcoin>3250</mustGcoin>
 		</level>
 		<level id="4">
-			<maxTime>7</maxTime>
+			<maxNum>4</maxNum>
 			<mustLevel>16</mustLevel>
 			<mustGcoin>4500</mustGcoin>
 		</level>
 		<level id="5">
-			<maxTime>8</maxTime>
+			<maxNum>5</maxNum>
 			<mustLevel>21</mustLevel>
 			<mustGcoin>11500</mustGcoin>
 		</level>
 		<level id="6">
-			<maxTime>9</maxTime>
+			<maxNum>6</maxNum>
 			<mustLevel>26</mustLevel>
 			<mustGcoin>14000</mustGcoin>
 		</level>
 		<level id="7">
-			<maxTime>10</maxTime>
+			<maxNum>7</maxNum>
 			<mustLevel>31</mustLevel>
 			<mustGcoin>33000</mustGcoin>
 		</level>
 		<level id="8">
-			<maxTime>11</maxTime>
+			<maxNum>8</maxNum>
 			<mustLevel>36</mustLevel>
 			<mustGcoin>38000</mustGcoin>
 		</level>
 		<level id="9">
-			<maxTime>12</maxTime>
+			<maxNum>9</maxNum>
 			<mustLevel>41</mustLevel>
 			<mustGcoin>107500</mustGcoin>
 		</level>
 		<level id="10">
-			<maxTime>13</maxTime>
+			<maxNum>10</maxNum>
 			<mustLevel>46</mustLevel>
 			<mustGcoin>120000</mustGcoin>
 		</level>
 		<level id="11">
-			<maxTime>14</maxTime>
+			<maxNum>11</maxNum>
 			<mustLevel>51</mustLevel>
 			<mustGcoin>265000</mustGcoin>
 		</level>
 		<level id="12">
-			<maxTime>15</maxTime>
+			<maxNum>12</maxNum>
 			<mustLevel>56</mustLevel>
 			<mustGcoin>290000</mustGcoin>
 		</level>
 		<level id="13">
-			<maxTime>16</maxTime>
+			<maxNum>13</maxNum>
 			<mustLevel>61</mustLevel>
 			<mustGcoin>315000</mustGcoin>
 		</level>
 		<level id="14">
-			<maxTime>17</maxTime>
+			<maxNum>14</maxNum>
 			<mustLevel>66</mustLevel>
 			<mustGcoin>340000</mustGcoin>
 		</level>
 		<level id="15">
-			<maxTime>18</maxTime>
+			<maxNum>15</maxNum>
 			<mustLevel>71</mustLevel>
 			<mustGcoin>912500</mustGcoin>
 		</level>
 		<level id="16">
-			<maxTime>19</maxTime>
+			<maxNum>16</maxNum>
 			<mustLevel>76</mustLevel>
 			<mustGcoin>975000</mustGcoin>
 		</level>
 		<level id="17">
-			<maxTime>20</maxTime>
+			<maxNum>17</maxNum>
 			<mustLevel>81</mustLevel>
 			<mustGcoin>2075000</mustGcoin>
 		</level>
 		<level id="18">
-			<maxTime>21</maxTime>
+			<maxNum>18</maxNum>
 			<mustLevel>86</mustLevel>
 			<mustGcoin>2200000</mustGcoin>
 		</level>
 		<level id="19">
-			<maxTime>22</maxTime>
+			<maxNum>19</maxNum>
 			<mustLevel>91</mustLevel>
 			<mustGcoin>4650000</mustGcoin>
 		</level>
 		<level id="20">
-			<maxTime>23</maxTime>
+			<maxNum>20</maxNum>
 			<mustLevel>96</mustLevel>
 			<mustGcoin>4900000</mustGcoin>
 		</level>

@@ -742,6 +742,7 @@ package gameAll
       public function fleshSkill() : *
       {
          this.hero.skill.fleshSkillLevel(this.GD.playerData.getFullSkillArr());
+         this.hero.configureAirGravitySkill();
          this.hero.changeRocket(this.GD.playerData.getSkillLevel("rocket"));
          this.hero.changePlasma(this.GD.playerData.getSkillLevel("plasma"));
       }

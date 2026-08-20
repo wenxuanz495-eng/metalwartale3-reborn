@@ -75,6 +75,8 @@ package body.motion
       public var JUMP_VY:Number = Math.sqrt(2 * this.JUMP_H * this.F_G);
       
       public var jumpNow:int = 0;
+
+      public var airJumpNow:int = 0;
       
       public var jumpNum:int = 1;
       
@@ -149,6 +151,24 @@ package body.motion
          ++this.jumpNow;
          this.vy0 = -this.JUMP_VY;
          this.delayT = -100;
+      }
+
+      public function toLimitedAirJump(limit0:int = 4) : Boolean
+      {
+         if(this.getFloorB())
+         {
+            this.toJump();
+            return true;
+         }
+         if(this.airJumpNow >= limit0)
+         {
+            this.vy0 = this.vymax_Fi;
+            return false;
+         }
+         ++this.airJumpNow;
+         this.vy0 = -this.JUMP_VY;
+         this.delayT = -100;
+         return true;
       }
       
       public function delayToJump() : *
@@ -444,6 +464,7 @@ package body.motion
                if(!this._floorB)
                {
                   this.jumpNow = 0;
+                  this.airJumpNow = 0;
                }
             }
             this._floorB = this.getFloorB();

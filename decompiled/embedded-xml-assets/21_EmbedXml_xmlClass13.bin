@@ -14,6 +14,12 @@
 		</materials>
 			
 		<props>
+			subCar_tvc_blue,
+			subCar_tvc_red,
+			subCar_tvc_yellow,
+			subCar_blue,
+			subCar_red,
+			subCar_yellow,
 		</props>
 	</GCoin>
 	<MCoin>
@@ -118,8 +124,6 @@
 				exp_card_2,
 				exp_card_1,
 				
-				subCar_yellow,
-				subCar_red,
 				jianzhuling,
 				rebirth_crystal,
 			</props>

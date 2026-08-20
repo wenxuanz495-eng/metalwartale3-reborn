@@ -708,6 +708,24 @@ package bodyGroup
          sub0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("sub","subCar_blue",true));
          sub0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("sub","subCar_red",true));
          sub0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("sub","subCar_yellow",true));
+         var tvcBlue0:* = this.swfLoaderManager.getSingleMovieclip("sub25","subCar_blue",true);
+         if(tvcBlue0 != null)
+         {
+            tvcBlue0.label = "subCar_tvc_blue";
+            sub0.img.car.addSingleMovieclip(tvcBlue0);
+         }
+         var tvcRed0:* = this.swfLoaderManager.getSingleMovieclip("sub25","subCar_red",true);
+         if(tvcRed0 != null)
+         {
+            tvcRed0.label = "subCar_tvc_red";
+            sub0.img.car.addSingleMovieclip(tvcRed0);
+         }
+         var tvcYellow0:* = this.swfLoaderManager.getSingleMovieclip("sub25","subCar_yellow",true);
+         if(tvcYellow0 != null)
+         {
+            tvcYellow0.label = "subCar_tvc_yellow";
+            sub0.img.car.addSingleMovieclip(tvcYellow0);
+         }
          this.inputMC_list(sub0.img.arms,"sub",Game.defineGroup.subImgLabelArr,true);
          sub0.mot.vxmax *= 1.5;
          sub0.changeCar("subCar_blue");
@@ -752,6 +770,24 @@ package bodyGroup
          sub0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("sub","subCar_blue",true));
          sub0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("sub","subCar_red",true));
          sub0.img.car.addSingleMovieclip(this.swfLoaderManager.getSingleMovieclip("sub","subCar_yellow",true));
+         var tvcBlue0:* = this.swfLoaderManager.getSingleMovieclip("sub25","subCar_blue",true);
+         if(tvcBlue0 != null)
+         {
+            tvcBlue0.label = "subCar_tvc_blue";
+            sub0.img.car.addSingleMovieclip(tvcBlue0);
+         }
+         var tvcRed0:* = this.swfLoaderManager.getSingleMovieclip("sub25","subCar_red",true);
+         if(tvcRed0 != null)
+         {
+            tvcRed0.label = "subCar_tvc_red";
+            sub0.img.car.addSingleMovieclip(tvcRed0);
+         }
+         var tvcYellow0:* = this.swfLoaderManager.getSingleMovieclip("sub25","subCar_yellow",true);
+         if(tvcYellow0 != null)
+         {
+            tvcYellow0.label = "subCar_tvc_yellow";
+            sub0.img.car.addSingleMovieclip(tvcYellow0);
+         }
          this.inputMC_list(sub0.img.arms,"sub",Game.defineGroup.subImgLabelArr,true);
          sub0.mot.vxmax *= 1.5;
          sub0.changeCar("subCar_blue");

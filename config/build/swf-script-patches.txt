@@ -42,6 +42,10 @@ Game.as
 bodyGroup\BodyGroup.as
 body\lieutenant\LieutenantBody.as
 body\lieutenant\Lieutenant_AI.as
+body\lieutenant\LieutenantKey.as
+body\enemy\EnemyHero_AI.as
+body\enemy\EnemyHeroKey.as
+body\enemy\EnemyHeroCtrl.as
 net\SWFLoader.as
 net\SWFLoaderManager.as
 scene\OneSence.as
@@ -50,6 +54,10 @@ gameAll\define\AdditionalDefine.as
 gameAll\data\GoodsItemsDataGroup.as
 gameAll\data\level\NewLevelData.as
 gameAll\data\GameData.as
+gameAll\level\Level_0.as
+UI\gaming\SkillIconBox.as
+body\skill\SkillGroup.as
+UI\exchange\DouwaUI.as
 gameAll\data\GoodsItemsData.as
 gameAll\data\ArmsItemsData.as
 body\define\OneArmsDefine.as
@@ -62,6 +70,11 @@ UI\research\ChipBaptizeUI.as
 UI\research\ArmsResearchUI.as
 body\key\KeysGroup.as
 body\hero\HeroCarKey.as
+body\hero\Hero_AI.as
+body\hero\HeroArena_AI.as
+body\hero\HeroLevel_AI.as
+body\motion\BodyMotion.as
+body\motion\GroundMotion.as
 UI\gaming\GamingUI.as
 UI\gaming\GamingPauseUI.as
 gameAll\data\LivenessData.as
@@ -87,3 +100,10 @@ UI\_new\change\_ChangeUI.as
 UI\_new\change\_BagUI.as
 UI\change\OneKeySellUI.as
 UI\page\PageBox.as
+body\skill\OneSkill.as
+body\skill\SkillDefine.as
+UI\research\PlayerTrainUI.as
+gameAll\data\PlayerData.as
+gameAll\data\GameData.as
+UI\gaming\SkillIcon.as
+UI\top\HighPlayerBox.as

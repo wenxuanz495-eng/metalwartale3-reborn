@@ -17,7 +17,7 @@ package body.hero
    
    public class HeroCarKey
    {
-      
+
       internal var KG:KeysGroup;
       
       internal var BB:HeroCarBody;
@@ -108,13 +108,19 @@ package body.hero
          }
          else
          {
-            bb12 = Game.LG.level is SpecialExtraLevel_2 && this.BB.skill.getSkill("jump").getUseNum() >= 3;
-            bb13 = Game.LG.level is SpecialExtraLevel_7;
-            if(this.BB.mot.jumpNow < 2)
+            if(this.BB.consumeAirGravity())
             {
-               this.BB.mot.toJump();
+               this.BB.mot.toAirGravity();
                Game.EG.addEffect("car","jet_effect",Game.gameSprite.effectL,this.img.x,this.img.y);
             }
+         }
+      }
+
+      public function toAIJump() : *
+      {
+         if(this.BB.mot.toLimitedAirJump(4))
+         {
+            Game.EG.addEffect("car","jet_effect",Game.gameSprite.effectL,this.img.x,this.img.y);
          }
       }
       
@@ -161,6 +167,10 @@ package body.hero
          {
             s0 = arr0[n];
             d0 = s0.define;
+            if(d0.name == "jump" && this.KG.getBinding("jump") == this.KG.getBinding("jumpSkill"))
+            {
+               continue;
+            }
             code0 = int(KG.skillKeys[s0.define.name]);
             if(code0 <= 0)
             {
@@ -240,7 +250,17 @@ package body.hero
          var isArenaB:Boolean = Game.LG.level is ArenaLevel;
          if(name0 == "jump")
          {
-            s0.useSkill();
+            if(this.mot.getFloorB())
+            {
+               return false;
+            }
+            if(this.BB.consumeAirGravity())
+            {
+               this.mot.toAirGravity();
+               Game.EG.addEffect("car","jet_effect",Game.gameSprite.effectL,this.img.x,this.img.y);
+               return true;
+            }
+            return false;
          }
          else
          {

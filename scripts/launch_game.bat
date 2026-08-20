@@ -24,6 +24,7 @@ set "PLAYER="
 set "PLAYER_IMAGE="
 set "CLEANFLASH_SHA256=7D492DB82A337D4457D53B3AAE5FB4041C3B2DDD580B5AA6610BF31202DEE979"
 set "SERVER_TITLE=SA_COLLAB_SERVER_%RANDOM%_%RANDOM%"
+set "SERVER_PID="
 set "PORT="
 set /a PORT_START=52000 + !RANDOM! %% 12000
 set /a PORT_END=PORT_START + 40
@@ -70,12 +71,15 @@ echo Player: %PLAYER%
 for /l %%P in (!PORT_START!,1,!PORT_END!) do (
   if not defined PORT (
     set "SERVER_TITLE=SA_COLLAB_SERVER_!RANDOM!_!RANDOM!"
-    start "!SERVER_TITLE!" /min cmd.exe /d /c ""%SERVER%" -host 127.0.0.1 -port %%P -root "%BUILD_DIR%" -instance "!INSTANCE_TOKEN!""
-    call :wait_server %%P !INSTANCE_TOKEN!
-    if not errorlevel 1 (
-      set "PORT=%%P"
-    ) else (
-      taskkill /f /t /fi "WINDOWTITLE eq !SERVER_TITLE!" >nul 2>nul
+    for /f "delims=" %%I in ('powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -Command "$rootArg=[char]34+$env:BUILD_DIR+[char]34; $args=@('-host','127.0.0.1','-port','%%P','-root',$rootArg,'-instance',$env:INSTANCE_TOKEN); $p=Start-Process -FilePath $env:SERVER -ArgumentList $args -WindowStyle Hidden -PassThru; $p.Id" 2^>nul') do set "SERVER_PID=%%I"
+    if defined SERVER_PID (
+      call :wait_server %%P !INSTANCE_TOKEN!
+      if not errorlevel 1 (
+        set "PORT=%%P"
+      ) else (
+        taskkill /f /t /pid !SERVER_PID! >nul 2>nul
+        set "SERVER_PID="
+      )
     )
   )
 )
@@ -111,6 +115,8 @@ del /q "%TEMP%\sa-collab-status-%~1.tmp" >nul 2>nul
 exit /b 1
 
 :cleanup_servers
+if defined SERVER_PID taskkill /f /t /pid !SERVER_PID! >nul 2>nul
+set "SERVER_PID="
 taskkill /f /t /fi "WINDOWTITLE eq SA_COLLAB_SERVER_*" >nul 2>nul
 ping 127.0.0.1 -n 2 -w 200 >nul
 exit /b 0

@@ -201,26 +201,17 @@ package body.enemy
       
       public function jumpSkill() : *
       {
-         var ran0:Number = NaN;
-         if(this.BB.skill.getSkill("jump").time_t >= 3)
+         if(Math.random() > 0.5)
          {
-            ran0 = Math.random();
-            if(ran0 > 0.5)
-            {
-               this.moreJumpTimer.enabled = true;
-            }
+            this.moreJumpTimer.enabled = true;
          }
       }
       
       public function moreJumpSkill() : *
       {
-         if(this.BB.skill.getSkill("jump").time_t <= 0)
+         if(!this.BB.key.toJump())
          {
             this.moreJumpTimer.enabled = false;
-         }
-         else
-         {
-            this.BB.key.toJump();
          }
       }
       
@@ -260,7 +251,7 @@ package body.enemy
          }
          if(this.BB.mot.getJumpConditionB())
          {
-            this.BB.mot.toJump();
+            this.BB.key.toJump();
          }
       }
       
@@ -313,7 +304,6 @@ package body.enemy
             this.jumpTimer.FTimer();
             this.moreJumpTimer.FTimer();
             this.plasmaTimer.FTimer();
-            this.moreJumpTimer.FTimer();
          }
       }
       

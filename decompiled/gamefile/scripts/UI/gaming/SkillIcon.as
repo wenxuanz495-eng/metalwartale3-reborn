@@ -107,7 +107,23 @@ package UI.gaming
             }
          }
       }
-      
+
+      public function inAirGravityData(charges:int, maxCharges:int, recoveryPer:Number) : *
+      {
+         this.numTxt.text = String(charges);
+         this.numTxt.visible = true;
+         this.timeBar.visible = false;
+         if(charges < maxCharges)
+         {
+            this.sector.visible = true;
+            this.showSector(recoveryPer);
+         }
+         else
+         {
+            this.sector.visible = false;
+         }
+      }
+
       private function showSector(baifen:Number) : *
       {
          var frame0:int = int(baifen * 360) + 1;

@@ -274,22 +274,7 @@ package body.lieutenant
       
       private function toJump() : *
       {
-         var s0:OneSkill = null;
-         var nowNum:int = 0;
-         if(this.BB.mot.jumpNow == 0)
-         {
-            this.BB.key.toJump();
-         }
-         else
-         {
-            s0 = this.BB.skill.getSkill("jump");
-            nowNum = s0.nowNum;
-            if(nowNum >= this.jumpNum)
-            {
-               this.BB.key.toJump();
-               s0.useSkill();
-            }
-         }
+         this.BB.key.toJump();
       }
       
       private function openPlasma() : *

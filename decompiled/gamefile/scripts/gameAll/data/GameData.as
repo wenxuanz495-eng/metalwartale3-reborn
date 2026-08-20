@@ -551,7 +551,12 @@
          }
          for each(skill0 in Game.defineGroup.skill.arr)
          {
-            this.playerData.setSkillLevel(skill0.name,skill0.maxLevel);
+            // The anti-gravity device is a normal player upgrade. The crafting
+            // modifier must not change its saved level.
+            if(skill0.name != "jump")
+            {
+               this.playerData.setSkillLevel(skill0.name,skill0.maxLevel);
+            }
          }
       }
 

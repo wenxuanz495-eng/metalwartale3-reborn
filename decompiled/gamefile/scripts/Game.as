@@ -604,6 +604,7 @@ package
          swfLoaderManager.addSWFLoader("swf/heroFly.swf","heroFly","配件");
          swfLoaderManager.addSWFLoader("swf/arms1100.swf","arms","主武器");
          swfLoaderManager.addSWFLoader("swf/sub1130.swf","sub","副武器");
+         swfLoaderManager.addSWFLoader("swf/sub25.swf","sub25","2.5浮游战机外观");
          swfLoaderManager.addSWFLoader("swf/ui/sever1130.swf","sever","UI");
          swfLoaderManager.addSWFLoader("swf/ui/notice1130.swf","notice","UI");
          swfLoaderManager.addSWFLoader("swf/newui1130.swf","newui","UI");

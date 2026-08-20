@@ -162,7 +162,11 @@ package UI.gaming
             {
                skillDefine = Game.defineGroup.skill.arr[n];
                skillIcon = this.skillBox.arr[n];
-               if(skillDefine.name != "jump" && skillIcon != null && Game.keysGroup.skillKeys[skillDefine.name] !== undefined)
+               if(skillIcon != null && skillDefine.name == "jump")
+               {
+                  skillIcon.keyTxt.text = this.keyName(Game.keysGroup.getBinding("jumpSkill"));
+               }
+               else if(skillIcon != null && Game.keysGroup.skillKeys[skillDefine.name] !== undefined)
                {
                   skillIcon.keyTxt.text = this.keyName(int(Game.keysGroup.skillKeys[skillDefine.name]));
                }
