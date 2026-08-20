@@ -834,7 +834,7 @@
 
 			<!-- 子弹特殊属性-->
 			<followB>3</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<followDelay>1</followDelay>
+			<followDelay>1000</followDelay>
 			<!-- 图像动画-->
 			<imgLabel>induction_lv1</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/induction_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
@@ -881,7 +881,7 @@
 
 			<!-- 子弹特殊属性-->
 			<followB>3</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<followDelay>1</followDelay>
+			<followDelay>1000</followDelay>
 
 			<!-- 图像动画-->
 			<imgLabel>induction_lv2</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
@@ -929,7 +929,7 @@
 
 			<!-- 子弹特殊属性-->
 			<followB>3</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<followDelay>1</followDelay>
+			<followDelay>1000</followDelay>
 
 			<!-- 图像动画-->
 			<imgLabel>induction_lv3</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
@@ -978,7 +978,7 @@
 
 			<!-- 子弹特殊属性-->
 			<followB>3</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<followDelay>1</followDelay>
+			<followDelay>1000</followDelay>
 
 			<!-- 图像动画-->
 			<imgLabel>induction_lv4</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
