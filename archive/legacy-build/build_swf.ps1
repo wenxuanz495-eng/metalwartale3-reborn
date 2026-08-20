@@ -4,8 +4,6 @@ param(
 )
 $ErrorActionPreference = "Stop"
 
-throw "This legacy PowerShell build entry point is disabled. Use ..\构建.bat or scripts\build_all.bat. The original script is archived at archive\legacy-build\build_swf.ps1."
-
 $ffdecDir = Join-Path $RepoRoot "tools\packaging\ffdec"
 $ffdecExe = Join-Path $ffdecDir "ffdec-cli.exe"
 $ffdecJar = Join-Path $ffdecDir "ffdec-cli.jar"
