@@ -163,8 +163,10 @@ package gameAll.data.challenge
       
       public function getCooldownSeconds(index0:int) : int
       {
-         // Challenge tasks always use their own 30-minute cooldown.
-         // modNoTaskCooldown no longer bypasses challenge tasks.
+         if(Game.gameData != null && Game.gameData.modNoExtraCooldown)
+         {
+            return 0;
+         }
          this.refreshTask(index0);
          var ready:Number = Number(this.taskReadyAt[index0]);
          if(isNaN(ready) || ready <= 0)
@@ -211,8 +213,7 @@ package gameAll.data.challenge
          if(td0 != null)
          {
             td0.state = "over";
-            // Always stamp per-task cooldown after claim (30 minutes).
-            this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
+            this.taskReadyAt[index0] = Game.gameData != null && Game.gameData.modNoExtraCooldown ? 0 : new Date().time + TASK_COOLDOWN;
             ++this.roundCompleted;
             if(this.roundCompleted >= 3)
             {
@@ -284,7 +285,7 @@ package gameAll.data.challenge
             this.challengeFail = "no";
             // Start cooldown immediately on kill-complete, so the slot cannot be re-accepted.
             var readyNow:Number = Number(this.taskReadyAt[index0]);
-            if(isNaN(readyNow) || readyNow < new Date().time)
+            if(!(Game.gameData != null && Game.gameData.modNoExtraCooldown) && (isNaN(readyNow) || readyNow < new Date().time))
             {
                this.taskReadyAt[index0] = new Date().time + TASK_COOLDOWN;
             }
@@ -385,4 +386,3 @@ package gameAll.data.challenge
       }
    }
 }
-

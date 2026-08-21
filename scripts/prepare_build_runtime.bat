@@ -84,7 +84,7 @@ if not exist "%BUILD_DIR%\bgm\player" mkdir "%BUILD_DIR%\bgm\player"
 )
 
 if exist "%REPO_ROOT%\runtime\modifier.html" copy /y "%REPO_ROOT%\runtime\modifier.html" "%BUILD_DIR%\modifier.html" >nul
-for %%F in ("%REPO_ROOT%\runtime\*.txt") do if "%%~zF"=="4608" copy /y "%%~fF" "%BUILD_DIR%\%%~nxF" >nul
+for %%F in ("%REPO_ROOT%\runtime\*.txt") do copy /y "%%~fF" "%BUILD_DIR%\%%~nxF" >nul
 
 echo Runtime prepared from tracked repository resources: !RESOURCE_COUNT! files.
 exit /b 0

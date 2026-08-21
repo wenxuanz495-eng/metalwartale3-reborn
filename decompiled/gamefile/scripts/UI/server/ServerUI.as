@@ -116,7 +116,7 @@ package UI.server
          var sheet:StyleSheet = new StyleSheet();
          sheet.parseCSS("a:link {text-decoration:none;}a:hover {text-decoration:underline;color:#FFFF00;}a:active {text-decoration:none;}");
          this.txt1.styleSheet = sheet;
-         this.txt1.htmlText = "本游戏开发，感谢@凉粉、@风水、@小熊、@愿原力与你同在、@客观、以及所有在内测群提供帮助的玩家们。";
+         this.txt1.htmlText = "本游戏开发，感谢@凉粉、@风水、@小熊、@愿原力与你同在、@光电游侠，以及所有在内测群提供帮助的玩家们。\n\n特别感谢@客观在2.5版本中的贡献。";
          this.loadGameNotice();
          this.versionNumber_txt.text = "超合金离线优化海豹版，1.2";
          this.producer_mc.visible = false;

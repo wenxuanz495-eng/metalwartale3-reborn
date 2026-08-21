@@ -428,7 +428,9 @@ package
       
       private function firstLoad(e:Event = null) : *
       {
-         stage.scaleMode = StageScaleMode.NO_SCALE;
+         // Match Flash Player's “Show All” behavior by default so the full game
+         // canvas is visible when the SWF starts, regardless of window size.
+         stage.scaleMode = StageScaleMode.SHOW_ALL;
          if(e != null)
          {
             removeEventListener(Event.ADDED_TO_STAGE,this.init);
@@ -449,6 +451,9 @@ package
       public function init(e:Event = null) : *
       {
          ME = this;
+         // The loaded UI framework may reset the root stage to NO_SCALE;
+         // apply the requested Flash Player “Show All” mode after it loads.
+         stage.scaleMode = StageScaleMode.SHOW_ALL;
          this.checkVersion();
          payController = new PayController();
          payController2 = new PayController();
@@ -1090,7 +1095,9 @@ package
                {
                   hero.inMouseXY(gameSprite.gameL.mouseX,gameSprite.gameL.mouseY);
                }
-               oneScene.inTargetMiddle(hero.img.x,hero.img.y - 120);
+               var mouseOffsetX:Number = (gameSprite.shootMouseL.mouseX - stageWidth / 2) * 0.45;
+               var mouseOffsetY:Number = (gameSprite.shootMouseL.mouseY - stageHeight / 2) * 0.35;
+               oneScene.inTargetMiddleMouse(hero.img.x,hero.img.y - 120,mouseOffsetX,mouseOffsetY);
                LG.level.hitArea(hero.img.x,hero.img.y);
             }
          }

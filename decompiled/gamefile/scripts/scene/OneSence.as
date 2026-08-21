@@ -334,6 +334,16 @@ package scene
          this.hx = -hx0 + this.viewWidth / 2;
          this.hy = -hy0 + this.viewHeight / 2;
       }
+
+      public function inTargetMiddleMouse(hx0:Number, hy0:Number, offsetX:Number = 0, offsetY:Number = 0) : *
+      {
+         var limitX:Number = this.viewWidth / 2 - 80;
+         var limitY:Number = this.viewHeight / 2 - 60;
+         var safeX:Number = Math.max(-limitX,Math.min(limitX,offsetX));
+         var safeY:Number = Math.max(-limitY,Math.min(limitY,offsetY));
+         this.hx = -(hx0 + safeX) + this.viewWidth / 2;
+         this.hy = -(hy0 + safeY) + this.viewHeight / 2;
+      }
       
       public function inPosition(hx0:int, hy0:int) : *
       {

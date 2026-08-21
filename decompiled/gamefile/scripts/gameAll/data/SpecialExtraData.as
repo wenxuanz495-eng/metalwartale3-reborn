@@ -139,11 +139,15 @@ package gameAll.data
       
       public function startCooldown() : *
       {
-         this.readyAt[Game.gameData.nowGameLevel] = new Date().time + 900000;
+         this.readyAt[Game.gameData.nowGameLevel] = Game.gameData != null && Game.gameData.modNoExtraCooldown ? 0 : new Date().time + 900000;
       }
       
       public function getCooldownSeconds(index0:int) : int
       {
+         if(Game.gameData != null && Game.gameData.modNoExtraCooldown)
+         {
+            return 0;
+         }
          var value0:Number = index0 < this.readyAt.length ? Number(this.readyAt[index0]) : 0;
          return Math.max(0,Math.ceil((value0 - new Date().time) / 1000));
       }

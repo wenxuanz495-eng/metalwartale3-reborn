@@ -26,9 +26,13 @@ package body.bullet
       
       public static function getBulletByDefine(d:OneArmsDefine, secondBulletImg:String = "") : *
       {
+         if(d == null)
+         {
+            throw new Error("Cannot create bullet from a null define");
+         }
          var bu0:* = undefined;
          var type0:String = d.bulletType;
-         if(type0 == "bullet")
+         if(type0 == "bullet" || type0 == "missile")
          {
             bu0 = new OneBulletBody();
             bu0.followB = d.followB;
@@ -47,6 +51,10 @@ package body.bullet
             {
                bu0 = new LaserBody(true);
             }
+         }
+         else
+         {
+            throw new Error("Unsupported bulletType: " + type0 + " for " + d.father + "/" + d.name);
          }
          bu0.width = d.bulletWidth;
          bu0.width2 = d.bulletWidth;
@@ -88,19 +96,39 @@ package body.bullet
       
       public function inData_byName() : *
       {
+         this.father = "";
+         this.bulletTrueName = "";
+         this.bulletLevel = 0;
+         if(this.bulletName == null || this.bulletName == "")
+         {
+            return false;
+         }
          var arr0:Array = this.bulletName.split("/");
-         if(arr0.length > 1)
+         if(arr0.length == 2)
          {
             this.father = arr0[0];
             this.bulletTrueName = arr0[1];
          }
-         else
+         else if(arr0.length == 1)
          {
             this.bulletTrueName = arr0[0];
          }
+         else
+         {
+            return false;
+         }
          var arr1:Array = this.bulletTrueName.split("_lv");
+         if(arr1.length != 2 || arr1[0] == "" || arr1[1] == "")
+         {
+            return false;
+         }
+         if(isNaN(Number(arr1[1])) || int(arr1[1]) < 1 || String(int(arr1[1])) != arr1[1])
+         {
+            return false;
+         }
          this.bulletTrueName = arr1[0];
          this.bulletLevel = int(arr1[1]) - 1;
+         return true;
       }
       
       public function toString() : *
