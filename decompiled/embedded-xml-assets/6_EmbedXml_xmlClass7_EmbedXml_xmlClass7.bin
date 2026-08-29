@@ -977,7 +977,7 @@
 			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<bulletAngle>0</bulletAngle>
 			<!-- 子弹固有属性-->
 			<hurt>272</hurt>    <!-- 武器伤害【必备】-->
@@ -1861,7 +1861,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>16</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>40</bulletSpeed>
+			<bulletMaxV>40</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -2115,7 +2117,9 @@
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<bulletTranslation>6</bulletTranslation>
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>20</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>50</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletMaxV>50</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -2379,7 +2383,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>16</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>40</bulletSpeed>
+			<bulletMaxV>40</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -2643,7 +2649,9 @@
 			<angleRange>0</angleRange>
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>30</bulletSpeed>
+			<bulletMaxV>30</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -2687,7 +2695,9 @@
 			<angleRange>0</angleRange>
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>30</bulletSpeed>
+			<bulletMaxV>30</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -2827,7 +2837,9 @@
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>24</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>50</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletMaxV>50</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -2870,7 +2882,9 @@
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>24</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>50</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletMaxV>50</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -3235,7 +3249,9 @@
 			<attackGap>1.2</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>8</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>20</bulletSpeed>
+			<bulletMaxV>20</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<bulletAngle>0</bulletAngle>
 			<!-- 子弹固有属性-->
 			<hurt>118</hurt>    <!-- 武器伤害【必备】-->
@@ -3275,7 +3291,9 @@
 			<attackGap>1.2</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>8</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>20</bulletSpeed>
+			<bulletMaxV>20</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<bulletAngle>0</bulletAngle>
 			<!-- 子弹固有属性-->
 			<hurt>118</hurt>    <!-- 武器伤害【必备】-->
@@ -3315,7 +3333,9 @@
 			<attackGap>1.2</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>8</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>20</bulletSpeed>
+			<bulletMaxV>20</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<bulletAngle>0</bulletAngle>
 			<!-- 子弹固有属性-->
 			<hurt>118</hurt>    <!-- 武器伤害【必备】-->

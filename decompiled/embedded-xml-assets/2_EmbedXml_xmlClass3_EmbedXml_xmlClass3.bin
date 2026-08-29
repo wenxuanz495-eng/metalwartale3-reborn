@@ -2208,7 +2208,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>30</bulletSpeed>
+			<bulletMaxV>30</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<floorBounce>1</floorBounce>
 			<!-- 子弹固有属性-->
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
@@ -2578,7 +2580,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<bounceNum>2</bounceNum>
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>25</bulletSpeed>
+			<bulletMaxV>25</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<floorBounce>1</floorBounce>
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
@@ -2618,7 +2622,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<bounceNum>2</bounceNum>
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>25</bulletSpeed>
+			<bulletMaxV>25</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<floorBounce>1</floorBounce>
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
@@ -2658,7 +2664,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<bounceNum>2</bounceNum>
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>25</bulletSpeed>
+			<bulletMaxV>25</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<floorBounce>1</floorBounce>
 			<!-- 子弹固有属性-->
 			<hurt>1876</hurt>    <!-- 武器伤害【必备】-->
@@ -3539,7 +3547,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>34</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>40</bulletSpeed>
+			<bulletMaxV>40</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -3581,7 +3591,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>34</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>40</bulletSpeed>
+			<bulletMaxV>40</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -3623,7 +3635,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>34</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>40</bulletSpeed>
+			<bulletMaxV>40</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -4135,7 +4149,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>30</bulletSpeed>
+			<bulletMaxV>30</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -5261,7 +5277,9 @@
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
+			<bulletSpeed>30</bulletSpeed>
+			<bulletMaxV>30</bulletMaxV>
+			<bulletMaxVa>0</bulletMaxVa>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<!-- 子弹固有属性-->
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->

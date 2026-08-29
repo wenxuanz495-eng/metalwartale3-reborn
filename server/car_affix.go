@@ -319,6 +319,48 @@ func iterCarMaps(group any, visit func(map[string]any)) {
 	}
 }
 
+func validateCarLevelLimits(payload any) error {
+	var walk func(any) error
+	walk = func(value any) error {
+		switch v := value.(type) {
+		case map[string]any:
+			if cars, ok := v["carItems"]; ok {
+				var validationErr error
+				iterCarMaps(cars, func(car map[string]any) {
+					if validationErr != nil {
+						return
+					}
+					for _, field := range []string{"levelOverride", "affixLevel"} {
+						if raw, exists := car[field]; exists {
+							level := saveNumber(raw)
+							if level < 0 || level > 210 || math.Trunc(level) != level {
+								validationErr = fmt.Errorf("战车“%s”的%s必须是0～210的整数", carDisplayName(car), field)
+								return
+							}
+						}
+					}
+				})
+				if validationErr != nil {
+					return validationErr
+				}
+			}
+			for _, child := range v {
+				if err := walk(child); err != nil {
+					return err
+				}
+			}
+		case []any:
+			for _, child := range v {
+				if err := walk(child); err != nil {
+					return err
+				}
+			}
+		}
+		return nil
+	}
+	return walk(payload)
+}
+
 func carDisplayName(car map[string]any) string {
 	name, _ := car["cnName"].(string)
 	if name == "" {

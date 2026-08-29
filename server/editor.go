@@ -336,6 +336,10 @@ func (a *app) editorSave(w http.ResponseWriter, r *http.Request) {
 	}
 	normalized = normalizeAMFArrayMaps(normalized, 0)
 	normalizeCurrencyMirrors(normalized)
+	if err := validateCarLevelLimits(normalized); err != nil {
+		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
+		return
+	}
 	if err := validateEditorValue(normalized, 0); err != nil {
 		a.sendJSON(w, map[string]any{"ok": false, "error": err.Error()}, http.StatusBadRequest)
 		return

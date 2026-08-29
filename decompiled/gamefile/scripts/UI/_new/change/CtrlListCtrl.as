@@ -46,10 +46,6 @@ package UI._new.change
          father = fa0;
          if(father.allType == "arms")
          {
-            if(Game.gameState != "no")
-            {
-               return;
-            }
             if(Boolean(armsList()))
             {
                showList(ic0);
@@ -166,6 +162,7 @@ package UI._new.change
          if(ic0.state == "fill")
          {
             id0 = ic0.itemsData;
+            d0 = id0.getArmsDefine();
             list_arr = [];
             if(fa0.dataType == "equip")
             {
@@ -180,7 +177,6 @@ package UI._new.change
             }
             else
             {
-               d0 = id0.getArmsDefine();
                if(d0.index >= 49)
                {
                   list_arr = [5,3];

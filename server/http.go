@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"mime"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -20,6 +21,7 @@ type app struct {
 	store    *saveStore
 	instance string
 	bgm      *bgmPlayer
+	shutdown func()
 }
 
 func (a *app) routes() http.Handler {
@@ -47,6 +49,17 @@ func (a *app) serveHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	switch {
+	case (r.Method == http.MethodGet || r.Method == http.MethodPost) && path == "/api/shutdown":
+		host, _, splitErr := net.SplitHostPort(r.RemoteAddr)
+		if splitErr != nil || (host != "127.0.0.1" && host != "::1") {
+			a.sendJSON(w, map[string]any{"ok": false, "error": "shutdown is local-only"}, http.StatusForbidden)
+			return
+		}
+		a.bgm.close()
+		a.sendJSON(w, map[string]any{"ok": true}, http.StatusOK)
+		if a.shutdown != nil {
+			go a.shutdown()
+		}
 	case r.Method == http.MethodGet && path == "/api/bgm/status":
 		a.sendJSON(w, a.bgm.status(), http.StatusOK)
 	case r.Method == http.MethodGet && path == "/api/bgm/catalog":

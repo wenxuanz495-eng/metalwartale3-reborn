@@ -86,7 +86,37 @@ func run() error {
 			return fmt.Errorf("FlashPlayer 运行异常：%w", err)
 		}
 	}
+	requestShutdown(port)
+	waitForProcessExit(server, 3*time.Second)
 	return nil
+}
+
+func requestShutdown(port int) {
+	client := &http.Client{Timeout: 1500 * time.Millisecond}
+	request, err := http.NewRequest(http.MethodPost, fmt.Sprintf("http://127.0.0.1:%d/api/shutdown", port), nil)
+	if err != nil {
+		return
+	}
+	response, err := client.Do(request)
+	if err == nil && response.Body != nil {
+		response.Body.Close()
+	}
+}
+
+func waitForProcessExit(command *exec.Cmd, timeout time.Duration) {
+	if command == nil || command.Process == nil {
+		return
+	}
+	deadline := time.Now().Add(timeout)
+	for time.Now().Before(deadline) {
+		if command.ProcessState != nil && command.ProcessState.Exited() {
+			return
+		}
+		if err := command.Process.Signal(syscall.Signal(0)); err != nil {
+			return
+		}
+		time.Sleep(100 * time.Millisecond)
+	}
 }
 
 func executableDir() (string, error) {

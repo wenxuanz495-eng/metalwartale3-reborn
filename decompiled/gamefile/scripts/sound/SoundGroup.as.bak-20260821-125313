@@ -57,7 +57,6 @@ package sound
       private var externalBGMCommandSeq:Number = 0;
 
       private var activeRecommendedPlaylistID:String = "";
-      private var activeRecommendedPlaylistContext:String = "";
 
       private var externalBGMSupported:Object;
 
@@ -560,41 +559,31 @@ package sound
          // are commonly previewed before the playlist is saved, so requiring
          // externalBGMLabel here left the saved playlist as a one-off preview.
          if(!this.playlistBGMEnabled() || !this.externalBGMReady) return;
-         var context:String = Game.gameState == "gaming" || Game.gameState == "gaming2" ? "battle" : "main";
+         var context:String = Game.gameState == "gaming" ? "battle" : "main";
          var ids:Array = context == "battle" ? this.battlePlaylist : this.mainPlaylist;
          var mode:String = context == "battle" ? this.battlePlaylistMode : this.mainPlaylistMode;
          var playlistID:String = context == "battle" ? this.battlePlaylistID : this.mainPlaylistID;
-          var playlist:Object = this.getNamedPlaylist(playlistID);
-          if(playlist != null)
-          {
-             ids = (playlist.tracks as Array).concat();
-             mode = String(playlist.mode);
-          }
-          if(this.recommendedBGMEnabled && playlistID.indexOf("custom_") == 0)
-          {
-             this.activeRecommendedPlaylistID = "";
-             this.activeRecommendedPlaylistContext = "";
-             this.externalBGMRequest("/api/bgm/stop");
-             return;
-          }
-          if(this.customPlaylistBGMEnabled && playlistID.indexOf("custom_") != 0)
-          {
-             this.activeRecommendedPlaylistID = "";
-             this.activeRecommendedPlaylistContext = "";
-             this.externalBGMRequest("/api/bgm/stop");
-             return;
-          }
-          if(playlistID == "" || ids.length == 0)
-          {
-             this.activeRecommendedPlaylistID = "";
-             this.activeRecommendedPlaylistContext = "";
-             this.externalBGMRequest("/api/bgm/stop");
-             return;
-          }
-          if(playlistID != "" && (playlistID != this.activeRecommendedPlaylistID || context != this.activeRecommendedPlaylistContext))
-          {
-             this.activeRecommendedPlaylistID = playlistID;
-             this.activeRecommendedPlaylistContext = context;
+         var playlist:Object = null;
+         if(this.recommendedBGMEnabled)
+         {
+            playlist = this.getNamedPlaylist(context == "battle" ? "developer_battle" : "developer_main");
+            if(playlist != null)
+            {
+               ids = (playlist.tracks as Array).concat();
+               mode = String(playlist.mode);
+               playlistID = String(playlist.id);
+            }
+         }
+         if(this.customPlaylistBGMEnabled && playlistID.indexOf("custom_") != 0)
+         {
+            this.activeRecommendedPlaylistID = "";
+            this.externalBGMRequest("/api/bgm/stop");
+            return;
+         }
+         if(playlistID == "" || ids.length == 0) return;
+         if(playlistID != "" && playlistID != this.activeRecommendedPlaylistID)
+         {
+            this.activeRecommendedPlaylistID = playlistID;
             this.externalBGMRequest("/api/bgm/playlist/start?context=" + context + "&mode=" + mode + "&tracks=" + ids.join(",") + "&force=1");
          }
          else
@@ -879,40 +868,6 @@ package sound
          }
       }
 
-      public function normalizeNamedPlaylists() : Boolean
-      {
-         var changed:Boolean = false;
-         var playlist:Object = null;
-         var original:Array = null;
-         var normalized:Array = null;
-         if(this.recommendedCatalog.length == 0) return false;
-         for each(playlist in this.playlistDefinitions)
-         {
-            if(!(playlist.tracks is Array)) continue;
-            original = playlist.tracks as Array;
-            normalized = this.migratePlaylistIDs(original);
-            if(normalized.length != original.length)
-            {
-               playlist.tracks = normalized;
-               changed = true;
-            }
-            else
-            {
-               for(var i:int = 0; i < normalized.length; i++)
-               {
-                  if(String(normalized[i]) != String(original[i]))
-                  {
-                     playlist.tracks = normalized;
-                     changed = true;
-                     break;
-                  }
-               }
-            }
-         }
-         if(changed) this.resolveNamedPlaylists();
-         return changed;
-      }
-
       private function migratePlaylistIDs(ids:Array) : Array
       {
          var result:Array = [];
@@ -921,7 +876,7 @@ package sound
          for each(id in ids)
          {
             canonical = this.canonicalRecommendedTrackID(id);
-            if(canonical != "" && result.indexOf(canonical) < 0) result.push(canonical);
+            if(result.indexOf(canonical) < 0) result.push(canonical);
          }
          return result;
       }
@@ -933,49 +888,44 @@ package sound
          {
             if(String(track.id) == id || track.aliases is Array && (track.aliases as Array).indexOf(id) >= 0) return String(track.id);
          }
-         return this.recommendedCatalog.length == 0 ? id : "";
+         return id;
       }
 
       private function playRecommendedPlaylist() : *
       {
-         var context:String = Game.gameState == "gaming" || Game.gameState == "gaming2" ? "battle" : "main";
+         var context:String = Game.gameState == "gaming" ? "battle" : "main";
          var ids:Array = context == "battle" ? this.battlePlaylist : this.mainPlaylist;
          var mode:String = context == "battle" ? this.battlePlaylistMode : this.mainPlaylistMode;
          var playlistID:String = context == "battle" ? this.battlePlaylistID : this.mainPlaylistID;
-          var playlist:Object = this.getNamedPlaylist(playlistID);
-          if(playlist != null)
-          {
-             ids = (playlist.tracks as Array).concat();
-             mode = String(playlist.mode);
-          }
-          if(this.recommendedBGMEnabled && playlistID.indexOf("custom_") == 0)
-          {
-             this.activeRecommendedPlaylistID = "";
-             this.activeRecommendedPlaylistContext = "";
-             this.externalBGMRequest("/api/bgm/stop");
-             return;
-          }
-          if(this.customPlaylistBGMEnabled && playlistID.indexOf("custom_") != 0)
-          {
-             this.activeRecommendedPlaylistID = "";
-             this.activeRecommendedPlaylistContext = "";
-             this.externalBGMRequest("/api/bgm/stop");
-            return;
+         var playlist:Object = null;
+         if(this.recommendedBGMEnabled)
+         {
+            playlist = this.getNamedPlaylist(context == "battle" ? "developer_battle" : "developer_main");
+            if(playlist != null)
+            {
+               ids = (playlist.tracks as Array).concat();
+               mode = String(playlist.mode);
+               playlistID = String(playlist.id);
+            }
          }
-          if(ids.length == 0)
-          {
+         if(this.customPlaylistBGMEnabled && playlistID.indexOf("custom_") != 0)
+         {
             this.activeRecommendedPlaylistID = "";
-            this.activeRecommendedPlaylistContext = "";
             this.externalBGMRequest("/api/bgm/stop");
             return;
          }
-          if(playlistID != "" && playlistID == this.activeRecommendedPlaylistID && context == this.activeRecommendedPlaylistContext)
+         if(ids.length == 0)
+         {
+            this.activeRecommendedPlaylistID = "";
+            this.externalBGMRequest("/api/bgm/stop");
+            return;
+         }
+         if(playlistID != "" && playlistID == this.activeRecommendedPlaylistID)
          {
             this.externalBGMSendVolume();
             return;
          }
-          this.activeRecommendedPlaylistID = playlistID;
-          this.activeRecommendedPlaylistContext = context;
+         this.activeRecommendedPlaylistID = playlistID;
          // Scene changes must not restart a player track that is still present
          // in the destination playlist. Explicit playlist edits use
          // syncCurrentRecommendedPlaylist(), which keeps force=1 semantics.

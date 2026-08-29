@@ -52,6 +52,13 @@ func main() {
 	bgm := newBGMPlayer(root)
 	defer bgm.close()
 	application := &app{root: root, store: store, instance: *instanceFlag, bgm: bgm}
+	shutdownRequested := make(chan struct{}, 1)
+	application.shutdown = func() {
+		select {
+		case shutdownRequested <- struct{}{}:
+		default:
+		}
+	}
 	server := &http.Server{
 		Addr:              net.JoinHostPort(*host, fmt.Sprint(*port)),
 		Handler:           logRequest(application.routes()),
@@ -76,6 +83,8 @@ func main() {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
 	select {
+	case <-shutdownRequested:
+		log.Printf("shutdown requested by local launcher")
 	case sig := <-signals:
 		log.Printf("received %s", sig)
 	case err := <-errs:
