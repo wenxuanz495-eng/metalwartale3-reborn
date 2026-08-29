@@ -55,7 +55,7 @@ UI\_new\change\CtrlListCtrl.as
 
 1. 修改 `decompiled/` 或 `server/` 中的源码。
 2. AS 类加入脚本补丁清单；嵌入 XML 加入 BinaryData 补丁清单。
-3. 复杂控制流先阅读 `FFDEC_CONTROL_FLOW_REGRESSION.md`；高风险类完成 P-code 审批。
+3. 复杂控制流先阅读 `../postmortems/FFDEC_CONTROL_FLOW_REGRESSION.md`；高风险类完成 P-code 审批。
 4. 运行 `scripts\verify_phase3.bat`。
 5. 用 Debug Player 进入受影响玩法做人工回归，再提交源码、清单与文档。
 

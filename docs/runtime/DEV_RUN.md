@@ -1,5 +1,7 @@
 # 开发启动方式（构建 / 启动分离，多播放器对照）
 
+> ⚠️ **部分内容已过时（2026-08 文档整理时标注）**：`scripts\build_all.ps1` 与 `run_dev.ps1` 等 PowerShell 入口已被纯 BAT 构建链取代（`构建.bat` / `scripts\build_all.bat`，见 [../build/BUILD_SOURCE_OF_TRUTH.md](../build/BUILD_SOURCE_OF_TRUTH.md)）；`D:\superalloy\.gopath` 为原作者机器本地路径。构建/启动分离与多播放器对照的思路仍有效。
+
 ## 1. 构建（会花时间）
 
 - `构建.bat` / `build.bat`

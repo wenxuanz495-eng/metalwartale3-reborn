@@ -46,7 +46,7 @@ build\saves\game_save.bin
 
 从2.04玩家包开始，根目录不再附带内容重复的 `启动游戏.bat`，只保留名称明确的 `启动游戏-flashplayer_sa.bat`。仓库内开发入口不受此装包规则影响。
 
-第三阶段已经消除正式构建流程的 PowerShell 依赖。`构建.bat` 调用纯 BAT 构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
+第三阶段已经消除正式构建流程的 PowerShell 依赖。`构建.bat` 调用纯 BAT 构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](../build/REPRODUCIBLE_BUILD.md)。
 
 ## 静态自检
 

@@ -42,7 +42,7 @@
 - 仓库 `swf/gamefile.swf` 与 1.2 `game.swf` 不同哈希/大小。
 - 正确路径：以 `swf/baselines/1.26.2.1-BAT.game.swf` 为不可变输入，只把变更类加入 `config/build/swf-script-patches.txt`，嵌入 XML 则按字符 ID 加入 `swf-binary-patches.txt`。
 - 禁止整库 `importScript`。`EmbedXml_xmlClass*.as` 必须走 BinaryData；`Game.as` 必须先完成 P-code 对比和 Debug Player 回归，再按当前源文件哈希审批。
-- 构建及审批细节见 [`REPRODUCIBLE_BUILD.md`](REPRODUCIBLE_BUILD.md)。
+- 构建及审批细节见 [`REPRODUCIBLE_BUILD.md`](../build/REPRODUCIBLE_BUILD.md)。
 
 ## 备份
 

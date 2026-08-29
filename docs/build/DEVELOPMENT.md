@@ -1,5 +1,7 @@
 # 开发与发布
 
+> ⚠️ **部分内容已过时（2026-08 文档整理时标注）**：本文写作于 `offline/`、`portable/` 目录时代。现行构建链为纯 BAT（`构建.bat` / `scripts\build_all.bat`，见 [BUILD_SOURCE_OF_TRUTH.md](BUILD_SOURCE_OF_TRUTH.md)），文中 `offline/` Python 回归、`portable\game.swf` 等步骤已不适用；Git 与文档维护约定仍然有效。
+
 ## Git
 
 - 主分支为 `main`。
@@ -66,7 +68,7 @@ Debug Player 位于 `tools/debug/flashplayer_sa_debug.exe`，用于捕获 Action
 5. Go服务 `/api/status` 返回正常。
 6. `game.swf` 经 HTTP 请求返回 200。
 7. 人工进入游戏测试本批修改涉及的实际流程。
-8. 更新 `docs/PROJECT_STATUS.md` 和相关规则文档。
+8. 更新 `docs/status/PROJECT_STATUS.md` 和相关规则文档。
 9. 创建 Git 提交。
 
 ## 文档维护
