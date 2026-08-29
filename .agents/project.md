@@ -1,6 +1,5 @@
-﻿# Project agents notes
+# Project agents notes
 
-Primary workspace: `D:\superalloy\metalwartale3-reborn.git`
-
-See root `AGENTS.md` for mandatory collaboration rules.
-See `docs/SEAL_RULES.md` and `docs/MERGE_DIFF_1.2.md` for merge decisions.
+AI 协作规则见根目录 `AGENTS.md`（本文件仅为指针）。
+文档索引见 `docs/README.md`。
+注：旧版提到的 `D:\superalloy\...` 工作区路径仅为原作者机器本地路径，对其他克隆无效。
