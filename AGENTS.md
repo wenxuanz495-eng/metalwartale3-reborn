@@ -39,7 +39,7 @@ archive/           旧构建脚本归档（只读）
 5. **FFDec 重编译存在已知控制流回归**（ch1-5 卡死）：复杂控制流先读 [docs/postmortems/FFDEC_CONTROL_FLOW_REGRESSION.md](docs/postmortems/FFDEC_CONTROL_FLOW_REGRESSION.md)，高风险类完成 P-code 审批。
 6. **改动与文档同步**：修改行为必须同步更新对应 docs 文档；只改代码不更文档视为未完成。
 7. **只读与谨慎区**：`archive/` 只读（旧构建遗留）；`decompiled/` 谨慎修改，必须走 FFDec 重编译流程并验证；`swf/` 是资源 SSOT，禁止不可追踪的二进制修改。
-8. **日志与产物不入库**：`logs/`、`build/` 已在 .gitignore；AI Agent 会话留痕目录 `.zcode/` 已忽略，不要提交。
+8. **日志与产物不入库**：`logs/`、`build/` 已在 .gitignore；各 AI 工具的会话留痕与本地缓存目录（如 `.zcode/`、`.codex/`、`.claude/`、`.agents/cache/`）一律不要提交。
 9. **存档路径 [待维护者裁定]**：[docs/gameplay/SEAL_RULES.md](docs/gameplay/SEAL_RULES.md)（`saves/game_save.bin`）与根目录《发布装包规范.txt》（根目录 `saves`）同 docs/runtime/ 下 SAVES、DEV_RUN、BAT_RUNTIME（`build/saves/`）表述不一致。裁定前以 SEAL_RULES.md 为准；禁止引入第三处存档路径，相关修复随裁定结果统一进行。
 10. **机器本地路径警告**：旧文档中的 `D:\superalloy\...`（黄金基线、发行目录等）仅原作者电脑有效，对任何其他克隆无效，不要在代码或脚本中引用。
 
