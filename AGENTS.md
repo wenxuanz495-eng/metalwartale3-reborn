@@ -9,7 +9,7 @@
 
 - 游戏本体：Flash/ActionScript。可维护源码在 `decompiled/`；构建以 `swf/baselines/1.26.2.1-BAT.game.swf` 为不可变基线，仅打显式最小补丁。
 - 服务端：Go（`server/`），本地 HTTP + AMF + SQLite 存档；另有 Go 启动器（`launcher/`）。
-- 构建与启动：全部由根目录 `.bat` 脚本驱动的「纯 BAT 链」完成，不依赖 PowerShell。
+- 构建与启动：由根目录 `.bat` 脚本驱动；正式构建链为纯 BAT、不调用 PowerShell（见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)）。
 
 ## 2. 项目结构
 
@@ -21,18 +21,19 @@ swf/               SWF 资源 SSOT（含 baselines/ 不可变基线）
 server/            Go 后端唯一源码目录
 launcher/          启动器源码（Go）
 config/            构建输入：补丁清单、BGM、资源覆盖
+assets/            UI 素材（构建输入，构建时复制进 build/）
 scripts/           构建与启动内部脚本（build_all.bat、launch_game.bat 等）
 tools/             本地工具链（Flash Player SA、Debug Player、FFDec CLI 等）
 build/             构建产物输出目录（git 忽略，本地重建）
 runtime/           已弃用为主运行路径；保留玩家说明文档与旧入口
 archive/           旧构建脚本归档（只读）
 功能总结/           功能开发记录（已完成/未完成事项）
-*.bat / *.exe      玩家入口，见红线 §3.2
+*.bat / *.exe      玩家入口，见红线第 2 条
 ```
 
 ## 3. 红线（按优先级）
 
-1. **构建唯一入口**：`构建.bat`（内部为 `scripts\build_all.bat`）。禁止运行旧 `scripts\build_swf.ps1`，禁止从任何发行目录复制 `game.swf`。见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)。
+1. **构建唯一入口**：`构建.bat`（`build.bat` 为内容相同的孪生副本；内部为 `scripts\build_all.bat`）。禁止运行旧 `scripts\build_swf.ps1`，禁止从任何发行目录复制 `game.swf`。见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)。
 2. **根目录 .bat 与 exe 是玩家入口**：不移动、不重命名、不合并、不「整理」。`.bat` 文件保持 CRLF 行尾与 ASCII 内容（`.gitattributes` 强制 `*.bat text eol=crlf`）。
 3. **修改武器弹速字段前必读** [docs/guides/AI武器弹速维护提示.md](docs/guides/AI武器弹速维护提示.md)：不能只改 `bulletSpeed`，改后必须同步 [docs/baselines/](docs/baselines/) 名单，并从最终 `build\game.swf` 导出 BinaryData 核对。
 4. **改 UI / 构造函数 / 启动期初始化后卡在旧加载界面 = AS 运行时异常**：按根目录[【重要必读】修改UI后卡在旧加载界面.md](【重要必读】修改UI后卡在旧加载界面.md) 排查（flashlog.txt 与 `build\saves\client_errors.log`，搜 `boot-fail`、`Error #2008`），完整手册见 docs/postmortems/。
@@ -126,7 +127,7 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
-**Project-specific verification**: this repo is verified through the pure-BAT chain — build via `构建.bat`, then static self-checks and smoke tests per [docs/runtime/BAT_RUNTIME.md](docs/runtime/BAT_RUNTIME.md).
+**Project-specific verification**: build via `构建.bat`, then run the static self-checks and smoke tests defined in [docs/runtime/BAT_RUNTIME.md](docs/runtime/BAT_RUNTIME.md).
 
 ---
 
