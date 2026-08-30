@@ -9,7 +9,7 @@
 
 - 游戏本体：Flash/ActionScript。可维护源码在 `decompiled/`；构建以 `swf/baselines/1.26.2.1-BAT.game.swf` 为不可变基线，仅打显式最小补丁。
 - 服务端：Go（`server/`），本地 HTTP + AMF + SQLite 存档；另有 Go 启动器（`launcher/`）。
-- 构建与启动：由根目录 `.bat` 脚本驱动；正式构建链为纯 BAT、不调用 PowerShell（见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)）。
+- 构建与启动：由根目录 `.bat` 脚本驱动。构建链以 BAT 为主体：服务端/启动器编译与 SWF 最小补丁不调用 PowerShell；runtime 资源准备自 2026-08-30 起由 `prepare_build_runtime.ps1` 执行清单校验与复制（见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)）。
 
 ## 2. 项目结构
 

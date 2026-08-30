@@ -24,7 +24,7 @@ scripts\verify_reproducible_build.bat
 scripts\verify_phase3.bat
 ```
 
-`build_all.bat` 构建 Go 服务端、主 SWF，再从仓库跟踪文件准备 175 个运行资源。正式链路不调用 PowerShell。
+`build_all.bat` 构建 Go 服务端、主 SWF，再从仓库跟踪文件准备 175 个运行资源。服务端/启动器编译与 SWF 补丁不调用 PowerShell；runtime 资源准备自 2026-08-30 起由 `prepare_build_runtime.ps1` 执行双清单（黄金基线 + 当前批准）校验与复制。
 
 ## 最小补丁清单
 

@@ -36,7 +36,7 @@ build\saves\game_save.bin
 
 - `scripts\build_all.bat`：依次构建 Go 服务端、主 SWF，并准备完整运行目录。
 - `scripts\build_swf.bat`：从不可变基线应用显式最小补丁清单。
-- `scripts\prepare_build_runtime.bat`：只用仓库已跟踪资源重建 `build/` 的 175 个运行资源。
+- `scripts\prepare_build_runtime.bat`：只用仓库已跟踪资源重建 `build/` 的 175 个运行资源（清单校验与复制由配套的 `prepare_build_runtime.ps1` 执行）。
 - `scripts\launch_game.bat`：端口探测、服务健康检查、播放器启动和退出清理。
 - `scripts\launch_modifier.bat`：存档备份、端口探测、浏览器应用窗口和退出清理。
 
@@ -46,7 +46,7 @@ build\saves\game_save.bin
 
 从2.04玩家包开始，根目录不再附带内容重复的 `启动游戏.bat`，只保留名称明确的 `启动游戏-flashplayer_sa.bat`。仓库内开发入口不受此装包规则影响。
 
-第三阶段已经消除正式构建流程的 PowerShell 依赖。`构建.bat` 调用纯 BAT 构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](../build/REPRODUCIBLE_BUILD.md)。
+构建链以纯 BAT 为主体：服务端/启动器编译与 SWF 补丁不依赖 PowerShell；runtime 资源准备自 2026-08-30 起由 `prepare_build_runtime.bat` 调用 `prepare_build_runtime.ps1` 完成黄金基线与当前批准双清单校验及复制。`构建.bat` 调用整条构建链；主 SWF 采用不可变基线和显式最小补丁，禁止一次性导入全部反编译脚本。详细边界与审批规则见 [`REPRODUCIBLE_BUILD.md`](../build/REPRODUCIBLE_BUILD.md)。
 
 ## 静态自检
 

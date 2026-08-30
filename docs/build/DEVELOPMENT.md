@@ -1,6 +1,6 @@
 # 开发与发布
 
-> ⚠️ **部分内容已过时（2026-08 文档整理时标注）**：本文写作于 `offline/`、`portable/` 目录时代。现行构建链为纯 BAT（`构建.bat` / `scripts\build_all.bat`，见 [BUILD_SOURCE_OF_TRUTH.md](BUILD_SOURCE_OF_TRUTH.md)），文中 `offline/` Python 回归、`portable\game.swf` 等步骤已不适用；Git 与文档维护约定仍然有效。
+> ⚠️ **部分内容已过时（2026-08 文档整理时标注）**：本文写作于 `offline/`、`portable/` 目录时代。现行构建链以 BAT 为主体（`构建.bat` / `scripts\build_all.bat`，见 [BUILD_SOURCE_OF_TRUTH.md](BUILD_SOURCE_OF_TRUTH.md)），文中 `offline/` Python 回归、`portable\game.swf` 等步骤已不适用；Git 与文档维护约定仍然有效。
 
 ## Git
 
