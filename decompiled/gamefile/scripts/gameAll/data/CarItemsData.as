@@ -19,6 +19,8 @@ package gameAll.data
       private var _strengthenNum:String = "0";
       
       public var affixLevel:int = 0;
+
+      public var levelOverride:int = 0;
       
       public var color:String = "white";
       
@@ -69,6 +71,7 @@ package gameAll.data
          {
             this.strengthenNum = 0;
          }
+         this.levelOverride = obj.hasOwnProperty("levelOverride") ? Math.max(0,Math.min(210,int(obj.levelOverride))) : 0;
          this.skinB = obj.hasOwnProperty("skinB") && Boolean(obj.skinB);
       }
       
@@ -76,7 +79,7 @@ package gameAll.data
       {
          var n:* = undefined;
          var pro0:String = null;
-         var pro_arr:Array = ["baseLabel","upgradeNum","strengthenNum","affixLevel","color","defenceType","extraObj"];
+         var pro_arr:Array = ["baseLabel","upgradeNum","strengthenNum","affixLevel","levelOverride","color","defenceType","extraObj"];
          for(n in pro_arr)
          {
             pro0 = pro_arr[n];
@@ -180,6 +183,10 @@ package gameAll.data
       
       public function getNowLevel() : int
       {
+         if(this.levelOverride > 0)
+         {
+            return Math.min(210,this.levelOverride);
+         }
          var type0:String = this.getDefine().getType();
          if(type0 == "G")
          {

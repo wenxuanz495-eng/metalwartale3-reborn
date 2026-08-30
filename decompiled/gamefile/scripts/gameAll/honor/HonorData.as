@@ -8,7 +8,7 @@ package gameAll.honor
       public var honor_arr:Array = [];
       
       public var nowHonor:String = "no";
-      
+
       public var add:AdditionalData = new AdditionalData();
       
       public var ac:AchievementData = new AchievementData();

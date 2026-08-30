@@ -656,7 +656,8 @@ package UI
       {
          var rows:Array = [];
          var editing:Object = this.getEditingPlaylist();
-         var selected:Array = editing == null ? [] : editing.tracks as Array;
+          var rawSelected:Array = editing == null || !(editing.tracks is Array) ? [] : editing.tracks as Array;
+          var selected:Array = [];
          var track:Object = null;
          var id:String = null;
          var i:int = 0;
@@ -665,7 +666,22 @@ package UI
          var upButton:Sprite = null;
          var downButton:Sprite = null;
          var selectButton:Sprite = null;
-         var orderInput:TextField = null;
+          var orderInput:TextField = null;
+          var normalizedChanged:Boolean = Game.SG.normalizeNamedPlaylists();
+          if(normalizedChanged) this.playlistDraftDirty = true;
+          if(editing != null && editing.tracks is Array) rawSelected = editing.tracks as Array;
+          for each(id in rawSelected)
+          {
+             if(Game.SG.recommendedCatalog.length == 0 || this.findRecommendedTrack(String(id)) != null)
+             {
+                if(selected.indexOf(String(id)) < 0) selected.push(String(id));
+             }
+          }
+          if(editing != null && editing.tracks is Array && (editing.tracks as Array).length != selected.length)
+          {
+             editing.tracks = selected.concat();
+             this.playlistDraftDirty = true;
+          }
          while(this.playlistOverlayRows.length > 0)
          {
             row = this.playlistOverlayRows.pop();
@@ -773,7 +789,7 @@ package UI
          else if(modeName == "random") modeName = "随机";
          else modeName = "单曲";
          var viewName:String = this.playlistView == "playlist" ? "当前歌单" : (this.playlistView == "player" ? "玩家曲库" : "开发者曲库");
-         this.playlistOverlayState.text = viewName + " · " + modeName + " · 已选 " + selected.length + " 首 · " + (this.playlistDraftDirty ? "未保存" : "已保存");
+          this.playlistOverlayState.text = viewName + " · " + modeName + " · 已选 " + selected.length + " 首 · " + (this.playlistDraftDirty ? "未保存" : "已保存");
       }
 
       private function shortPlaylistName(value:String) : String

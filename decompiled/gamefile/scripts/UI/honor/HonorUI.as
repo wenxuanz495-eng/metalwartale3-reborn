@@ -34,7 +34,7 @@ package UI.honor
       public var condition_txt:TextField;
       
       public var use_btn:SimpleButton;
-      
+
       public var sBar:SountoScrollBar;
       
       public var con:Sprite = new Sprite();

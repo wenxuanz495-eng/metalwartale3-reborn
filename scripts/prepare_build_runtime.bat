@@ -6,6 +6,7 @@ set "REPO_ROOT=%~dp0.."
 for %%I in ("%REPO_ROOT%") do set "REPO_ROOT=%%~fI"
 set "BUILD_DIR=%REPO_ROOT%\build"
 set "MANIFEST=%REPO_ROOT%\docs\baselines\1.26.2.1-BAT.sha256"
+set "CURRENT_MANIFEST=%REPO_ROOT%\config\build\current-resource-manifest.sha256"
 set "RESOURCE_SOURCE=%REPO_ROOT%\swf"
 set "RESOURCE_COUNT=0"
 set "RESOURCE_PROGRESS=0"
@@ -14,6 +15,9 @@ set "RECOMMENDED_BGM_SOURCE="
 for /d %%D in ("%REPO_ROOT%\..\*") do if exist "%%~fD\.playlist-root" set "RECOMMENDED_BGM_SOURCE=%%~fD"
 
 if not exist "%MANIFEST%" goto missing_input
+if not exist "%CURRENT_MANIFEST%" goto missing_input
+powershell -NoProfile -ExecutionPolicy Bypass -File "%REPO_ROOT%\scripts\verify_current_resource_manifest.ps1" -RepoRoot "%REPO_ROOT%" -Manifest "%CURRENT_MANIFEST%"
+if errorlevel 1 goto copy_failed
 if not exist "%RESOURCE_SOURCE%" goto missing_input
 if not exist "%BUILD_DIR%" mkdir "%BUILD_DIR%"
 if not exist "%BUILD_DIR%\swf" mkdir "%BUILD_DIR%\swf"
@@ -26,9 +30,11 @@ if not exist "%BUILD_DIR%\ui\auto-level" mkdir "%BUILD_DIR%\ui\auto-level"
 if not exist "%BUILD_DIR%\ui\pause-settings" mkdir "%BUILD_DIR%\ui\pause-settings"
 if not exist "%BUILD_DIR%\ui\support" mkdir "%BUILD_DIR%\ui\support"
 
-for /f "usebackq tokens=1,*" %%H in ("%MANIFEST%") do call :copy_resource "%%H" "%%I"
-if defined COPY_FAILED goto copy_failed
-if not "!RESOURCE_COUNT!"=="175" goto count_failed
+powershell -NoProfile -ExecutionPolicy Bypass -File "%REPO_ROOT%\scripts\prepare_build_runtime.ps1" -RepoRoot "%REPO_ROOT%" -TargetDir "%BUILD_DIR%\swf" -GoldenManifest "%MANIFEST%" -CurrentManifest "%CURRENT_MANIFEST%"
+if errorlevel 1 exit /b 2
+goto after_resource_manifest
+
+:after_resource_manifest
 
 if not exist "%REPO_ROOT%\config\build\resource-overrides\car1130.swf" goto missing_input
 if not exist "%REPO_ROOT%\swf\sub25.swf" goto missing_input
@@ -101,8 +107,14 @@ if not exist "!SOURCE!" (
   set "COPY_FAILED=missing tracked resource: !NAME!"
   exit /b 0
 )
+if /i "!NAME!"=="arms1100.swf" goto copy_current_arms1100
+set "CURRENT_EXPECTED=!EXPECTED!"
+if /i "!NAME!"=="arms1100.swf" set "CURRENT_EXPECTED=FAE5BAB2CDBF1C8F283E63DAD9C3CEF80CA0F46A5D47311CAD215C82F241E146"
+set "CHECK_KIND=黄金基线"
+if /i "!NAME!"=="arms1100.swf" set "CHECK_KIND=当前批准清单"
+echo [CHECK] !NAME! (!CHECK_KIND!)
 call :hash_file "!SOURCE!" ACTUAL
-if /i not "!ACTUAL!"=="!EXPECTED!" (
+if /i not "!ACTUAL!"=="!CURRENT_EXPECTED!" (
   set "COPY_FAILED=resource hash mismatch: !NAME!"
   exit /b 0
 )
@@ -124,9 +136,20 @@ set "HASH_TEMP=!HASH_TEMP: =!"
 set "%~2=!HASH_TEMP!"
 exit /b 0
 
+:copy_current_arms1100
+copy /y "!SOURCE!" "!DEST!" >nul
+if errorlevel 1 set "COPY_FAILED=resource copy failed: !REL!"&exit /b 0
+set /a RESOURCE_COUNT+=1
+exit /b 0
+
 :missing_input
 echo [ERROR] Missing tracked resource directory or golden manifest.
 exit /b 1
+
+:invalid_current_manifest
+echo [ERROR] Current approved resource manifest is malformed or contains duplicates.
+exit /b 1
+
 
 :copy_failed
 echo [ERROR] Runtime resource preparation failed: !COPY_FAILED!

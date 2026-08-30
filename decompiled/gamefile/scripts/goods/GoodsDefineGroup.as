@@ -204,6 +204,8 @@
          }
           this.addCustomGoods();
           this.addLegacyGoods();
+          this.addMissingGCoinCars();
+          this.addSpecialMCoinCars();
           this.ensureChildrensDayShopGoods();
           this.addBangerDrawingGoods();
          for(n in nameArr)
@@ -629,6 +631,105 @@ private function getCustomWeaponPrice(label0:String) : int
                {
                   goods0 = this.switchCar([d0],"car","Mprice")[0];
                   goods0.Mprice = defaultMPrice;
+                  this.car.push(goods0);
+               }
+            }
+         }
+      }
+
+      private function addMissingGCoinCars() : *
+      {
+         var n:* = undefined;
+         var car0:CarDefine = null;
+         var goods0:GoodsDefine = null;
+         var labels:Array = ["beetle","whiteSmart","white","blackSmart","redSmart","blueSmart","black","pink","bumblebee","hummer","landover","porsche","ferrari","lambo","bugatti","redDragon","phantom","glimpse","stranger","hummer2","bentley2","bmwi8","Jaguar","MoonShadow","Deepspacer","jiadihuanzhanche","bianfuxiazhanji","yaoying","argo","tuohuangzhe","languangzhanlun","shuangci","ao"];
+         for(n in labels)
+         {
+            if(this.findGoods_inArr(this.car,labels[n]) == null)
+            {
+               car0 = this.DG.getCarDefine(labels[n]);
+               if(car0 is CarDefine)
+               {
+                  goods0 = this.switchCar([car0],"car","price")[0];
+                  goods0.price = this.getMissingGCoinCarPrice(car0);
+                  goods0.discount = 0;
+                  this.car.push(goods0);
+               }
+            }
+         }
+      }
+
+      private function getMissingGCoinCarPrice(car0:CarDefine) : int
+      {
+         var lv:int = int(car0.mustLevel);
+         if(lv <= 4)
+         {
+            return 4000;
+         }
+         if(lv <= 9)
+         {
+            return 10000;
+         }
+         if(lv <= 19)
+         {
+            return 20000;
+         }
+         if(lv <= 29)
+         {
+            return 50000;
+         }
+         if(lv <= 39)
+         {
+            return 100000;
+         }
+         if(lv <= 49)
+         {
+            return 150000;
+         }
+         if(lv <= 59)
+         {
+            return 200000;
+         }
+         if(lv <= 69)
+         {
+            return 300000;
+         }
+         if(lv <= 79)
+         {
+            return 400000;
+         }
+         if(lv <= 99)
+         {
+            return 500000;
+         }
+         if(lv <= 119)
+         {
+            return 600000;
+         }
+         if(lv <= 159)
+         {
+            return 800000;
+         }
+         return 1000000;
+      }
+
+      private function addSpecialMCoinCars() : *
+      {
+         var n:* = undefined;
+         var car0:CarDefine = null;
+         var goods0:GoodsDefine = null;
+         var labels:Array = ["tank","electricSaw","charger","intercessor"];
+         var prices:Array = [50,50,50,150];
+         for(n in labels)
+         {
+            if(this.findGoods_inArr(this.car,labels[n]) == null)
+            {
+               car0 = this.DG.getCarDefine(labels[n]);
+               if(car0 is CarDefine)
+               {
+                  goods0 = this.switchCar([car0],"car","Mprice")[0];
+                  goods0.Mprice = prices[n];
+                  goods0.discount = 0;
                   this.car.push(goods0);
                }
             }

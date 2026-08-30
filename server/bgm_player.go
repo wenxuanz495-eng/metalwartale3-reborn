@@ -569,7 +569,17 @@ func (p *bgmPlayer) startPlaylist(context, mode string, ids []string, forceSwitc
 		}
 	}
 	if len(valid) == 0 {
-		return true, errors.New("playlist has no playable tracks")
+		if err := p.native.stop(0.1); err != nil {
+			return true, err
+		}
+		p.playlist = nil
+		p.playlistActive = false
+		p.playing = false
+		p.paused = false
+		p.label = ""
+		p.positionBase = 0
+		p.duration = 0
+		return true, nil
 	}
 	p.playlist = valid
 	p.playlistMode = mode

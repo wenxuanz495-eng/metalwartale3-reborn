@@ -124,3 +124,22 @@ func TestRoundLongDecimalCarAffixes(t *testing.T) {
 		t.Fatalf("life_value=%v want 4655", eo["life_value"])
 	}
 }
+
+func TestValidateCarLevelLimits(t *testing.T) {
+	payload := map[string]any{"localSlots": []any{map[string]any{"data": map[string]any{"carItems": map[string]any{
+		"arr": []any{map[string]any{"cnName": "奥", "levelOverride": 210, "affixLevel": 210}},
+	}}}}}
+	if err := validateCarLevelLimits(payload); err != nil {
+		t.Fatalf("valid level rejected: %v", err)
+	}
+	car := payload["localSlots"].([]any)[0].(map[string]any)["data"].(map[string]any)["carItems"].(map[string]any)["arr"].([]any)[0].(map[string]any)
+	car["levelOverride"] = 211
+	if err := validateCarLevelLimits(payload); err == nil {
+		t.Fatal("levelOverride 211 should be rejected")
+	}
+	car["levelOverride"] = 210
+	car["affixLevel"] = 210.5
+	if err := validateCarLevelLimits(payload); err == nil {
+		t.Fatal("fractional affixLevel should be rejected")
+	}
+}

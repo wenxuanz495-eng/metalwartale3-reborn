@@ -93,6 +93,14 @@ if defined SMOKE_ONLY (
 )
 "%PLAYER%" "http://127.0.0.1:!PORT!/game.swf?localrun=!RANDOM!!RANDOM!"
 set "GAME_ERROR=!ERRORLEVEL!"
+curl.exe --silent --fail --max-time 2 -X POST "http://127.0.0.1:!PORT!/api/shutdown" >nul 2>nul
+for /l %%W in (1,1,20) do (
+  if not defined SERVER_PID goto shutdown_wait_done
+  tasklist /fi "PID eq !SERVER_PID!" | findstr /r /c:" !SERVER_PID! " >nul 2>nul
+  if errorlevel 1 goto shutdown_wait_done
+  ping 127.0.0.1 -n 1 -w 100 >nul
+)
+:shutdown_wait_done
 call :cleanup_servers
 if not "!GAME_ERROR!"=="0" goto player_failed
 exit /b 0
