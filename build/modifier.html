@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>超合金战记3 · 本地修改器</title>
+<style>
+html,body{height:100%;margin:0;background:#07111d;color:#e9f3ff;font:14px/1.5 system-ui,"Microsoft YaHei",sans-serif;overflow:hidden}
+#slotBar{height:64px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:10px;background:#0b1b29;border-bottom:1px solid #20364b;color:#a9c9dc}
+#mainSlot{width:360px;max-width:55vw;margin:0;padding:6px 10px}
+iframe{display:block;width:100%;height:calc(100% - 64px);border:0}
+#manualBackupTop{width:auto;margin:0;padding:8px 14px;background:#8a4b08;border-color:#ffc857;font-weight:800}.riskText{color:#ffd166;font-weight:800}
+#pageError{display:none;position:fixed;left:50%;top:86px;z-index:30;transform:translateX(-50%);width:min(760px,calc(100vw - 40px));padding:14px 18px;border:1px solid #ff647c;border-radius:8px;background:#351622;color:#ffd1d8;box-shadow:0 10px 35px #000a;white-space:pre-wrap}
+#toggle{position:fixed;right:18px;bottom:18px;top:auto;z-index:20;width:auto;min-width:86px;margin:0;border:1px solid #22d3ee;border-radius:20px;background:#087f8c;color:#fff;padding:8px 15px;cursor:pointer;writing-mode:horizontal-tb;letter-spacing:0;box-shadow:0 5px 20px #0009}
+#cardPanel{position:fixed;right:18px;bottom:64px;top:auto;width:330px;max-height:calc(100vh - 90px);overflow:auto;z-index:19;padding:18px;background:linear-gradient(145deg,#102337,#091725);border:1px solid #22d3ee;border-radius:12px;box-shadow:0 12px 45px #000b;transform:translateY(18px) scale(.96);transform-origin:bottom right;opacity:0;visibility:hidden;pointer-events:none;transition:transform .18s ease,opacity .18s ease,visibility .18s}
+#cardPanel.open{transform:translateY(0) scale(1);opacity:1;visibility:visible;pointer-events:auto}
+h2{margin:0 0 8px;color:#21d4fd;font-size:18px}.muted{color:#8da5bc}select,button{width:100%;box-sizing:border-box;margin-top:10px;padding:9px 11px;border-radius:7px;border:1px solid #2c5877;background:#07131f;color:#fff;font:inherit}button{background:#087f8c;border-color:#22d3ee;cursor:pointer}button.secondary{background:#4e2638;border-color:#bd607d}button:disabled{opacity:.5;cursor:wait}#result{display:none;margin-top:12px;padding:10px;border-radius:7px;border:1px solid #49e59d;background:#0c2630}#result.error{border-color:#ff647c;color:#ffd1d8}.warning{margin:10px 0;padding:9px;border-left:3px solid #ffc857;background:#172536;color:#ffd98a}
+</style>
+</head>
+<body>
+<div id="slotBar"><strong>正在编辑的存档：</strong><select id="mainSlot"><option>正在读取存档……</option></select><span class="riskText">存档文件（可能回档，注意备份）</span><button id="manualBackupTop">立即备份存档</button></div>
+<iframe id="editorFrame" title="存档修改器"></iframe>
+<div id="pageError"></div>
+<button id="toggle">特殊道具</button>
+<aside id="cardPanel">
+  <h2>特殊道具</h2>
+  <div class="muted">研发升级卡和精英副本挑战卡会加入所选存档的道具背包。</div>
+  <div class="warning">建议优先正常体验游戏。修改器会明显降低养成与战斗难度；确需使用时，请先退出游戏，否则游戏退出时可能覆盖修改结果。</div>
+  <select id="slot"><option>正在读取存档……</option></select>
+  <button id="add">给予1张研发升级卡</button>
+  <button id="remove" class="secondary">移除1张研发升级卡</button>
+  <button id="addElite">给予1张精英副本挑战卡</button>
+  <button id="removeElite" class="secondary">移除1张精英副本挑战卡</button>
+  <button id="reload">重新读取存档</button>
+  <div id="result"></div>
+</aside>
+<script>
+"use strict";
+let gameData=null;
+const panel=document.getElementById("cardPanel"),slot=document.getElementById("slot"),result=document.getElementById("result");
+const mainSlot=document.getElementById("mainSlot"),editorFrame=document.getElementById("editorFrame");
+const pageError=document.getElementById("pageError");
+const buttons=[document.getElementById("add"),document.getElementById("remove"),document.getElementById("addElite"),document.getElementById("removeElite"),document.getElementById("reload")];
+const customCars=[
+ ["platinumChariots","白金战车"],["optimusPrime","擎天柱"],["megatron","威震天"],["avanty","亡语者"],["optimusPrime2","擎天柱Ⅱ"],
+ ["mcQueen","闪电"],["moumou","法拉利梦幻"],["bentley","精灵斗士"],["prime","补天士"],["adui_z","奥迪Z"],
+ ["kamikaze","神风追击"],["deathgod","死灵骑士"],["jufengzhichui","飓风之锤"],["yueguang","月光"],["hundunlizhi","混沌荔枝"]
+];
+const customWeapons=[
+ ["armsItems","dragonHead","龙之怒"],["armsItems","beelzebub","魔王专用"],["armsItems","nuclearBomb","基洛夫"],
+ ["armsItems","hanbingfengbao","寒冰风暴"],["armsItems","lightlizhi","曙光荔枝"],["armsItems","kaisazhilei","凯撒之泪"],
+ ["armsItems","moumouGun","小小的太阳"],["armsItems","shenfenpao","神风追击"],
+ ["armsItems","conAries","白羊座"],["armsItems","conVirgo","处女座"],["armsItems","conTaurus","金牛座"],
+ ["armsItems","conCancer","巨蟹座"],["armsItems","conCapricornus","摩羯座"],["armsItems","conSagittarius","射手座"],
+ ["armsItems","conLeo","狮子座"],["armsItems","conPisces","双鱼座"],["armsItems","conGemini","双子座"],
+ ["armsItems","conAquarius","水瓶座"],["armsItems","conLibra","天秤座"],["armsItems","conScorpio","天蝎座"],
+ ["subItems","windSword","塞巴斯塔（副武器）"],["subItems","skullHeads","黑寡妇（副武器）"],
+ ["subItems","blueKnife","龙吟（副武器）"],["subItems","killPig","杀猪刀（副武器）"],
+ ["subItems","shilongren","噬龙刃（副武器）"],["subItems","darklizhi","暗黑荔枝（副武器）"]
+];
+const chipAffixes=[
+ ["dps_pro","DPS百分比提升"],["dps","DPS提升"],["crit_pro","暴击几率提升"],["crit_mul","暴击伤害提升"],
+ ["coin","金币获取提升"],["exp","经验获取提升"],["achieve","功勋获取提升"],["energy_max","能量上限提升"],
+ ["energy_rate","能量回复提升"],["life_max","耐久上限提升"],["life_rate","耐久回复提升"],["life_steal","击中回复耐久"],
+ ["defence_max","防御上限提升"],["lifeBall","药箱回复提高"],["allAdd","全能训练提升"],["lifeAdd","体能训练提升"],
+ ["attackAdd","射击训练提升"],["subAdd","控制训练提升"],["defenceAdd","防御训练提升"]
+];
+const purpleCombatAffixes=["dps_pro","dps","crit_pro","crit_mul","allAdd","attackAdd","subAdd"];
+const chipCaps={white_chip:1,blue_chip:2,yellow_chip:4,orange_chip:6,green_chip:8};
+// Keep these ranges in sync with gameAll/define/AdditionalDefine.as.
+// Each row is [exclusive upper level, configured minimum, configured upper endpoint].
+const chipRangeTables={
+ dps:[[11,25,152],[21,176,430],[31,462,789],[41,829,1215],[51,1261,1698],[61,1749,2231],[71,2287,2812],[81,2872,3436],[91,3500,4099],[101,4167,4800],[111,4873,5538],[121,5614,6310],[131,6500,8000],[141,8500,10000],[99999,8000,12000]],
+ dps_pro:[[11,.01,.05],[21,.06,.1],[31,.11,.15],[41,.16,.2],[51,.21,.25],[61,.26,.3],[71,.31,.35],[81,.36,.4],[91,.41,.45],[101,.46,.5],[111,.51,.55],[121,.56,.6],[131,.61,.65],[141,.66,.7],[99999,.66,.75]],
+ crit_pro:[[11,.01,.05],[21,.06,.1],[31,.11,.15],[41,.16,.2],[51,.21,.25],[61,.26,.3],[71,.31,.35],[81,.36,.4],[91,.41,.45],[101,.46,.5],[111,.51,.55],[121,.56,.6],[131,.61,.65],[141,.66,.7],[99999,.66,.75]],
+ crit_mul:[[11,.11,.2],[21,.21,.3],[31,.31,.4],[41,.41,.5],[51,.51,.6],[61,.61,.8],[71,.81,1],[81,1.01,1.2],[91,1.21,1.4],[101,1.41,1.6],[111,1.61,1.8],[121,1.81,2],[131,2.01,2.2],[141,2.21,2.4],[99999,2.3,2.6]],
+ life_max:[[11,.01,.05],[21,.06,.1],[31,.11,.15],[41,.16,.2],[51,.21,.25],[61,.26,.3],[71,.31,.35],[81,.36,.4],[91,.41,.45],[101,.46,.5],[111,.51,.55],[121,.56,.6],[131,.61,.65],[141,.66,.7],[99999,.66,.75]],
+ life_rate:[[11,10,39],[21,47,151],[31,167,339],[41,362,601],[51,632,939],[61,977,1351],[71,1397,1839],[81,1892,2401],[91,2462,3039],[101,3107,3751],[111,3827,4539],[121,4624,5401],[131,5500,6500],[141,6500,7500],[99999,10000,20000]],
+ life_steal:[[11,20,65],[21,78,253],[31,278,565],[41,603,1003],[51,1053,1565],[61,1628,2253],[71,2328,3062],[81,3153,4003],[91,4103,5065],[101,5178,6253],[111,6378,7565],[121,7703,9003],[131,10000,12000],[141,12000,14000],[99999,15000,20000]],
+ defence_max:[[11,20,64],[21,70,128],[31,135,192],[41,199,257],[51,263,321],[61,327,385],[71,392,450],[81,456,514],[91,520,578],[101,585,642],[111,649,707],[121,713,771],[131,800,900],[141,901,1000],[99999,1000,1200]],
+ exp:[[11,1,20],[31,21,40],[51,41,60],[71,61,80],[91,81,100],[111,101,120],[131,121,140],[141,141,160],[99999,161,180]],
+ coin:[[11,.01,.1],[31,.11,.2],[51,.21,.3],[71,.31,.4],[91,.41,.5],[111,.51,.6],[131,.61,.7],[141,.71,.8],[99999,.71,.9]],
+ achieve:[[11,.01,.1],[31,.11,.2],[51,.21,.3],[71,.31,.4],[91,.41,.5],[111,.51,.6],[131,.61,.7],[141,.71,.8],[99999,.71,.9]],
+ lifeBall:[[11,.01,.08],[31,.09,.16],[51,.17,.24],[71,.25,.32],[91,.33,.4],[111,.41,.48],[131,.49,.56],[141,.57,.64],[99999,.6,.7]]
+};
+const chipRangeModes={dps:"int",dps_pro:"per3",crit_pro:"per2",crit_mul:"per2",life_max:"per3",life_rate:"int",life_steal:"int",defence_max:"int",exp:"int",coin:"per3",achieve:"per3",lifeBall:"per3"};
+const carAffixes=[
+ ["allAdd","全能训练提升","%"],["attackAdd","射击训练提升","%"],["subAdd","控制训练提升","%"],["lifeAdd","体能训练提升","%"],
+ ["defence_max","防御值提升","点"],["defence_mul","防御百分比提升","%"],["life_value","耐久值提升","点"],["life_max","耐久百分比提升","%"]
+];
+const carQualities={white:["白色",1,0,0],blue:["蓝色",1.2,2,4],yellow:["金色",1.5,3,5],orange:["橙色",1.8,5,7],green:["绿色",2.8,7,7]};
+const carArmors={mixed:"混合装甲",motion:"爆炸反应装甲",energy:"复合装甲",boom:"电磁干扰装甲"};
+const carLateDefence=[[1900,2150],[2300,2600],[2700,3000],[3200,3600],[3800,4500],[4500,5200],[5300,6400],[6800,8000]];
+const carLateLife=[[120000,150000],[160000,210000],[220000,290000],[300000,380000],[400000,520000],[500000,640000],[700000,850000],[900000,1000000]];
+document.getElementById("toggle").onclick=()=>panel.classList.toggle("open");
+function busy(v){buttons.forEach(b=>b.disabled=v)}
+let __lastErrMsg='',__lastErrAt=0;function show(s,error=false){const _m=String(arguments[0]||'');const _now=Date.now();if(_m&&_m===__lastErrMsg&&(_now-__lastErrAt)<1500)return;if(_m){__lastErrMsg=_m;__lastErrAt=_now;}result.textContent=s;result.className=error?"error":"";result.style.display="block"}
+function showPageError(message){pageError.textContent=String(message||"未知错误");pageError.style.display="block"}
+function clearPageError(){pageError.textContent="";pageError.style.display="none"}
+async function api(path,options={},retry=2){
+  let lastErr;
+  for(let i=0;i<=retry;i++){
+    try{
+      const response=await fetch(path,{...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});
+      let body;try{body=await response.json()}catch{body=null}
+      if(!response.ok||(body&&body.ok===false)){
+        const msg=(body&&(body.error||body.message))||(`HTTP ${response.status}`);
+        throw new Error(msg);
+      }
+      return body;
+    }catch(e){
+      lastErr=e;
+      const msg=String(e&&e.message||e);
+      if(i<retry && /Failed to fetch|NetworkError|Load failed|fetch/i.test(msg)){
+        await new Promise(r=>setTimeout(r,250*(i+1)));
+        continue;
+      }
+      if(/Failed to fetch|NetworkError|Load failed/i.test(msg)){
+        throw new Error("无法连接本地修改器服务。请保持启动修改器黑窗口不要关，并完全退出游戏后重开修改器。");
+      }
+      throw e;
+    }
+  }
+  throw lastErr;
+}
+let __lastApiErrorAt=0;
+function showApiError(err){
+  const msg=String(err&&err.message||err||"未知错误");
+  const now=Date.now();
+  if(now-__lastApiErrorAt<1200 && /无法连接本地修改器服务|Failed to fetch/i.test(msg)) return;
+  __lastApiErrorAt=now;
+  alert(msg);
+}
+function countCard(saveSlot){const arr=repairDenseArray(saveSlot?.data?.propsItems?.arr);const item=arr.find(x=>x&&x.name==="research_upgrade_card");return item?Number(item.nowNum||0):0}
+function countEliteCard(saveSlot){const arr=repairDenseArray(saveSlot?.data?.propsItems?.arr);const item=arr.find(x=>x&&x.name==="elite_challenge_card");return item?Number(item.nowNum||0):0}
+function indexedValue(container,index){
+  if(Array.isArray(container)) return container[index]??null;
+  if(!container||typeof container!=="object") return null;
+  if(Object.prototype.hasOwnProperty.call(container,String(index))) return container[String(index)];
+  if(Array.isArray(container.$dense)) return container.$dense[index]??null;
+  return null;
+}
+function saveSlotEntries(root){
+  const container=root&&root.localSlots;
+  const result=[];
+  for(let i=0;i<8;i++){
+    const value=indexedValue(container,i);
+    if(value) result.push({value,index:i});
+  }
+  return result;
+}
+function saveSlotAt(root,index){return indexedValue(root&&root.localSlots,index)}
+function normalizeLocalSlots(root){
+  if(!root||typeof root!=="object") throw new Error("存档根对象无效。");
+  const normalized=Array.from({length:8},(_,i)=>{
+    const slot=saveSlotAt(root,i);
+    return slot&&typeof slot==="object"?slot:null;
+  });
+  root.localSlots=normalized;
+  return root;
+}
+const freeHeartLevels=[{"index":0,"chapter":"序章","section":0,"name":"原能魔方"},{"index":1,"chapter":"第一章","section":1,"name":"追寻审判者"},{"index":2,"chapter":"第一章","section":2,"name":"空中突袭"},{"index":3,"chapter":"第一章","section":3,"name":"突击者队长"},{"index":4,"chapter":"第一章","section":4,"name":"废墟城市"},{"index":5,"chapter":"第一章","section":5,"name":"神秘研究所"},{"index":6,"chapter":"第一章","section":6,"name":"城市杀手"},{"index":7,"chapter":"第二章","section":1,"name":"北方使者"},{"index":8,"chapter":"第二章","section":2,"name":"护送任务"},{"index":9,"chapter":"第二章","section":3,"name":"夺取战舰"},{"index":10,"chapter":"第二章","section":4,"name":"攻占土伦港"},{"index":11,"chapter":"第二章","section":5,"name":"海神号沉没"},{"index":12,"chapter":"第二章","section":6,"name":"至急救援"},{"index":13,"chapter":"第二章","section":7,"name":"全军覆没"},{"index":14,"chapter":"第三章","section":1,"name":"重兵压阵"},{"index":15,"chapter":"第三章","section":2,"name":"千里奔袭"},{"index":16,"chapter":"第三章","section":3,"name":"消灭副官"},{"index":17,"chapter":"第三章","section":4,"name":"四面合围"},{"index":18,"chapter":"第三章","section":5,"name":"攻城坦克"},{"index":19,"chapter":"第三章","section":6,"name":"乘胜追击"},{"index":20,"chapter":"第三章","section":7,"name":"相持不下"},{"index":21,"chapter":"第三章","section":8,"name":"突围而出"},{"index":22,"chapter":"第四章","section":1,"name":"退守登曼"},{"index":23,"chapter":"第四章","section":2,"name":"登曼初战"},{"index":24,"chapter":"第四章","section":3,"name":"迂回作战"},{"index":25,"chapter":"第四章","section":4,"name":"围攻月都"},{"index":26,"chapter":"第四章","section":5,"name":"阻击援军"},{"index":27,"chapter":"第四章","section":6,"name":"铁鸦的末日"},{"index":28,"chapter":"第四章","section":7,"name":"终结审判者"},{"index":29,"chapter":"第四章","section":8,"name":"四月行动"},{"index":30,"chapter":"第四章","section":9,"name":"决战月都"},{"index":31,"chapter":"第五章","section":1,"name":"挺进南斯"},{"index":32,"chapter":"第五章","section":2,"name":"城北鏖兵"},{"index":33,"chapter":"第五章","section":3,"name":"突入城区"},{"index":34,"chapter":"第五章","section":4,"name":"第八军团"},{"index":35,"chapter":"第五章","section":5,"name":"先知现身"},{"index":36,"chapter":"第五章","section":6,"name":"千里追击"},{"index":37,"chapter":"第五章","section":7,"name":"浴血奋战"},{"index":38,"chapter":"第六章","section":1,"name":"肃清残敌"},{"index":39,"chapter":"第六章","section":2,"name":"建立阵地"},{"index":40,"chapter":"第六章","section":3,"name":"稳固阵地"},{"index":41,"chapter":"第六章","section":4,"name":"北部防线"},{"index":42,"chapter":"第六章","section":5,"name":"南部防线"},{"index":43,"chapter":"第七章","section":1,"name":"战火重燃"},{"index":44,"chapter":"第七章","section":2,"name":"空中堡垒"},{"index":45,"chapter":"第七章","section":3,"name":"敌势如潮"},{"index":46,"chapter":"第七章","section":4,"name":"援军抵达"},{"index":47,"chapter":"第七章","section":5,"name":"暴君必死"},{"index":48,"chapter":"第七章","section":6,"name":"战争总动员"},{"index":49,"chapter":"第七章","section":7,"name":"隐形的敌人"},{"index":50,"chapter":"第七章","section":8,"name":"北线受挫"},{"index":51,"chapter":"第七章","section":9,"name":"机械路霸"},{"index":52,"chapter":"第七章","section":10,"name":"重归暗影"},{"index":53,"chapter":"第八章","section":1,"name":"卡斯堡垒"},{"index":54,"chapter":"第八章","section":2,"name":"登岛作战"},{"index":55,"chapter":"第八章","section":3,"name":"老友重逢"},{"index":56,"chapter":"第八章","section":4,"name":"猛犸战神"},{"index":57,"chapter":"第八章","section":5,"name":"城下鏖战"},{"index":58,"chapter":"第八章","section":6,"name":"堡垒激战"},{"index":59,"chapter":"第八章","section":7,"name":"决斗外场"},{"index":60,"chapter":"第八章","section":8,"name":"决斗内场"},{"index":61,"chapter":"第九章","section":1,"name":"战争工厂"},{"index":62,"chapter":"第九章","section":2,"name":"巨兽熔炉"},{"index":63,"chapter":"第九章","section":3,"name":"风暴战士"},{"index":64,"chapter":"第九章","section":4,"name":"风暴熄灭"},{"index":65,"chapter":"第九章","section":5,"name":"荣耀殿堂"},{"index":66,"chapter":"第九章","section":6,"name":"激光上校"},{"index":67,"chapter":"第九章","section":7,"name":"雷电止境"},{"index":68,"chapter":"第九章","section":8,"name":"电光之影"},{"index":69,"chapter":"第九章","section":9,"name":"黑暗复生"},{"index":70,"chapter":"第十章","section":1,"name":"敌军来袭"},{"index":71,"chapter":"第十章","section":2,"name":"突击部队"},{"index":72,"chapter":"第十章","section":3,"name":"声东击西"},{"index":73,"chapter":"第十章","section":4,"name":"天使陨落"},{"index":74,"chapter":"第十章","section":5,"name":"强行登陆"},{"index":75,"chapter":"第十章","section":6,"name":"天降神兵"},{"index":76,"chapter":"第十章","section":7,"name":"突入基地"},{"index":77,"chapter":"第十章","section":8,"name":"钢铁之墓"},{"index":78,"chapter":"第十章","section":9,"name":"疯狂进攻"},{"index":79,"chapter":"第十章","section":10,"name":"主动出击"},{"index":80,"chapter":"第十章","section":11,"name":"第二波攻击"},{"index":81,"chapter":"第十章","section":12,"name":"杀戮者来袭"},{"index":82,"chapter":"第十章","section":13,"name":"全力进攻"},{"index":83,"chapter":"第十章","section":14,"name":"进攻受挫"},{"index":84,"chapter":"第十章","section":15,"name":"渗透破坏"},{"index":85,"chapter":"第十章","section":16,"name":"歪打误撞"},{"index":86,"chapter":"第十章","section":17,"name":"乘势攻击"},{"index":87,"chapter":"第十章","section":18,"name":"攻陷基地"},{"index":88,"chapter":"第十章","section":19,"name":"断其后路"},{"index":89,"chapter":"第十章","section":20,"name":"合击上校"},{"index":90,"chapter":"第十一章","section":1,"name":"新的进攻"},{"index":91,"chapter":"第十一章","section":2,"name":"坚守哨站"},{"index":92,"chapter":"第十一章","section":3,"name":"急速突击"},{"index":93,"chapter":"第十一章","section":4,"name":"身陷重围"},{"index":94,"chapter":"第十一章","section":5,"name":"内外合击"},{"index":95,"chapter":"第十一章","section":6,"name":"胜利突围"},{"index":96,"chapter":"第十一章","section":7,"name":"齐心协力"},{"index":97,"chapter":"第十一章","section":8,"name":"棋差一招"},{"index":98,"chapter":"第十一章","section":9,"name":"绝境逢生"},{"index":99,"chapter":"第十二章","section":1,"name":"风卷残云"},{"index":100,"chapter":"第十二章","section":2,"name":"全军出击"},{"index":101,"chapter":"第十二章","section":3,"name":"城外初战"},{"index":102,"chapter":"第十二章","section":4,"name":"城头激战"},{"index":103,"chapter":"第十二章","section":5,"name":"稳守后方"},{"index":104,"chapter":"第十二章","section":6,"name":"死亡使者"},{"index":105,"chapter":"第十二章","section":7,"name":"城墙攻防战1"},{"index":106,"chapter":"第十二章","section":8,"name":"城墙攻防战2"},{"index":107,"chapter":"第十二章","section":9,"name":"巨兽恩佐斯"},{"index":108,"chapter":"第十二章","section":10,"name":"追击战1"},{"index":109,"chapter":"第十二章","section":11,"name":"追击战2"},{"index":110,"chapter":"第十二章","section":12,"name":"凤凰战舰"},{"index":111,"chapter":"第十三章","section":1,"name":"珍惜矿洞"},{"index":112,"chapter":"第十三章","section":2,"name":"危险临近"},{"index":113,"chapter":"第十三章","section":3,"name":"绿色魔影"},{"index":114,"chapter":"第十三章","section":4,"name":"艰难前进"},{"index":115,"chapter":"第十三章","section":5,"name":"孤军深入"},{"index":116,"chapter":"第十三章","section":6,"name":"赤色风暴"},{"index":117,"chapter":"第十三章","section":7,"name":"急速支援"},{"index":118,"chapter":"第十三章","section":8,"name":"团团围困"},{"index":119,"chapter":"第十三章","section":9,"name":"破敌突围"},{"index":120,"chapter":"第十三章","section":10,"name":"强攻大门上"},{"index":121,"chapter":"第十三章","section":11,"name":"强攻大门下"},{"index":122,"chapter":"第十三章","section":12,"name":"紫色闪电"},{"index":123,"chapter":"第十三章","section":13,"name":"快速通过"},{"index":124,"chapter":"第十三章","section":14,"name":"摧毁核心"},{"index":125,"chapter":"第十三章","section":15,"name":"第五统领"},{"index":126,"chapter":"第十三章","section":16,"name":"最后攻击"},{"index":127,"chapter":"第十三章","section":17,"name":"矿洞大战"},{"index":128,"chapter":"第十三章","section":18,"name":"决战镇压者"},{"index":129,"chapter":"第十四章","section":1,"name":"超级武器"},{"index":130,"chapter":"第十四章","section":2,"name":"陨落的基地"},{"index":131,"chapter":"第十四章","section":3,"name":"愤怒复仇"},{"index":132,"chapter":"第十四章","section":4,"name":"卷土重来"},{"index":133,"chapter":"第十四章","section":5,"name":"坚守待援"},{"index":134,"chapter":"第十四章","section":6,"name":"击破攻城者"},{"index":135,"chapter":"第十四章","section":7,"name":"源源不断"},{"index":136,"chapter":"第十四章","section":8,"name":"抢占要地"},{"index":137,"chapter":"第十四章","section":9,"name":"截断援兵"},{"index":138,"chapter":"第十四章","section":10,"name":"乘势进攻"},{"index":139,"chapter":"第十四章","section":11,"name":"击杀信使"},{"index":140,"chapter":"第十四章","section":12,"name":"击破章鱼上校"},{"index":141,"chapter":"第十四章","section":13,"name":"总攻开始"},{"index":142,"chapter":"第十四章","section":14,"name":"遭遇援军"},{"index":143,"chapter":"第十四章","section":15,"name":"击杀监军"},{"index":144,"chapter":"第十四章","section":16,"name":"误入雷区"},{"index":145,"chapter":"第十四章","section":17,"name":"杀出重围"},{"index":146,"chapter":"第十四章","section":18,"name":"决战火焰"},{"index":147,"chapter":"第十四章","section":19,"name":"围城战上"},{"index":148,"chapter":"第十四章","section":20,"name":"围城战下"},{"index":149,"chapter":"第十四章","section":21,"name":"击败守门人"},{"index":150,"chapter":"第十四章","section":22,"name":"切断支援"},{"index":151,"chapter":"第十四章","section":23,"name":"横扫战场"},{"index":152,"chapter":"第十四章","section":24,"name":"摧毁锻炉"},{"index":153,"chapter":"第十四章","section":25,"name":"进入通道"},{"index":154,"chapter":"第十四章","section":26,"name":"生死绝境"},{"index":155,"chapter":"第十四章","section":27,"name":"狭路相逢"},{"index":156,"chapter":"第十四章","section":28,"name":"进攻研究所"},{"index":157,"chapter":"第十四章","section":29,"name":"截取资料"},{"index":158,"chapter":"第十四章","section":30,"name":"击杀看守者"},{"index":159,"chapter":"第十四章","section":31,"name":"作战中心"},{"index":160,"chapter":"第十四章","section":32,"name":"剑盾卫士"},{"index":161,"chapter":"第十四章","section":33,"name":"剑盾队长"},{"index":162,"chapter":"第十四章","section":34,"name":"势如破竹"},{"index":163,"chapter":"第十四章","section":35,"name":"负隅顽抗"},{"index":164,"chapter":"第十四章","section":36,"name":"胜利在望"},{"index":165,"chapter":"第十四章","section":37,"name":"突袭作战"},{"index":166,"chapter":"第十四章","section":38,"name":"强行侦查"},{"index":167,"chapter":"第十四章","section":39,"name":"排除阴影"},{"index":168,"chapter":"第十四章","section":40,"name":"攻占大厅上"},{"index":169,"chapter":"第十四章","section":41,"name":"攻占大厅中"},{"index":170,"chapter":"第十四章","section":42,"name":"攻占大厅下"}];
+function ensureNewLevelData(d){
+  if(!d.newLevelData || typeof d.newLevelData !== "object"){
+    d.newLevelData = {levelPack:"p1",p1:{levelsMax:60,lockNum:1},p2:{levelsMax:60,lockNum:0},scoreObj:{}};
+  }
+  if(!d.newLevelData.p1) d.newLevelData.p1 = {levelsMax:60,lockNum:1};
+  if(!d.newLevelData.p2) d.newLevelData.p2 = {levelsMax:60,lockNum:0};
+  if(!d.newLevelData.scoreObj || typeof d.newLevelData.scoreObj !== "object") d.newLevelData.scoreObj = {};
+  return d.newLevelData;
+}
+function freeHeartLabel(lv){
+  if(!lv) return "未开始";
+  if(lv.chapter === "序章") return "序章 " + lv.name;
+  return lv.chapter + " " + lv.section + "-" + lv.name;
+}
+function detectClearedLevelIndex(d){
+  const nld = ensureNewLevelData(d);
+  const lock = Number(nld.p1.lockNum || 1);
+  // lockNum N means indices 0..N-1 accessible; highest likely cleared is N-2 when next is unlocked after clear.
+  // Prefer highest scored p1_0_* level; fallback to lockNum-2.
+  let best = -1;
+  for(const [k,v] of Object.entries(nld.scoreObj || {})){
+    const m = /^p1_0_(\d+)$/.exec(k);
+    if(!m) continue;
+    const lv = Number(m[1]);
+    if(Number(v) >= 0 && lv > best) best = lv;
+  }
+  if(best >= 0) return best;
+  return Math.max(-1, lock - 2);
+}
+function applyStoryProgressToLevel(d, clearedIndex){
+  clearedIndex = Number(clearedIndex);
+  if(!Number.isInteger(clearedIndex) || clearedIndex < -1 || clearedIndex > freeHeartLevels.length - 1){
+    throw new Error("未知关卡进度。");
+  }
+  const nld = ensureNewLevelData(d);
+  nld.levelPack = "p1";
+  nld.p1.levelsMax = Math.max(Number(nld.p1.levelsMax || 60), 60);
+  // Keep p2 locked for this tool (月球危机暂不处理).
+  if(nld.p2 && Number(nld.p2.lockNum || 0) > 0){
+    // do not force change existing p2; leave as-is to minimize side effects
+  }
+  if(clearedIndex < 0){
+    nld.p1.lockNum = 1;
+    nld.scoreObj = {};
+  } else {
+    // After clearing C, unlock next C+1 => accessible up to C+1 => lockNum = C+2
+    // If final level, lockNum = C+1 still keeps all accessible (0..C).
+    const isLast = clearedIndex >= freeHeartLevels.length - 1;
+    nld.p1.lockNum = isLast ? (clearedIndex + 1) : (clearedIndex + 2);
+    const kept = {};
+    for(const [k,v] of Object.entries(nld.scoreObj || {})){
+      const m = /^p1_(\d+)_(\d+)$/.exec(k);
+      if(!m) continue;
+      const lv = Number(m[2]);
+      if(lv <= clearedIndex) kept[k] = v;
+    }
+    for(let lv = 0; lv <= clearedIndex; lv++){
+      const key = "p1_0_" + lv;
+      if(kept[key] == null) kept[key] = (lv === 0 ? 1 : 10050);
+    }
+    if(kept["p1_0_0"] == null) kept["p1_0_0"] = 1;
+    nld.scoreObj = kept;
+  }
+  if(Array.isArray(d.levelsLock)) d.levelsLock = [1,0,0,0,0];
+  d.modUnlockAll = false;
+  d.modAllLevelsPassed = false;
+  if(clearedIndex < 0) return {label:"未开始（仅解锁第一关）", lockNum:1, index:-1};
+  const lv = freeHeartLevels[clearedIndex];
+  return {label:freeHeartLabel(lv), lockNum:nld.p1.lockNum, index:clearedIndex, level:lv};
+}
+function buildStoryProgressOptions(selectedIndex){
+  selectedIndex = Number(selectedIndex);
+  let html = '<option value="-1"'+(selectedIndex < 0 ? " selected" : "")+'>未开始（仅解锁第一关）</option>';
+  let currentChapter = null;
+  for(const lv of freeHeartLevels){
+    if(lv.chapter !== currentChapter){
+      if(currentChapter !== null) html += "</optgroup>";
+      currentChapter = lv.chapter;
+      html += '<optgroup label="自由之心 · '+currentChapter+'">';
+    }
+    const label = freeHeartLabel(lv);
+    html += '<option value="'+lv.index+'"'+(selectedIndex === lv.index ? " selected" : "")+'>已通关到：'+label+'</option>';
+  }
+  if(currentChapter !== null) html += "</optgroup>";
+  return html;
+}
+function waitEditorFrameReady(timeoutMs=8000){
+ return new Promise((resolve,reject)=>{
+  const started=Date.now();
+  const timer=setInterval(()=>{
+   try{
+    const doc=editorFrame.contentDocument;
+    if(doc && doc.getElementById && (doc.getElementById("commonGrid") || doc.getElementById("jsonText") || doc.getElementById("notice"))){
+      clearInterval(timer);
+      resolve(doc);
+      return;
+    }
+    if(Date.now()-started>timeoutMs){
+      clearInterval(timer);
+      reject(new Error("修改器内页加载超时。请完全退出游戏后重开修改器。"));
+    }
+  }catch(e){
+    if(Date.now()-started>timeoutMs){
+      clearInterval(timer);
+      reject(new Error("修改器内页无法访问："+((e&&e.message)||e)));
+    }
+  }
+  },50);
+ });
+}
+async function loadEditor(index){
+ clearPageError();
+ let response,html;
+ for(let i=0;i<3;i++){
+  try{
+   response=await fetch("/editor");
+   if(!response.ok) throw new Error("HTTP "+response.status);
+   html=await response.text();
+   break;
+  }catch(err){
+   if(i===2) throw new Error("无法加载修改器页面 /editor。请保持启动修改器黑窗口不要关。");
+   await new Promise(r=>setTimeout(r,250*(i+1)));
+  }
+ }
+ const slotMarker='const EDITOR_SLOT_INDEX=-1;';
+ if(!html.includes(slotMarker)) throw new Error("修改器内页版本不兼容：缺少槽位协议标记。");
+ html=html.replace(slotMarker,'const EDITOR_SLOT_INDEX='+Number(index)+';');
+ html=html.replace('</head>','<style>.saveSafetyGuide{display:flex;align-items:center;gap:10px;padding:8px 12px;border:2px solid #ffb000;border-radius:9px;background:#4a2500;color:#fff0b3;font-size:18px;font-weight:900;box-shadow:0 0 18px #ff9d0055}.saveSafetyGuide .arrow{font-size:30px;color:#ffe600;line-height:1}.bar #saveBtn{font-size:17px;font-weight:900;padding:10px 18px;box-shadow:0 0 0 3px #ffe60055,0 0 22px #ff9d0088}.backupNowInner{background:#754400!important;border-color:#ffc857!important;font-weight:800}</style></head>');
+ html=html.replace('</body>','<script>(function(){function setupSafety(){var save=document.getElementById("saveBtn"),bar=save&&save.parentNode;if(save&&bar&&!document.getElementById("saveSafetyGuide")){save.textContent="保存修改（自动备份）";var guide=document.createElement("div");guide.id="saveSafetyGuide";guide.className="saveSafetyGuide";guide.innerHTML="<span class=\"arrow\">➜</span><span>修改完成后请点击这里<br>保存时会自动备份</span>";bar.insertBefore(guide,save);var manual=document.createElement("button");manual.type="button";manual.className="backupNowInner";manual.textContent="仅备份当前存档";manual.onclick=function(){parent.manualBackup()};bar.insertBefore(manual,guide)}var meta=document.getElementById("saveMeta");if(meta&&meta.textContent.indexOf("可能回档")<0)meta.textContent+="（可能回档，注意备份）"}addEventListener("DOMContentLoaded",setupSafety);setInterval(setupSafety,1000)})();<\/script></body>');
+ const carOptions=customCars.map(([id,name])=>'<option value="'+id+'">'+name+'</option>').join('');
+ const weaponOptions=customWeapons.map(([bag,id,name],i)=>'<option value="'+i+'">'+name+'</option>').join('');
+ html=html.replace('<button data-tab="backups">备份恢复</button>','<button data-tab="backups">备份恢复</button><button data-tab="customCars">定制车辆</button><button data-tab="customWeapons">定制武器</button><button data-tab="specialFeatures">特殊功能</button><button data-tab="carForge">战车改造</button><button data-tab="chipForge">芯片洗练</button>');
+ html=html.replace('</main>','<section id="customCars" class="panel"><div class="card"><h2>定制车辆</h2><p class="status">从超合金名车堂选择车辆，加入当前存档的车身背包。</p><div class="toolbar"><select id="customCarSelect" style="min-width:260px">'+carOptions+'</select><button onclick="parent.addCustomCar()">加入车身背包</button></div></div></section><section id="customWeapons" class="panel"><div class="card"><h2>定制武器</h2><p class="status">从神兵谱选择武器，自动加入当前存档对应的主武器或副武器背包。</p><div class="toolbar"><select id="customWeaponSelect" style="min-width:300px">'+weaponOptions+'</select><button onclick="parent.addCustomWeapon()">加入武器背包</button></div></div></section></main>');
+ const featureSlot=saveSlotAt(gameData,Number(index));
+ if(!featureSlot||!featureSlot.data) throw new Error("指定存档槽位没有角色数据。");
+ const featureData=featureSlot.data;
+ const chipItems=repairDenseArray(featureData.materialsItems&&featureData.materialsItems.arr).filter(x=>x&&x.type==="chip");
+ const chipOptions=chipItems.map((x,i)=>'<option value="'+i+'">'+escapeHtml(String(x.cnName||x.name||"未命名芯片"))+' · '+(Number(x.affixLevel||0)+1)+'级 · '+repairDenseArray(x.addArr).length+'词条</option>').join('');
+ const chipForgeHtml='<section id="chipForge" class="panel"><div class="card"><h2>芯片洗练</h2><p class="status">编辑材料背包内的芯片。等级、词条容量和数值范围均按游戏原规则校验；紫色芯片的成长共鸣固定且不可改名。</p>'+(chipItems.length?'<div class="toolbar"><label>选择芯片 <select id="chipForgeSelect" style="min-width:340px" onchange="parent.renderChipForge()">'+chipOptions+'</select></label></div><div id="chipForgeEditor" style="margin-top:14px"></div><div style="margin-top:16px;padding:12px 16px;border:2px solid #ffc857;border-radius:9px;background:#412500;color:#ffe9a6;font-weight:900">保存时自动创建存档备份；不合法的等级、数量或数值会被拒绝。</div><div class="toolbar"><button onclick="parent.saveChipForge()">保存芯片修改（自动备份）</button></div>':'<p class="status">当前材料背包中没有芯片。</p>')+'</div></section>';
+ html=html.replace('</main>',chipForgeHtml+'</main>');
+ const carItems=[...repairDenseArray(featureData.carItems&&featureData.carItems.equArr),...repairDenseArray(featureData.carItems&&featureData.carItems.arr)].filter(x=>x&&x.type==="car"&&!x.skinB);
+ const forgeCarOptions=carItems.map((x,i)=>'<option value="'+i+'">'+escapeHtml(String(x.cnName||x.name||x.baseLabel||"未命名战车"))+' · '+String(carQualities[x.color]?.[0]||x.color||"未知")+' · 装备'+Number(x.affixLevel||1)+'级</option>').join('');
+ const carForgeHtml='<section id="carForge" class="panel"><div class="card"><h2>战车改造</h2><p class="status">编辑车身背包及已装备战车。战车等级、装备词条等级均封顶210；品质决定基础属性倍率与合法词条数量。</p>'+(carItems.length?'<div class="toolbar"><label>选择战车 <select id="carForgeSelect" style="min-width:390px" onchange="parent.renderCarForge()">'+forgeCarOptions+'</select></label></div><div id="carForgeEditor" style="margin-top:14px"></div><div style="margin-top:16px;padding:12px 16px;border:2px solid #ffc857;border-radius:9px;background:#412500;color:#ffe9a6;font-weight:900">修改品质不会自动删词条；若词条数超过新品质上限，保存会被拒绝。</div><div class="toolbar"><button onclick="parent.saveCarForge()">保存战车修改（自动备份）</button></div>':'<p class="status">当前存档中没有可编辑战车。</p>')+'</div></section>';
+ html=html.replace('</main>',carForgeHtml+'</main>');
+ const feature=(id,label,checked)=>'<label style="display:flex;align-items:center;gap:10px;padding:12px 14px;margin:8px 0;border:1px solid var(--line);border-radius:8px;background:#091725"><input id="'+id+'" type="checkbox" '+(checked?'checked':'')+' style="width:20px;height:20px"><strong>'+label+'</strong></label>';
+ const featureHtml=feature('modInfiniteEnergy','无限能量',featureData.modInfiniteEnergy)+feature('modGod','车身无敌',featureData.modGod)+feature('modOneHit','一击必杀',featureData.modOneHit)+feature('modUnlockAll','关卡全解锁',featureData.modUnlockAll)+feature('modAllLevelsPassed','所有关卡通关',featureData.modAllLevelsPassed)+feature('modCraftFree','研发无视全部条件',featureData.modCraftFree)+feature('modNoExtraCooldown','副本挑战无冷却',featureData.modNoExtraCooldown)+feature('modNoTaskCooldown','任务无冷却时间',featureData.modNoTaskCooldown)+feature('disableAutoCollectLifePer','禁止自动捡取医疗箱',featureData.disableAutoCollectLifePer!==false);
+ const vipRank=getVipRank(featureData);
+ const vipBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>VIP 等级开关</strong><p class="status" style="margin:8px 0 10px">直接设置当前存档是否拥有青铜/白银/黄金/钻石 VIP。高等级会覆盖低等级。选择“无 VIP”可清空。离线模式按永久 VIP 写入。</p><div class="toolbar"><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="0" '+(vipRank===0?'checked':'')+'>无 VIP</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="1" '+(vipRank===1?'checked':'')+'>青铜</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="2" '+(vipRank===2?'checked':'')+'>白银</label><label style="display:flex;align-items:center;gap:8px;margin-right:12px"><input type="radio" name="vipRank" value="3" '+(vipRank===3?'checked':'')+'>黄金</label><label style="display:flex;align-items:center;gap:8px"><input type="radio" name="vipRank" value="4" '+(vipRank===4?'checked':'')+'>钻石</label></div></div>';
+ const selectedCleared=detectClearedLevelIndex(featureData);
+ const storyOptions=buildStoryProgressOptions(selectedCleared);
+  const completeTasksBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>一键完成当前任务（暂时无效）</strong><p class="status" style="margin:8px 0 10px">【暂时无效】原计划：把当前已接取任务标为完成（日常/挑战/收集/扫荡）。暂不开放。</p><div class="toolbar"><button type="button" onclick="alert(&quot;该功能暂时无效，敬请期待。&quot;)">完成当前已接取任务</button></div></div>';
+  const livenessTestBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>活跃奖励领取测试</strong><p class="status" style="margin:8px 0 10px">将当前存档的全部活跃任务设为完成、活跃度设为100，并保持五档奖励全部未领取。用于测试领取最后一档后是否自动刷新任务。</p><div class="toolbar"><button type="button" onclick="parent.prepareLivenessRewardsTest()">生成100活跃度未领奖状态</button></div></div>';
+  const carZeroBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>战车属性为零修复</strong><p class="status" style="margin:8px 0 10px">处理：1) 全0属性重roll为整数百分比；2) 已有长小数属性四舍五入清理。正常干净属性不改。可多次使用。</p><div class="toolbar"><button type="button" onclick="parent.fixZeroCarAffix()">修复0属性/四舍五入长小数</button></div></div>';
+  const chapterBox='<div style="margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#091725"><strong>剧情进度测试（自由之心）</strong><p class="status" style="margin:8px 0 10px">精确到每一关：选择“已通关到某关”后，该关及之前视为通关，下一关解锁，后续关卡锁定。目前仅支持自由之心，不含月球危机。不会改等级、物品或VIP。</p><div class="toolbar"><select id="chapterProgressSelect" style="min-width:360px;max-width:100%">'+storyOptions+'</select><button type="button" onclick="parent.saveChapterProgress()" style="background:#087f8c;border-color:#22d3ee;font-weight:900">保存剧情进度（自动备份）</button></div></div>';
+ html=html.replace('</main>','<section id="specialFeatures" class="panel"><div class="card"><h2>特殊功能</h2><p class="status">开关只作用于当前选中的存档。修改前请先退出游戏。</p>'+featureHtml+vipBox+chapterBox+carZeroBox+completeTasksBox+livenessTestBox+'<div style="margin:16px 0 10px;padding:12px 16px;border:2px solid #ffc857;border-radius:9px;background:#412500;color:#ffe9a6;font-size:18px;font-weight:900">⬇ 修改完成后点击下方保存按钮；保存时会自动创建备份 ⬇</div><div class="toolbar"><button onclick="parent.saveSpecialFeatures()">保存特殊功能设置（自动备份）</button></div></div></section></main>');
+ editorFrame.removeAttribute("src");
+ editorFrame.srcdoc=html;
+ try{
+  const doc=await waitEditorFrameReady();
+  renderChipForge();
+  renderCarForge();
+  const notice=doc.getElementById("notice");
+  if(notice && /error/i.test(notice.className||"") && notice.textContent){
+    throw new Error(notice.textContent.trim());
+  }
+  const grid=doc.getElementById("commonGrid");
+  const jsonText=doc.getElementById("jsonText");
+  const hasFields=!!(grid && grid.children && grid.children.length);
+  const hasJson=!!(jsonText && String(jsonText.value||"").trim());
+  if(!hasFields && !hasJson){
+    const bodyText=((doc.body&&doc.body.innerText)||"").replace(/\s+/g," ").trim();
+    throw new Error("修改器内容为空。"+(bodyText?(" 内页提示："+bodyText.slice(0,180)):" 请确认存档槽位有效，并完全退出游戏后重试。"));
+  }
+ }catch(e){
+  editorFrame.removeAttribute("srcdoc");
+  editorFrame.src="about:blank";
+  throw e;
+ }
+}
+function visualSlotNumber(index){return [2,3,1,4,5,6,7,8][index]??(index+1)}
+async function load(keepIndex=-1){try{busy(true);clearPageError();const response=await api("/api/editor/data");gameData=normalizeLocalSlots(response.game_data||{});slot.innerHTML="";mainSlot.innerHTML="";saveSlotEntries(gameData).map(x=>({s:x.value,i:x.index,no:visualSlotNumber(x.index)})).filter(x=>x.s&&x.s.data).sort((a,b)=>a.no-b.no).forEach(({s,i,no})=>{const text=String(no).padStart(2,"0")+"号 · "+(s.data.playerName||"未知角色")+" · 等级"+(Number(s.data.level||0)+1)+" · 研发卡"+countCard(s)+"张 · 挑战卡"+countEliteCard(s)+"张";for(const target of [slot,mainSlot]){const o=document.createElement("option");o.value=String(i);o.textContent=text;target.appendChild(o)}});if(!slot.options.length)throw new Error("没有找到可用存档。支持普通数组、AMF $dense 数组和数字键槽位；请确认存档中至少有一个有效角色。");if(keepIndex>=0&&saveSlotAt(gameData,keepIndex)?.data){slot.value=String(keepIndex);mainSlot.value=String(keepIndex)}else{slot.value=mainSlot.value}await loadEditor(Number(mainSlot.value))}catch(e){editorFrame.removeAttribute("srcdoc");editorFrame.src="about:blank";showPageError(e.message||e);show(e.message||e,true)}finally{busy(false)}}
+function selected(){const index=Number(slot.value),saveSlot=saveSlotAt(gameData,index);if(!saveSlot?.data)throw new Error("请选择有效存档。");return {index,saveSlot}}
+async function save(index,message){const response=await api("/api/editor/save",{method:"POST",body:JSON.stringify({game_data:gameData})});gameData=response.game_data;const count=countCard(saveSlotAt(gameData,index)||{});await load(index);show(message+" 当前共有"+count+"张。")}
+async function saveGear(index,message){const response=await api("/api/editor/save",{method:"POST",body:JSON.stringify({game_data:gameData})});gameData=response.game_data;await load(index);show(message)}
+function currentCars(){const {saveSlot}=selected(),g=saveSlot.data.carItems||{};return [...repairDenseArray(g.equArr),...repairDenseArray(g.arr)].filter(x=>x&&x.type==="car"&&!x.skinB)}
+function selectedCar(){const doc=editorFrame.contentDocument,sel=doc&&doc.getElementById("carForgeSelect"),cars=currentCars();if(!sel||!cars.length)throw new Error("当前存档中没有可编辑战车。");const car=cars[Number(sel.value)||0];if(!car)throw new Error("所选战车已不存在，请重新加载修改器。");return {car,doc}}
+function carAffixRange(name,level){
+ const lv=Math.max(1,Math.min(210,Math.trunc(Number(level)||1))),band=Math.min(20,Math.floor(Math.min(lv,209)/10));
+ if(name==="allAdd")return [Number((.01+.02*band).toFixed(3)),Number((.05+.02*band).toFixed(3))];
+ if(["attackAdd","subAdd","lifeAdd","defence_mul","life_max"].includes(name))return [Number((.06+.04*band).toFixed(3)),Number((.1+.04*band).toFixed(3))];
+ const defence=[[15,128],[143,271],[286,414],[428,557],[571,700],[714,843],[857,986],[1000,1128],[1143,1281],[1286,1414],[1428,1557],[1571,1700],[1714,1843],...carLateDefence];
+ const life=[[40,573],[700,2440],[2700,5640],[6033,10173],[10700,16040],[16700,23240],[24033,31773],[32700,41640],[42700,52840],[54033,65373],[66700,79240],[80700,94440],[96033,110973],...carLateLife];
+ return (name==="defence_max"?defence:name==="life_value"?life:null)?.[band]||null;
+}
+function carQualityOptions(selected){return Object.entries(carQualities).map(([key,q])=>'<option value="'+key+'" '+(key===selected?'selected':'')+'>'+q[0]+'（基础倍率 ×'+q[1]+'，词条 '+(q[2]===q[3]?q[2]:q[2]+'～'+q[3])+'）</option>').join('')}
+function carArmorOptions(selected){return Object.entries(carArmors).map(([key,name])=>'<option value="'+key+'" '+(key===selected?'selected':'')+'>'+name+'</option>').join('')}
+function carAffixOptions(selected){return carAffixes.map(([key,name])=>'<option value="'+key+'" '+(key===selected?'selected':'')+'>'+name+'</option>').join('')}
+function carAffixRow(name,value){const r=carAffixRange(name,1)||[0,0];return '<div class="carAffixRow" style="display:grid;grid-template-columns:minmax(210px,1fr) 150px 190px 86px;gap:10px;align-items:center;margin:8px 0"><select class="carAffixName" data-prev="'+name+'" onchange="parent.changeCarAffix(this)">'+carAffixOptions(name)+'</select><input class="carAffixValue" type="number" step="0.001" value="'+Number(value)+'"><span class="status carAffixRange">允许 '+r[0]+' ～ '+r[1]+'</span><button type="button" class="secondary" onclick="this.parentNode.remove();parent.refreshCarForge()">删除</button></div>'}
+function renderCarForge(){try{const {car,doc}=selectedCar(),box=doc.getElementById("carForgeEditor");if(!box)return;const entries=Object.entries(car.extraObj||{}).filter(([name,value])=>carAffixes.some(x=>x[0]===name)&&Number.isFinite(Number(value))),vehicleLevel=Math.max(1,Math.min(210,Number(car.levelOverride||car.affixLevel||1))),equipLevel=Math.max(1,Math.min(210,Number(car.affixLevel||vehicleLevel)));box.innerHTML='<div style="display:grid;grid-template-columns:minmax(220px,1fr) 150px 150px;gap:12px;align-items:end"><label>战车名称<input disabled value="'+escapeHtml(String(car.cnName||car.name||car.baseLabel||""))+'"></label><label>战车等级（1～210）<input id="carVehicleLevel" type="number" min="1" max="210" value="'+vehicleLevel+'"></label><label>装备/词条等级（1～210）<input id="carEquipLevel" type="number" min="1" max="210" value="'+equipLevel+'" onchange="parent.refreshCarForge()"></label><label>当前品质<select id="carQuality" onchange="parent.refreshCarForge()">'+carQualityOptions(String(car.color||"white"))+'</select></label><label>装甲元素<select id="carArmor">'+carArmorOptions(String(car.defenceType||"mixed"))+'</select></label><div><strong id="carAffixCount"></strong><br><span id="carQualityInfo" class="status"></span></div></div><div id="carAffixRows">'+entries.map(x=>carAffixRow(x[0],x[1])).join('')+'</div><div class="toolbar"><button type="button" id="carAddAffix" onclick="parent.addCarAffix()">增加词条</button><button type="button" onclick="parent.fillCarAffixMax()" style="background:#754400;border-color:#ffc857;font-weight:800">一键填充当前等级最大值</button></div>';refreshCarForge()}catch(e){show(e.message||e,true)}}
+function refreshCarForge(){try{const {doc}=selectedCar(),level=Number(doc.getElementById("carEquipLevel").value),quality=doc.getElementById("carQuality").value,q=carQualities[quality],rows=[...doc.querySelectorAll(".carAffixRow")],selects=rows.map(r=>r.querySelector(".carAffixName"));selects.forEach(select=>{const used=new Set(selects.filter(x=>x!==select).map(x=>x.value));[...select.options].forEach(o=>o.disabled=used.has(o.value))});rows.forEach(row=>{const r=carAffixRange(row.querySelector(".carAffixName").value,level);row.querySelector(".carAffixRange").textContent=r?'允许 '+r[0]+' ～ '+r[1]:'不可用'});doc.getElementById("carAffixCount").textContent='词条 '+rows.length+' / '+q[3];doc.getElementById("carQualityInfo").textContent=q[0]+'基础属性倍率 ×'+q[1]+'；合法词条 '+(q[2]===q[3]?q[2]:q[2]+'～'+q[3]);doc.getElementById("carAddAffix").disabled=rows.length>=q[3]}catch(e){}}
+function changeCarAffix(select){const doc=editorFrame.contentDocument,others=[...doc.querySelectorAll(".carAffixName")].filter(x=>x!==select);if(others.some(x=>x.value===select.value)){select.value=select.dataset.prev||"";show("同一战车不能使用重复词条。",true);return}select.dataset.prev=select.value;refreshCarForge()}
+function addCarAffix(){const {doc}=selectedCar(),rows=[...doc.querySelectorAll(".carAffixRow")],q=carQualities[doc.getElementById("carQuality").value];if(rows.length>=q[3])return;const used=new Set(rows.map(r=>r.querySelector(".carAffixName").value)),name=carAffixes.map(x=>x[0]).find(x=>!used.has(x));if(!name)return;const level=Number(doc.getElementById("carEquipLevel").value),r=carAffixRange(name,level),div=doc.createElement("div");div.innerHTML=carAffixRow(name,r[0]);doc.getElementById("carAffixRows").appendChild(div.firstElementChild);refreshCarForge()}
+function fillCarAffixMax(){try{const {doc}=selectedCar(),level=Number(doc.getElementById("carEquipLevel").value);if(!Number.isInteger(level)||level<1||level>210)throw new Error("装备等级必须是1～210的整数。");let count=0;doc.querySelectorAll(".carAffixRow").forEach(row=>{const r=carAffixRange(row.querySelector(".carAffixName").value,level);if(r){row.querySelector(".carAffixValue").value=String(r[1]);count++}});refreshCarForge();show("已按 "+level+" 级上限填充 "+count+" 条战车词条，请确认后保存。")}catch(e){show(e.message||e,true)}}
+async function saveCarForge(){try{busy(true);const {index}=selected(),{car,doc}=selectedCar(),vehicleLevel=Number(doc.getElementById("carVehicleLevel").value),equipLevel=Number(doc.getElementById("carEquipLevel").value),quality=doc.getElementById("carQuality").value,armor=doc.getElementById("carArmor").value,q=carQualities[quality];if(!Number.isInteger(vehicleLevel)||vehicleLevel<1||vehicleLevel>210)throw new Error("战车等级必须是1～210的整数。");if(!Number.isInteger(equipLevel)||equipLevel<1||equipLevel>210)throw new Error("装备等级必须是1～210的整数。");if(!q)throw new Error("战车品质无效。");if(!carArmors[armor])throw new Error("装甲元素无效。");const rows=[...doc.querySelectorAll(".carAffixRow")];if(rows.length<q[2]||rows.length>q[3])throw new Error(q[0]+"品质必须拥有 "+(q[2]===q[3]?q[2]:q[2]+'～'+q[3])+" 条词条。");const extra={},seen=new Set();for(const row of rows){const name=row.querySelector(".carAffixName").value,value=Number(row.querySelector(".carAffixValue").value),range=carAffixRange(name,equipLevel);if(!carAffixes.some(x=>x[0]===name)||seen.has(name))throw new Error("战车词条无效或重复：“"+name+"”。");if(!Number.isFinite(value)||!range||value<range[0]-1e-9||value>range[1]+1e-9)throw new Error("词条“"+(carAffixes.find(x=>x[0]===name)||[name,name])[1]+"”必须在 "+range[0]+" ～ "+range[1]+" 之间。");seen.add(name);extra[name]=Math.round(value*1000)/1000}car.levelOverride=vehicleLevel;car.affixLevel=equipLevel;car.color=quality;car.defenceType=armor;car.extraObj=extra;await saveGear(index,"战车“"+String(car.cnName||car.name||car.baseLabel)+"”已保存：战车 "+vehicleLevel+" 级，装备 "+equipLevel+" 级，"+q[0]+"品质，"+rows.length+" 条词条。")}catch(e){show(e.message||e,true)}finally{busy(false)}}
+function freeSite(group){if(!group||typeof group!=="object")throw new Error("装备背包数据不完整。");group.arr=repairDenseArray(group.arr);const max=Number(group.bagMaxNum||0);if(group.arr.length>=max)throw new Error("对应装备背包已满，请先腾出一个格子。");const used=new Set(group.arr.map(x=>Number(x&&x.site)));return [...Array(max).keys()].find(x=>!used.has(x))??group.arr.length}
+async function addCustomCar(){try{busy(true);const select=editorFrame.contentDocument.getElementById("customCarSelect"),{index,saveSlot}=selected(),group=saveSlot.data.carItems,id=select.value,name=select.options[select.selectedIndex].text;if([...(group.arr||[]),...(group.equArr||[])].some(x=>x&&x.baseLabel===id))throw new Error(name+"已经在该存档中，不能重复加入。");const site=freeSite(group);group.lastID=Number(group.lastID||0)+1;group.arr.push({affixLevel:0,baseLabel:id,buyDate:"",cnName:name,color:"white",defenceType:"mixed",exploreIndex:-1,extraObj:{},id:String(group.lastID),imgLabel:"car/"+id+"_items",name:id,newB:true,site,strengthenNum:0,type:"car",upgradeNum:0});await saveGear(index,"已将“"+name+"”加入车身背包。")}catch(e){show(e.message,true)}finally{busy(false)}}
+async function addCustomWeapon(){try{busy(true);const select=editorFrame.contentDocument.getElementById("customWeaponSelect"),{index,saveSlot}=selected(),entry=customWeapons[Number(select.value)],bag=entry[0],id=entry[1],name=entry[2].replace("（副武器）",""),group=saveSlot.data[bag],base=id+"_lv1";if([...(group.arr||[]),...(group.equArr||[])].some(x=>x&&x.baseLabel===base))throw new Error(name+"已经在该存档中，不能重复加入。");const site=freeSite(group);group.lastID=Number(group.lastID||0)+1;group.arr.push({add:{},addSelf:{},baseEnergy:0,baseEnergyRate:0,baseLabel:base,buyDate:"",chipHole:{},cnName:name,color:0,define:null,dpsHurt:0,exploreIndex:-1,holeArr:[],id:String(group.lastID),imgLabel:(bag==="subItems"?"sub/":"arms/")+id+"_lv1",maxEnergy:0,maxEnergyRate:0,maxHoleNum:4,name,newB:true,nowEnergy:0,nowHoleNum:0,site,strengLevel:0,type:"arms",type2:"arms"});await saveGear(index,"已将“"+name+"”加入"+(bag==="subItems"?"副武器":"主武器")+"背包。")}catch(e){show(e.message,true)}finally{busy(false)}}
+function repairDenseArray(value){if(Array.isArray(value))return value;const result=[];if(value&&typeof value==="object"){if(Array.isArray(value.$dense))result.push(...value.$dense);for(const [key,item] of Object.entries(value))if(key!=="$dense"&&/^\d+$/.test(key))result[Number(key)]=item}return result}
+function escapeHtml(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function isPurpleChip(chip){return !!chip&&String(chip.name||"").includes("purple_chip")}
+function chipAffixCap(chip){return isPurpleChip(chip)?7:(chipCaps[String(chip&&chip.name||"")]||Math.max(1,repairDenseArray(chip&&chip.addArr).length))}
+function purpleGrowthLevel(level){return Math.max(10,Math.min(50,10+Math.floor((level-90)*2/3)))}
+function chipAllowedNames(chip,level){return isPurpleChip(chip)?purpleCombatAffixes:chipAffixes.map(x=>x[0]).filter(n=>level>=50||!n.endsWith("Add"))}
+function chipConfiguredRange(name,actualLevel){
+ if(["energy_max","energy_rate"].includes(name)){
+  if(actualLevel<=11)return [.06,.1];if(actualLevel<=21)return [.11,.15];if(actualLevel<=31)return [.16,.2];if(actualLevel<=41)return [.21,.25];if(actualLevel<=51)return [.26,.3];if(actualLevel<=61)return [.31,.35];if(actualLevel<=71)return [.36,.4];if(actualLevel<=81)return [.41,.45];if(actualLevel<=91)return [.46,.5];if(actualLevel<=101)return [.51,.55];if(actualLevel<=111)return [.56,.6];if(actualLevel<=121)return [.61,.65];if(actualLevel<=131)return [.66,.7];if(actualLevel<=141)return [.71,.75];return [.71,.8]
+ }
+ if(["allAdd","lifeAdd","attackAdd","subAdd","defenceAdd"].includes(name)){
+  if(actualLevel<=71)return [.01,.03];if(actualLevel<=81)return [.04,.06];if(actualLevel<=91)return [.07,.08];if(actualLevel<=101)return [.09,.1];if(actualLevel<=111)return [.11,.12];if(actualLevel<=131)return [.13,.14];if(actualLevel<=141)return [.15,.16];return [.15,.18]
+ }
+ const rows=chipRangeTables[name];if(!rows)return null;const row=rows.find(r=>actualLevel<r[0])||rows[rows.length-1];return [row[1],row[2]];
+}
+function chipTruncate(value,digits){const scale=10**digits;return Math.floor((value+1e-12)*scale)/scale}
+function chipStoredEndpoint(value,mode,upper=false){
+ if(upper)value-=1e-9;
+ if(mode==="int")return Math.floor(value);
+ if(mode==="per2")return chipTruncate(value,2);
+ if(mode==="per3")return value>=100?Math.floor(value):value>=1?chipTruncate(value,1):chipTruncate(value,3);
+ return chipTruncate(value,3);
+}
+function chipValueRange(name,level){
+ // addDefine receives zero-based affixLevel, then rolls within the preceding
+ // four levels. Most property functions add one; energy functions do not.
+ const zeroBased=Math.max(0,Math.trunc(Number(level)||1)-1),energy=["energy_max","energy_rate"].includes(name);
+ const randomLow=zeroBased<=1?zeroBased+1:Math.max(1,zeroBased-4)+1,randomHigh=zeroBased<=1?zeroBased+1:zeroBased;
+ const low=randomLow+(energy?0:1),high=randomHigh+(energy?0:1);
+ const lowRange=chipConfiguredRange(name,low),highRange=chipConfiguredRange(name,high);if(!lowRange||!highRange)return null;
+ const mode=chipRangeModes[name]||(energy?"per3":"raw3");
+ return [chipStoredEndpoint(lowRange[0],mode),chipStoredEndpoint(highRange[1],mode,true)];
+}
+function selectedBackpackChip(){const {saveSlot}=selected(),arr=repairDenseArray(saveSlot.data.materialsItems&&saveSlot.data.materialsItems.arr),chips=arr.filter(x=>x&&x.type==="chip"),doc=editorFrame.contentDocument,sel=doc&&doc.getElementById("chipForgeSelect");if(!sel||!chips.length)throw new Error("当前材料背包中没有可编辑芯片。");return {chip:chips[Number(sel.value)||0],doc}}
+function chipAffixOptionHtml(chip,selectedName,level){return chipAllowedNames(chip,level).map(n=>'<option value="'+n+'" '+(n===selectedName?'selected':'')+'>'+escapeHtml((chipAffixes.find(x=>x[0]===n)||[n,n])[1])+'</option>').join('')}
+function renderChipForge(){
+ try{const {chip,doc}=selectedBackpackChip(),box=doc.getElementById("chipForgeEditor");if(!box)return;const level=Math.max(1,Math.min(999,Number(chip.affixLevel||0)+1)),cap=chipAffixCap(chip),entries=repairDenseArray(chip.addArr).map(s=>{const p=String(s).split(":"),v=Number(p.slice(1).join(":"));return {name:p[0],value:v}}).filter(x=>x.name&&Number.isFinite(x.value)).slice(0,cap);let rows=entries.map((a,i)=>{const range=chipValueRange(a.name,level)||[0,0];return '<div class="chipAffixRow" style="display:grid;grid-template-columns:minmax(210px,1fr) 150px 190px 86px;gap:10px;align-items:center;margin:8px 0"><select class="chipAffixName" data-prev="'+a.name+'" onchange="parent.changeChipForgeAffix(this)">'+chipAffixOptionHtml(chip,a.name,level)+'</select><input class="chipAffixValue" type="number" step="0.001" value="'+a.value+'"><span class="status chipAffixRange">允许 '+range[0]+' ～ '+range[1]+'</span><button type="button" class="secondary" onclick="this.parentNode.remove();parent.refreshChipForgeRanges()">删除</button></div>'}).join('');if(isPurpleChip(chip))rows+='<div style="display:grid;grid-template-columns:minmax(210px,1fr) 150px 1fr;gap:10px;align-items:center;margin:12px 0;padding:10px;border:1px solid #8b5cf6;border-radius:8px;background:#24143b"><strong>成长共鸣（固定）</strong><input id="purpleGrowthValue" disabled value="成长等级 '+purpleGrowthLevel(level)+'"><span class="status">由芯片等级自动计算，不能更换或手动填写</span></div>';box.innerHTML='<div style="display:grid;grid-template-columns:minmax(220px,1fr) 180px 180px;gap:12px;align-items:end"><label>芯片名称<input disabled value="'+escapeHtml(String(chip.cnName||chip.name||""))+'"></label><label>芯片等级（1～999）<input id="chipForgeLevel" type="number" min="1" max="999" value="'+level+'" onchange="parent.refreshChipForgeRanges()"></label><div><strong id="chipAffixCount">词条 '+entries.length+' / '+cap+'</strong><br><span class="status">上限由芯片颜色决定；同一词条不可重复</span></div></div><div id="chipAffixRows">'+rows+'</div><div class="toolbar"><button type="button" id="chipAddAffix" onclick="parent.addChipForgeAffix()" '+(entries.length>=cap?'disabled':'')+'>增加词条</button><button type="button" onclick="parent.fillChipForgeMax()" style="background:#754400;border-color:#ffc857;font-weight:800">一键填充当前等级最大值</button></div>';box.dataset.chipId=String(chip.id||"");refreshChipForgeRanges()}catch(e){}
+}
+function changeChipForgeAffix(select){const doc=editorFrame.contentDocument,others=[...doc.querySelectorAll(".chipAffixName")].filter(x=>x!==select);if(others.some(x=>x.value===select.value)){const duplicate=select.value;select.value=select.dataset.prev||"";show("同一芯片不能使用重复词条：“"+(chipAffixes.find(x=>x[0]===duplicate)||[duplicate,duplicate])[1]+"”。",true);return}select.dataset.prev=select.value;refreshChipForgeRanges()}
+function refreshChipForgeRanges(){try{const {chip,doc}=selectedBackpackChip(),level=Number(doc.getElementById("chipForgeLevel").value),rows=doc.querySelectorAll(".chipAffixRow"),cap=chipAffixCap(chip),selects=[...doc.querySelectorAll(".chipAffixName")];selects.forEach(select=>{const used=new Set(selects.filter(x=>x!==select).map(x=>x.value));[...select.options].forEach(option=>option.disabled=used.has(option.value))});rows.forEach(row=>{const name=row.querySelector(".chipAffixName").value,r=chipValueRange(name,level);row.querySelector(".chipAffixRange").textContent=r?'允许 '+r[0]+' ～ '+r[1]:'当前等级不可用'});const growth=doc.getElementById("purpleGrowthValue");if(growth)growth.value="成长等级 "+purpleGrowthLevel(level);const count=doc.getElementById("chipAffixCount");if(count)count.textContent="词条 "+rows.length+" / "+cap;const add=doc.getElementById("chipAddAffix");if(add)add.disabled=rows.length>=cap;}catch(e){}}
+function addChipForgeAffix(){const {chip,doc}=selectedBackpackChip(),rows=doc.querySelectorAll(".chipAffixRow"),cap=chipAffixCap(chip);if(rows.length>=cap)return;const level=Number(doc.getElementById("chipForgeLevel").value),used=new Set([...rows].map(r=>r.querySelector(".chipAffixName").value)),name=chipAllowedNames(chip,level).find(n=>!used.has(n));if(!name){show("没有更多可用且不重复的词条。",true);return}const range=chipValueRange(name,level),div=doc.createElement("div");div.className="chipAffixRow";div.style.cssText="display:grid;grid-template-columns:minmax(210px,1fr) 150px 190px 86px;gap:10px;align-items:center;margin:8px 0";div.innerHTML='<select class="chipAffixName" data-prev="'+name+'" onchange="parent.changeChipForgeAffix(this)">'+chipAffixOptionHtml(chip,name,level)+'</select><input class="chipAffixValue" type="number" step="0.001" value="'+range[0]+'"><span class="status chipAffixRange">允许 '+range[0]+' ～ '+range[1]+'</span><button type="button" class="secondary" onclick="this.parentNode.remove();parent.refreshChipForgeRanges()">删除</button>';doc.getElementById("chipAffixRows").appendChild(div);refreshChipForgeRanges()}
+function fillChipForgeMax(){try{const {doc}=selectedBackpackChip(),level=Number(doc.getElementById("chipForgeLevel").value);if(!Number.isInteger(level)||level<1||level>999)throw new Error("请先填写 1～999 的合法芯片等级。");let count=0;doc.querySelectorAll(".chipAffixRow").forEach(row=>{const name=row.querySelector(".chipAffixName").value,range=chipValueRange(name,level),input=row.querySelector(".chipAffixValue");if(range&&input){input.value=String(Math.round(range[1]*1000)/1000);count++}});refreshChipForgeRanges();show("已按 "+level+" 级上限填充 "+count+" 条词条，请确认后保存。") }catch(e){show(e.message||e,true)}}
+async function saveChipForge(){try{busy(true);const {index}=selected(),{chip,doc}=selectedBackpackChip(),level=Number(doc.getElementById("chipForgeLevel").value);if(!Number.isInteger(level)||level<1||level>999)throw new Error("芯片等级必须是 1～999 的整数。");const rows=[...doc.querySelectorAll(".chipAffixRow")],cap=chipAffixCap(chip);if(rows.length>cap)throw new Error("词条数量超过该芯片上限（最多 "+cap+" 条）。");if(isPurpleChip(chip)&&rows.length!==purpleCombatAffixes.length)throw new Error("紫色芯片必须保留完整的 7 个固定战斗词条槽位。");const allowed=chipAllowedNames(chip,level),seen=new Set(),addArr=[];for(const row of rows){const name=row.querySelector(".chipAffixName").value,value=Number(row.querySelector(".chipAffixValue").value);if(!allowed.includes(name))throw new Error("词条“"+name+"”在当前芯片或等级下不可用。");if(seen.has(name))throw new Error("同一芯片不能出现重复词条：“"+name+"”。");seen.add(name);const range=chipValueRange(name,level);if(!Number.isFinite(value)||!range||value<range[0]-1e-9||value>range[1]+1e-9)throw new Error("词条“"+(chipAffixes.find(x=>x[0]===name)||[name,name])[1]+"”必须在 "+range[0]+" ～ "+range[1]+" 之间。");addArr.push(name+":"+Math.round(value*1000)/1000)}if(isPurpleChip(chip)&&purpleCombatAffixes.some(n=>!seen.has(n)))throw new Error("紫色芯片的 7 个战斗词条类型固定，不允许替换或删除。");chip.affixLevel=level-1;chip.addArr=addArr;await saveGear(index,"芯片“"+String(chip.cnName||chip.name)+"”已保存，等级 "+level+"，词条 "+addArr.length+" 条。紫芯片成长共鸣已按等级自动更新。")}catch(e){show(e.message||e,true)}finally{busy(false)}}
+async function saveChapterProgress(){try{busy(true);const doc=editorFrame.contentDocument,{index,saveSlot}=selected(),d=saveSlot.data;const chapterSelect=doc.getElementById("chapterProgressSelect");if(!chapterSelect)throw new Error("未找到剧情进度选项。");const c=applyStoryProgressToLevel(d,chapterSelect.value);const nextText=c.index>=freeHeartLevels.length-1?"已到自由之心最终关":("下一关已解锁");await saveGear(index,"剧情进度已设置为："+c.label+"（"+nextText+"，后续锁定，lockNum="+c.lockNum+"）。重新进入该存档后生效。");}catch(e){show(e.message,true)}finally{busy(false)}}
+
+function getVipRank(d){
+  try{
+    const nowVip=(d&&d.vipData&&d.vipData.nowVip)?String(d.vipData.nowVip):'';
+    // 1.2.6 之前的修改器错误地把 11..14 再拼到 "vipCard_1" 后面，
+    // 会写出 vipCard_111..114。识别这些值，用户下次保存时即可自动修正。
+    if(/^vipCard_11[1-4]$/.test(nowVip)) return parseInt(nowVip.slice(-1),10);
+    if(nowVip.indexOf('vipCard_1')===0){
+      const n=parseInt(nowVip.slice(8),10);
+      if(n>=11&&n<=14) return n-10;
+    }
+    // legacy ids vipCard_1..4
+    if(/^vipCard_[1-4]$/.test(nowVip)) return parseInt(nowVip.slice(8),10);
+  }catch(e){}
+  return 0;
+}
+function ensureVipData(d){
+  if(!d.vipData||typeof d.vipData!=='object') d.vipData={};
+  if(typeof d.vipData.nowVip!=='string') d.vipData.nowVip='';
+  if(typeof d.vipData.durationTime!=='string') d.vipData.durationTime='';
+  if(typeof d.vipData.giftGetB!=='boolean') d.vipData.giftGetB=false;
+  if(typeof d.vipData.buffGetB!=='boolean') d.vipData.buffGetB=false;
+  if(typeof d.vipData.buffTime!=='number') d.vipData.buffTime=0;
+  if(typeof d.vipData.experienceTime!=='number') d.vipData.experienceTime=0;
+  return d.vipData;
+}
+function applyVipRank(d,rank){
+  const vip=ensureVipData(d);
+  rank=Math.max(0,Math.min(4,Number(rank)||0));
+  if(rank<=0){
+    vip.nowVip='';
+    vip.durationTime='';
+    vip.buffGetB=false;
+    vip.buffTime=0;
+    vip.experienceTime=0;
+  }else{
+    vip.nowVip='vipCard_'+(10+rank); // vipCard_11..vipCard_14
+    vip.durationTime=''; // permanent offline
+    vip.buffGetB=true;
+    if(!(vip.buffTime>0)) vip.buffTime=1;
+  }
+  d.growVip=rank>0;
+  return vip.nowVip;
+}
+async function completeActiveTasks(){try{busy(true);const {index,saveSlot}=selected();const d=saveSlot.data;if(!d)throw new Error("无效存档");let n=0;const mark=o=>{if(!o||typeof o!=="object")return;const st=String(o.state||"");if(st==="ing"){o.state="complete";n++;if(o.hasOwnProperty("completeNum")&&o.hasOwnProperty("maxNum")){const mx=Number(o.maxNum||o.getAllNum||0);if(!isNaN(mx)&&mx>0)o.completeNum=mx;}if(o.hasOwnProperty("targetNum")&&o.hasOwnProperty("nowNum")){const tn=Number(o.targetNum||0);if(!isNaN(tn)&&tn>0)o.nowNum=tn;}}};const walkArr=a=>{if(Array.isArray(a)){for(const x of a)mark(x);}else if(a&&typeof a==="object"){if(Array.isArray(a.$dense)){for(const x of a.$dense)mark(x);}for(const [k,v] of Object.entries(a)){if(k==="$dense")continue;if(v&&typeof v==="object")mark(v);}}};if(d.taskData){mark(d.taskData.nowTask);walkArr(d.taskData.task5);}if(d.challengeTaskData){mark(d.challengeTaskData.nowTask);walkArr(d.challengeTaskData.arr);if(d.challengeTaskData.challengeFail)d.challengeTaskData.challengeFail="no";}if(d.collectTaskData){mark(d.collectTaskData.nowTask);walkArr(d.collectTaskData.arr);if(d.collectTaskData.nowTask&&d.collectTaskData.nowTask.state==="complete"&&d.collectTaskData.nowTask.targetNum!=null){d.collectTaskData.nowNum=Number(d.collectTaskData.nowTask.targetNum||d.collectTaskData.nowNum||0);} }if(d.weekTaskData){mark(d.weekTaskData.nowTask);walkArr(d.weekTaskData.arr);if(d.weekTaskData.nowTask&&d.weekTaskData.nowTask.state==="complete"&&d.weekTaskData.nowTask.targetNum!=null){d.weekTaskData.nowNum=Number(d.weekTaskData.nowTask.targetNum||d.weekTaskData.nowNum||0);} }const msg=n>0?("已将 "+n+" 个进行中任务标为完成。请回游戏领取奖励。"):"当前没有进行中的任务。";if(typeof saveGear==="function"){await saveGear(index,msg);}else{await save(index,msg);}await load(index);await loadEditor(index);if(typeof show==="function")show(msg);else if(typeof showApiError==="function"){} }catch(e){if(typeof showApiError==="function")showApiError(e);else if(typeof show==="function")show((e&&e.message)||e,true);else alert((e&&e.message)||e);}finally{busy(false);}}
+async function prepareLivenessRewardsTest(){try{busy(true);const {index}=selected();const response=await api('/api/editor/prepare-liveness',{method:'POST',body:JSON.stringify({index})});if(response&&response.game_data)gameData=normalizeLocalSlots(response.game_data);await load(index);await loadEditor(index);show("已生成测试状态：全部活跃任务完成，活跃度100，五档奖励均未领取。");}catch(e){show((e&&e.message)||e,true);}finally{busy(false);}}
+async function manualBackup(){try{busy(true);const response=await api('/api/editor/backup',{method:'POST',body:'{}'});show('备份成功：'+String(response&&response.backup||'已写入 saves\\backups'));const doc=editorFrame.contentDocument;if(doc&&typeof doc.defaultView.loadBackups==='function')await doc.defaultView.loadBackups();}catch(e){show((e&&e.message)||e,true);}finally{busy(false);}}
+async function fixZeroCarAffix(){try{busy(true);const sel=selected();const index=sel.index;const response=await api('/api/editor/fix-zero-car-affix',{method:'POST',body:'{}'});if(response&&response.game_data){gameData=response.game_data;}const fixed=Number((response&&response.fixed)||0);let msg=(response&&response.message)||'';if(!msg){msg=fixed>0?('已重roll '+fixed+' 辆属性为0的战车。'):'没有发现属性全为0的战车。';}await load(index);await loadEditor(index);show(msg);}catch(e){show((e&&e.message)||e,true);}finally{busy(false);}}
+async function saveSpecialFeatures(){try{busy(true);const doc=editorFrame.contentDocument,{index,saveSlot}=selected(),d=saveSlot.data;for(const key of ["modInfiniteEnergy","modGod","modOneHit","modUnlockAll","modAllLevelsPassed","modCraftFree","modNoExtraCooldown","modNoTaskCooldown","disableAutoCollectLifePer"])d[key]=Boolean(doc.getElementById(key).checked);const vipChecked=doc.querySelector('input[name="vipRank"]:checked');const vipRankValue=vipChecked?Number(vipChecked.value):0;applyVipRank(d,vipRankValue);if(d.challengeTaskData){d.challengeTaskData.readyAt=repairDenseArray(d.challengeTaskData.readyAt);d.challengeTaskData.failArr=repairDenseArray(d.challengeTaskData.failArr);d.challengeTaskData.taskReadyAt=repairDenseArray(d.challengeTaskData.taskReadyAt)}if(d.collectTaskData){d.collectTaskData.readyAt=repairDenseArray(d.collectTaskData.readyAt);d.collectTaskData.taskReadyAt=repairDenseArray(d.collectTaskData.taskReadyAt)}if(d.taskData){d.taskData.slotReadyAt=repairDenseArray(d.taskData.slotReadyAt);d.taskData.normalCardReadyAt=repairDenseArray(d.taskData.normalCardReadyAt)}if(d.modNoTaskCooldown){if(d.challengeTaskData)d.challengeTaskData.taskReadyAt=[];if(d.collectTaskData)d.collectTaskData.taskReadyAt=[];if(d.taskData)d.taskData.slotReadyAt=[0,0,0,0,0]}if(d.modNoExtraCooldown){if(d.extraData)d.extraData.cooldownReadyAt=repairDenseArray(d.extraData.cooldownReadyAt).map(()=>0);if(d.weekExtraData)for(const item of repairDenseArray(d.weekExtraData.arr)){if(item&&typeof item==="object")item.readyAt=0}if(d.specialExtraData)d.specialExtraData.readyAt=repairDenseArray(d.specialExtraData.readyAt).map(()=>0);if(d.challengeTaskData)d.challengeTaskData.taskReadyAt=[]};await saveGear(index,"特殊功能设置已保存。重新进入该存档后生效。")}catch(e){show(e.message,true)}finally{busy(false)}}
+function selectedProps(){const selectedSlot=selected();const props=selectedSlot.saveSlot.data.propsItems;if(!props)throw new Error("该存档的道具背包数据不完整。");props.arr=repairDenseArray(props.arr);return {...selectedSlot,props}}
+async function add(){try{busy(true);const {index,props}=selectedProps();let card=props.arr.find(x=>x&&x.name==="research_upgrade_card");if(card)card.nowNum=Number(card.nowNum||0)+1;else{if(props.arr.length>=Number(props.bagMaxNum||0))throw new Error("道具背包已满，请先腾出一个格子。");const used=new Set(props.arr.map(x=>Number(x&&x.site))),site=[...Array(Number(props.bagMaxNum||100)).keys()].find(x=>!used.has(x));props.lastID=Number(props.lastID||0)+1;card={addArr:[],affixLevel:0,buyDate:"",cnName:"研发升级卡",define:{},exploreIndex:-1,id:String(props.lastID),imgLabel:"itemsUI/achieve_card_3",name:"research_upgrade_card",newB:true,nowNum:1,site:site??0,type:"card"};props.arr.push(card)}await save(index,"已给予1张研发升级卡。")}catch(e){show(e.message,true)}finally{busy(false)}}
+async function remove(){try{busy(true);const {index,props}=selectedProps(),i=props.arr.findIndex(x=>x&&x.name==="research_upgrade_card");if(i<0)throw new Error("该存档没有研发升级卡。");props.arr[i].nowNum=Number(props.arr[i].nowNum||0)-1;if(props.arr[i].nowNum<=0)props.arr.splice(i,1);await save(index,"已移除1张研发升级卡。")}catch(e){show(e.message,true)}finally{busy(false)}}
+async function changeElite(delta){try{busy(true);const {index,props}=selectedProps();let i=props.arr.findIndex(x=>x&&x.name==="elite_challenge_card"),card=i>=0?props.arr[i]:null;if(delta<0&&!card)throw new Error("该存档没有精英副本挑战卡。");if(card){card.nowNum=Number(card.nowNum||0)+delta;if(card.nowNum<=0)props.arr.splice(i,1)}else{if(props.arr.length>=Number(props.bagMaxNum||0))throw new Error("道具背包已满，请先腾出一个格子。");const used=new Set(props.arr.map(x=>Number(x&&x.site))),site=[...Array(Number(props.bagMaxNum||100)).keys()].find(x=>!used.has(x));props.lastID=Number(props.lastID||0)+1;props.arr.push({addArr:[],affixLevel:0,buyDate:"",cnName:"精英副本挑战卡",define:{},exploreIndex:-1,id:String(props.lastID),imgLabel:"itemsUI/turntable_14",name:"elite_challenge_card",newB:true,nowNum:1,site:site??0,type:"card"})}await save(index,delta>0?"已给予1张精英副本挑战卡。":"已移除1张精英副本挑战卡。")}catch(e){show(e.message,true)}finally{busy(false)}}
+async function switchSlot(index){try{busy(true);clearPageError();await loadEditor(Number(index));}catch(e){editorFrame.removeAttribute("srcdoc");editorFrame.src="about:blank";showPageError(e.message||e);show(e.message||e,true);}finally{busy(false);}} mainSlot.onchange=()=>{slot.value=mainSlot.value;switchSlot(mainSlot.value)};slot.onchange=()=>{mainSlot.value=slot.value;switchSlot(slot.value)};
+document.getElementById("add").onclick=add;document.getElementById("remove").onclick=remove;document.getElementById("addElite").onclick=()=>changeElite(1);document.getElementById("removeElite").onclick=()=>changeElite(-1);document.getElementById("reload").onclick=()=>load(Number(slot.value));load();
+document.getElementById("manualBackupTop").onclick=manualBackup;
+</script>
+</body>
+</html>
