@@ -7,9 +7,9 @@ Write-Host "Workspace check:" $RepoRoot
 
 $required = @(
   "AGENTS.md",
-  "README.md",
-  "docs\SEAL_RULES.md",
-  "docs\MERGE_DIFF_1.2.md",
+  "docs\README.md",
+  "docs\gameplay\SEAL_RULES.md",
+  "docs\status\MERGE_DIFF_1.2.md",
   "docs\COLLAB_WORKSPACE.md",
   "decompiled",
   "server",

@@ -35,4 +35,4 @@
 
 异常发生在 `UIGroup.init()` 中，所以游戏停在旧加载界面。修正参数顺序后，必须使用 Debug Player 验证 `uiLoader_complete done`，不能只看 FFDec 或 BAT 的构建成功提示。
 
-完整排查记录见：[docs/FLASH_LOADING_SCREEN_FAILURES.md](docs/FLASH_LOADING_SCREEN_FAILURES.md)
+完整排查记录见：[docs/postmortems/FLASH_LOADING_SCREEN_FAILURES.md](docs/postmortems/FLASH_LOADING_SCREEN_FAILURES.md)

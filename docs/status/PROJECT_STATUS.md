@@ -1,5 +1,5 @@
 ﻿> **合并中：** 当前仓库工程基线仍是 Git 离线架构；玩法正在按海豹 1.2 回灌。  
-> 最终规则见 [`SEAL_RULES.md`](SEAL_RULES.md)，差异见 [`MERGE_DIFF_1.2.md`](MERGE_DIFF_1.2.md)。
+> 最终规则见 [`SEAL_RULES.md`](../gameplay/SEAL_RULES.md)，差异见 [`MERGE_DIFF_1.2.md`](MERGE_DIFF_1.2.md)。
 # 项目现状
 
 ## 当前目标

@@ -34,4 +34,4 @@ https://github.com/wenxuanz495-eng/metalwartale3-reborn.git
 - 定制武器商城价：统一 20,000 MB
 - 扩展修改器：全部迁入
 
-详细规则见 `SEAL_RULES.md`，差异见 `MERGE_DIFF_1.2.md`。
+详细规则见 `gameplay/SEAL_RULES.md`，差异见 `status/MERGE_DIFF_1.2.md`。

@@ -24,7 +24,7 @@ scripts\verify_reproducible_build.bat
 scripts\verify_phase3.bat
 ```
 
-`build_all.bat` 构建 Go 服务端、主 SWF，再从仓库跟踪文件准备 175 个运行资源。正式链路不调用 PowerShell。
+`build_all.bat` 构建 Go 服务端、主 SWF，再从仓库跟踪文件准备 175 个运行资源。服务端/启动器编译与 SWF 补丁不调用 PowerShell；runtime 资源准备自 2026-08-30 起由 `prepare_build_runtime.ps1` 执行双清单（黄金基线 + 当前批准）校验与复制。
 
 ## 最小补丁清单
 
@@ -55,7 +55,7 @@ UI\_new\change\CtrlListCtrl.as
 
 1. 修改 `decompiled/` 或 `server/` 中的源码。
 2. AS 类加入脚本补丁清单；嵌入 XML 加入 BinaryData 补丁清单。
-3. 复杂控制流先阅读 `FFDEC_CONTROL_FLOW_REGRESSION.md`；高风险类完成 P-code 审批。
+3. 复杂控制流先阅读 `../postmortems/FFDEC_CONTROL_FLOW_REGRESSION.md`；高风险类完成 P-code 审批。
 4. 运行 `scripts\verify_phase3.bat`。
 5. 用 Debug Player 进入受影响玩法做人工回归，再提交源码、清单与文档。
 

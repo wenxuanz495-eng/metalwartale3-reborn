@@ -27,6 +27,7 @@ api_save_*.bin
 api_save_*.meta.json
 
 # Logs and temporary files
+/logs/
 *.log
 *.tmp
 *.temp
@@ -51,8 +52,9 @@ Desktop.ini
 /runtime/**/backups/
 /runtime/*.log
 
-# Local agent/editor caches
+# Local agent/editor caches (AI Agent 会话留痕/计划文件，一律不入库)
 .agents/cache/
+.zcode/
 .codex/
 .claude/settings.local.*
 

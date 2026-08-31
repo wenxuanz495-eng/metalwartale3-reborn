@@ -23,7 +23,7 @@ D:\superalloy\metalwartale3-reborn.git
 
 ## 哈希范围
 
-清单：[`baselines/1.26.2.1-BAT.sha256`](baselines/1.26.2.1-BAT.sha256)
+清单：[`baselines/1.26.2.1-BAT.sha256`](../baselines/1.26.2.1-BAT.sha256)
 
 包含游戏本体、服务端、修改器、播放器、BAT、说明文件和全部资源 SWF。`swf/` 下有 174 个资源 SWF，加上根目录 `game.swf` 共 175 个 SWF。
 

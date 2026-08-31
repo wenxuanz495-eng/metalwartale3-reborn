@@ -2,7 +2,7 @@
 
 > 工作区：`D:\superalloy\metalwartale3-reborn.git`  
 > 对照发行样例：`D:\superalloy\超合金离线优化海豹版1.2`  
-> 决策文档：`SEAL_RULES.md` / `AGENTS.md`
+> 决策文档：`../gameplay/SEAL_RULES.md` / `AGENTS.md`
 
 ## 0. 已确认合并策略
 
@@ -171,8 +171,8 @@
 
 ## 8. 待办（从差异直接产生）
 
-- [ ] 校正 `docs/GAMEPLAY_RULES.md` 中与 SEAL 冲突的“无限精英/MB 主来源”表述  
-- [ ] 校正 `docs/PROJECT_STATUS.md` 已实现列表  
+- [ ] 校正 `docs/gameplay/GAMEPLAY_RULES.md` 中与 SEAL 冲突的“无限精英/MB 主来源”表述  
+- [ ] 校正 `docs/status/PROJECT_STATUS.md` 已实现列表  
 - [ ] 建立 `runtime/` 并写入 README 启动方式  
 - [ ] 主 SWF：导出 1.2 与仓库脚本差异列表（下一步技术任务）  
 - [ ] 章节进度测试：只改进度字段  

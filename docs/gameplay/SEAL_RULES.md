@@ -4,7 +4,7 @@
 > 当本文与旧的 `GAMEPLAY_RULES.md` / `PROJECT_STATUS.md` 冲突时，**以本文为准**，并应同步改旧文档。
 
 确认日期：2026-07-21  
-工作区：`D:\superalloy\metalwartale3-reborn.git`  
+工作区：`D:\superalloy\metalwartale3-reborn.git`（原作者机器本地路径，仅其电脑有效）  
 玩法基线：离线优化海豹版 1.2  
 工程基线：本 Git 仓库源码 + Go 本地服务权威存档
 
