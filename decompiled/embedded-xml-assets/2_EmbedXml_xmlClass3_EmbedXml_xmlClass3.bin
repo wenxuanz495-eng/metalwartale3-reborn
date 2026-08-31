@@ -9,7 +9,7 @@
 			<name>小黄豆</name>					<!-- 武器名称【必备】-->
 			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>					<!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    	<!-- 攻击属性【必备】-->
+			<attackType>mixed</attackType>    	<!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    		<!-- 能量总量【必备】 -->
 			<energyRate>1</energyRate>    		<!-- 能量回复，每秒恢复几点【必备】 -->
 			<commonLevel>6</commonLevel>   		<!-- 普遍等级 -->
@@ -60,7 +60,7 @@
 			<imgLabel>soya_lv1</imgLabel>
 			<bulletImgLabel>arms/soya_lv1_bullet</bulletImgLabel>
 
-			<hitImgLabel>bullet/yellow_motion</hitImgLabel>
+			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>
 			<!--<smokeImgLabel>sub/missile_bullet_smoke</smokeImgLabel>-->
 			<!--<imgLoopTime>0</imgLoopTime>-->
 
@@ -70,7 +70,7 @@
 			<name>小黄豆Z</name>    <!-- 武器名称【必备】-->
 			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
 			<energyRate>1</energyRate>    <!-- 能量回复，每秒恢复几点【必备】 -->
 			<commonLevel>14</commonLevel>    <!-- 普遍等级 -->
@@ -98,14 +98,14 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>真·小黄豆Z</name>    <!-- 武器名称【必备】-->
 			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
 			<energyRate>1</energyRate>    <!-- 能量回复，每秒恢复几点【必备】 -->
 			<commonLevel>29</commonLevel>    <!-- 普遍等级 -->
@@ -134,14 +134,14 @@
 			<imgLabel>soya_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 
-			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>极·小黄豆Z</name>    <!-- 武器名称【必备】-->
 			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
 			<energyRate>1</energyRate>    <!-- 能量回复，每秒恢复几点【必备】 -->
 			<commonLevel>44</commonLevel>    <!-- 普遍等级 -->
@@ -170,14 +170,14 @@
 			<imgLabel>soya_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 
-			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>大黄豆</name>    <!-- 武器名称【必备】-->
 			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
 			<energyRate>1</energyRate>    <!-- 能量回复，每秒恢复几点【必备】 -->
 			<commonLevel>55</commonLevel>    <!-- 普遍等级 -->
@@ -204,14 +204,14 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>巨黄豆</name>    <!-- 武器名称【必备】-->
 			<specialProperty>无限能源</specialProperty>
 			<type>太阳炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<energyUse>100</energyUse>    <!-- 能量总量【必备】 -->
 			<energyRate>1</energyRate>    <!-- 能量回复，每秒恢复几点【必备】 -->
 			<commonLevel>70</commonLevel>    <!-- 普遍等级 -->
@@ -238,7 +238,7 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv6</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="1"   id="fireFairy">
