@@ -2,6 +2,7 @@ package body.attack
 {
    import body.bullet.BulletLink;
    import body.define.OneArmsDefine;
+   import body.hero.HeroCarBody;
    import bodyGroup.BodyGroup;
    import data.INIT;
    import flash.events.EventDispatcher;
@@ -21,6 +22,11 @@ package body.attack
       private var now_t:Number = 0;
       
       private var shootNum:int = 0;
+
+      // 火神炮原始状态机每 4 个游戏帧完成一次实际发射，约为 7.5 发/秒。
+      // 独立累积器只改变实际发射频率，不改 shootNum、子弹数量或面板数据。
+      private static const FIRE_FAIRY_BASE_PERIOD_FRAMES:Number = 4;
+      private var fireFairyFrameAccumulator:Number = 0;
       
       public var state:String = "stoping";
       
@@ -182,6 +188,7 @@ package body.attack
          this.now_t = 0;
          this.state = "stoping";
          this.shootNum = 0;
+         this.fireFairyFrameAccumulator = 0;
          this.loopB = false;
          this.preinputB = false;
       }
@@ -193,11 +200,16 @@ package body.attack
       
       public function attackPan() : *
       {
+         var d:OneArmsDefine = this.define;
+         if((d.id == "fireFairy" && d.shootNum == 1 && this.baba is HeroCarBody) || this.state == "fireFairyLooping")
+         {
+            this.attackPanFireFairy(d);
+            return;
+         }
          var tran1:Number = NaN;
          var len0:int = 0;
          var oushu0:int = 0;
          var d2:OneArmsDefine = null;
-         var d:OneArmsDefine = this.define;
          if(this.state != "stoping")
          {
             if(this.state == "start")
@@ -316,6 +328,123 @@ package body.attack
                this.state = "stoping";
                this.now_t = 0;
                this.shootNum = 0;
+            }
+         }
+      }
+
+      private function getFireFairyShootMultiplier(d:OneArmsDefine) : Number
+      {
+         if(d.level <= 0)
+         {
+            return 1;
+         }
+         if(d.level == 1)
+         {
+            return 2;
+         }
+         if(d.level == 2)
+         {
+            return 3;
+         }
+         return 3.5;
+      }
+
+      private function shootFireFairy(d:OneArmsDefine) : *
+      {
+         this.shootNum = 1;
+         this.shootNow(d,-1000,this.shootNum);
+      }
+
+      private function attackPanFireFairy(d:OneArmsDefine) : *
+      {
+         if(this.state != "stoping")
+         {
+            if(this.state == "start")
+            {
+               if(d.imgLoopTime == 0)
+               {
+                  this.AAHD.imgAttackOnce();
+               }
+               else
+               {
+                  this.AAHD.imgAttackLoop(d.imgLoopTime);
+               }
+               this.now_t = 0;
+               this.shootNum = 0;
+               this.fireFairyFrameAccumulator = 0;
+               if(d.attackDelay == 0 || d.attackGap == 0)
+               {
+                  this.state = "shoot";
+               }
+               else
+               {
+                  this.state = "delaying";
+               }
+            }
+            else if(this.state == "delaying")
+            {
+               this.now_t += 1 / INIT.FPS;
+               if(this.now_t >= d.attackDelay || this.now_t >= d.attackGap)
+               {
+                  this.state = "shoot";
+               }
+            }
+            else if(this.state == "shoot")
+            {
+               this.shootFireFairy(d);
+               this.fireFairyFrameAccumulator = 0;
+               if(this.loopB)
+               {
+                  this.state = "fireFairyLooping";
+               }
+               else
+               {
+                  this.state = "overing";
+               }
+            }
+            else if(this.state == "fireFairyLooping")
+            {
+               if(!this.loopB)
+               {
+                  this.state = "overing";
+               }
+               else
+               {
+                  this.fireFairyFrameAccumulator += this.getFireFairyShootMultiplier(d) / FIRE_FAIRY_BASE_PERIOD_FRAMES;
+                  while(this.fireFairyFrameAccumulator >= 1)
+                  {
+                     this.fireFairyFrameAccumulator -= 1;
+                     this.AAHD.imgAttackOnce();
+                     this.shootFireFairy(d);
+                  }
+               }
+            }
+            else if(this.state == "overing")
+            {
+               if(this.now_t >= d.attackGap)
+               {
+                  this.state = "over";
+               }
+               this.now_t += 1 / INIT.FPS;
+            }
+            else if(this.state == "over")
+            {
+               if(this.loopB || this.preinputB)
+               {
+                  this.state = "start";
+                  this.preinputB = false;
+               }
+               else
+               {
+                  this.state = "stop";
+               }
+            }
+            else if(this.state == "stop")
+            {
+               this.state = "stoping";
+               this.now_t = 0;
+               this.shootNum = 0;
+               this.fireFairyFrameAccumulator = 0;
             }
          }
       }
