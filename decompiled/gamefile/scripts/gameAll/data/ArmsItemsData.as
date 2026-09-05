@@ -55,6 +55,11 @@ package gameAll.data
          var add1:AdditionalData = null;
          var add2:AdditionalData = null;
          var zuobi0:String = null;
+         var fireFairyUnlockedNum:int = 0;
+         var fireFairyEquippedNum:int = 0;
+         // 火神炮使用独立备弹规则：任何芯片的能量上限/回复属性均不生效。
+         // 这里只过滤芯片合并数据，保留芯片的其他属性以及武器自身 addSelf。
+         var blockEnergyChipB:Boolean = this.define != null && this.define.id == "fireFairy";
          this.add = new AdditionalData();
          for(n in this.holeArr)
          {
@@ -63,6 +68,11 @@ package gameAll.data
                addArr0 = this.holeArr[n].addArr;
                add1 = new AdditionalData();
                add1.inData_byArr(addArr0);
+               if(blockEnergyChipB)
+               {
+                  add1.energy_max = 0;
+                  add1.energy_rate = 0;
+               }
                this.add.addData(add1);
             }
          }
@@ -75,10 +85,34 @@ package gameAll.data
             {
                Game.uiGroup.showZuobile("芯片：" + zuobi0 + "属性值过高！！");
             }
+            if(blockEnergyChipB)
+            {
+               add2.energy_max = 0;
+               add2.energy_rate = 0;
+            }
             this.add.addData(add2);
+          }
+          this.add.addData(this.addSelf);
+         if(blockEnergyChipB && Game.gameData != null && Game.gameData.armsItems != null)
+         {
+            for(n in Game.gameData.armsItems.armsState)
+            {
+               if(Game.gameData.armsItems.armsState[n] == "")
+               {
+                  fireFairyUnlockedNum++;
+               }
+            }
+            fireFairyEquippedNum = Game.gameData.armsItems.equArr.length;
+            this.maxEnergy = (fireFairyUnlockedNum - fireFairyEquippedNum + 1) * 100;
+            if(this.maxEnergy < 100)
+            {
+               this.maxEnergy = 100;
+            }
          }
-         this.add.addData(this.addSelf);
-         this.maxEnergy = 2 * this.baseEnergy * (this.add.energy_max + 1);
+         else
+         {
+            this.maxEnergy = 2 * this.baseEnergy * (this.add.energy_max + 1);
+         }
          this.maxEnergyRate = this.baseEnergyRate * (1 + this.add.energy_rate);
          var d0:OneArmsDefine = this.define;
          this.define.itemsData = this;

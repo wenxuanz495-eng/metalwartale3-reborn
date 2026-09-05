@@ -51,6 +51,7 @@ if not exist "%SAVE_DIR%\game_save.bin" if exist "%BUILD_DIR%\swf\empty-save-tem
 if not exist "%SAVE_DIR%\game_save.bin" goto save_seed_failed
 
 if not exist "%BUILD_DIR%\.release-ready" (
+  call :cleanup_stale_repo_server
   echo [CHECK] Verifying 175 tracked runtime resources before launch...
   echo [CHECK] If the window title starts with Select, press Esc to resume.
   call "%~dp0prepare_build_runtime.bat"
@@ -126,7 +127,13 @@ exit /b 1
 if defined SERVER_PID taskkill /f /t /pid !SERVER_PID! >nul 2>nul
 set "SERVER_PID="
 taskkill /f /t /fi "WINDOWTITLE eq SA_COLLAB_SERVER_*" >nul 2>nul
+call :cleanup_stale_repo_server
 ping 127.0.0.1 -n 2 -w 200 >nul
+exit /b 0
+
+:cleanup_stale_repo_server
+rem Clean only a stale server.exe whose executable path is this repository's build server.
+powershell.exe -NoLogo -NoProfile -ExecutionPolicy Bypass -Command "$expected=[IO.Path]::GetFullPath($env:SERVER); $targets=Get-CimInstance Win32_Process -Filter 'Name=''server.exe'''; foreach($p in $targets) { if($p.ExecutablePath -and [IO.Path]::GetFullPath($p.ExecutablePath) -eq $expected) { Write-Output ('[CHECK] Stopping stale repository server PID ' + $p.ProcessId); Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue } }"
 exit /b 0
 
 :verify_cleanflash

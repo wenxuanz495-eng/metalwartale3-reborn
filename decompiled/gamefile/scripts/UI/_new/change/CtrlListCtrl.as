@@ -332,11 +332,28 @@ package UI._new.change
          da0.fleshData();
          dg0.fleshData();
          fleshData();
+         refreshActiveArmsAfterFormChange(da0);
          Game.eventGroup.fleshSkill();
          Game.uiGroup.carShow.copyAll();
          Game.uiGroup.saveDataNoUI("切换武器形态");
          Game.SG.playSound("upgradeArms");
          Game.uiGroup.checkTip.showTip("已切换为第 " + (target0 + 1) + " 阶形态。",1);
+      }
+
+      private static function refreshActiveArmsAfterFormChange(da0:ArmsItemsData) : *
+      {
+         if(Game.gameState == "no" || father == null || father.dataType != "equip")
+         {
+            return;
+         }
+         if(father.type == "arms" && da0.site == Game.gameData.nowArmsIndex)
+         {
+            Game.eventGroup.fleshArms();
+         }
+         else if(father.type == "sub")
+         {
+            Game.eventGroup.fleshSub();
+         }
       }
       
       private static function sellArms() : *
