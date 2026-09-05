@@ -83,6 +83,7 @@
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
 			<attackGap>0.1</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<shootNum>2</shootNum>    <!-- 一个攻击周期内的射击次数 -->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
@@ -98,6 +99,7 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<secondBulletImg>arms/soya_lv1_bullet</secondBulletImg>    <!-- 第二颗子弹图像（连发偶数发使用） -->
 			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
@@ -115,6 +117,7 @@
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
 			<attackGap>0.1</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<shootNum>2</shootNum>    <!-- 一个攻击周期内的射击次数 -->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -133,6 +136,7 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<secondBulletImg>arms/soya_lv1_bullet</secondBulletImg>    <!-- 第二颗子弹图像（连发偶数发使用） -->
 
 			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
@@ -151,6 +155,7 @@
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
 			<attackGap>0.1</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<shootNum>2</shootNum>    <!-- 一个攻击周期内的射击次数 -->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -169,6 +174,7 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<secondBulletImg>arms/soya_lv2_bullet</secondBulletImg>    <!-- 第二颗子弹图像（连发偶数发使用） -->
 
 			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
