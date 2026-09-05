@@ -15,7 +15,7 @@
 			<commonLevel>6</commonLevel>   		<!-- 普遍等级 -->
 			<description>利用能源转换器将太阳能转换成能量球发射出去。</description>
 			<!-- 攻击时的属性-->
-			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
+			<recoilValue>1.5</recoilValue>    <!-- 后坐力(默认为0)-->
 			<attackGap>0.1</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
@@ -192,7 +192,7 @@
 			<description>将太阳能转换成的能量球进行高压汇聚并且加速，使其造成的伤害更加巨大。</description>
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.1</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>0.05</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<shootNum>1</shootNum>
@@ -226,7 +226,7 @@
 			<description>将太阳能转换成的能量球进行高压汇聚并且加速，使其造成的伤害更加巨大。</description>
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.1</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>0.05</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<shootNum>1</shootNum>
