@@ -232,6 +232,7 @@ package net
          var f2:int = 0;
          var f3:int = 0;
          var f4:int = 0;
+         var f5:int = 0;
          var la_arr:Array = name_label.split("/");
          if(la_arr.length == 2)
          {
@@ -254,6 +255,7 @@ package net
                   f2 = pname.indexOf("basePoint");
                   f3 = pname.indexOf("shootPoint");
                   f4 = pname.indexOf("plasmaPoint");
+                  f5 = pname.indexOf("laserPoint");
                   if(f0 >= 0)
                   {
                      sm0.armsPoint = new Point(pmc.x,pmc.y);
@@ -285,6 +287,13 @@ package net
                   else if(f4 >= 0)
                   {
                      sm0.plasmaPoint = new Point(pmc.x,pmc.y);
+                     pmc.visible = false;
+                     pmc.scaleX = 0.1;
+                     pmc.scaleY = 0.1;
+                  }
+                  else if(f5 >= 0)
+                  {
+                     sm0.laserPoint = new Point(pmc.x,pmc.y);
                      pmc.visible = false;
                      pmc.scaleX = 0.1;
                      pmc.scaleY = 0.1;

@@ -451,7 +451,12 @@ package body.attack
       
       private function shootNow(d:OneArmsDefine, tran1:Number = -1000, _shootNum:int = 1) : *
       {
-         shoot(d,this.baba,this.AAHD.shootPoint,this.AAHD.shootRa,this.AAHD.bulletAngle,tran1,_shootNum);
+         var p0:Point = this.AAHD.shootPoint;
+         if(d.bulletType == "laser" && this.AAHD.hasOwnProperty("laserPoint") && this.AAHD.laserPoint is Point)
+         {
+            p0 = this.AAHD.laserPoint;
+         }
+         shoot(d,this.baba,p0,this.AAHD.shootRa,this.AAHD.bulletAngle,tran1,_shootNum);
       }
       
       public function attackTimer() : *

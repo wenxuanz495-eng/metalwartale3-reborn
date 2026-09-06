@@ -33,6 +33,8 @@ package body.image
       public var basePoint:Point;
       
       public var shootPoint:Point;
+
+      public var laserPoint:Point;
       
       public var attackData:AttackHitDataGroup;
       

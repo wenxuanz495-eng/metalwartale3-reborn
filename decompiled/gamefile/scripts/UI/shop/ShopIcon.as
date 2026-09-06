@@ -172,10 +172,15 @@ package UI.shop
          this.icon.addChild(mc0);
          var mc1:* = mc0.getChildByName("shootPoint");
          var mc2:* = mc0.getChildByName("basePoint");
+         var mc3:* = mc0.getChildByName("laserPoint");
          if(mc1 is MovieClip)
          {
             mc0.removeChild(mc1);
             mc0.removeChild(mc2);
+         }
+         if(mc3 is MovieClip)
+         {
+            mc0.removeChild(mc3);
          }
          rect0 = mc0.getRect(mc0);
          mc0.x = -rect0.x - rect0.width / 2;

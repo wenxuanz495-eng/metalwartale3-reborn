@@ -34,6 +34,15 @@ package body.hero
       {
          return this.baba.img.shootPoint;
       }
+
+      public function get laserPoint() : Point
+      {
+         if(!(this.baba.img is HeroCarImage))
+         {
+            return this.shootPoint;
+         }
+         return this.baba.img.laserPoint;
+      }
       
       public function get imgFather() : String
       {

@@ -109,3 +109,13 @@ gameAll\data\GameData.as
 UI\gaming\SkillIcon.as
 UI\top\HighPlayerBox.as
 UI\level\LevelChooseUI.as
+body\hero\ArmsImage.as
+body\hero\HeroCarImage.as
+body\hero\HeroCarAAHD.as
+body\image\SingleMovieclip.as
+UI\gaming\GamingArmsIcon.as
+UI\icon\AllIconLoader.as
+UI\icon\ItemsArmsIcon.as
+UI\shop\ShopIcon.as
+UI\task\TaskIcon.as
+UI\explore\ExploreIcon.as

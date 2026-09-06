@@ -125,6 +125,25 @@ package body.hero
          }
          return new Point(x0 + this.x + this.arms.x,y0 + this.y + this.arms.y);
       }
+
+      public function get laserPoint() : Point
+      {
+         var p0:Point = null;
+         var x0:Number = 0;
+         var y0:Number = 0;
+         if(this.bodyState == "fly")
+         {
+            return this.shootPoint;
+         }
+         p0 = this.arms.laserPoint_rotation;
+         x0 = p0.x;
+         y0 = p0.y;
+         if(this.rightB)
+         {
+            return new Point(-x0 + this.x - this.arms.x,y0 + this.y + this.arms.y);
+         }
+         return new Point(x0 + this.x + this.arms.x,y0 + this.y + this.arms.y);
+      }
       
       public function get shootRa() : Number
       {
