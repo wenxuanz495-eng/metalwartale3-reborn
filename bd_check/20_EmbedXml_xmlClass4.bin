@@ -1,0 +1,2292 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<father>car</father>
+	<!-- G币车身 --><!-- 【一般只需要修改属性里的baseLevel】 -->
+	<gather name="G">
+		<car index="0"  id="beetle">
+							<name>甲壳虫</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>4</baseLevel>
+							<installLevel>1</installLevel>
+							
+							<hitRect>-50,-50,100,50</hitRect>
+							<hurtRect>-55,-33,112,24</hurtRect>
+							<hurtRect>-30,-47,54,15</hurtRect>
+							<baseLife>120</baseLife>
+							<defenceType>motion</defenceType>
+							<defenceValue>120</defenceValue>
+							
+							<!-- 价格需求 -->
+							<price>4000</price>
+							<Mprice>1</Mprice>
+							<level>1</level>
+							<description>我们都爱甲壳虫~哦耶~</description>
+							<imgLabel>beetle</imgLabel>
+		</car>
+		<car index="1"  id="whiteSmart">
+							<name>白色Smart</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>4</baseLevel>
+							<installLevel>1</installLevel>
+							
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-37,-52,50,40</hurtRect>
+							<hurtRect>27,-27,15,16</hurtRect>
+							<hurtRect>11,-40,15,28</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>120</baseLife>
+							<defenceValue>120</defenceValue>
+							<price>4000</price>
+							<Mprice>1</Mprice>
+							<level>1</level>
+							<description>拥有6速自动变速箱的灵巧精灵。白色版。</description>
+							<imgLabel>whiteSmart</imgLabel>
+		</car>
+		<car index="2"  id="white">
+							<name>白色迷你酷派</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>4</baseLevel>
+							<installLevel>1</installLevel>
+							
+							<hitRect>-55,-45,110,45</hitRect>
+							<hurtRect>-55,-31,110,26</hurtRect>
+							<hurtRect>-48,-49,62,21</hurtRect>
+							<baseLife>300</baseLife>
+							<defenceType>boom</defenceType>
+							<defenceValue>120</defenceValue>
+							<!-- 价格需求 -->
+							<price>4000</price>
+							<Mprice>1</Mprice>
+							<level>1</level>
+							<description>小而精致的迷你车型。白色版。</description>
+							<imgLabel>white</imgLabel>
+		</car>
+		<car index="3"  id="blackSmart">
+							<name>黑色Smart</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>7</baseLevel>
+							<installLevel>4</installLevel>
+							
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-37,-52,50,40</hurtRect>
+							<hurtRect>27,-27,15,16</hurtRect>
+							<hurtRect>11,-40,15,28</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>300</baseLife>
+							<defenceValue>280</defenceValue>
+							<!-- 价格需求 -->
+							<price>10000</price>
+							<level>5</level>
+							
+							<description>拥有6速自动变速箱的灵巧精灵。黑色版。</description>
+							<imgLabel>blackSmart</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>15</maxUpgradeLevel>	
+							<!-- 限时打折-->
+		</car>
+		<car index="4"  id="redSmart">
+							<name>红色Smart</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>8</baseLevel>
+							<installLevel>5</installLevel>
+							
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-37,-52,50,40</hurtRect>
+							<hurtRect>27,-27,15,16</hurtRect>
+							<hurtRect>11,-40,15,28</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>300</baseLife>
+							<defenceValue>280</defenceValue>
+							<!-- 价格需求 -->
+							<price>10000</price>
+							<level>5</level>
+							
+							<description>拥有6速自动变速箱的灵巧精灵。红色版。</description>
+							<imgLabel>redSmart</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>15</maxUpgradeLevel>	
+							<!-- 限时打折-->
+		</car>
+		<car index="5"  id="blueSmart">
+							<name>蓝色Smart</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>9</baseLevel>
+							<installLevel>6</installLevel>
+							
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-37,-52,50,40</hurtRect>
+							<hurtRect>27,-27,15,16</hurtRect>
+							<hurtRect>11,-40,15,28</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>300</baseLife>
+							<defenceValue>280</defenceValue>
+							<!-- 价格需求 -->
+							<price>10000</price>
+							<level>5</level>
+							
+							<description>小而精致的迷你车型。蓝色版。</description>
+							<imgLabel>blueSmart</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>15</maxUpgradeLevel>	
+							<!-- 限时打折-->
+		</car>
+		<car index="6"  id="black">
+							<name>黑色迷你酷派</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>15</baseLevel>
+							<installLevel>10</installLevel>
+							
+							<hitRect>-55,-45,110,45</hitRect>
+							<hurtRect>-55,-31,110,26</hurtRect>
+							<hurtRect>-48,-49,62,21</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>800</baseLife>
+							<defenceValue>480</defenceValue>
+							<!-- 价格需求 -->
+							<price>20000</price>
+							<level>10</level>
+							
+							<description>小而精致的迷你车型。黑色版。</description>
+							<imgLabel>black</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>14</maxUpgradeLevel>	
+							<!-- 限时打折-->	
+		</car>
+		<car index="7"  id="pink"        use="1级抽奖">
+							<name>粉红迷你酷派</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>16</baseLevel>
+							<installLevel>13</installLevel>
+							
+							<hitRect>-55,-45,110,45</hitRect>
+							<hurtRect>-55,-31,110,26</hurtRect>
+							<hurtRect>-48,-49,62,21</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>1000</baseLife>
+							<defenceValue>300</defenceValue>
+							<!-- 价格需求 -->
+							<price>20000</price>
+							<level>10</level>
+							
+							<description>小而精致的迷你车型。粉色版。</description>
+							<imgLabel>pink</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>14</maxUpgradeLevel>	
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="8"  id="bumblebee">
+							<name>大黄蜂</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>22</baseLevel>
+							<installLevel>19</installLevel>
+							
+							<hitRect>-67,-45,134,45</hitRect>
+							<hurtRect>-67,-33,134,27</hurtRect>
+							<hurtRect>-60,-46,74,15</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>1600</baseLife>
+							<defenceValue>680</defenceValue>
+							<!-- 价格需求 -->
+							<price>50000</price>
+							<level>15</level>
+							
+							<description>擎天柱的好基友！什么，你问我什么是基友？</description>
+							<imgLabel>bumblebee</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>13</maxUpgradeLevel>	
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="9"  id="hummer">
+							<name>悍马</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>28</baseLevel>
+							<installLevel>25</installLevel>
+							
+							<hitRect>-60,-45,120,45</hitRect>
+							<hurtRect>-49,-51,67,16</hurtRect>
+							<hurtRect>-60,-42,120,27</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>3000</baseLife>
+							<defenceValue>880</defenceValue>
+							<!-- 价格需求 -->
+							<price>100000</price>
+							<level>20</level>
+							
+							
+							<description>超强性能，来自悍马。</description>
+							<imgLabel>hummer</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>12</maxUpgradeLevel>	
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="10" id="landover"    use="2级抽奖">
+							<name>路虎</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>29</baseLevel>
+							<installLevel>26</installLevel>
+							
+							<hitRect>-65,-50,130,50</hitRect>
+							<hurtRect>-65,-35,130,24</hurtRect>
+							<hurtRect>-59,-50,79,15</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>3500</baseLife>
+							<defenceValue>640</defenceValue>
+							<!-- 价格需求 -->
+							<price>100000</price>
+							<level>20</level>
+							<description>冒险、勇气和至尊，闪耀其中。</description>
+							<imgLabel>landover</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>12</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="11" id="porsche">
+							<name>保时捷</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>35</baseLevel>
+							<installLevel>30</installLevel>
+							
+							<hitRect>-72,-45,144,45</hitRect>
+							<hurtRect>-73,-29,143,24</hurtRect>
+							<hurtRect>-59,-44,69,14</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>7000</baseLife>
+							<defenceValue>1280</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							<level>30</level>
+							
+							<description>There Is No Substitute——无可替代。</description>
+							<imgLabel>porsche</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="12" id="ferrari">
+							<name>法拉利</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>41</baseLevel>
+							<installLevel>38</installLevel>
+							
+							<hitRect>-67,-45,134,45</hitRect>
+							<hurtRect>-67,-29,134,20</hurtRect>
+							<hurtRect>-58,-43,72,20</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>5000</baseLife>
+							<defenceValue>1080</defenceValue>
+							<!-- 价格需求 -->
+							<price>200000</price>
+							<level>25</level>
+							
+							<description>有一种传奇叫“红色”。</description>
+							<imgLabel>ferrari</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>11</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="13" id="lambo">
+							<name>兰博基尼</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>49</baseLevel>
+							<installLevel>46</installLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>8000</baseLife>
+							<defenceValue>980</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							<level>30</level>
+							
+							
+							<description>卓越的跑车适合卓越的你。</description>
+							<imgLabel>lambo</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="14" id="bugatti">
+							<name>布加迪威龙</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>55</baseLevel>
+							<installLevel>50</installLevel>
+							
+							<hitRect>-67,-45,134,45</hitRect>
+							<hurtRect>-67,-27,135,24</hurtRect>
+							<hurtRect>-82,-40,82,14</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>9000</baseLife>
+							<defenceValue>1480</defenceValue>
+							<!-- 价格需求 -->
+							<price>1000000</price>
+							<level>35</level>
+							
+							
+							<description>奢侈的车身将你的尊贵身份表露无遗。</description>
+							<imgLabel>bugatti</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>9</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="15" id="redDragon">
+							<name>红龙</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>61</baseLevel>
+							<installLevel>58</installLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-64,-45,77,19</hurtRect>
+							<hurtRect>-67,-28,134,19</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>30000</baseLife>
+							<defenceValue>1000</defenceValue>
+							<!-- 价格需求 -->
+							<price>2000000</price>
+							<level>40</level>
+							
+							
+							<description>红色的血液在车身上沸腾。</description>
+							<imgLabel>redDragon</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+							<!-- 限时打折-->								
+		</car>
+		<car index="16" id="phantom">
+							<name>幻影</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>65</baseLevel>
+							<installLevel>62</installLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-67,-33,134,27</hurtRect>
+							<hurtRect>-55,-44,70,11</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>24000</baseLife>
+							<defenceValue>1600</defenceValue>
+							<!-- 价格需求 -->
+							<price>2000000</price>
+							<level>40</level>
+							
+							
+							<description>从来没有人看到它的影子，因为它就是影子。</description>
+							<imgLabel>phantom</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+							<!-- 限时打折-->						
+		</car>
+		<car index="17" id="glimpse">
+							<name>一闪</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>69</baseLevel>
+							<installLevel>66</installLevel>
+							
+							<hitRect>-70,-38,140,38</hitRect>
+							<hurtRect>-70,-36,140,29</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>32000</baseLife>
+							<defenceValue>1800</defenceValue>
+							<!-- 价格需求 -->
+							<price>3600000</price>
+							<level>45</level>
+							
+							<description>流线型的帅气车身彰显的是它的万中无一。</description>
+							<imgLabel>glimpse</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>7</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="18" id="stranger">
+							<name>穿梭者</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>73</baseLevel>
+							<installLevel>70</installLevel>
+							
+							<hitRect>-68,-43,136,43</hitRect>
+							<hurtRect>-64,-43,94,38</hurtRect>
+							<hurtRect>-30,-28,45,24</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>40000</baseLife>
+							<defenceValue>2000</defenceValue>
+							<!-- 价格需求 -->
+							<price>5000000</price>
+							<level>50</level>
+							
+							<description>穿梭在时空中，所以成为了传说。</description>
+							<imgLabel>stranger</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="19" id="hummer2">
+							<name>捍卫者</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>75</baseLevel>
+							<installLevel>72</installLevel>
+							
+							<hitRect>-60,-45,120,45</hitRect>
+							<hurtRect>-49,-51,67,16</hurtRect>
+							<hurtRect>-60,-42,120,27</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>40000</baseLife>
+							<defenceValue>2000</defenceValue>
+							<!-- 价格需求 -->
+							<price>5000000</price>
+							<level>50</level>
+							<description>实在不知道如何形容这样一台车，酷似悍马，却又不叫悍马，它是谁？它是地球科技的一项革命——它就是捍卫者。</description>
+							<imgLabel>hummer2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>	
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="20" id="audi_r8"     use="抽奖"><!-- 11月14后新增车壳 -->
+							<name>AUDI R8</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>77</baseLevel>
+							<installLevel>74</installLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-71,-29,139,24</hurtRect>
+							<hurtRect>-48,-37,65,10</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>80000</baseLife>
+							<defenceValue>2000</defenceValue>
+							<!-- 价格需求 -->
+							<price>8000000</price>
+							<level>55</level>
+							
+							<description>突破科技，启迪未来。</description>
+							<imgLabel>audi_r8</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>5</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="21" id="angelWings"  use="抽奖"><!-- 10月26后新增车壳 -->
+							<name>天使之翼</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>79</baseLevel>
+							<installLevel>76</installLevel>
+							
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-71,-29,139,24</hurtRect>
+							<hurtRect>-48,-37,65,10</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>120000</baseLife>
+							<defenceValue>2400</defenceValue>
+							<!-- 价格需求 -->
+							<price>10000000</price>
+							<level>60</level>
+							
+							<description>传说天使的羽翼掉落凡间，化成了这辆战车。</description>
+							<imgLabel>angelWings</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="22" id="bentley2">
+							<name>未来旅客</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>81</baseLevel>
+							<installLevel>78</installLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>200000</baseLife>
+							<defenceValue>5200</defenceValue>
+							<!-- 价格需求 -->
+							<price>50000000</price>
+							<level>65</level>
+							
+							
+							<description>来自未来的旅客，告诉我们“我们，可以决定一个世界”。</description>
+							<imgLabel>bentley2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+							
+		</car>
+		<car index="23" id="purplex1">
+							<name>战神X1</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>83</baseLevel>
+							<installLevel>80</installLevel>
+							
+							<hitRect>-70,-56,140,56</hitRect>
+							<hurtRect>-77,-38,154,30</hurtRect>
+							<hurtRect>-61,-52,77,19</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>1000000</baseLife>
+							<defenceValue>8800</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							
+							<level>70</level>
+							<description>为了对抗日益强大的机器人空军，超合金战队制造了一种防御力极高的战车，战神X1因此而生，为了制造出这战神X6，地球科学家花费数月的时间来研制它，无论在防御上还是在速度上，战神X1都要比其他战车更优秀！</description>
+							<imgLabel>purplex1</imgLabel>
+							<!-- 升级次数 -->
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="24" id="bmwi8">
+							<name>幻想</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>100</baseLevel>
+							<installLevel>80</installLevel>
+							
+							<hitRect>-72,-45,144,45</hitRect>
+							<hurtRect>-73,-29,143,24</hurtRect>
+							<hurtRect>-59,-44,69,14</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>300000</baseLife>
+							<defenceValue>5600</defenceValue>
+							<!-- 价格需求 -->
+							<price>60000000</price>
+							<level>70</level>
+							
+							<description>这是一辆超越今日科技的未来战车，它将前所未有的力量与优雅完美结合。</description>
+							<imgLabel>bmwi8</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+		</car>
+		<car index="25" id="Jaguar">
+							<name>美洲豹</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>105</baseLevel>
+							<installLevel>80</installLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>200000</baseLife>
+							<defenceValue>5200</defenceValue>
+							<!-- 价格需求 -->
+							<price>50000000</price>
+							<level>65</level>
+							
+							
+							<description>当它开动之时，就像一只全速奔跑的美洲豹，矫健勇猛，无可阻挡。</description>
+							<imgLabel>Jaguar</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+		</car>	
+		<car index="26" id="MoonShadow">
+							<name>月面暗影</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>110</baseLevel>
+							<installLevel>83</installLevel>
+							
+							<hitRect>-72,-45,144,45</hitRect>
+							<hurtRect>-73,-29,143,24</hurtRect>
+							<hurtRect>-59,-44,69,14</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>200000</baseLife>
+							<defenceValue>5200</defenceValue>
+							<!-- 价格需求 -->
+							<price>50000000</price>
+							<level>65</level>
+							
+							
+							<description>这是一辆充满黑暗能量的战车，无论如何都不应该成为超合金英雄的战车。但是正如孤胆英雄格洛所说：黑暗力量也是击败黑暗的力量之一。</description>
+							<imgLabel>MoonShadow</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+		</car>	
+		<car index="27" id="Deepspacer">
+			                <name>深空战士</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>115</baseLevel>
+				            <installLevel>88</installLevel>
+							
+				            <hitRect>-72,-45,144,45</hitRect>
+			            	<hurtRect>-72,-45,144,45</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>从深层空间采集未知金属锻造而成，是地球军团的最新利器。</description>
+				            <imgLabel>Deepspacer</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="28" id="taxues1">
+							<name>踏雪S1</name>
+							<type>G</type>                               <!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>20</baseLevel>
+							<installLevel>10</installLevel>
+							
+							<hitRect>-95,-49,190,49</hitRect>
+							<hurtRect>-69,-25,125,25</hurtRect>
+							<hurtRect>-4,-40,73,13</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>1600</baseLife>
+							<defenceValue>680</defenceValue>             <!-- 价格需求 -->
+							<price>50000</price>
+							<level>15</level>
+							
+							<description>载着圣诞老人发礼物的小雪橇车车，在冬天破坏者被击败之后被地球联邦军获得，现在这辆经过改造的战车能够适应所有环境下的战斗。</description>
+							<imgLabel>taxues1</imgLabel>                 <!-- 升级次数 -->
+							<maxUpgradeLevel>13</maxUpgradeLevel>	     <!-- 限时打折-->
+		</car>
+        <car index="29" id="taxues2">
+							<name>踏雪S2</name>
+							<type>G</type>                               <!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>40</baseLevel>
+							<installLevel>30</installLevel>
+							
+							<hitRect>-95,-49,190,49</hitRect>
+							<hurtRect>-69,-25,125,25</hurtRect>
+							<hurtRect>-4,-40,73,13</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>1600</baseLife>
+							<defenceValue>680</defenceValue>             <!-- 价格需求 -->
+							<price>50000</price>
+							<level>15</level>
+							
+							<description>载着圣诞老人发礼物的小雪橇车车，在冬天破坏者被击败之后被地球联邦军获得，现在这辆经过改造的战车能够适应所有环境下的战斗。</description>
+							<imgLabel>taxues2</imgLabel>                 <!-- 升级次数 -->
+							<maxUpgradeLevel>13</maxUpgradeLevel>	     <!-- 限时打折-->
+		</car>
+		<car index="30" id="taxues3">
+							<name>踏雪S3</name>
+							<type>G</type>                               <!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>70</baseLevel>
+							<installLevel>60</installLevel>
+							
+							<hitRect>-95,-49,190,49</hitRect>
+							<hurtRect>-69,-25,125,25</hurtRect>
+							<hurtRect>-4,-40,73,13</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>1600</baseLife>
+							<defenceValue>680</defenceValue>             <!-- 价格需求 -->
+							<price>50000</price>
+							<level>15</level>
+							
+							<description>载着圣诞老人发礼物的小雪橇车车，在冬天破坏者被击败之后被地球联邦军获得，现在这辆经过改造的战车能够适应所有环境下的战斗。</description>
+							<imgLabel>taxues3</imgLabel>                 <!-- 升级次数 -->
+							<maxUpgradeLevel>13</maxUpgradeLevel>	     <!-- 限时打折-->
+		</car>
+		<car index="31" id="taxues4">
+							<name>踏雪S4</name>
+							<type>G</type>                               <!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>130</baseLevel>
+							<installLevel>90</installLevel>
+							
+							<hitRect>-95,-49,190,49</hitRect>
+							<hurtRect>-69,-25,125,25</hurtRect>
+							<hurtRect>-4,-40,73,13</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>1600</baseLife>
+							<defenceValue>680</defenceValue>             <!-- 价格需求 -->
+							<price>50000</price>
+							<level>15</level>
+							
+							<description>载着圣诞老人发礼物的小雪橇车车，在冬天破坏者被击败之后被地球联邦军获得，现在这辆经过改造的战车能够适应所有环境下的战斗。</description>
+							<imgLabel>taxues4</imgLabel>                 <!-- 升级次数 -->
+							<maxUpgradeLevel>13</maxUpgradeLevel>	     <!-- 限时打折-->
+		</car>
+		<car index="27" id="jiadihuanzhanche">
+			                <name>仿制帝皇战车</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>140</baseLevel>
+				            <installLevel>93</installLevel>
+							
+				            <hitRect>-72,-45,144,45</hitRect>
+			            	<hurtRect>-72,-45,144,45</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>帝皇战车的仿制版，无论各个方面都比帝皇战车要逊色，但是勉强用用还是可以的。</description>
+				            <imgLabel>jiadihuang</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="28" id="bianfuxiazhanji">
+			                <name>蝙蝠侠战机</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>150</baseLevel>
+				            <installLevel>98</installLevel>
+							
+				            <hitRect>-85,-72,170,66</hitRect>
+			            	<hurtRect>-85,-69,170,66</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>蝙蝠侠的经典战机，在最后时刻帮助蝙蝠侠成功的将核弹带离城市。</description>
+				            <imgLabel>bianfuxiazhanji</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="28" id="yaoying">
+			                <name>鹞鹰</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>160</baseLevel>
+				            <installLevel>103</installLevel>
+							
+				            <hitRect>-74,-39,148,39</hitRect>
+			            	<hurtRect>-74,-39,148,39</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>地球联邦末日战车计划之一，拥有良好的机动性和防御力。</description>
+				            <imgLabel>yaoying</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		
+		<car index="28" id="argo">
+			                <name>Argo</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>170</baseLevel>
+				            <installLevel>110</installLevel>
+							
+				            <hitRect>-50,-40,100,35</hitRect>
+			            	<hurtRect>-50,-40,100,40</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>地球联邦末日战车计划之一,装备新型智能系统。</description>
+				            <imgLabel>argo</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="29" id="tuohuangzhe">
+			                <name>拓荒者</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>180</baseLevel>
+				            <installLevel>115</installLevel>
+							
+				            <hitRect>-74,-39,148,39</hitRect>
+			            	<hurtRect>-74,-39,148,39</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>地球联邦末日战车计划之一，第一代在月球广泛使用的战车。</description>
+				            <imgLabel>tuohuangzhe</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="29" id="languangzhanlun">
+			                <name>蓝光战轮</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+				            <baseLevel>190</baseLevel>
+				            <installLevel>120</installLevel>
+							
+				            <hitRect>-52,-44,104,44</hitRect>
+			            	<hurtRect>-52,-44,104,44</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>人类在获取了外星科技后,通过不断的研究后研发出的新一代战车,其性能在各方面都得到了极大的提高。</description>
+				            <imgLabel>languangzhanlun</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="29" id="ao">
+			                <name>奥</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+			            <baseLevel>210</baseLevel>
+			            <installLevel>140</installLevel>
+							
+				            <hitRect>-57,-33,97,28</hitRect>
+			            	<hurtRect>-57,-33,97,28</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>人类科学家设计的新型战车，拥有刀枪不入的外壳和超快的速度，同时搭配最新的超级计算机，能够不断的根据战局提升战车的防御和速度。</description>
+				            <imgLabel>ao</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+		<car index="30" id="shuangci">
+			                <name>双刺战机</name>
+				            <type>G</type>
+				            <!-- 现在的等级，只有G币车身有 -->
+			            <baseLevel>200</baseLevel>
+			            <installLevel>130</installLevel>
+							
+				            <hitRect>-45,-52,90,52</hitRect>
+			            	<hurtRect>-45,-52,90,52</hurtRect>
+				            <defenceType>energy</defenceType>
+				            <baseLife>200000</baseLife>
+				            <defenceValue>5200</defenceValue>
+				            <!-- 价格需求 -->
+				            <price>50000000</price>
+				            <level>65</level>
+							
+				            <description>地球联邦新型战机，因前方突出的机体而得名。</description>
+				            <imgLabel>shuangci</imgLabel>
+				            <!-- 升级次数 -->
+				            <maxUpgradeLevel>10</maxUpgradeLevel>
+				            <!-- 限时打折-->
+		</car>
+	</gather>
+	<!-- M币车身 -->
+	<gather name="M">
+		<car index="2"   id="hellokitty"   use="抽奖">
+							<name>HelloKitty</name>
+							<type>M</type>
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-37,-52,50,40</hurtRect>
+							<hurtRect>27,-27,15,16</hurtRect>
+							<hurtRect>11,-40,15,28</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>1800</baseLife>
+							<defenceValue>720</defenceValue>
+							<!-- 价格需求 -->
+							<price>200000</price>
+							<Mprice>50</Mprice>
+							<level>10</level>
+							<propId>469</propId>
+							<propId2>470</propId2>
+							
+							<description>可爱的粉红车身深受大家喜爱。</description>
+							<imgLabel>hellokitty</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>14</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="8"   id="matchaTea">
+							<name>抹茶</name>
+							<type>M</type>
+							<hitRect>-60,-50,120,50</hitRect>
+							<hurtRect>-55,-33,120,25</hurtRect>
+							<hurtRect>-52,-44,67,13</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>5000</baseLife>
+							<defenceValue>1600</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							<level>20</level>
+							<Mprice>50</Mprice>
+							<propId>475</propId>
+							<propId2>476</propId2>
+							
+							<description>翠绿色的车壳似乎散发着淡淡的茶香。</description>
+							<imgLabel>matchaTea</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>12</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="14"  id="pikaqiu"      use="抽奖">
+							<name>皮卡丘</name>
+							<type>M</type>
+							<hitRect>-55,-45,110,45</hitRect>
+							<hurtRect>-55,-32,110,26</hurtRect>
+							<hurtRect>-56,-49,71,17</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>600</baseLife>
+							<defenceValue>420</defenceValue>
+							<!-- 价格需求 -->
+							<price>100000</price>
+							<Mprice>80</Mprice>
+							<level>10</level>
+							<propId>468</propId>
+							<propId2>878</propId2>
+							
+							<description>“十万伏特！！！”</description>
+							<imgLabel>pikaqiu</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>15</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="17"  id="doraemon"     use="抽奖">
+							<name>哆啦A梦</name>
+							<type>M</type>
+							<hitRect>-55,-45,110,45</hitRect>
+							<hurtRect>-55,-31,110,26</hurtRect>
+							<hurtRect>-48,-49,62,21</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>3600</baseLife>
+							<defenceValue>1020</defenceValue>
+							<!-- 价格需求 -->
+							<price>300000</price>
+							<Mprice>80</Mprice>
+							<level>15</level>
+							<propId>471</propId>
+							<propId2>472</propId2>
+							
+							<description>它能带给你想要的一切。</description>
+							<imgLabel>doraemon</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>13</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="20"  id="wizard_oz"    use="抽奖"><!-- 11月14号-->
+							<name>绿野仙踪</name>
+							<type>M</type>
+							<hitRect>-60,-43,120,43</hitRect>
+							<hurtRect>-60,-28,120,28</hurtRect>
+							<hurtRect>-45,-41,80,13</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>80000</baseLife>
+							<defenceValue>1800</defenceValue>
+							<!-- 价格需求 -->
+							<price>2000000</price>
+							<Mprice>80</Mprice>
+							<level>45</level>
+							<propId>491</propId>
+							<propId2>492</propId2>
+							
+							<description>来自森林深处的精灵，它的踪迹无人能寻。</description>
+							<imgLabel>wizard_oz</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>7</maxUpgradeLevel>
+							<!-- 限时打折-->
+							
+							
+		</car>
+		<car index="16"  id="meteor">
+							<name>冲刺流星</name>
+							<type>M</type>
+							<hitRect>-68,-43,136,43</hitRect>
+							<hurtRect>-68,-29,136,27</hurtRect>
+							<hurtRect>-50,-42,59,15</hurtRect>
+							<defenceType>motion</defenceType>
+							
+							<baseLife>6000</baseLife>
+							<defenceValue>1320</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							<Mprice>100</Mprice>
+							<level>20</level>
+							<propId>473</propId>
+							<propId2>474</propId2>
+							
+							<description>它如流星般闪耀，势不可挡。</description>
+							<imgLabel>meteor</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>12</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="20"  id="mamba">
+							<name>曼巴眼镜蛇</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-67,-30,134,20</hurtRect>
+							<hurtRect>-57,-45,82,16</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>15000</baseLife>
+							<defenceValue>1920</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>100</Mprice>
+							<level>30</level>
+							<propId>481</propId>
+							<propId2>482</propId2>
+							
+							<description>与眼镜蛇一样充满了诱惑与魔力。</description>
+							<imgLabel>mamba</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="20"  id="blueDream"    use="抽奖">
+							<name>蓝色梦幻</name>
+							<type>M</type>
+							<hitRect>-48,-60,96,60</hitRect>
+							<hurtRect>-39,-60,51,17</hurtRect>
+							<hurtRect>-45,-44,87,38</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>50000</baseLife>
+							<defenceValue>2520</defenceValue>
+							<!-- 价格需求 -->
+							<price>1200000</price>
+							<Mprice>100</Mprice>
+							<level>40</level>
+							<propId>489</propId>
+							<propId2>490</propId2>
+							
+							<description>如梦幻般的完美车型，是每个人的梦想。</description>
+							<imgLabel>blueDream</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="1"   id="batman"><!-- 11月14号更新 -->
+							<name>蝙蝠侠</name>
+							<type>M</type>
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-34,-48,65,35</hurtRect>
+							<hurtRect>1,-2,3,4</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>12000</baseLife>
+							<defenceValue>1620</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>150</Mprice>
+							<level>25</level>
+							<propId>477</propId>
+							<propId2>478</propId2>
+							
+							<description>它从黑暗中来，又从黑暗中去，于是邪恶无处遁形。</description>
+							<imgLabel>batman</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>11</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="20"  id="blackDragon">
+							<name>黑龙</name>
+							<type>M</type>
+							<hitRect>-60,-43,120,43</hitRect>
+							<hurtRect>-60,-31,133,26</hurtRect>
+							<hurtRect>-45,-41,71,13</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>18000</baseLife>
+							<defenceValue>1400</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>150</Mprice>
+							<level>30</level>
+							<propId>479</propId>
+							<propId2>480</propId2>
+							
+							<description>黑色的血液在车身上低语。</description>
+							<imgLabel>blackDragon</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>9</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="9"   id="nightrider">
+							<name>黑夜骑士</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-68,-29,134,27</hurtRect>
+							<hurtRect>-68,-39,87,10</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>20000</baseLife>
+							<defenceValue>2220</defenceValue>
+							<!-- 价格需求 -->
+							<price>1000000</price>
+							<Mprice>150</Mprice>
+							<level>35</level>
+							<propId>485</propId>
+							<propId2>555</propId2>
+							
+							<description>选择它，成为黑夜骑士吧。</description>
+							<imgLabel>nightrider</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="21"  id="terminator">
+							<name>未来战士</name>
+							<type>M</type>
+							<hitRect>-60,-50,120,50</hitRect>
+							<hurtRect>-55,-33,120,25</hurtRect>
+							<hurtRect>-52,-44,67,13</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>1800</defenceValue>
+							<!-- 价格需求 -->
+							<price>1200000</price>
+							<Mprice>150</Mprice>
+							<level>40</level>
+							<propId>487</propId>
+							<propId2>488</propId2>
+							
+							<description>来自未来的高科技产物，所向披靡。</description>
+							<imgLabel>terminator</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="20"  id="falcon">
+							<name>隼</name>
+							<type>M</type>
+							<hitRect>-60,-50,120,50</hitRect>
+							<hurtRect>-55,-37,110,26</hurtRect>
+							<hurtRect>-48,-50,62,14</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>90000</baseLife>
+							<defenceValue>3350</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>150</Mprice>
+							<level>50</level>
+							<propId>493</propId>
+							<propId2>494</propId2>
+							
+							<description>这架用猛禽命名的车身凶猛异常。</description>
+							<imgLabel>falcon</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="7"   id="fireDemon">
+							<name>飞火流星</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-69,-35,139,29</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>80000</baseLife>
+							<defenceValue>4000</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>150</Mprice>
+							<level>50</level>
+							<propId>495</propId>
+							<propId2>496</propId2>
+							
+							<description>它的名字象征着燃着炙热火焰的流星。</description>
+							<imgLabel>fireDemon</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+		</car>
+		<car index="13"  id="motorcycle">
+							<name>战斧</name>
+							<type>M</type>
+							<hitRect>-53,-40,106,40</hitRect>
+							<hurtRect>-53,-38,86,28</hurtRect>
+							<hurtRect>32,-29,21,25</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>350000</baseLife>
+							<defenceValue>3600</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>150</Mprice>
+							<level>60</level>
+							
+							<description>品质，一脉相传。</description>
+							<imgLabel>motorcycle</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+							
+		</car>
+		<car index="22"  id="ghostSon"     use="抽奖">
+							<name>幽灵之子</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-71,-29,139,24</hurtRect>
+							<hurtRect>-48,-37,65,10</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>200000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>5500000</price>
+							<Mprice>200</Mprice>
+							<level>55</level>
+							<propId>501</propId>
+							<propId2>502</propId2>
+							
+							<description>源自安第斯山脉流传的风神之名，迅如疾风，形似幽灵。</description>
+							<imgLabel>ghostSon</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>5</maxUpgradeLevel>
+							
+		</car>
+		<car index="22"  id="zonda"        use="抽奖">
+							<name>风之子</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-71,-29,139,24</hurtRect>
+							<hurtRect>-48,-37,65,10</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>250000</baseLife>
+							<defenceValue>2500</defenceValue>
+							<price>5500000</price>
+							<Mprice>200</Mprice>
+							<level>55</level>
+							<propId>503</propId>
+							<propId2>504</propId2>
+							
+							<description>独特的上空魅力、超强的动力性能，以及手工制作的尊荣质感，身价益发不凡。</description>
+							<imgLabel>zonda</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>5</maxUpgradeLevel>
+							
+		</car>
+		<car index="22"  id="aventador"    use="抽奖">
+							<name>艾文塔多</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>300000</baseLife>
+							<defenceValue>4000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>200</Mprice>
+							<level>60</level>
+							<propId>505</propId>
+							<propId2>506</propId2>
+							
+							<description>它的名字来源于西班牙斗牛界最勇猛的斗牛，凶猛和暴力表露无遗。</description>
+							<imgLabel>aventador</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							
+		</car>
+		<car index="13"  id="porsche918">
+							<name>918</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>800000</baseLife>
+							<defenceValue>8400</defenceValue>
+							<!-- 价格需求 -->
+							<price>7000000</price>
+							<Mprice>200</Mprice>
+							<level>70</level>
+							<propId>509</propId>
+							<propId2>510</propId2>
+							
+							<description>最好的永远是下一辆。</description>
+							<imgLabel>porsche918</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>10</maxUpgradeLevel>
+							<!-- 限时打折-->
+							
+		</car>
+		<car index="22"  id="intercessor"  use="抽奖">
+							<name>仲裁者</name>
+							<type>M</type>
+							<hitRect>-50,-160,100,160</hitRect>
+							<hurtRect>-39,-159,64,67</hurtRect>
+							<hurtRect>-32,-109,19,101</hurtRect>
+							<hurtRect>13,-109,19,101</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>24000</baseLife>
+							<defenceValue>1600</defenceValue>
+							<!-- 价格需求 -->
+							<price>200000</price>
+							<Mprice>200</Mprice>
+							<level>25</level>
+							
+							<description>化身仲裁者</description>
+							<imgLabel>intercessor</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>11</maxUpgradeLevel>
+		</car>
+		<car index="13"  id="razer">
+							<name>雷蛇</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>120000</baseLife>
+							<defenceValue>4200</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							<Mprice>200</Mprice>	
+							<level>50</level>
+							<description>雷电之蛇，迅捷如风。</description>
+							<imgLabel>razer</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 限时打折-->
+							
+		</car>
+		<car index="22"  id="predator"     use="抽奖">
+							<name>掠夺者</name>
+							<type>M</type>
+							<hitRect>-72,-63,144,63</hitRect>
+							<hurtRect>-72,-65,97,52</hurtRect>
+							<hurtRect>-25,-44,49,25</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>150000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>5000000</price>
+							<Mprice>250</Mprice>
+							<level>50</level>
+							<propId>499</propId>
+							<propId2>500</propId2>
+							
+							<description>厚重的装甲包裹全身，连导弹都无法击穿它。</description>
+							<imgLabel>predator</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="20"  id="ghost"        use="抽奖">
+							<name>魅影</name>
+							<type>M</type>
+							<hitRect>-60,-50,120,50</hitRect>
+							<hurtRect>-60,-28,120,28</hurtRect>
+							<defenceType>boom</defenceType>
+							
+							<baseLife>60000</baseLife>
+							<defenceValue>2820</defenceValue>
+							<!-- 价格需求 -->
+							<price>2000000</price>
+							<Mprice>300</Mprice>
+							<level>45</level>
+							<propId>483</propId>
+							<propId2>484</propId2>
+							
+							<description>它的魅惑无人能拒。</description>
+							<imgLabel>ghost</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>7</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="20"  id="flyShadow"    use="抽奖">
+							<name>飞影</name>
+							<type>M</type>
+							<hitRect>-70,-34,140,34</hitRect>
+							<hurtRect>-76,-27,140,27</hurtRect>
+							<hurtRect>-67,-35,61,9</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>120000</baseLife>
+							<defenceValue>2000</defenceValue>
+							<!-- 价格需求 -->
+							<price>4000000</price>
+							<Mprice>300</Mprice>
+							<level>50</level>
+							<propId>497</propId>
+							<propId2>498</propId2>
+							
+							<description>它所经过之地留下的只有残影。</description>
+							<imgLabel>flyShadow</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>
+							<!-- 限时打折-->
+									
+							
+		</car>
+		<car index="22"  id="nightmare"    use="抽奖"><!-- 11月14号 -->
+							<name>梦魇</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>--72,-32,140,26</hurtRect>
+
+							<defenceType>energy</defenceType>
+							<baseLife>350000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>300</Mprice>
+							<level>60</level>
+							<propId>507</propId>
+							<propId2>508</propId2>
+							
+							<description>战场上的仇恨灵魂充斥其中，它带给敌人的只有绝望。</description>
+							<imgLabel>nightmare</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							
+		</car>
+		<car index="1"   id="batman2">
+							<name>黄金蝙蝠侠</name>
+							<type>M</type>
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-34,-48,65,35</hurtRect>
+							<hurtRect>1,-2,3,4</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>金色的光芒从黑暗中诞生。</description>
+							<imgLabel>batman2</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="22"  id="glimpse2">
+							<name>黄金一闪</name>
+							<type>M</type>
+							<hitRect>-70,-38,140,38</hitRect>
+							<hurtRect>-70,-36,140,29</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>120000</baseLife>
+							<defenceValue>4200</defenceValue>
+							<!-- 价格需求 -->
+							<price>3600000</price>
+							<Mprice>300</Mprice>
+							
+							<level>50</level>
+							<description>黄金包裹的流线型帅气车身更加彰显了至高无上的地位。</description>
+							<imgLabel>glimpse2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>6</maxUpgradeLevel>
+		</car>
+		<car index="20"  id="falcon2">
+							<name>黄金隼</name>
+							<type>M</type>
+							<hitRect>-60,-50,120,50</hitRect>
+							<hurtRect>-55,-37,110,26</hurtRect>
+							<hurtRect>-48,-50,62,14</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>300000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>300</Mprice>
+							<level>60</level>
+							
+							<description>用黄金打造的猛禽之王，傲视群雄。</description>
+							<imgLabel>falcon2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+		</car>
+		<car index="22"  id="predator2"    use="抽奖"><!-- 11月14号 -->
+							<name>黄金掠夺者</name>
+							<type>M</type>
+							<hitRect>-72,-63,144,63</hitRect>
+							<hurtRect>-72,-65,97,52</hurtRect>
+							<hurtRect>-25,-44,49,25</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>350000</baseLife>
+							<defenceValue>4000</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>300</Mprice>
+							
+							<level>60</level>
+							
+							<description>用黄金重新打造了装甲，在提高性能的同时更显尊贵地位。</description>
+							<imgLabel>predator2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 限时打折-->
+							
+							
+		</car>
+		<car index="22"  id="zonda2"       use="抽奖">
+							<name>黄金风之子</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-71,-29,139,24</hurtRect>
+							<hurtRect>-48,-37,65,10</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>800000</baseLife>
+							<defenceValue>8000</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>300</Mprice>
+							<level>65</level>
+							
+							<description>独特的上空魅力、超强的动力性能，以及手工制作的尊荣质感，身价益发不凡。</description>
+							<imgLabel>zonda2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>5</maxUpgradeLevel>
+							
+		</car>
+		<car index="22"  id="aventador2"   use="抽奖">
+							<name>黄金艾文塔多</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>boom</defenceType>
+							<baseLife>1000000</baseLife>
+							<defenceValue>8800</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>300</Mprice>
+							<level>70</level>
+							
+							<description>它的名字来源于西班牙斗牛界最勇猛的斗牛，凶猛和暴力表露无遗。</description>
+							<imgLabel>aventador2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							
+		</car>
+		<car index="22"  id="nightmare2"   use="抽奖"><!-- 11月14号 -->
+							<name>黄金梦魇</name>
+							<type>M</type>
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>--72,-32,140,26</hurtRect>
+
+							<defenceType>boom</defenceType>
+							<baseLife>1000000</baseLife>
+							<defenceValue>8800</defenceValue>
+							<!-- 价格需求 -->
+							<price>3000000</price>
+							<Mprice>300</Mprice>
+							<level>70</level>
+							
+							<description>战场上的仇恨灵魂充斥其中，它带给敌人的只有绝望。</description>
+							<imgLabel>nightmare2</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							
+		</car>
+		<car index="22"  id="enemyPredator"use="抽奖">
+							<name>掠食者</name>
+							<type>M</type>
+							<hitRect>-65,-116,130,116</hitRect>
+							<hurtRect>-55,-72,86,39</hurtRect>
+							<hurtRect>-35,-113,48,39</hurtRect>
+							<defenceType>energy</defenceType>
+							<baseLife>1200000</baseLife>
+							<defenceValue>10400</defenceValue>
+							<!-- 价格需求 -->
+							<price>200000</price>
+							<Mprice>500</Mprice>
+							<level>80</level>
+							
+							<description>化身掠食者</description>
+							<imgLabel>enemyPredator</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>11</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="Moonfighter">
+							<name>月球斗士</name>
+							<type>M</type>
+							<hitRect>-42,-53,84,53</hitRect>
+							<hurtRect>-34,-48,65,35</hurtRect>
+							<hurtRect>1,-2,3,4</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>”仅以此车献给即将踏上月球的英雄们。”——宇宙大元帅</description>
+							<imgLabel>Moonfighter</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="CrimsonAssault">
+							<name>赤红突击</name>
+							<type>M</type>
+							<hitRect>-80,-45,160,45</hitRect>
+							<hurtRect>-80,-45,160,45</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>当此车经过战场之时，仿佛一道赤色的闪电横贯大地，摧毁所有拦路之敌。</description>
+							<imgLabel>CrimsonAssault</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="dihu">
+							<name>地虎</name>
+							<type>M</type>
+							<hitRect>-60,-40,120,40</hitRect>
+							<hurtRect>-60,-40,120,40</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>由土之地虎铠甲化身而成的超级战车</description>
+							<imgLabel>dihu</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="heixi">
+							<name>黑犀</name>
+							<type>M</type>
+							<hitRect>-60,-40,120,40</hitRect>
+							<hurtRect>-60,-40,120,40</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>由水之黑犀铠甲化身而成的超级战车</description>
+							<imgLabel>heixi</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="yanlong">
+							<name>炎龙</name>
+							<type>M</type>
+							<hitRect>-60,-40,120,40</hitRect>
+							<hurtRect>-60,-40,120,40</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>由火之炎龙铠甲化身而成的超级战车</description>
+							<imgLabel>yanlong</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="fengying">
+							<name>风鹰</name>
+							<type>M</type>
+							<hitRect>-60,-40,120,40</hitRect>
+							<hurtRect>-60,-40,120,40</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>由木之风鹰铠甲化身而成的超级战车</description>
+							<imgLabel>fengying</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="xueao">
+							<name>雪獒</name>
+							<type>M</type>
+							<hitRect>-60,-40,120,40</hitRect>
+							<hurtRect>-60,-40,120,40</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>由金之雪獒铠甲化身而成的超级战车</description>
+							<imgLabel>xueao</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="1"   id="dihuang">
+							<name>帝皇战车</name>
+							<type>M</type>
+							<hitRect>-67,-48,134,48</hitRect>
+							<hurtRect>-44,-38,88,28</hurtRect>
+							<defenceType>motion</defenceType>
+							<baseLife>60000</baseLife>
+							<defenceValue>2800</defenceValue>
+							<!-- 价格需求 -->
+							<price>800000</price>
+							<Mprice>300</Mprice>
+							<level>40</level>
+							
+							<description>穿上铠甲 重返战场 我的风光 你的哀伤 记忆城墙 岁月篇章 揭开封尘 王者之相</description>
+							<imgLabel>dihuang</imgLabel>	
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>8</maxUpgradeLevel>
+		</car>
+		<car index="22"  id="dragonRoars"    use="抽奖">
+							<name>黑色圆舞曲</name>
+							<type>M</type>
+							<hitRect>-70,-42,140,42</hitRect>
+							<hurtRect>-70,-37,82,30</hurtRect>
+							<hurtRect>-11,-28,60,23</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>10000</baseLife>
+							<defenceValue>1200</defenceValue>
+							<!-- 价格需求 -->
+							<price>60000</price>
+							<Mprice>5</Mprice>
+							<level>30</level>
+							
+							<description>它在黑夜中独自舞动，于是死亡悄然降临...</description>
+							<imgLabel>dragonRoars</imgLabel>	
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="22"  id="dragonRoars2"   use="抽奖">
+							<name>黄金圆舞曲</name>
+							<type>M</type>
+							<hitRect>-70,-42,140,42</hitRect>
+							<hurtRect>-70,-37,82,30</hurtRect>
+							<hurtRect>-11,-28,60,23</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>10000</baseLife>
+							<defenceValue>1200</defenceValue>
+							<!-- 价格需求 -->
+							<price>60000</price>
+							<Mprice>5</Mprice>
+							<level>30</level>
+							
+							<description>它在黑夜中独自舞动，于是死亡悄然降临...</description>
+							<imgLabel>dragonRoars2</imgLabel>	
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+	</gather>
+	<!-- 兑换车身 -->
+	<gather name="XYZ">
+		<car index="22" id="tank"         use="抽奖">
+							<name>坦克</name>
+							<type>M</type>
+							<hitRect>-68,-42,136,42</hitRect>
+							<hurtRect>-67,-25,139,25</hurtRect>
+							<hurtRect>-68,-37,99,12</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>150000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>20000000</price>
+							<level>5</level>
+							
+							<description>利用加特林机动原理的高射速车载型重炮，装填弹药为小型穿甲弹。</description>
+							<imgLabel>tank</imgLabel>
+		</car>
+		<car index="22" id="electricSaw"  use="抽奖">
+							<name>电锯机器人</name>
+							<type>M</type>
+							<hitRect>-35,-46,70,46</hitRect>
+							<hurtRect>-22,-48,30,25</hurtRect>
+							<hurtRect>-35,-24,70,24</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>150000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>20000000</price>
+							<Mprice>2000</Mprice>
+							<level>5</level>
+							
+							<description>利用加特林机动原理的高射速车载型重炮，装填弹药为小型穿甲弹。</description>
+							<imgLabel>electricSaw</imgLabel>
+		</car>
+		<car index="22" id="charger"      use="抽奖">
+							<name>突击者</name>
+							<type>M</type>
+							<hitRect>-29,-82,58,82</hitRect>
+							<hurtRect>-25,-76,39,77</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>150000</baseLife>
+							<defenceValue>3500</defenceValue>
+							<!-- 价格需求 -->
+							<price>20000000</price>
+							<Mprice>1</Mprice>
+							<Xprice>20</Xprice>
+							<level>5</level>
+							
+							<description>利用加特林机动原理的高射速车载型重炮，装填弹药为小型穿甲弹。</description>
+							<imgLabel>charger</imgLabel>
+							
+		</car>
+	</gather>
+	<!-- 定制车身 -->
+	<gather name="custom">
+		<car index="13" id="purplex6">
+							<name>战神X6</name>
+							<type>G</type>
+							<!-- 现在的等级，只有G币车身有 -->
+							<baseLevel>100</baseLevel>
+							
+							<hitRect>-70,-56,140,56</hitRect>
+							<hurtRect>-77,-38,154,30</hurtRect>
+							<hurtRect>-61,-52,77,19</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>1000000</baseLife>
+							<defenceValue>8800</defenceValue>
+							<!-- 价格需求 -->
+							<price>500000</price>
+							<Mprice>1</Mprice>
+							<Xprice>480</Xprice>
+							<Yprice>0</Yprice>
+							
+							<level>70</level>
+							<description>为了对抗日益强大的机器人空军，超合金战队制造了一种防御力极高的战车，战神X6因此而生，为了制造出这战神X6，地球科学家花费数月的时间来研制它，无论在防御上还是在速度上，战神X6都要比其他战车更优秀！</description>
+							<imgLabel>purplex6</imgLabel>
+							<!-- 升级次数 -->
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="22" id="platinumChariots"  use="抽奖">
+							<name>白金战车</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-67,-39,134,39</hitRect>
+							<hurtRect>-65,-26,134,22</hurtRect>
+							<hurtRect>-54,-41,88,15</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：白金战车。“巅峰”战队队长，巅峰之上，一览纵山小。 </description>
+							<imgLabel>platinumChariots</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+							
+		</car>
+		<car index="22" id="optimusPrime"      use="抽奖">
+							<name>擎天柱</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-90,-70,180,70</hitRect>
+							<hurtRect>-85,-44,175,32</hurtRect>
+							<hurtRect>-58,-71,104,27</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：Vincent。汽车人的首领，卓越的领导才能和善良的心，为自由而战！</description>
+							<imgLabel>optimusPrime</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="22" id="megatron"          use="抽奖">
+							<name>威震天</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-98,-78,196,78</hitRect>
+							<hurtRect>-94,-32,186,32</hurtRect>
+							<hurtRect>-78,-58,94,27</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：炮王。霸天虎的首领，拥有钢铁般的意志，作为擎天柱的死对头，强悍无需多言。</description>
+							<imgLabel>megatron</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+							
+		</car>
+		<car index="22" id="avanty"            use="抽奖">
+							<name>亡语者</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-80,-86,160,86</hitRect>
+							<hurtRect>-93,-60,182,43</hurtRect>
+							<hurtRect>-82,-84,37,22</hurtRect>
+							<hurtRect>-6,-77,67,15</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：叫兽。它在沉默中前行，黑色的车壳低声述说着死亡。</description>
+							<imgLabel>avanty</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+							
+							
+		</car>
+		<car index="22" id="optimusPrime2"     use="抽奖">
+							<name>擎天柱Ⅱ</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-78,-86,156,86</hitRect>
+							<hurtRect>-84,-41,168,27</hurtRect>
+							<hurtRect>-50,-78,36,36</hurtRect>
+							<hurtRect>-4,-85,79,45</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：愤怒大机。汽车人的首领，正义的领袖，人类信任的伟大战士。</description>
+							<imgLabel>optimusPrime2</imgLabel>			
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="22" id="mcQueen"           use="抽奖">
+							<name>闪电</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-65,-40,130,40</hitRect>
+							<hurtRect>-66,-27,124,22</hurtRect>
+							<hurtRect>-45,-37,62,10</hurtRect>
+							<hurtRect>-4,-85,79,45</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：Snow 幽明。</description>
+							<imgLabel>mcQueen</imgLabel>			
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="13" id="moumou">
+							<name>法拉利梦幻</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-67,-35,134,35</hitRect>
+							<hurtRect>-65,-22,134,22</hurtRect>
+							<hurtRect>-54,-37,88,15</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+								
+							<description>车主：AV、男纸。源自科幻、源自梦里。</description>
+							<imgLabel>moumou</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="13" id="bentley">
+							<name>精灵斗士</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-64,-47,128,47</hitRect>
+							<hurtRect>-72,-24,144,27</hurtRect>
+							<hurtRect>-46,-36,65,18</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+								
+							<description>车主：斌斌。战斗不止。</description>
+							<imgLabel>bentley</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="13" id="prime">
+							<name>补天士</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-64,-47,128,47</hitRect>
+							<hurtRect>-82,-30,167,21</hurtRect>
+							<hurtRect>-62,-43,77,13</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6</price>
+							<Mprice>5000</Mprice>
+							<level>1</level>
+								
+							<description>车主：焰の菲。汽车人的英雄，继承了擎天柱的意志成为新一代的汽车人领袖。他是宇宙和平新的希望，面对邪恶他无所畏惧。</description>
+							<imgLabel>prime</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="13" id="adui_z">
+							<name>奥迪Z</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-68,-43,136,43</hitRect>
+							<hurtRect>-68,-29,136,27</hurtRect>
+							<hurtRect>-50,-42,59,15</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6</price>
+							<Mprice>5000</Mprice>
+							<level>1</level>
+								
+							<description>车主：小博士。这款搭载最新6升V型13缸双涡轮TDI柴油直喷发动机的顶级赛车，将成为超合金战队打败机器人的决胜利器。</description>
+							<imgLabel>adui_z</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>4</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+							
+		</car>
+		<car index="4"  id="kamikaze">
+							<name>神风追击</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-67,-45,134,45</hitRect>
+							<hurtRect>-67,-27,135,24</hurtRect>
+							<hurtRect>-82,-40,82,14</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6</price>
+							<Mprice>5000</Mprice>
+							<level>1</level>
+							
+							
+							<description>车主：S神风追击。在烈火与急电的交点，诞生了这辆车。他拥有电的速度，火的无畏。当它出现在战场上时，那就意味着一场杀戮……</description>
+							<imgLabel>kamikaze</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>9</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="4"  id="deathgod">
+							<name>死灵骑士</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-67,-45,134,45</hitRect>
+							<hurtRect>-67,-27,135,24</hurtRect>
+							<hurtRect>-82,-40,82,14</hurtRect>
+							<defenceType>mixed</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							<!-- 价格需求 -->
+							<price>6</price>
+							<Mprice>5000</Mprice>
+							<level>1</level>
+							
+							
+							<description>车主：死灵骑士。当人类陷入绝境之时，将会有位英雄冲破黑暗，它带来死的绝望，又给予生的希望。</description>
+							<imgLabel>deathgod</imgLabel>
+							<!-- 升级次数 -->
+							<maxUpgradeLevel>9</maxUpgradeLevel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>	
+		<car index="2"  id="conceptSmart">
+							<name>Smart Forvision</name>
+							<type>M</type>
+							<hitRect>-70,-42,140,42</hitRect>
+							<hurtRect>-70,-37,82,30</hurtRect>
+							<hurtRect>-11,-28,60,23</hurtRect>
+							
+							<defenceType>mixed</defenceType>
+							<baseLife>18000</baseLife>
+							<defenceValue>1400</defenceValue>
+							<price>40000</price>
+							<Mprice>80</Mprice>
+							<level>30</level>
+							<description>拥有6速自动变速箱的灵巧精灵。概念版。</description>
+							<imgLabel>conceptSmart</imgLabel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="2"  id="jufengzhichui">
+							<name>飓风之锤</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-68,-43,136,43</hitRect>
+							<hurtRect>-68,-29,136,27</hurtRect>
+							<hurtRect>-50,-42,59,15</hurtRect>
+							
+							<defenceType>boom</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：爱の：-D甜心。这辆车是天庭之神用飓风的锤炼，黑火的淬炼，以及使用昊天锤的武魂呕心沥血打造九九八十一天制成，如同枪林弹雨般，给予敌人严重的伤害。</description>
+							<imgLabel>jufengzhichui</imgLabel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="2"  id="yueguang">
+							<name>月光</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-81,-39,162,38</hitRect>
+							<hurtRect>-73,-38,138,31</hurtRect>
+							
+							<defenceType>boom</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：暗尘绝杀。月光之下，无所遁形！</description>
+							<imgLabel>yueguang</imgLabel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+		<car index="2"  id="hundunlizhi">
+							<name>混沌荔枝</name>
+							<type>G</type>
+							<baseLevel>160</baseLevel>
+							
+							<hitRect>-72,-39,148,35</hitRect>
+							<hurtRect>-74,-40,148,40</hurtRect>
+							
+							<defenceType>boom</defenceType>
+							<baseLife>2000000</baseLife>
+							<defenceValue>17000</defenceValue>
+							
+							<price>6000000</price>
+							<Mprice>5</Mprice>
+							<level>1</level>
+							
+							<description>车主：混沌荔枝。破碎维度，混沌空间，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
+							<imgLabel>hundunlizhi</imgLabel>
+							<!-- 展示-->
+							<discount>-1000</discount>
+		</car>
+	</gather>
+	
+	
+</data>

@@ -1,0 +1,2235 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<type index="0" id="material" info="材料">
+			<items index="0">
+				<name>superalloy</name>
+				<cnName>超合金</cnName>
+				<dropLevel>1</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<propId>520</propId>
+				<propId2>520</propId2>
+				
+				<iconImgLabel>itemsUI/superalloy</iconImgLabel>
+				<imgLabel>itemsUI/superalloy</imgLabel>
+				<description>合成与升级武器必备材料。</description>	
+			</items>
+			<items index="0">
+				<name>superalloy_Z</name>
+				<cnName>超合金Z</cnName>
+				<dropLevel>9999</dropLevel>
+				<price>200</price>					<!-- 价格 -->
+				<Mprice>3</Mprice>	
+				<Xprice>10</Xprice>	
+				<propId>521</propId>
+				<propId2>522</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/superalloy_Z</iconImgLabel>
+				<imgLabel>itemsUI/superalloy_Z</imgLabel>
+				<description>合成与升级武器必备的稀缺材料。只有通过击杀精英怪和Boss才可能掉落。</description>
+				
+				<!-- 限时打折-->	
+			</items>
+			<items index="0">
+				<name>superalloy_X</name>
+				<cnName>超合金X</cnName>
+				<dropLevel>9999</dropLevel>
+				<price>200</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/superalloy_X</iconImgLabel>
+				<imgLabel>itemsUI/superalloy_X</imgLabel>
+				<description>稀缺材料，能够用来兑换商品。</description>
+			</items>
+			<items index="0">
+				<name>superalloy_Y</name>
+				<cnName>超合金Y</cnName>
+				<dropLevel>9999</dropLevel>
+				<price>200</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/superalloy_Y</iconImgLabel>
+				<imgLabel>itemsUI/superalloy_Y</imgLabel>
+				<description>稀缺材料，能够用来兑换商品。</description>
+			</items>
+			
+		<!-- 雪花-->	
+			<items index="0">
+				<name>xuehua</name>
+				<cnName>雪花</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/turntable_7</iconImgLabel>
+				<imgLabel>itemsUI/turntable_7</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>2</Mprice>	
+				<propId>1153</propId>
+				<propId2>1154</propId2>
+				<description>可以兑换双蛋道具；也可以在商城道具栏按1:1兑换儿童节爱心。</description>
+			</items>
+			<items index="0">
+				<name>laodongjie</name>
+				<cnName>劳动勋章</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/turntable_13</iconImgLabel>
+				<imgLabel>itemsUI/turntable_13</imgLabel>
+				<!-- 功能描述	-->
+				<price>5</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<propId>2979</propId>
+				<propId2>2980</propId2>
+				<description>可以在劳动节兑换界面中兑换稀有道具！</description>
+			</items>
+			<!-- 月饼-->	
+			<items index="0">
+				<name>prop_mooncake</name>
+				<cnName>中秋月饼</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/prop_mooncake</iconImgLabel>
+				<imgLabel>itemsUI/prop_mooncake</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<description>收集一定数量月饼可到中秋活动界面领取奖励。</description>
+			</items>
+			<items index="0">
+				<name>ertongaixin</name>
+				<cnName>儿童节爱心</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/ertongaixin</iconImgLabel>
+				<imgLabel>itemsUI/ertongaixin</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<propId>2056</propId>
+				<propId2>2056</propId2>	
+				<description>可以在61活动界面中兑换稀有道具；也可以在商城道具栏按1:1兑换雪花。</description>
+			</items>
+			<items index="0">
+				<name>xiaohou</name>
+				<cnName>送福小猴</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/xiaohou</iconImgLabel>
+				<imgLabel>itemsUI/xiaohou</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<propId>2056</propId>
+				<propId2>2056</propId2>	
+				<description>可以在跨年兑换活动中兑换稀有道具！</description>
+			</items>
+			<items index="0">
+				<name>xinchunsongfu</name>
+				<cnName>新春送福</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/xinchunsongfu</iconImgLabel>
+				<imgLabel>itemsUI/xinchunsongfu</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>
+				<propId>2767</propId>
+				<propId2>2768</propId2>	
+				<description>可以用来升级武器“鞭炮”</description>
+			</items>
+			<items index="0">
+				<name>yongshixunzhang</name>
+				<cnName>勇士勋章</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/yongshixunzhang</iconImgLabel>
+				<imgLabel>itemsUI/yongshixunzhang</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<propId>2056</propId>
+				<propId2>2056</propId2>	
+				<description>用来表彰在战斗中拥有优异表现的战士，可以在各个活动中兑换晶体。</description>
+			</items>
+			
+			<!-- 碎片-->	
+			<items index="0">
+				<name>arms_fragment</name>
+				<cnName>武器碎片</cnName>
+				<dropLevel>9999</dropLevel>
+				<price>200</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/arms_fragment</iconImgLabel>
+				<imgLabel>itemsUI/arms_fragment</imgLabel>
+				<description>稀缺材料。</description>
+			</items>
+			<items index="0">
+				<name>shell_fragment</name>
+				<cnName>装甲碎片</cnName>
+				<dropLevel>9999</dropLevel>
+				<price>200</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/shell_fragment</iconImgLabel>
+				<imgLabel>itemsUI/shell_fragment</imgLabel>
+				<description>稀缺材料。</description>
+			</items>
+			<items index="0">
+				<name>heart_fragment</name>
+				<cnName>核心碎片</cnName>
+				<dropLevel>9999</dropLevel>
+				<price>200</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/heart_fragment</iconImgLabel>
+				<imgLabel>itemsUI/heart_fragment</imgLabel>
+				<description>稀缺材料。</description>
+			</items>
+			
+		<!-- 聚束器 -->	
+			<items index="0">
+				<name>buncher_1</name>
+				<cnName>初级聚束器</cnName>
+				<dropLevel>1</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<propId>527</propId>
+				<propId2>527</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_1</iconImgLabel>
+				<imgLabel>itemsUI/buncher_1</imgLabel>
+				
+				<description>在推荐等级1-17的关卡中可以获得。</description>
+				
+			</items>
+			<items index="1">
+				<name>buncher_2</name>
+				<cnName>中级聚束器</cnName>
+				<dropLevel>18</dropLevel>
+				<price>154</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>528</propId>
+				<propId2>528</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_2</iconImgLabel>
+				<imgLabel>itemsUI/buncher_2</imgLabel>
+				<description>在推荐等级18-35的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>buncher_3</name>
+				<cnName>高级聚束器</cnName>
+				<dropLevel>36</dropLevel>
+				<price>298</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<Xprice>0.5</Xprice>
+				<propId>529</propId>
+				<propId2>529</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_3</iconImgLabel>
+				<imgLabel>itemsUI/buncher_3</imgLabel>
+				<description>在推荐等级36-50的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>buncher_4</name>
+				<cnName>大师级聚束器</cnName>
+				<dropLevel>51</dropLevel>
+				<price>418</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<propId>530</propId>
+				<propId2>530</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_4</iconImgLabel>
+				<imgLabel>itemsUI/buncher_4</imgLabel>
+				
+				<description>在推荐等级51-60的关卡中可以获得。</description>
+				
+			</items>	
+			<items index="2">
+				<name>buncher_5</name>
+				<cnName>专家级聚束器</cnName>
+				<dropLevel>61</dropLevel>
+				<price>418</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>629</propId>
+				<propId2>629</propId2>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_5</iconImgLabel>
+				<imgLabel>itemsUI/buncher_5</imgLabel>
+				
+				<description>在推荐等级61-80的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>buncher_6</name>
+				<cnName>史诗级聚束器</cnName>
+				<dropLevel>81</dropLevel>
+				<price>600</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>629</propId>
+				<propId2>629</propId2>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_6</iconImgLabel>
+				<imgLabel>itemsUI/buncher_6</imgLabel>
+				
+				<description>在推荐等级81-100的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>buncher_7</name>
+				<cnName>宗师级聚束器</cnName>
+				<dropLevel>101</dropLevel>
+				<price>600</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>1800</propId>
+				<propId2>1800</propId2>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/buncher_7</iconImgLabel>
+				<imgLabel>itemsUI/buncher_7</imgLabel>
+				
+				<description>在推荐等级101的关卡中可以获得。</description>
+				
+			</items>
+			
+			
+			
+			
+		<!-- 爆炸器 -->	
+			<items index="0">
+				<name>boom_1</name>
+				<cnName>初级爆炸器</cnName>
+				<dropLevel>1</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<Xprice>0.5</Xprice>
+				<propId>531</propId>
+				<propId2>531</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/boom_1</iconImgLabel>
+				<imgLabel>itemsUI/boom_1</imgLabel>
+				
+				<description>在推荐等级1-17的关卡中可以获得。</description>
+				
+			</items>
+			<items index="1">
+				<name>boom_2</name>
+				<cnName>中级爆炸器</cnName>
+				<dropLevel>18</dropLevel>
+				<price>154</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>532</propId>
+				<propId2>532</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/boom_2</iconImgLabel>
+				<imgLabel>itemsUI/boom_2</imgLabel>
+				<description>在推荐等级18-35的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>boom_3</name>
+				<cnName>高级爆炸器</cnName>
+				<dropLevel>36</dropLevel>
+				<price>298</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<Xprice>0.5</Xprice>
+				<propId>533</propId>
+				<propId2>533</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/boom_3</iconImgLabel>
+				<imgLabel>itemsUI/boom_3</imgLabel>
+				
+				<description>在推荐等级36-50的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>boom_4</name>
+				<cnName>大师级爆炸器</cnName>
+				<dropLevel>51</dropLevel>
+				<price>418</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<propId>534</propId>
+				<propId2>534</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/boom_4</iconImgLabel>
+				<imgLabel>itemsUI/boom_4</imgLabel>
+				
+				<description>在推荐等级51-60的关卡中可以获得。</description>
+				
+			</items>	
+			<items index="2">
+				<name>boom_5</name>
+				<cnName>专家级爆炸器</cnName>
+				<dropLevel>61</dropLevel>
+				<price>418</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<propId>630</propId>
+				<propId2>630</propId2>
+				
+				<iconImgLabel>itemsUI/boom_5</iconImgLabel>
+				<imgLabel>itemsUI/boom_5</imgLabel>
+				
+				<description>在推荐等级61-80的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>boom_6</name>
+				<cnName>史诗级爆炸器</cnName>
+				<dropLevel>81</dropLevel>
+				<price>600</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<propId>630</propId>
+				<propId2>630</propId2>
+				
+				<iconImgLabel>itemsUI/boom_6</iconImgLabel>
+				<imgLabel>itemsUI/boom_6</imgLabel>
+				
+				<description>在推荐等级81-100的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>boom_7</name>
+				<cnName>宗师级爆炸器</cnName>
+				<dropLevel>101</dropLevel>
+				<price>600</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<propId>1801</propId>
+				<propId2>1801</propId2>
+				
+				<iconImgLabel>itemsUI/boom_7</iconImgLabel>
+				<imgLabel>itemsUI/boom_7</imgLabel>
+
+				<description>在推荐等级101以上的关卡中可以获得。</description>		
+
+			</items>
+		
+		<!-- 穿透器 -->	
+			<items index="0">
+				<name>thorn_1</name>
+				<cnName>初级穿透器</cnName>
+				<dropLevel>1</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<Xprice>0.5</Xprice>
+				<propId>535</propId>
+				<propId2>535</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/thorn_1</iconImgLabel>
+				<imgLabel>itemsUI/thorn_1</imgLabel>
+				<description>在推荐等级1-17的关卡中可以获得。</description>
+				
+			</items>
+			<items index="1">
+				<name>thorn_2</name>
+				<cnName>中级穿透器</cnName>
+				<dropLevel>18</dropLevel>
+				<price>154</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>536</propId>
+				<propId2>536</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/thorn_2</iconImgLabel>
+				<imgLabel>itemsUI/thorn_2</imgLabel>
+				<description>在推荐等级18-35的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>thorn_3</name>
+				<cnName>高级穿透器</cnName>
+				<dropLevel>36</dropLevel>
+				<price>298</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<propId>537</propId>
+				<propId2>537</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/thorn_3</iconImgLabel>
+				<imgLabel>itemsUI/thorn_3</imgLabel>
+				<description>在推荐等级36-50的关卡中可以获得。</description>
+				
+			</items>
+			<items index="2">
+				<name>thorn_4</name>
+				<cnName>大师级穿透器</cnName>
+				<dropLevel>51</dropLevel>
+				<price>418</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<propId>538</propId>
+				<propId2>538</propId2>
+				
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<iconImgLabel>itemsUI/thorn_4</iconImgLabel>
+				<imgLabel>itemsUI/thorn_4</imgLabel>
+				
+				<description>在推荐等级51-60的关卡中可以获得。</description>
+				
+			</items>	
+			<items index="2">
+				<name>thorn_5</name>
+				<cnName>专家级穿透器</cnName>
+				<dropLevel>61</dropLevel>
+				<price>418</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<propId>628</propId>
+				<propId2>628</propId2>
+				
+				<iconImgLabel>itemsUI/thorn_5</iconImgLabel>
+				<imgLabel>itemsUI/thorn_5</imgLabel>
+				
+				<description>在推荐等级61-80的关卡中可以获得。</description>
+				
+			</items>	
+			<items index="2">
+				<name>thorn_6</name>
+				<cnName>史诗级穿透器</cnName>
+				<dropLevel>81</dropLevel>
+				<price>600</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<propId>628</propId>
+				<propId2>628</propId2>
+				
+				<iconImgLabel>itemsUI/thorn_6</iconImgLabel>
+				<imgLabel>itemsUI/thorn_6</imgLabel>
+				
+				<description>在推荐等级81-100的关卡中可以获得。</description>
+				
+			</items>	
+			<items index="2">
+				<name>thorn_7</name>
+				<cnName>宗师级穿透器</cnName>
+				<dropLevel>101</dropLevel>
+				<price>600</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>
+				<priceLevel>20</priceLevel>			<!-- 销售等级 -->
+				<propId>1799</propId>
+				<propId2>1799</propId2>
+				
+				<iconImgLabel>itemsUI/thorn_7</iconImgLabel>
+				<imgLabel>itemsUI/thorn_7</imgLabel>
+				
+				<description>在推荐等级101以上的关卡中可以获得。</description>
+				
+			</items>
+			
+			
+			
+		<!-- 合成图纸 -->	
+			<items index="0">
+				<name>drawing_microwave_2</name>
+				<cnName>末日回响的图纸</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/drawing_microwave_2</iconImgLabel>
+				<imgLabel>itemsUI/drawing_microwave_2</imgLabel>
+				<description>研发副武器“末日回响”的图纸。</description>
+			</items>
+			<items index="0">
+				<name>drawing_amplitude_2</name>
+				<cnName>正义追击的图纸</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/drawing_amplitude_2</iconImgLabel>
+				<imgLabel>itemsUI/drawing_amplitude_2</imgLabel>
+				<description>研发副武器“正义追击”的图纸。</description>
+			</items>
+			<items index="0">
+				<name>drawing_flyBlade_2</name>
+				<cnName>撒旦之力的图纸</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/drawing_flyBlade_2</iconImgLabel>
+				<imgLabel>itemsUI/drawing_flyBlade_2</imgLabel>
+				<description>研发副武器“撒旦之力”的图纸。</description>
+			</items>
+			<items index="0">
+				<name>drawing_positron_2</name>
+				<cnName>赫拉克勒斯的图纸</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/drawing_positron_2</iconImgLabel>
+				<imgLabel>itemsUI/drawing_positron_2</imgLabel>
+				<description>研发副武器“赫拉克勒斯”的图纸。</description>
+			</items>
+			<items index="0">
+				<name>drawing_highEnergy_2</name>
+				<cnName>星陨的图纸</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/drawing_highEnergy_2</iconImgLabel>
+				<imgLabel>itemsUI/drawing_highEnergy_2</imgLabel>
+				<description>研发副武器“星陨”的图纸。</description>
+			</items>
+			<items index="0">
+				<name>tuzhi_zhuanyipao2</name>
+				<cnName>图纸-鞭炮2级</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>100</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/tuzhi_zhuanyipao2</iconImgLabel>
+				<imgLabel>itemsUI/tuzhi_zhuanyipao2</imgLabel>
+				<description>研发副武器“鞭炮II”的图纸。</description>
+			</items>
+			<items index="0">
+				<name>tuzhi _darkpower2</name>
+				<cnName>图纸-暗物质炮2级</cnName>
+				<dropLevel>999</dropLevel>
+				<price>18</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<Xprice>0.5</Xprice>	
+				<iconImgLabel>itemsUI/tuzhi _darkpower2</iconImgLabel>
+				<imgLabel>itemsUI/tuzhi _darkpower2</imgLabel>
+				<description>研发副武器“黯灭II”的图纸。</description>
+			</items>
+	</type>
+	
+	<type index="1" id="crystal" info="晶体">
+		<!-- 紫色 击中回复 -->
+			<items index="1">
+				<name>purple_crystal_1</name>
+				<cnName>一级紫色晶体</cnName>
+				<dropLevel>1</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:1</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_1</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_1</imgLabel>
+				<price>200</price>
+				<Mprice>1</Mprice>
+			</items>
+			<items index="2">
+				<name>purple_crystal_2</name>
+				<cnName>二级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:3</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_2</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_2</imgLabel>
+				<price>400</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="3">
+				<name>purple_crystal_3</name>
+				<cnName>三级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:10</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_3</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_3</imgLabel>
+				<price>1000</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="4">
+				<name>purple_crystal_4</name>
+				<cnName>四级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:30</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_4</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_4</imgLabel>
+				<price>2000</price>
+				<Mprice>4</Mprice>
+				<propId>524</propId>
+				<propId2>524</propId2>
+			</items>
+			<items index="5">
+				<name>purple_crystal_5</name>
+				<cnName>五级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:40</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_5</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_5</imgLabel>
+				<price>4000</price>
+				<Mprice>10</Mprice>
+				<propId>635</propId>
+				<propId2>636</propId2>
+			</items>
+			<items index="6">
+				<name>purple_crystal_6</name>
+				<cnName>六级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:80</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_6</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_6</imgLabel>
+				<price>10000</price>
+				<Mprice>256</Mprice>
+			</items>
+			<items index="7">
+				<name>purple_crystal_7</name>
+				<cnName>七级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:200</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_7</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_7</imgLabel>
+				<price>20000</price>
+				<Mprice>1024</Mprice>
+			</items>
+			<items index="8">
+				<name>purple_crystal_8</name>
+				<cnName>八级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:500</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_8</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_8</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			<items index="9">
+				<name>purple_crystal_9</name>
+				<cnName>九级紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:1000</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_9</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_9</imgLabel>
+				<price>100000</price>
+				<Mprice>512</Mprice>
+				<propId>1517</propId>
+				<propId2>1518</propId2>
+			</items>
+			
+			
+			<items index="8">
+				<name>purple_crystal_vip</name>
+				<cnName>纪念版紫色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>life_steal:1000</addArr>
+				<iconImgLabel>itemsUI/purple_crystal_vip</iconImgLabel>
+				<imgLabel>itemsUI/purple_crystal_vip</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			
+			
+			
+			
+			
+			
+			
+		<!-- 绿色 暴击伤害 -->	
+			<items index="1">
+				<name>green_crystal_1</name>
+				<cnName>一级绿色晶体</cnName>
+				<dropLevel>1</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.20</addArr>
+				<iconImgLabel>itemsUI/green_crystal_1</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_1</imgLabel>
+				<price>200</price>
+				<Mprice>1</Mprice>
+			</items>
+			<items index="2">
+				<name>green_crystal_2</name>
+				<cnName>二级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	--> 
+				<addArr>crit_mul:0.30</addArr>
+				<iconImgLabel>itemsUI/green_crystal_2</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_2</imgLabel>
+				<price>400</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="3">
+				<name>green_crystal_3</name>
+				<cnName>三级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.40</addArr>
+				<iconImgLabel>itemsUI/green_crystal_3</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_3</imgLabel>
+				<price>1000</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="4">
+				<name>green_crystal_4</name>
+				<cnName>四级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.50</addArr>
+				<iconImgLabel>itemsUI/green_crystal_4</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_4</imgLabel>
+				<price>2000</price>
+				<Mprice>4</Mprice>
+				<propId>525</propId>
+				<propId2>525</propId2>
+			</items>
+			<items index="5">
+				<name>green_crystal_5</name>
+				<cnName>五级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.60</addArr>
+				<iconImgLabel>itemsUI/green_crystal_5</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_5</imgLabel>
+				<price>4000</price>
+				<Mprice>10</Mprice>
+				<propId>633</propId>
+				<propId2>634</propId2>
+			</items>
+			<items index="6">
+				<name>green_crystal_6</name>
+				<cnName>六级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.70</addArr>
+				<iconImgLabel>itemsUI/green_crystal_6</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_6</imgLabel>
+				<price>10000</price>
+				<Mprice>256</Mprice>
+			</items>
+			<items index="7">
+				<name>green_crystal_7</name>
+				<cnName>七级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.80</addArr>
+				<iconImgLabel>itemsUI/green_crystal_7</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_7</imgLabel>
+				<price>20000</price>
+				<Mprice>1024</Mprice>
+			</items>
+			<items index="8">
+				<name>green_crystal_8</name>
+				<cnName>八级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:0.90</addArr>
+				<iconImgLabel>itemsUI/green_crystal_8</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_8</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			<items index="9">
+				<name>green_crystal_9</name>
+				<cnName>九级绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:1</addArr>
+				<iconImgLabel>itemsUI/green_crystal_9</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_9</imgLabel>
+				<price>100000</price>
+				<Mprice>512</Mprice>
+				<propId>1515</propId>
+				<propId2>1516</propId2>
+			</items>
+			
+			<items index="8">
+				<name>green_crystal_vip</name>
+				<cnName>纪念版绿色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_mul:2.00</addArr>
+				<iconImgLabel>itemsUI/green_crystal_vip</iconImgLabel>
+				<imgLabel>itemsUI/green_crystal_vip</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			
+			
+			
+			
+		<!-- 红色 dps百分比 -->	
+			<items index="1">
+				<name>red_crystal_1</name>
+				<cnName>一级红色晶体</cnName>
+				<dropLevel>1</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.05</addArr>
+				<iconImgLabel>itemsUI/red_crystal_1</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_1</imgLabel>
+				<price>200</price>
+				<Mprice>1</Mprice>
+				<Xprice>100</Xprice>
+			</items>
+			<items index="2">
+				<name>red_crystal_2</name>
+				<cnName>二级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.10</addArr>
+				<iconImgLabel>itemsUI/red_crystal_2</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_2</imgLabel>
+				<price>400</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="3">
+				<name>red_crystal_3</name>
+				<cnName>三级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.15</addArr>
+				<iconImgLabel>itemsUI/red_crystal_3</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_3</imgLabel>
+				<price>1000</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="4">
+				<name>red_crystal_4</name>
+				<cnName>四级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.20</addArr>
+				<iconImgLabel>itemsUI/red_crystal_4</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_4</imgLabel>
+				<price>2000</price>
+				<Mprice>4</Mprice>
+				<propId>523</propId>
+				<propId2>523</propId2>	
+			</items>
+			<items index="5">
+				<name>red_crystal_5</name>
+				<cnName>五级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.25</addArr>
+				<iconImgLabel>itemsUI/red_crystal_5</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_5</imgLabel>
+				<price>4000</price>
+				<Mprice>10</Mprice>
+				<Xprice>100</Xprice>	
+				<propId>637</propId>
+				<propId2>638</propId2>
+			</items>
+			<items index="6">
+				<name>red_crystal_6</name>
+				<cnName>六级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.30</addArr>
+				<iconImgLabel>itemsUI/red_crystal_6</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_6</imgLabel>
+				<price>10000</price>
+				<Mprice>256</Mprice>
+			</items>
+			<items index="7">
+				<name>red_crystal_7</name>
+				<cnName>七级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.35</addArr>
+				<iconImgLabel>itemsUI/red_crystal_7</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_7</imgLabel>
+				<price>20000</price>
+				<Mprice>1024</Mprice>
+			</items>
+			<items index="8">
+				<name>red_crystal_8</name>
+				<cnName>八级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.40</addArr>
+				<iconImgLabel>itemsUI/red_crystal_8</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_8</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			<items index="9">
+				<name>red_crystal_9</name>
+				<cnName>九级红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:0.45</addArr>
+				<iconImgLabel>itemsUI/red_crystal_9</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_9</imgLabel>
+				<price>100000</price>
+				<Mprice>512</Mprice>
+				<propId>1511</propId>
+				<propId2>1512</propId2>
+			</items>
+
+
+
+			<items index="8">
+				<name>red_crystal_vip</name>
+				<cnName>纪念版红色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>dps_pro:1.00</addArr>
+				<iconImgLabel>itemsUI/red_crystal_vip</iconImgLabel>
+				<imgLabel>itemsUI/red_crystal_vip</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			
+			
+			
+			
+		<!-- 黄色 暴击率 -->
+			<items index="1">
+				<name>yellow_crystal_1</name>
+				<cnName>一级黄色晶体</cnName>
+				<dropLevel>1</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.07</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_1</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_1</imgLabel>
+				<price>200</price>
+				<Mprice>1</Mprice>
+			</items>
+			<items index="2">
+				<name>yellow_crystal_2</name>
+				<cnName>二级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.10</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_2</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_2</imgLabel>
+				<price>400</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="3">
+				<name>yellow_crystal_3</name>
+				<cnName>三级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.13</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_3</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_3</imgLabel>
+				<price>1000</price>
+				<Mprice>2</Mprice>
+			</items>
+			<items index="4">
+				<name>yellow_crystal_4</name>
+				<cnName>四级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.16</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_4</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_4</imgLabel>
+				<price>2000</price>
+				<Mprice>4</Mprice>
+				<propId>526</propId>
+				<propId2>526</propId2>		
+			</items>
+			<items index="5">
+				<name>yellow_crystal_5</name>
+				<cnName>五级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.19</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_5</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_5</imgLabel>
+				<price>4000</price>
+				<Mprice>10</Mprice>
+				<propId>631</propId>
+				<propId2>632</propId2>
+			</items>
+			<items index="6">
+				<name>yellow_crystal_6</name>
+				<cnName>六级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.22</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_6</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_6</imgLabel>
+				<price>10000</price>
+				<Mprice>256</Mprice>
+			</items>
+			<items index="7">
+				<name>yellow_crystal_7</name>
+				<cnName>七级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.25</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_7</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_7</imgLabel>
+				<price>20000</price>
+				<Mprice>1024</Mprice>
+			</items>
+			<items index="8">
+				<name>yellow_crystal_8</name>
+				<cnName>八级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.30</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_8</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_8</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+			<items index="9">
+				<name>yellow_crystal_9</name>
+				<cnName>九级黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.33</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_9</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_9</imgLabel>
+				<price>100000</price>
+				<Mprice>512</Mprice>
+				<propId>1513</propId>
+				<propId2>1514</propId2>
+			</items>
+			
+			
+			<items index="8">
+				<name>yellow_crystal_vip</name>
+				<cnName>纪念版黄色晶体</cnName>
+				<dropLevel>99999</dropLevel>
+				<!-- 附加的属性	-->
+				<addArr>crit_pro:0.60</addArr>
+				<iconImgLabel>itemsUI/yellow_crystal_vip</iconImgLabel>
+				<imgLabel>itemsUI/yellow_crystal_vip</imgLabel>
+				<price>100000</price>
+				<Mprice>4096</Mprice>
+			</items>
+	</type>
+	
+	<type index="2" id="chip" info="芯片">
+			<items index="1">
+				<name>white_chip</name>
+				<cnName>白色芯片</cnName>
+				<dropLevel>1</dropLevel>
+				<iconImgLabel>itemsUI/white_chip</iconImgLabel>
+				<imgLabel>itemsUI/white_chip</imgLabel>
+				<price>77</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<description>拥有1条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>blue_chip</name>
+				<cnName>蓝色芯片</cnName>
+				<dropLevel>2</dropLevel>
+				<iconImgLabel>itemsUI/blue_chip</iconImgLabel>
+				<imgLabel>itemsUI/blue_chip</imgLabel>
+				<price>77</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<description>拥有2条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>yellow_chip</name>
+				<cnName>金色芯片</cnName>
+				<dropLevel>3</dropLevel>
+				<iconImgLabel>itemsUI/yellow_chip</iconImgLabel>
+				<imgLabel>itemsUI/yellow_chip</imgLabel>
+				<price>77</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<description>拥有3条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>orange_chip</name>
+				<cnName>橙色芯片</cnName>
+				<dropLevel>5</dropLevel>
+				<iconImgLabel>itemsUI/orange_chip</iconImgLabel>
+				<imgLabel>itemsUI/orange_chip</imgLabel>
+				<price>77</price>					<!-- 价格 -->
+				<Mprice>10</Mprice>
+				<description>拥有5条提升武器的附加属性。</description>
+
+			</items>
+			<items index="0">
+				<name>green_chip</name>
+				<cnName>绿色芯片</cnName>
+				<dropLevel>7</dropLevel>
+				<iconImgLabel>itemsUI/green_chip</iconImgLabel>
+				<imgLabel>itemsUI/green_chip</imgLabel>
+				<price>77</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有7条提升武器的附加属性。</description>
+				
+			</items>
+			<items index="0">
+				<name>purple_chip</name>
+				<cnName>紫色芯片</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>20</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>ben_purple_chip</name>
+				<cnName>奔雷</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>20</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>zhui_purple_chip</name>
+				<cnName>追风</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>20</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>jing_purple_chip</name>
+				<cnName>惊雷</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>40</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>zu_purple_chip</name>
+				<cnName>逐风</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>40</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>zhen_purple_chip</name>
+				<cnName>震雷</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>60</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>lie_purple_chip</name>
+				<cnName>裂风</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>60</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>nu_purple_chip</name>
+				<cnName>怒雷</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>80</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>kuang_purple_chip</name>
+				<cnName>狂风</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>80</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>hong_purple_chip</name>
+				<cnName>轰雷</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>80</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			<items index="0">
+				<name>ji_purple_chip</name>
+				<cnName>疾风</cnName>
+				<dropLevel>8</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>80</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有8条提升武器的附加属性。</description>
+			</items>
+			
+			
+			<items index="0">
+				<name>jinian_chip</name>
+				<cnName>纪念版芯片</cnName>
+				<dropLevel>7</dropLevel>
+				<iconImgLabel>itemsUI/purple_chip</iconImgLabel>
+				<imgLabel>itemsUI/purple_chip</imgLabel>
+				<price>80</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<description>拥有7条提升武器的附加属性。</description>
+			</items>
+	</type>
+	
+	<type index="3" id="capsule" info="胶囊">
+			<items index="0">
+				<name>red_capsule</name>
+				<cnName>红色胶囊</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/red_capsule</iconImgLabel>
+				<imgLabel>itemsUI/red_capsule</imgLabel>
+				<!-- 功能描述	-->
+				<price>77</price>
+				<description>射击训练必备。</description>
+			</items>
+			<items index="0">
+				<name>blue_capsule</name>
+				<cnName>蓝色胶囊</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/blue_capsule</iconImgLabel>
+				<imgLabel>itemsUI/blue_capsule</imgLabel>
+				<!-- 功能描述	-->
+				<price>77</price>
+				<description>体能训练必备。</description>
+			</items>
+			<items index="0">
+				<name>yellow_capsule</name>
+				<cnName>黄色胶囊</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/yellow_capsule</iconImgLabel>
+				<imgLabel>itemsUI/yellow_capsule</imgLabel>
+				<!-- 功能描述	-->
+				<price>77</price>
+				<description>控制训练必备。</description>
+			</items>
+			<items index="0">
+				<name>green_capsule</name>
+				<cnName>绿色胶囊</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/green_capsule</iconImgLabel>
+				<imgLabel>itemsUI/green_capsule</imgLabel>
+				<!-- 功能描述	-->
+				<price>77</price>
+				<description>防御训练必备。</description>
+			</items>
+			
+			<!-- 战车胶囊-->
+			<items index="0">
+				<name>car_capsule</name>
+				<cnName>战车胶囊</cnName>
+				<dropLevel>99999</dropLevel>
+				<iconImgLabel>itemsUI/car_capsule</iconImgLabel>
+				<imgLabel>itemsUI/car_capsule</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>	
+				<description>战车胶囊。</description>
+			</items>
+	</type>
+	
+	<type index="4" id="card" info="卡片">
+		<!-- 卡片-->
+			<items index="0">
+				<name>vipCard_0</name>
+				<cnName>VIP体验卡</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_0</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_0</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_0</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>30</Mprice>	
+				<description>VIP效果只持续1个小时，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_1</name>
+				<cnName>VIP周卡</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_1</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_1</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_1</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>70</Mprice>	
+				<propId>24</propId>
+				<propId2>24</propId2>
+				
+				<description>VIP效果持续一周，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_2</name>
+				<cnName>VIP半月卡</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_2</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_2</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_2</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>150</Mprice>
+				<propId>25</propId>
+				<propId2>25</propId2>
+				
+				<description>VIP效果持续半个月，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_3</name>
+				<cnName>VIP月卡</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_3</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_3</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_3</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>300</Mprice>
+				<propId>26</propId>
+				<propId2>26</propId2>
+				
+				<description>VIP效果持续一个月，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_4</name>
+				<cnName>VIP终生卡</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_4</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_4</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_4</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1000</Mprice>	
+				<propId>27</propId>
+				<propId2>27</propId2>
+				
+				<description>VIP效果永久存在，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_11</name>
+				<cnName>青铜VIP·终身</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_1</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_1</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_11</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>100</Mprice>	
+				<propId>1242</propId>
+				<propId2>1242</propId2>
+				
+				<description>VIP效果持续一周，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_12</name>
+				<cnName>白银VIP·终身</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_2</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_2</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_12</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>500</Mprice>
+				<propId>1243</propId>
+				<propId2>1243</propId2>
+				
+				<description>VIP效果持续半个月，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_13</name>
+				<cnName>黄金VIP·终身</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_3</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_3</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_13</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1000</Mprice>
+				<propId>1244</propId>
+				<propId2>1244</propId2>
+				
+				<description>VIP效果持续一个月，使用后前往VIP界面查看效果。</description>
+			</items>
+			<items index="0">
+				<name>vipCard_14</name>
+				<cnName>钻石VIP·终身</cnName>
+				<dropLevel>999999</dropLevel>
+				<iconImgLabel>itemsUI/vipCard_4</iconImgLabel>
+				<imgLabel>itemsUI/vipCard_4</imgLabel>
+				<!-- 功能描述	-->
+				<cardType>vipCard_14</cardType>
+				<cardValue>-1</cardValue>
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>2000</Mprice>	
+				<propId>1245</propId>
+				<propId2>1245</propId2>
+				
+				<description>VIP效果永久存在，使用后前往VIP界面查看效果。</description>
+			</items>
+			
+			
+		<!-- 超合金原石-->
+			<items index="0">
+				<name>superalloyStone</name>
+				<cnName>超合金原石</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/superalloyStone</iconImgLabel>
+				<imgLabel>itemsUI/superalloyStone</imgLabel>
+				
+				<cardType>superalloy</cardType>
+				<cardValue>1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>4</Mprice>	
+				<propId>7</propId>
+				<propId2>7</propId2>
+				
+				<description>购买或使用之后能随机提炼出一种超合金（超合金X {font color="#FFFF00"}6{/font}个，超合金Y {font color="#FFFF00"}5{/font}个）</description>
+				
+			</items>
+			
+		<!-- 开学宝盒-->
+			<items index="0">
+				<name>school_box</name>
+				<cnName>开学礼盒</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/jewel_box</iconImgLabel>
+				<imgLabel>itemsUI/jewel_box</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>150</Mprice>	
+				<description>购买之后能获得：{br}成长型主武器：{font color="#FFFF00"}好好学习{/font} {br}30级车身：{font color="#FFFF00"}天天向上{/font}{br}G币 {font color="#FFFF00"}100万{/font}{br}双倍经验卡{font color="#FFFF00"} 2张{/font}</description>
+				
+			</items>
+		<!-- 新手小康包-->
+			<items index="0">
+				<name>novice_giftBox</name>
+				<cnName>新手小康包</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/novice_box</iconImgLabel>
+				<imgLabel>itemsUI/novice_box</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>300</Mprice>	
+				<propId>20</propId>
+				<propId2>512</propId2>
+				
+				<description>
+				{font color="#00FF00"}超值新手礼包，购买之后立即获得价值超过3000M币的物品。新手必备，不容错过！{/font}
+				{br}购买之后直接获得：
+				{br}功勋 {font color="#FFFF00"}10000点{/font} 
+				{br}初级穿透器 {font color="#FFFF00"}200个{/font}
+				{br}初级聚束器 {font color="#FFFF00"}200个{/font}
+				{br}初级爆炸器 {font color="#FFFF00"}200个{/font}
+				{br}中级穿透器 {font color="#FFFF00"}200个{/font}
+				{br}中级聚束器 {font color="#FFFF00"}200个{/font}
+				{br}中级爆炸器 {font color="#FFFF00"}200个{/font}
+				{br}超合金Z {font color="#FFFF00"}500个{/font}
+				{br}超合金 {font color="#FFFF00"}1000个{/font}
+				{br}G币 {font color="#FFFF00"}1000万{/font}
+				{br}{font color="#00FF00"}一个存档只能购买一次！{/font}
+				</description>
+			</items>	
+		<!-- 畅快升级包-->
+			<items index="0">
+				<name>grow_giftBox</name>
+				<cnName>畅快升级包</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/grow_box</iconImgLabel>
+				<imgLabel>itemsUI/grow_box</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>300</Mprice>
+				<propId>21</propId>
+				<propId2>511</propId2>
+						
+				<description>
+				{font color="#00FF00"}超值武器礼包，购买之后立即获得强力武器和八级晶体，更有经验卡助你快速升级！{/font}
+				{br}购买之后直接获得：
+				{br}主武器 {font color="#FFFF00"}异端审判{/font}
+				{br}副武器 {font color="#FFFF00"}星爆{/font}
+				{br}大型经验卡 {font color="#FFFF00"}5张{/font}
+				{br}双倍经验卡 {font color="#FFFF00"}5张{/font}
+				{br}八级红色晶体 {font color="#FFFF00"}2{/font}
+				{br}八级绿色晶体 {font color="#FFFF00"}2{/font}
+				{br}八级黄色晶体 {font color="#FFFF00"}2{/font}
+				{br}G币 {font color="#FFFF00"}1000万{/font}
+				{br}{font color="#00FF00"}一个存档只能购买一次，如果武器库中已经拥有上述武器，那么购买此商品后将不会获得重复武器。{/font}
+				</description>
+			</items>	
+		<!-- 复活水晶-->
+			<items index="0">
+				<name>rebirth_crystal</name>
+				<cnName>复活水晶</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/rebirth_crystal</iconImgLabel>
+				<imgLabel>itemsUI/rebirth_crystal</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>9</Mprice>	
+				<Jprice>2</Jprice>					<!-- 价格 -->
+				<propId>5</propId>
+				<propId2>5</propId2>
+				
+				<description>死后可使用此宝石原地复活。</description>
+				
+			</items>
+			<items index="0">
+				<name>aide_card</name>
+				<cnName>副官卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/aide_card</iconImgLabel>
+				<imgLabel>itemsUI/aide_card</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<propId>708</propId>
+				<propId2>708</propId2>
+				<description>可以普通关卡中开启挂机功能。</description>						
+				<discount>0.6</discount>
+			</items>
+		<!-- 正义联盟荣誉勋章-->	
+			<items index="0">
+				<name>justice_badge</name>
+				<cnName>荣誉勋章</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/justice_badge</iconImgLabel>
+				<imgLabel>itemsUI/justice_badge</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>10</Mprice>	
+				<propId>466</propId>
+				<propId2>467</propId2>
+				<description>可以在兑换商城中兑换车身、武器和道具。</description>
+			</items>
+			<items index="0">
+				<name>jianzhuling</name>
+				<cnName>建筑令</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/turntable_14</iconImgLabel>
+				<imgLabel>itemsUI/turntable_14</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>	
+				<propId>1545</propId>
+				<propId2>1546</propId2>
+				<description>可以提升公会建筑等级。</description>
+			</items>
+			<items index="0">
+				<name>subCar_tvc_red</name>
+				<cnName>红尾浮游战机TVC</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub25/subCar_red</iconImgLabel>
+				<imgLabel>sub25/subCar_red</imgLabel>
+				<price>1</price>
+				<Mprice>100</Mprice>
+				<propId>25</propId>
+				<propId2>516</propId2>
+				<description>购买后，将浮游战机外观切换为2.5经典三尾样式。</description>
+			</items>
+			<items index="0">
+				<name>subCar_tvc_yellow</name>
+				<cnName>金尾浮游战机TVC</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub25/subCar_yellow</iconImgLabel>
+				<imgLabel>sub25/subCar_yellow</imgLabel>
+				<price>1</price>
+				<Mprice>100</Mprice>
+				<propId>26</propId>
+				<propId2>517</propId2>
+				<description>购买后，将浮游战机外观切换为2.5经典三尾样式。</description>
+			</items>
+			<items index="0">
+				<name>elite_challenge_card</name>
+				<cnName>精英副本挑战卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/turntable_14</iconImgLabel>
+				<imgLabel>itemsUI/turntable_14</imgLabel>
+				<price>1</price>
+				<Mprice>0</Mprice>
+				<propId>0</propId>
+				<propId2>0</propId2>
+				<description>精英副本免费次数用完后，消耗1张可正常获得场内掉落、固定奖励和翻牌奖励。</description>
+			</items>
+			<items index="0">
+				<name>mcoin_reward_card</name>
+				<cnName>M币奖励</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/GCoin_card_4</iconImgLabel>
+				<imgLabel>itemsUI/GCoin_card_4</imgLabel>
+				<price>15</price>
+				<Mprice>0</Mprice>
+				<description>直接获得指定数量的M币。</description>
+			</items>
+		<!-- 正义联盟荣誉勋章-->	
+			<items index="0">
+				<name>justice2_badge</name>
+				<cnName>公会奖章</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/justice2_badge</iconImgLabel>
+				<imgLabel>itemsUI/justice2_badge</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>10</Mprice>	
+				<description>可以在公会商店中兑换车身、武器和道具。</description>
+			</items>
+		<!-- 拆解器-->	
+			<items index="0">
+				<name>disassemble</name>
+				<cnName>普通拆解器</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/disassemble</iconImgLabel>
+				<imgLabel>itemsUI/disassemble</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>2</Mprice>	
+				<propId>6</propId>
+				<propId2>599</propId2>
+				
+				<description>可以用来打开普通战斗核心。</description>
+			</items>
+			<items index="0">
+				<name>disassemble_2</name>
+				<cnName>优质拆解器</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/disassemble_2</iconImgLabel>
+				<imgLabel>itemsUI/disassemble_2</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>4</Mprice>	
+				<propId>1521</propId>
+				<propId2>1522</propId2>
+				
+				<description>可以用来打开优质战斗核心。</description>
+			</items>
+			<items index="0">
+				<name>disassemble_3</name>
+				<cnName>稀有拆解器</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/disassemble_3</iconImgLabel>
+				<imgLabel>itemsUI/disassemble_3</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>6</Mprice>	
+				<propId>1519</propId>
+				<propId2>1520</propId2>
+				
+				<description>可以用来打开稀有战斗核心。</description>
+			</items>
+		<!-- 宝箱-->	
+			<items index="0">
+				<name>drop_box</name>
+				<cnName>普通战斗核心</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/upgrade_box</iconImgLabel>
+				<imgLabel>itemsUI/upgrade_box</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>drop_box</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<propId>1585</propId>
+				<propId2>1586</propId2>
+				<description>
+				固定获得：{font color="#FFFF00"}7.5万G币{/font}。{br}
+				固定获得：中级至大师级穿透器、聚束器、爆炸器各25个，品质分别随机。{br}
+				保底之外，再从原版卡池必定抽取1项：5万G币（49%）；三种超合金各10个（各10%）；橙色芯片1个（10%）；四级晶体1个（5%）；优质拆解器1个（5%）。{br}
+				原版稀有武器：黄金深渊（1%）。
+				</description>
+			</items>
+			<items index="0">
+				<name>drop_box_2</name>
+				<cnName>优质战斗核心</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/upgrade_box_2</iconImgLabel>
+				<imgLabel>itemsUI/upgrade_box_2</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>drop_box2</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>15</Mprice>	
+				<propId>1587</propId>
+				<propId2>1588</propId2>
+				<description>
+				固定获得：{font color="#FFFF00"}20万G币{/font}。{br}
+				固定获得：超合金50个、超合金Z 35个、超合金X 25个。{br}
+				保底之外，再从原版卡池必定抽取1项：10万G币（39%）；三种超合金各10个（各10%）；橙色芯片（10%）；绿色芯片、四级晶体、五级晶体、稀有拆解器（各5%）。{br}
+				原版稀有武器：黄金深渊（1%）。
+				</description>
+			</items>
+			<items index="0">
+				<name>drop_box_3</name>
+				<cnName>稀有战斗核心</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/upgrade_box_3</iconImgLabel>
+				<imgLabel>itemsUI/upgrade_box_3</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>drop_box3</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>30</Mprice>	
+				<propId>1589</propId>
+				<propId2>1590</propId2>
+				<description>
+				固定获得：{font color="#FFFF00"}50万G币{/font}。{br}
+				固定获得：专家级至宗师级穿透器、聚束器、爆炸器各25个，品质分别随机。{br}
+				保底之外，再从原版卡池必定抽取1项：20万G币、三种超合金、橙/绿芯片、四至六级晶体或紫色芯片袋。{br}
+				原版稀有武器：黄金深渊（3%）。{br}
+				独立彩蛋：0.1%随机获得一把尚未拥有的M币商城武器；1%获得研发升级卡。两项概率独立计算。{br}
+				研发升级卡：人物等级及前置武器满足后，可无视本次研发所需G币和材料，直接完成研究或晋升一级。
+				</description>
+			</items>
+		
+		<!-- 芯片袋子-->	
+			<items index="0">
+				<name>chipBag</name>
+				<cnName>紫色芯片袋</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
+				<imgLabel>itemsUI/chipBag</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>chipBag</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<description>使用后有50%概率获得一个紫色芯片，芯片等级与开启时的人物等级相同。</description>
+			</items>
+			<items index="0">
+				<name>chipBag40</name>
+				<cnName>紫色芯片袋</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
+				<imgLabel>itemsUI/chipBag</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>chipBag</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
+			</items>
+			<items index="0">
+				<name>chipBag60</name>
+				<cnName>紫色芯片袋</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
+				<imgLabel>itemsUI/chipBag</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>chipBag</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
+			</items>
+			<items index="0">
+				<name>chipBag80</name>
+				<cnName>紫色芯片袋</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
+				<imgLabel>itemsUI/chipBag</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>chipBag</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
+			</items>
+			<items index="0">
+				<name>chipBag100</name>
+				<cnName>紫色芯片袋</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/chipBag</iconImgLabel>
+				<imgLabel>itemsUI/chipBag</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>chipBag</cardType>
+				<cardValue>-1</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>5</Mprice>	
+				<description>旧版芯片袋，读取存档后自动合并为紫色芯片袋。</description>
+			</items>
+			
+			
+			
+		<!-- 经验卡	-->
+			<items index="0">
+				<name>exp_card_1</name>
+				<cnName>小型经验卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_1</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_1</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>exp</cardType>
+				<cardValue>100000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>2</Mprice>	
+				<Xprice>2</Xprice>
+				<propId>16</propId>
+				<propId2>16</propId2>
+				
+				<description>使用后直接获得100000点经验值。</description>
+			</items>
+			<items index="0">
+				<name>exp_card_2</name>
+				<cnName>中型经验卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_2</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_2</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>exp</cardType>
+				<cardValue>400000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>8</Mprice>	
+				<propId>15</propId>
+				<propId2>15</propId2>
+				
+				<description>使用后直接获得400000点经验值。</description>
+				<!-- 打折-->
+				
+			</items>
+			<items index="0">
+				<name>exp_card_3</name>
+				<cnName>大型经验卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_3</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_3</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>exp</cardType>
+				<cardValue>4000000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>80</Mprice>	
+				<propId>14</propId>
+				<propId2>517</propId2>
+				
+				<description>使用后直接获得4000000点经验值。</description>
+				<!-- 打折-->
+				
+			</items>
+			<items index="0">
+				<name>exp_card_directly</name>
+				<cnName>直接获得经验</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_3</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_3</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>exp</cardType>
+				<cardValue>2000000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>80</Mprice>	
+				<description>直接获得经验值。</description>
+			</items>
+			<items index="0">
+				<name>exp_card_4</name>
+				<cnName>超级经验卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_4</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_4</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>exp</cardType>
+				<cardValue>19148650</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>80</Mprice>	
+				<description>使用后直接获得19148650点经验值。可从1级直接升到30级。</description>
+				<!-- 打折-->
+				
+			</items>
+			<items index="0">
+				<name>exp_card_5</name>
+				<cnName>直升25级经验卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_5</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_5</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>exp</cardType>
+				<cardValue>7225200</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>80</Mprice>	
+				<description>使用后直接获得7225200点经验值。可从1级直接升到25级。</description>						
+				
+			</items>
+			
+			
+			
+			<items index="0">
+				<name>exp_card_double</name>
+				<cnName>双倍经验卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/exp_card_double</iconImgLabel>
+				<imgLabel>itemsUI/exp_card_double</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>expTime</cardType>
+				<cardValue>3600</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>
+				<propId>8</propId>
+				<propId2>515</propId2>
+				
+				<description>使用获得60分钟的双倍时间。</description>
+				
+			</items>
+			
+		<!-- 功勋卡	-->
+			<items index="0">
+				<name>achieve_card_1</name>
+				<cnName>小型功勋卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/achieve_card_1</iconImgLabel>
+				<imgLabel>itemsUI/achieve_card_1</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>achieve</cardType>
+				<cardValue>100</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>8</Mprice>	
+				<Xprice>10</Xprice>
+				<propId>19</propId>
+				<propId2>19</propId2>
+				
+				<description>使用后直接获得100点功勋值。</description>
+			</items>
+			<items index="0">
+				<name>achieve_card_2</name>
+				<cnName>中型功勋卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/achieve_card_2</iconImgLabel>
+				<imgLabel>itemsUI/achieve_card_2</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>achieve</cardType>
+				<cardValue>200</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>16</Mprice>
+				<propId>18</propId>
+				<propId2>519</propId2>
+				
+				<description>使用后直接获得200点功勋值。</description>
+			</items>
+			<items index="0">
+				<name>achieve_card_3</name>
+				<cnName>大型功勋卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/achieve_card_3</iconImgLabel>
+				<imgLabel>itemsUI/achieve_card_3</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>achieve</cardType>
+				<cardValue>1000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>	
+				<propId>17</propId>
+				<propId2>518</propId2>
+				
+				<description>使用后直接获得1000点功勋值。</description>
+				<!-- 打折-->
+			</items>
+			<items index="0">
+				<name>research_upgrade_card</name>
+				<cnName>研发升级卡</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/achieve_card_3</iconImgLabel>
+				<imgLabel>itemsUI/achieve_card_3</imgLabel>
+				<cardType>research_upgrade</cardType>
+				<cardValue>0</cardValue>
+				<price>1</price>
+				<Mprice>0</Mprice>
+				<description>人物等级及前置武器满足后，可以消耗1张本卡，无视本次研发所需G币和材料，直接完成研究或晋升一级。</description>
+			</items>
+			
+			
+		<!-- 金币类	-->	
+			<items index="0">
+				<name>GCoin_card_1</name>
+				<cnName>小型G币礼包</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/GCoin_card_1</iconImgLabel>
+				<imgLabel>itemsUI/GCoin_card_1</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>GCoin</cardType>
+				<cardValue>10000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>1</Mprice>
+				<propId>13</propId>
+				<propId2>13</propId2>
+				
+				<description>购买后直接获得10000G币。</description>
+			</items>
+			<items index="0">
+				<name>GCoin_card_2</name>
+				<cnName>中型G币礼包</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/GCoin_card_2</iconImgLabel>
+				<imgLabel>itemsUI/GCoin_card_2</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>GCoin</cardType>
+				<cardValue>50000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>4</Mprice>	
+				<propId>12</propId>
+				<propId2>12</propId2>
+				
+				<description>使用后直接获得50000G币。</description>
+			</items>
+			<items index="0">
+				<name>GCoin_card_3</name>
+				<cnName>大型G币礼包</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/GCoin_card_3</iconImgLabel>
+				<imgLabel>itemsUI/GCoin_card_3</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>GCoin</cardType>
+				<cardValue>100000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>8</Mprice>	
+				<propId>11</propId>
+				<propId2>11</propId2>
+				
+				<description>使用后直接获得100000G币。</description>
+			</items>
+			<items index="0">
+				<name>GCoin_card_4</name>
+				<cnName>超级G币礼包</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/GCoin_card_4</iconImgLabel>
+				<imgLabel>itemsUI/GCoin_card_4</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>GCoin</cardType>
+				<cardValue>1000000</cardValue>
+				<!-- 功能描述	-->
+				<price>5000</price>					<!-- 价格 -->
+				<Mprice>20</Mprice>	
+				<propId>10</propId>
+				<propId2>516</propId2>
+				
+				<description>使用后直接获得1000000G币。</description>
+				<!-- 打折-->
+				
+				
+			</items>
+			
+		<!-- 胶囊类	-->	
+			<items index="0">
+				<name>life_capsule</name>
+				<cnName>耐久胶囊</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/red_capsule</iconImgLabel>
+				<imgLabel>itemsUI/red_capsule</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>lifeMax</cardType>
+				<cardValue>2000</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>8</Mprice>	
+				<description>使用后永久提升2000点耐久值。各种耐久加成效果有效。</description>
+			</items>
+			<items index="0">
+				<name>defence_capsule</name>
+				<cnName>防御胶囊</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>itemsUI/green_capsule</iconImgLabel>
+				<imgLabel>itemsUI/green_capsule</imgLabel>
+				<!-- 特有属性	-->
+				<cardType>defence</cardType>
+				<cardValue>500</cardValue>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>80</Mprice>	
+				<description>使用后永久提升500点防御值。各种防御加成效果有效。</description>
+			</items>
+			
+			
+		<!-- 浮游战机	-->	
+			<items index="0">
+				<name>subCar_tvc_blue</name>
+				<cnName>蓝尾浮游战机TVC</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub25/subCar_blue</iconImgLabel>
+				<imgLabel>sub25/subCar_blue</imgLabel>
+				<price>1</price>
+				<Mprice>100</Mprice>
+				<propId>24</propId>
+				<propId2>515</propId2>
+				<description>购买后，将浮游战机外观切换为2.5经典三尾样式。</description>
+			</items>
+			<items index="0">
+				<name>subCar_blue</name>
+				<cnName>蓝尾鸡翅浮游战机</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub/subCar_blue</iconImgLabel>
+				<imgLabel>sub/subCar_blue</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>100</Mprice>
+				<propId>21</propId>
+				<propId2>512</propId2>
+				
+				<description>购买后，直接改变浮游战机机体。</description>
+			</items>
+			<items index="0">
+				<name>subCar_red</name>
+				<cnName>红尾鸡翅浮游战机</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub/subCar_red</iconImgLabel>
+				<imgLabel>sub/subCar_red</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>100</Mprice>
+				<propId>22</propId>
+				<propId2>513</propId2>
+				
+				<description>购买后，直接改变浮游战机机体。</description>
+			</items>
+			<items index="0">
+				<name>subCar_yellow</name>
+				<cnName>金尾鸡翅浮游战机</cnName>
+				<dropLevel>9999</dropLevel>
+				<iconImgLabel>sub/subCar_yellow</iconImgLabel>
+				<imgLabel>sub/subCar_yellow</imgLabel>
+				<!-- 功能描述	-->
+				<price>1</price>					<!-- 价格 -->
+				<Mprice>100</Mprice>
+				<propId>23</propId>
+				<propId2>514</propId2>
+				
+				<description>购买后，直接改变浮游战机机体。</description>
+			</items>
+	</type>
+</data>

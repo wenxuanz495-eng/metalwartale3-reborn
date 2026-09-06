@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<level id="1">
+		<baseLife>10</baseLife>
+		<baseAttack>10</baseAttack>
+		<baseExp>10</baseExp>
+		<baseCoin>10</baseCoin>
+	</level>
+	<level id="2">
+		<baseLife>20</baseLife>
+		<baseAttack>20</baseAttack>
+		<baseExp>20</baseExp>
+		<baseCoin>20</baseCoin>
+	</level>
+	<level id="3">
+		<baseLife>30</baseLife>
+		<baseAttack>30</baseAttack>
+		<baseExp>30</baseExp>
+		<baseCoin>30</baseCoin>
+	</level>
+</data>

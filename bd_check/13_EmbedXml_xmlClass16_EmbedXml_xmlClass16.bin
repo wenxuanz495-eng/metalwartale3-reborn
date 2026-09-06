@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data>
+	<EItem Id="1" Name="银蛇狂舞" Desc="立即获得武器—银蛇狂舞！" Proba="0.002" EPayType="超合金Y" EPayCount="10" DropGroup="银蛇狂舞" DropProba="1" DropNum="1"/>
+	<EItem Id="2" Name="稀有合金" Desc="随机获得10个超合金X或者1个超合金Y" Proba="0.003" EPayType="荣誉勋章" EPayCount="5" DropGroup="超合金X,超合金Y" DropProba="1,0.05" DropNum="10,1"/>
+	<EItem Id="3" Name="极品战车" Desc="立即获得一辆橙色战车" Proba="0.004" EPayType="荣誉勋章" EPayCount="5" DropGroup="橙色战车" DropProba="1" DropNum="1"/>
+	<EItem Id="4" Name="七级红色晶体" Desc="立即获得一个七级红色晶体" Proba="0.005" EPayType="荣誉勋章" EPayCount="5" DropGroup="七级红色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="5" Name="七级绿色晶体" Desc="立即获得一个七级绿色晶体" Proba="0.006" EPayType="荣誉勋章" EPayCount="5" DropGroup="七级绿色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="6" Name="七级黄色晶体" Desc="立即获得一个七级黄色晶体" Proba="0.007" EPayType="荣誉勋章" EPayCount="5" DropGroup="七级黄色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="7" Name="神秘芯片" Desc="随机获得一个橙色或者绿色芯片" Proba="0.008" EPayType="金币" EPayCount="50000" DropGroup="橙色芯片,绿色芯片" DropProba="1,0.1" DropNum="1,1"/>
+	<EItem Id="8" Name="优质拆解器" Desc="立即获得一个优质拆解器" Proba="0.009" EPayType="荣誉勋章" EPayCount="5" DropGroup="优质拆解器" DropProba="1" DropNum="1"/>
+	<EItem Id="9" Name="六级红色晶体" Desc="立即获得一个六级红色晶体" Proba="0.01" EPayType="荣誉勋章" EPayCount="5" DropGroup="六级红色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="10" Name="六级绿色晶体" Desc="立即获得一个六级绿色晶体" Proba="0.015" EPayType="荣誉勋章" EPayCount="5" DropGroup="六级绿色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="11" Name="六级黄色晶体" Desc="立即获得一个六级黄色晶体" Proba="0.02" EPayType="荣誉勋章" EPayCount="5" DropGroup="六级黄色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="12" Name="建筑令" Desc="立即获得一个建筑令" Proba="0.025" EPayType="荣誉勋章" EPayCount="5" DropGroup="建筑令" DropProba="1" DropNum="1"/>
+	<EItem Id="13" Name="普通拆解器" Desc="立即获得一个普通拆解器" Proba="0.03" EPayType="金币" EPayCount="100000" DropGroup="普通拆解器" DropProba="1" DropNum="1"/>
+	<EItem Id="14" Name="帝皇战车" Desc="立即获得一辆帝皇战车" Proba="0.035" EPayType="荣誉勋章" EPayCount="150" DropGroup="帝皇战车" DropProba="1" DropNum="1"/>
+	<EItem Id="15" Name="地虎" Desc="立即获得一辆地虎战车" Proba="0.04" EPayType="荣誉勋章" EPayCount="150" DropGroup="地虎" DropProba="1" DropNum="1"/>
+	<EItem Id="16" Name="风鹰" Desc="立即获得一辆风鹰战车" Proba="0.045" EPayType="荣誉勋章" EPayCount="150" DropGroup="风鹰" DropProba="1" DropNum="1"/>
+	<EItem Id="17" Name="黑犀" Desc="立即获得一辆黑犀战车" Proba="0.05" EPayType="荣誉勋章" EPayCount="150" DropGroup="黑犀" DropProba="1" DropNum="1"/>
+	<EItem Id="18" Name="炎龙" Desc="立即获得一辆炎龙战车" Proba="0.055" EPayType="荣誉勋章" EPayCount="150" DropGroup="炎龙" DropProba="1" DropNum="1"/>
+	<EItem Id="19" Name="雪獒" Desc="立即获得一辆雪獒战车" Proba="0.06" EPayType="荣誉勋章" EPayCount="150" DropGroup="雪獒" DropProba="1" DropNum="1"/>
+	<EItem Id="20" Name="五级红色晶体" Desc="立即获得一个五级红色晶体" Proba="0.065" EPayType="金币" EPayCount="1000000" DropGroup="五级红色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="21" Name="五级绿色晶体" Desc="立即获得一个五级绿色晶体" Proba="0.07" EPayType="金币" EPayCount="1000000" DropGroup="五级绿色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="22" Name="五级黄色晶体" Desc="立即获得一个五级黄色晶体" Proba="0.075" EPayType="金币" EPayCount="1000000" DropGroup="五级黄色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="23" Name="稀有战车" Desc="立即获得一辆金色战车" Proba="0.08" EPayType="金币" EPayCount="100000" DropGroup="金色战车" DropProba="1" DropNum="1"/>
+	<EItem Id="24" Name="优质合金" Desc="随机获得10个超合金或者5个超合金Z" Proba="0.085" EPayType="金币" EPayCount="10000" DropGroup="超合金,超合金Z" DropProba="1,0.5" DropNum="10,5"/>
+	<EItem Id="25" Name="四级红色晶体" Desc="立即获得一个四级红色晶体" Proba="0.09" EPayType="金币" EPayCount="1000000" DropGroup="四级红色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="26" Name="四级绿色晶体" Desc="立即获得一个四级绿色晶体" Proba="0.095" EPayType="金币" EPayCount="1000000" DropGroup="四级绿色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="27" Name="四级黄色晶体" Desc="立即获得一个四级黄色晶体" Proba="0.1" EPayType="金币" EPayCount="1000000" DropGroup="四级黄色晶体" DropProba="1" DropNum="1"/>
+	<EItem Id="28" Name="史诗级爆炸器" Desc="立即获得30个史诗级爆炸器" Proba="0.105" EPayType="金币" EPayCount="1500000" DropGroup="史诗级爆炸器" DropProba="1" DropNum="30"/>
+	<EItem Id="29" Name="史诗级聚束器" Desc="立即获得30个史诗级聚束器" Proba="0.11" EPayType="金币" EPayCount="1500000" DropGroup="史诗级聚束器" DropProba="1" DropNum="30"/>
+	<EItem Id="30" Name="史诗级穿透器" Desc="立即获得30个史诗级穿透器" Proba="0.115" EPayType="金币" EPayCount="1500000" DropGroup="史诗级穿透器" DropProba="1" DropNum="30"/>
+	<EItem Id="31" Name="专家级爆炸器" Desc="立即获得20个专家级爆炸器" Proba="0.12" EPayType="金币" EPayCount="800000" DropGroup="专家级爆炸器" DropProba="1" DropNum="20"/>
+	<EItem Id="32" Name="专家级聚束器" Desc="立即获得20个专家级聚束器" Proba="0.125" EPayType="金币" EPayCount="800000" DropGroup="专家级聚束器" DropProba="1" DropNum="20"/>
+	<EItem Id="33" Name="专家级穿透器" Desc="立即获得20个专家级穿透器" Proba="0.13" EPayType="金币" EPayCount="800000" DropGroup="专家级穿透器" DropProba="1" DropNum="20"/>
+	<EItem Id="34" Name="大师级爆炸器" Desc="立即获得15个大师级爆炸器" Proba="0.135" EPayType="金币" EPayCount="150000" DropGroup="大师级爆炸器" DropProba="1" DropNum="15"/>
+	<EItem Id="35" Name="大师级聚束器" Desc="立即获得15个大师级聚束器" Proba="0.14" EPayType="金币" EPayCount="150000" DropGroup="大师级聚束器" DropProba="1" DropNum="15"/>
+	<EItem Id="36" Name="大师级穿透器" Desc="立即获得15个大师级穿透器" Proba="0.145" EPayType="金币" EPayCount="150000" DropGroup="大师级穿透器" DropProba="1" DropNum="15"/>
+	<EItem Id="37" Name="高级爆炸器" Desc="立即获得10个高级爆炸器" Proba="0.15" EPayType="金币" EPayCount="50000" DropGroup="高级爆炸器" DropProba="1" DropNum="10"/>
+	<EItem Id="38" Name="高级聚束器" Desc="立即获得10个高级聚束器" Proba="0.155" EPayType="金币" EPayCount="50000" DropGroup="高级聚束器" DropProba="1" DropNum="10"/>
+	<EItem Id="39" Name="高级穿透器" Desc="立即获得10个高级穿透器" Proba="1" EPayType="金币" EPayCount="50000" DropGroup="高级穿透器" DropProba="1" DropNum="10"/>
+</data>

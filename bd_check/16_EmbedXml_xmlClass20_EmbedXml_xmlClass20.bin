@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data>
+	<Gift Id="1" Name="20星星奖励" NeedNum="20" GiftArr="GCoin,50000,1|achieve,500,1|materials,buncher_1,10|materials,boom_1,10|materials,thorn_1,10|materials,superalloy_X,20" GiftDesc="5万G币、500功勋、 每种初级材料10个、超合金X20个" Icon="StarGift_1"/>
+	<Gift Id="2" Name="40星星奖励" NeedNum="40" GiftArr="GCoin,100000,1|achieve,1000,1|materials,buncher_1,20|materials,boom_1,20|materials,thorn_1,20|materials,superalloy_X,40" GiftDesc="10万G币、1000功勋、 每种初级材料20个、超合金X40个" Icon="StarGift_1"/>
+	<Gift Id="3" Name="60星星奖励" NeedNum="60" GiftArr="GCoin,150000,1|achieve,1500,1|materials,buncher_1,30|materials,boom_1,30|materials,thorn_1,30|materials,superalloy_X,60" GiftDesc="15万G币、1500功勋、 每种初级材料30个、超合金X60个" Icon="StarGift_1"/>
+	<Gift Id="4" Name="80星星奖励" NeedNum="80" GiftArr="GCoin,200000,1|achieve,2000,1|materials,buncher_2,20|materials,boom_2,20|materials,thorn_2,20|materials,superalloy_X,80" GiftDesc="20万G币、2000功勋、 每种中级材料20个、超合金X80个" Icon="StarGift_1"/>
+	<Gift Id="5" Name="100星星奖励" NeedNum="100" GiftArr="GCoin,250000,1|achieve,2500,1|materials,buncher_2,40|materials,boom_2,40|materials,thorn_2,40|materials,superalloy_X,100" GiftDesc="25万G币、2500功勋、 每种中级材料40个、超合金X100个" Icon="StarGift_1"/>
+	<Gift Id="6" Name="120星星奖励" NeedNum="120" GiftArr="GCoin,300000,1|achieve,3000,1|materials,buncher_2,60|materials,boom_2,60|materials,thorn_2,60|materials,superalloy_X,120" GiftDesc="30万G币、3000功勋、 每种中级材料60个、超合金X120个" Icon="StarGift_1"/>
+	<Gift Id="7" Name="140星星奖励" NeedNum="140" GiftArr="GCoin,350000,1|achieve,3500,1|materials,buncher_3,30|materials,boom_3,30|materials,thorn_3,30|materials,superalloy_X,140" GiftDesc="35万G币、3500功勋、 每种高级材料30个、超合金X140个" Icon="StarGift_1"/>
+	<Gift Id="8" Name="160星星奖励" NeedNum="160" GiftArr="GCoin,400000,1|achieve,4000,1|materials,buncher_3,50|materials,boom_3,50|materials,thorn_3,50|materials,superalloy_X,160|props,life_capsule,1" GiftDesc="40万G币、4000功勋、 每种高级材料50个、超合金X160个、耐久胶囊1个" Icon="StarGift_1"/>
+	<Gift Id="9" Name="180星星奖励" NeedNum="180" GiftArr="GCoin,450000,1|achieve,4500,1|materials,buncher_3,70|materials,boom_3,70|materials,thorn_3,70|materials,superalloy_X,180" GiftDesc="45万G币、4500功勋、 每种高级材料70个、超合金X180个" Icon="StarGift_1"/>
+	<Gift Id="10" Name="200星星奖励" NeedNum="200" GiftArr="GCoin,500000,1|achieve,5000,1|materials,buncher_4,50|materials,boom_4,50|materials,thorn_4,50|materials,superalloy_X,200|arms,liebopao,1" GiftDesc="50万G币、5000功勋、 每种大师材料50个、超合金X200个、裂波炮1级" Icon="StarGift_1"/>
+	<Gift Id="11" Name="220星星奖励" NeedNum="220" GiftArr="GCoin,550000,1|achieve,5500,1|materials,buncher_4,100|materials,boom_4,100|materials,thorn_4,100|materials,superalloy_X,220" GiftDesc="55万G币、5500功勋、 每种大师材料100个、超合金X220个" Icon="StarGift_1"/>
+	<Gift Id="12" Name="240星星奖励" NeedNum="240" GiftArr="GCoin,600000,1|achieve,6000,1|materials,buncher_4,150|materials,boom_4,150|materials,thorn_4,150|materials,superalloy_X,240" GiftDesc="60万G币、6000功勋、 每种大师材料150个、超合金X240个" Icon="StarGift_1"/>
+	<Gift Id="13" Name="260星星奖励" NeedNum="260" GiftArr="GCoin,650000,1|achieve,6500,1|materials,buncher_5,100|materials,boom_5,100|materials,thorn_5,100|materials,superalloy_X,260|props,life_capsule,1" GiftDesc="65万G币、6500功勋、 每种专家材料100个、超合金X260个、耐久胶囊1个" Icon="StarGift_1"/>
+	<Gift Id="14" Name="280星星奖励" NeedNum="280" GiftArr="GCoin,700000,1|achieve,7000,1|materials,buncher_5,200|materials,boom_5,200|materials,thorn_5,200|materials,superalloy_X,280" GiftDesc="70万G币、7000功勋、 每种专家材料200个、超合金X280个" Icon="StarGift_1"/>
+	<Gift Id="15" Name="300星星奖励" NeedNum="300" GiftArr="GCoin,750000,1|achieve,7500,1|materials,buncher_5,300|materials,boom_5,300|materials,thorn_5,300|materials,superalloy_X,300" GiftDesc="75万G币、7500功勋、 每种专家材料300个、超合金X300个" Icon="StarGift_1"/>
+	<Gift Id="16" Name="320星星奖励" NeedNum="320" GiftArr="GCoin,800000,1|achieve,8000,1|materials,buncher_6,200|materials,boom_6,200|materials,thorn_6,200|materials,superalloy_X,320" GiftDesc="80万G币、8000功勋、 每种史诗材料200个、超合金X320个" Icon="StarGift_1"/>
+	<Gift Id="17" Name="340星星奖励" NeedNum="340" GiftArr="GCoin,850000,1|achieve,8500,1|materials,buncher_6,300|materials,boom_6,300|materials,thorn_6,300|materials,superalloy_X,340" GiftDesc="85万G币、8500功勋、 每种史诗材料400个、超合金X340个" Icon="StarGift_1"/>
+	<Gift Id="18" Name="360星星奖励" NeedNum="360" GiftArr="GCoin,900000,1|achieve,9000,1|materials,buncher_6,600|materials,boom_6,600|materials,thorn_6,600|materials,superalloy_X,360|props,life_capsule,1" GiftDesc="90万G币、9000功勋、 每种史诗材料600个、超合金X360个、耐久胶囊1个" Icon="StarGift_1"/>
+	<Gift Id="19" Name="10星星奖励" NeedNum="10" GiftArr="GCoin,25000,1|achieve,250" GiftDesc="25000 G币、250 功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="20" Name="30星星奖励" NeedNum="30" GiftArr="GCoin,75000,1|achieve,750" GiftDesc="75000 G币、750 功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="21" Name="50星星奖励" NeedNum="50" GiftArr="GCoin,125000,1|achieve,1250" GiftDesc="125000 G币、1250 功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="22" Name="70星星奖励" NeedNum="70" GiftArr="GCoin,175000,1|achieve,1750" GiftDesc="175000 G币、1750 功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="23" Name="90星星奖励" NeedNum="90" GiftArr="GCoin,225000,1|achieve,2250" GiftDesc="225000 G币、2250 功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="24" Name="110星星奖励" NeedNum="110" GiftArr="GCoin,275000,1|achieve,2750" GiftDesc="275000 G币、2750 功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="25" Name="130星星奖励" NeedNum="130" GiftArr="GCoin,325000,1|achieve,3250" GiftDesc="325000 G币、3250 功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="26" Name="150星星奖励" NeedNum="150" GiftArr="GCoin,375000,1|achieve,3750" GiftDesc="375000 G币、3750 功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="27" Name="170星星奖励" NeedNum="170" GiftArr="GCoin,425000,1|achieve,4250" GiftDesc="425000 G币、4250 功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="28" Name="190星星奖励" NeedNum="190" GiftArr="GCoin,475000,1|achieve,4750" GiftDesc="475000 G币、4750 功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="29" Name="210星星奖励" NeedNum="210" GiftArr="GCoin,525000,1|achieve,5250" GiftDesc="525000 G币、5250 功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="30" Name="230星星奖励" NeedNum="230" GiftArr="GCoin,575000,1|achieve,5750" GiftDesc="575000 G币、5750 功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="31" Name="250星星奖励" NeedNum="250" GiftArr="GCoin,625000,1|achieve,6250" GiftDesc="625000 G币、6250 功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="32" Name="270星星奖励" NeedNum="270" GiftArr="GCoin,675000,1|achieve,6750" GiftDesc="675000 G币、6750 功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="33" Name="290星星奖励" NeedNum="290" GiftArr="GCoin,725000,1|achieve,7250" GiftDesc="725000 G币、7250 功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="34" Name="310星星奖励" NeedNum="310" GiftArr="GCoin,775000,1|achieve,7750" GiftDesc="775000 G币、7750 功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="35" Name="330星星奖励" NeedNum="330" GiftArr="GCoin,825000,1|achieve,8250" GiftDesc="825000 G币、8250 功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="36" Name="350星星奖励" NeedNum="350" GiftArr="GCoin,875000,1|achieve,8750" GiftDesc="875000 G币、8750 功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="37" Name="370星星奖励" NeedNum="370" GiftArr="GCoin,925000,1|achieve,9250" GiftDesc="925000 G币、9250 功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="38" Name="380星星奖励" NeedNum="380" GiftArr="GCoin,950000,1|achieve,9500,1|materials,buncher_6,800|materials,boom_6,800|materials,thorn_6,800|materials,superalloy_X,380" GiftDesc="950000G币、9500功勋、每种史诗材料800个、超合金X380个" Icon="StarGift_1"/>
+	<Gift Id="39" Name="390星星奖励" NeedNum="390" GiftArr="GCoin,975000,1|achieve,9750" GiftDesc="975000 G币、9750 功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="40" Name="400星星奖励" NeedNum="400" GiftArr="GCoin,1000000,1|achieve,10000,1|materials,buncher_6,900|materials,boom_6,900|materials,thorn_6,900|materials,superalloy_X,400" GiftDesc="1000000G币、10000功勋、每种史诗材料900个、超合金X400个" Icon="StarGift_1"/>
+	<Gift Id="41" Name="410星星奖励" NeedNum="410" GiftArr="GCoin,1025000,1|achieve,10250" GiftDesc="1025000G币、10250功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="42" Name="420星星奖励" NeedNum="420" GiftArr="GCoin,1050000,1|achieve,10500,1|materials,buncher_6,1000|materials,boom_6,1000|materials,thorn_6,1000|materials,superalloy_X,500" GiftDesc="1050000G币、10500功勋、每种史诗材料1000个、超合金X500个" Icon="StarGift_1"/>
+	<Gift Id="43" Name="430星星奖励" NeedNum="430" GiftArr="GCoin,1075000,1|achieve,10750" GiftDesc="1075000G币、10750功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="44" Name="440星星奖励" NeedNum="440" GiftArr="GCoin,1100000,1|achieve,11000,1|materials,buncher_6,1100|materials,boom_6,1100|materials,thorn_6,1100|materials,superalloy_X,600" GiftDesc="1100000G币、11000功勋、每种史诗材料1100个、超合金X600个" Icon="StarGift_1"/>
+	<Gift Id="45" Name="450星星奖励" NeedNum="450" GiftArr="GCoin,1125000,1|achieve,11250" GiftDesc="1125000G币、11250功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="46" Name="460星星奖励" NeedNum="460" GiftArr="GCoin,1150000,1|achieve,11500,1|materials,buncher_6,1200|materials,boom_6,1200|materials,thorn_6,1200|materials,superalloy_X,700" GiftDesc="1150000G币、11500功勋、每种史诗材料1200个、超合金X700个" Icon="StarGift_1"/>
+	<Gift Id="47" Name="470星星奖励" NeedNum="470" GiftArr="GCoin,1175000,1|achieve,11750" GiftDesc="1175000G币、11750功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="48" Name="480星星奖励" NeedNum="480" GiftArr="GCoin,1200000,1|achieve,12000,1|materials,buncher_6,1300|materials,boom_6,1300|materials,thorn_6,1300|materials,superalloy_X,800" GiftDesc="1200000G币、12000功勋、每种史诗材料1300个、超合金X800个" Icon="StarGift_1"/>
+	<Gift Id="49" Name="490星星奖励" NeedNum="490" GiftArr="GCoin,1225000,1|achieve,12250" GiftDesc="1225000G币、12250功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="50" Name="500星星奖励" NeedNum="500" GiftArr="GCoin,1250000,1|achieve,12500,1|materials,buncher_6,1400|materials,boom_6,1400|materials,thorn_6,1400|materials,superalloy_X,900" GiftDesc="1250000G币、12500功勋、每种史诗材料1400个、超合金X900个" Icon="StarGift_1"/>
+	<Gift Id="51" Name="510星星奖励" NeedNum="510" GiftArr="GCoin,1275000,1|achieve,12750" GiftDesc="1275000G币、12750功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="52" Name="520星星奖励" NeedNum="520" GiftArr="GCoin,1300000,1|achieve,13000,1|materials,buncher_6,1500|materials,boom_6,1500|materials,thorn_6,1500|materials,superalloy_X,1000" GiftDesc="1300000G币、13000功勋、每种史诗材料1500个、超合金X1000个" Icon="StarGift_1"/>
+	<Gift Id="53" Name="530星星奖励" NeedNum="530" GiftArr="GCoin,1325000,1|achieve,13250" GiftDesc="1325000G币、13250功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="54" Name="540星星奖励" NeedNum="540" GiftArr="GCoin,1350000,1|achieve,13500,1|materials,buncher_6,1600|materials,boom_6,1600|materials,thorn_6,1600|materials,superalloy_X,1100" GiftDesc="1350000G币、13500功勋、每种史诗材料1600个、超合金X1100个" Icon="StarGift_1"/>
+	<Gift Id="55" Name="550星星奖励" NeedNum="550" GiftArr="GCoin,1375000,1|achieve,13750" GiftDesc="1375000G币、13750功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="56" Name="560星星奖励" NeedNum="560" GiftArr="GCoin,1400000,1|achieve,14000,1|materials,buncher_6,1700|materials,boom_6,1700|materials,thorn_6,1700|materials,superalloy_X,1200" GiftDesc="1400000G币、14000功勋、每种史诗材料1700个、超合金X1200个" Icon="StarGift_1"/>
+	<Gift Id="57" Name="570星星奖励" NeedNum="570" GiftArr="GCoin,1425000,1|achieve,14250" GiftDesc="1425000G币、14250功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	<Gift Id="58" Name="580星星奖励" NeedNum="580" GiftArr="GCoin,1450000,1|achieve,14500,1|materials,buncher_7,1000|materials,boom_7,1000|materials,thorn_7,1000|materials,superalloy_X,1300" GiftDesc="1450000G币、14500功勋、每种宗师材料1000个、超合金X1300个" Icon="StarGift_1"/>
+	<Gift Id="59" Name="590星星奖励" NeedNum="590" GiftArr="GCoin,1475000,1|achieve,14750" GiftDesc="1475000G币、14750功勋、控制训练提升10%" Icon="StarGift_1" AddArr="subAdd,0.1"/>
+	<Gift Id="60" Name="600星星奖励" NeedNum="600" GiftArr="GCoin,1500000,1|achieve,15000,1|materials,buncher_7,1000|materials,boom_7,1000|materials,thorn_7,1000|materials,superalloy_X,1400" GiftDesc="1500000G币、15000功勋、每种宗师材料1000个、超合金X1400个" Icon="StarGift_1"/>
+	<Gift Id="61" Name="610星星奖励" NeedNum="610" GiftArr="GCoin,1525000,1|achieve,15250" GiftDesc="1525000G币、15250功勋、体能训练提升10%" Icon="StarGift_1" AddArr="lifeAdd,0.1"/>
+	<Gift Id="62" Name="620星星奖励" NeedNum="620" GiftArr="GCoin,1550000,1|achieve,15500,1|materials,buncher_7,1000|materials,boom_7,1000|materials,thorn_7,1000|materials,superalloy_X,1500" GiftDesc="1550000G币、15500功勋、每种宗师材料1000个、超合金X1500个" Icon="StarGift_1"/>
+	<Gift Id="63" Name="630星星奖励" NeedNum="630" GiftArr="GCoin,1575000,1|achieve,15750" GiftDesc="1575000G币、15750功勋、防御训练提升10%" Icon="StarGift_1" AddArr="defenceAdd,0.1"/>
+	<Gift Id="64" Name="640星星奖励" NeedNum="640" GiftArr="GCoin,1600000,1|achieve,16000,1|materials,buncher_7,1000|materials,boom_7,1000|materials,thorn_7,1000|materials,superalloy_X,1500" GiftDesc="1600000G币、16000功勋、每种宗师材料1000个、超合金X1500个" Icon="StarGift_1"/>
+	<Gift Id="65" Name="650星星奖励" NeedNum="650" GiftArr="GCoin,1625000,1|achieve,16250" GiftDesc="1625000G币、16250功勋、射击训练提升10%" Icon="StarGift_1" AddArr="attackAdd,0.1"/>
+	</data>
