@@ -100,6 +100,11 @@ package UI.level
       {
          var llevel:int = 0;
          var p0:OnePackData = this.nData.nowPack;
+         if(this.GD.modUnlockAll || this.GD.modAllLevelsPassed)
+         {
+            this.levelBox.setLock(p0.levelsMax,false);
+            return;
+         }
          if(this.nData.levelPack == "p1")
          {
             this.levelBox.setLock(p0.lockNum,p0.lockNum > 1);

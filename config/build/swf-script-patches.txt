@@ -108,3 +108,4 @@ gameAll\data\PlayerData.as
 gameAll\data\GameData.as
 UI\gaming\SkillIcon.as
 UI\top\HighPlayerBox.as
+UI\level\LevelChooseUI.as
