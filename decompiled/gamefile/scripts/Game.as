@@ -51,6 +51,7 @@ package
    import gameAll.define.TipsDefine;
    import gameAll.level.LevelGroup;
    import gameAll.other.CheatingController;
+   import flash.text.TextFormat;
    import gameAll.save.SaveController;
    import gameAll.sensitive.SensitiveWords;
    import goods.ExchangeDefine;
@@ -158,7 +159,12 @@ package
       public static var uiGroup:UIGroup = new UIGroup();
       
       public static var cheating:CheatingController = new CheatingController();
-      
+
+      // 【开发诊断工具】F2 帧率慢放（特效逐帧分析用），逻辑内联于本类；禁止随玩家包发行。
+      public static var diagSlowMoSlowB:Boolean = false;
+
+      public static var diagSlowMoBadge:TextField = null;
+
       public static var timeDate:TimeDateCtrl = new TimeDateCtrl();
       
       public static var severTime:SeverTimeAPI = new SeverTimeAPI();
@@ -480,11 +486,44 @@ package
          faseUI.visible = true;
          faseUI.versionNumber_txt.text = "当前游戏版本：" + versionNumber;
          stage.addEventListener(KeyboardEvent.KEY_UP,cheating.cheating);
+         // 【开发诊断工具】F2 帧率慢放（特效逐帧分析用）：按 F2 在 30fps 与 1fps 间切换，
+         // 慢放时左上角显示固定标记。独立监听，不影响任何游戏按键逻辑；禁止随玩家包发行。
+         stage.addEventListener(KeyboardEvent.KEY_UP,this.diagSlowMoToggle);
+         diagSlowMoBadge = new TextField();
+         diagSlowMoBadge.defaultTextFormat = new TextFormat("_sans",14,16724806,true);
+         diagSlowMoBadge.text = "[DIAG SLOW-MO 1fps - F2]";
+         diagSlowMoBadge.x = 8;
+         diagSlowMoBadge.y = 8;
+         diagSlowMoBadge.width = 260;
+         diagSlowMoBadge.height = 22;
+         diagSlowMoBadge.selectable = false;
+         diagSlowMoBadge.mouseEnabled = false;
+         diagSlowMoBadge.visible = false;
+         addChild(diagSlowMoBadge);
          saveController.GAME = this;
          this.addSaveEvent();
          this.textLoad();
       }
       
+      private function diagSlowMoToggle(event:KeyboardEvent) : *
+      {
+         if(event.keyCode != 113)
+         {
+            return;
+         }
+         diagSlowMoSlowB = !diagSlowMoSlowB;
+         if(diagSlowMoSlowB)
+         {
+            stage.frameRate = 1;
+            diagSlowMoBadge.visible = true;
+         }
+         else
+         {
+            stage.frameRate = 30;
+            diagSlowMoBadge.visible = false;
+         }
+      }
+
       public function headLoadTimer(event:*) : *
       {
          var txt0:TextField = this.logoMc.loadMc.loadMc.loadMc;
