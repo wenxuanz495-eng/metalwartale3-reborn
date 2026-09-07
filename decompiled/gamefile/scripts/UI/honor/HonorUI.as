@@ -90,10 +90,10 @@ package UI.honor
 
       public function makeSmallButtons() : *
       {
-         var cx0:Number = this.use_btn.x + this.use_btn.width / 2;
+         var rightEdge:Number = 933;
          var cy0:Number = this.use_btn.y + this.use_btn.height / 2;
-         this.useWrap = this.makeSmallBtn("y","使用称号",cx0 - 57,cy0 - 18);
-         this.hideWrap = this.makeSmallBtn("b","隐藏称号",cx0 - 181,cy0 - 18);
+         this.useWrap = this.makeSmallBtn("y","使用称号",rightEdge - 114,cy0 - 18);
+         this.hideWrap = this.makeSmallBtn("b","隐藏称号",rightEdge - 114 - 10 - 114,cy0 - 18);
          this.useSmallBtn = this.useWrap.getChildAt(0) as SimpleButton;
          this.hideBtn = this.hideWrap.getChildAt(0) as SimpleButton;
          this.toggle_txt = this.hideWrap.getChildAt(1) as TextField;
@@ -253,7 +253,7 @@ package UI.honor
          data0 = this.honorData.getNowDefine();
          if(this.honorData.hideHonor == true && data0 != null && data0.name != "no")
          {
-            this.nowHonor_txt.text = data0.cnName + "（已隐藏）";
+            this.nowHonor_txt.text = data0.cnName + "（隐藏）";
          }
          else
          {
