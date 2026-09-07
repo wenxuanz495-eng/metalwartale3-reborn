@@ -119,3 +119,5 @@ UI\icon\ItemsArmsIcon.as
 UI\shop\ShopIcon.as
 UI\task\TaskIcon.as
 UI\explore\ExploreIcon.as
+UI\honor\HonorUI.as
+gameAll\honor\HonorData.as

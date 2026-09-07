@@ -715,7 +715,11 @@ package gameAll
          var d0:OneHonorDefine = this.GD.honorData.getNowDefine();
          var honor0:String = d0.name;
          var vip_d:OneVipDefine = this.GD.vipData.getNowDefine();
-         if(honor0 == "no" && !vip_d)
+         if(this.GD.honorData.hideHonor == true)
+         {
+            this.hero.headTitle.visible = false;
+         }
+         else if(honor0 == "no" && !vip_d)
          {
             this.hero.headTitle.visible = false;
          }

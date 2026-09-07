@@ -6,8 +6,10 @@ package gameAll.honor
    {
       
       public var honor_arr:Array = [];
-      
+
       public var nowHonor:String = "no";
+
+      public var hideHonor:Boolean = false;
 
       public var add:AdditionalData = new AdditionalData();
       
@@ -24,6 +26,7 @@ package gameAll.honor
          this.addHonor("no");
          this.addHonor("superalloy_hero");
          this.nowHonor = "no";
+         this.hideHonor = false;
          this.add.clearData();
          this.ac.init();
       }
@@ -80,6 +83,14 @@ package gameAll.honor
          {
             pro0 = pro_arr[n];
             this[pro0] = obj[pro0];
+         }
+         if(obj.hasOwnProperty("hideHonor"))
+         {
+            this.hideHonor = obj.hideHonor == true;
+         }
+         else
+         {
+            this.hideHonor = false;
          }
          this.honor_arr.length = 0;
          for(m in obj.honor_arr)
