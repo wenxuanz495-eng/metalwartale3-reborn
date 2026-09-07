@@ -60,7 +60,7 @@
 			<imgLabel>soya_lv1</imgLabel>
 			<bulletImgLabel>arms/soya_lv1_bullet</bulletImgLabel>
 
-			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>
+			<hitImgLabel>bullet/yellow_motion</hitImgLabel>
 			<!--<smokeImgLabel>sub/missile_bullet_smoke</smokeImgLabel>-->
 			<!--<imgLoopTime>0</imgLoopTime>-->
 
@@ -100,7 +100,7 @@
 			<imgLabel>soya_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<secondBulletImg>arms/soya_lv1_bullet</secondBulletImg>    <!-- 第二颗子弹图像（连发偶数发使用） -->
-			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -138,7 +138,7 @@
 			<bulletImgLabel>arms/soya_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<secondBulletImg>arms/soya_lv1_bullet</secondBulletImg>    <!-- 第二颗子弹图像（连发偶数发使用） -->
 
-			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -176,7 +176,7 @@
 			<bulletImgLabel>arms/soya_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<secondBulletImg>arms/soya_lv2_bullet</secondBulletImg>    <!-- 第二颗子弹图像（连发偶数发使用） -->
 
-			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -210,7 +210,7 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -244,7 +244,7 @@
 			<!-- 图像动画-->
 			<imgLabel>soya_lv6</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>arms/soya_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/motion_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/yellow_motion</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="1"   id="fireFairy">
@@ -1663,7 +1663,7 @@
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<angleRange>12</angleRange>
+			<angleRange>10</angleRange>
 			<!-- 子弹固有属性-->
 			<hurt>237</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -1701,7 +1701,7 @@
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<angleRange>12</angleRange>
+			<angleRange>10</angleRange>
 			<!-- 子弹固有属性-->
 			<hurt>235</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -1739,7 +1739,7 @@
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<angleRange>12</angleRange>
+			<angleRange>10</angleRange>
 			<!-- 子弹固有属性-->
 			<hurt>201</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -1778,7 +1778,7 @@
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<angleRange>12</angleRange>
+			<angleRange>15</angleRange>
 			<!-- 子弹固有属性-->
 			<hurt>187</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
@@ -1816,7 +1816,7 @@
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<angleRange>12</angleRange>
+			<angleRange>15</angleRange>
 			<!-- 子弹固有属性-->
 			<hurt>187</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
