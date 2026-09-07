@@ -2026,8 +2026,7 @@
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv1</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
-			<smokeImgLabel>arms/plasma_lv1_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
+			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2066,8 +2065,7 @@
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv2</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
-			<smokeImgLabel>arms/plasma_lv2_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
+			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2106,8 +2104,7 @@
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv3</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
-			<smokeImgLabel>arms/plasma_lv3_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
+			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2146,8 +2143,7 @@
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv4</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
-			<smokeImgLabel>arms/plasma_lv4_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
+			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2186,8 +2182,7 @@
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv5</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
-			<smokeImgLabel>arms/plasma_lv4_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
+			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2228,8 +2223,7 @@
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv6</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv6_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
-			<smokeImgLabel>arms/plasma_lv4_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
+			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="001" id="liebopao">
