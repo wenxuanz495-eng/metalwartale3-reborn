@@ -2027,6 +2027,7 @@
 			<imgLabel>plasma_lv1</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<smokeImgLabel>arms/plasma_lv1_smoke</smokeImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2059,13 +2060,14 @@
 			<hurt>1985</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
 			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>12</bulletWidth>    <!-- 子弹宽度-->
+			<bulletWidth>14</bulletWidth>    <!-- 子弹宽度-->
 
 			<specialType>Broken_Plasma</specialType>
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv2</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<smokeImgLabel>arms/plasma_lv2_smoke</smokeImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2098,13 +2100,14 @@
 			<hurt>2096</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
 			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>16</bulletWidth>    <!-- 子弹宽度-->
+			<bulletWidth>19</bulletWidth>    <!-- 子弹宽度-->
 
 			<specialType>Broken_Plasma</specialType>
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv3</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<smokeImgLabel>arms/plasma_lv3_smoke</smokeImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2137,13 +2140,14 @@
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
 			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>20</bulletWidth>    <!-- 子弹宽度-->
+			<bulletWidth>25</bulletWidth>    <!-- 子弹宽度-->
 
 			<specialType>Broken_Plasma</specialType>
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv4</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<smokeImgLabel>arms/plasma_lv4_smoke</smokeImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2176,17 +2180,18 @@
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
 			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>20</bulletWidth>    <!-- 子弹宽度-->
+			<bulletWidth>31</bulletWidth>    <!-- 子弹宽度-->
 
 			<specialType>Broken_Plasma</specialType>
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv5</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<smokeImgLabel>arms/plasma_lv4_smoke</smokeImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
-			<name>冈格尼尔</name>    <!-- 武器名称【必备】-->
+			<name>提尔锋</name>    <!-- 武器名称【必备】-->
 			<type>等离子炮</type>    <!-- 武器类型【必备】-->
 			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>反弹，破盾</specialProperty>
@@ -2217,13 +2222,14 @@
 			<hurt>2210</hurt>    <!-- 武器伤害【必备】-->
 			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
 			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>20</bulletWidth>    <!-- 子弹宽度-->
+			<bulletWidth>34</bulletWidth>    <!-- 子弹宽度-->
 
 			<specialType>Broken_Plasma</specialType>
 			<!-- 图像动画-->
 			<imgLabel>plasma_lv6</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
 			<bulletImgLabel>arms/plasma_lv6_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/chipped_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<smokeImgLabel>arms/plasma_lv4_smoke</smokeImgLabel>
 		</armsLevel>
 	</arms>
 	<arms index="001" id="liebopao">
