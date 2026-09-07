@@ -192,6 +192,24 @@ package body.attack
          this.loopB = false;
          this.preinputB = false;
       }
+
+      // 切换武器时必须清空上一把武器残留的射速状态（含火神炮的 fireFairyLooping 路由和帧累积器），
+      // 否则新武器会继承上一把的攻击节奏；保留 loopB 使长按开火切枪后新武器以自身节奏无缝继续。
+      public function resetForArmsChange() : *
+      {
+         this.now_t = 0;
+         this.shootNum = 0;
+         this.fireFairyFrameAccumulator = 0;
+         this.preinputB = false;
+         if(this.loopB)
+         {
+            this.state = "start";
+         }
+         else
+         {
+            this.state = "stoping";
+         }
+      }
       
       public function stopLoop() : *
       {

@@ -285,6 +285,7 @@ import body.skill.SpeedUpSkill;
             id0 = arr[0];
             level0 = int(arr[1]) - 1;
          }
+         this.attack.resetForArmsChange();
          this.armsDefine.inData(id0,level0,"",itemsData);
          this.img.arms.showMC(this.armsDefine.armsImgLabel);
          this.img.arms.startHurtEffect(0.1);
@@ -537,8 +538,9 @@ import body.skill.SpeedUpSkill;
          if(this.img.bodyState != str0)
          {
             this.img.changeState(str0,changeT0);
-            if(str0 == "fly")
+             if(str0 == "fly")
             {
+               this.attack.resetForArmsChange();
                this.armsDefine.inData("flyLaser",0,"arms");
                this.armsDefine.baseHurt = Game.gameData.getAllDps() * 0.06 / Game.gameData.getAllArmsAdd();
                this.mot.F_G = 0.5;
