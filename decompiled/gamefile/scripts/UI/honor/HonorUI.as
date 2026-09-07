@@ -3,15 +3,13 @@ package UI.honor
    import UI.ClickEvent;
    import UI.button.SountoScrollBar;
    import UI.label.LabelCtrl;
-   import flash.display.DisplayObjectContainer;
    import flash.display.SimpleButton;
    import flash.display.Sprite;
    import flash.events.MouseEvent;
    import flash.filters.DropShadowFilter;
+   import flash.filters.GlowFilter;
    import flash.text.TextField;
    import flash.text.TextFormat;
-   import flash.utils.getDefinitionByName;
-   import flash.utils.getQualifiedClassName;
    import gameAll.honor.HonorData;
    import gameAll.honor.OneHonorDefine;
 
@@ -98,35 +96,22 @@ package UI.honor
 
       public function makeSmallButtons() : *
       {
-         var BtnClass:Class = null;
-         var W0:Number = this.use_btn.width;
-         var H0:Number = this.use_btn.height;
-         this.W0_cached = W0;
-         var s0:Number = 0.46;
-         var gap0:Number = 8;
-         var sw0:Number = W0 * s0;
-         var sh0:Number = H0 * s0;
-         var cx0:Number = this.use_btn.x + W0 / 2;
-         var yBottom:Number = this.use_btn.y + H0 - sh0;
-         var yTop:Number = yBottom - sh0 - gap0;
+         var yBottom:Number = this.use_btn.y + this.use_btn.height;
+         var cx0:Number = this.use_btn.x + this.use_btn.width / 2;
+         var sw0:Number = 114;
+         var sh0:Number = 36;
+         var gap0:Number = 10;
+         var yTop:Number = yBottom - sh0 * 2 - gap0;
          var xLeft:Number = cx0 - (sw0 * 2 + gap0) / 2;
          var xRight:Number = xLeft + sw0 + gap0;
-         try
-         {
-            BtnClass = getDefinitionByName(getQualifiedClassName(this.use_btn)) as Class;
-         }
-         catch(err:Error)
-         {
-            BtnClass = null;
-         }
-         this.useSmallBtn = this.makeSmallBtn(BtnClass,"使用称号",xLeft,yTop,s0);
-         this.giveupBtn = this.makeSmallBtn(BtnClass,"放弃称号",xRight,yTop,s0);
-         this.hideBtn = this.makeSmallBtn(BtnClass,"隐藏称号",xLeft,yBottom,s0);
-         this.showBtn = this.makeSmallBtn(BtnClass,"显示称号",xRight,yBottom,s0);
-         this.useWrap = this.smallBtnWrap.getChildAt(0) as Sprite;
-         this.giveupWrap = this.smallBtnWrap.getChildAt(1) as Sprite;
-         this.hideWrap = this.smallBtnWrap.getChildAt(2) as Sprite;
-         this.showWrap = this.smallBtnWrap.getChildAt(3) as Sprite;
+         this.useWrap = this.makeSmallBtn("y","使用称号",xLeft,yTop);
+         this.giveupWrap = this.makeSmallBtn("y","放弃称号",xRight,yTop);
+         this.hideWrap = this.makeSmallBtn("b","隐藏称号",xLeft,yBottom);
+         this.showWrap = this.makeSmallBtn("b","显示称号",xRight,yBottom);
+         this.useSmallBtn = this.useWrap.getChildAt(0) as SimpleButton;
+         this.giveupBtn = this.giveupWrap.getChildAt(0) as SimpleButton;
+         this.hideBtn = this.hideWrap.getChildAt(0) as SimpleButton;
+         this.showBtn = this.showWrap.getChildAt(0) as SimpleButton;
          this.useSmallBtn.addEventListener(MouseEvent.CLICK,this.useSmallClick);
          this.giveupBtn.addEventListener(MouseEvent.CLICK,this.giveupClick);
          this.hideBtn.addEventListener(MouseEvent.CLICK,this.hideClick);
@@ -135,87 +120,63 @@ package UI.honor
          this.honor_mc.addChild(this.smallBtnWrap);
       }
 
-      public function makeSmallBtn(BtnClass:Class, label0:String, px:Number, py:Number, sc:Number) : SimpleButton
+      public function makeSmallBtn(style0:String, label0:String, px:Number, py:Number) : Sprite
       {
-         var btn0:SimpleButton = null;
          var wrap0:Sprite = new Sprite();
+         var btn0:SimpleButton = new SimpleButton();
+         btn0.upState = this.drawUi3Frame(style0,false);
+         btn0.overState = this.drawUi3Frame(style0,true);
+         btn0.downState = this.drawUi3Frame(style0,true);
+         btn0.hitTestState = btn0.upState;
+         wrap0.addChild(btn0);
          var t0:TextField = new TextField();
-         var f0:DropShadowFilter = new DropShadowFilter(0,45,16776945,1,4,4,1.6);
-         if(BtnClass != null)
-         {
-            btn0 = new BtnClass() as SimpleButton;
-            this.stripBtnText(btn0);
-            btn0.scaleX = sc;
-            btn0.scaleY = sc;
-            wrap0.addChild(btn0);
-         }
-         else
-         {
-            btn0 = this.makeCodeBtn();
-            wrap0.addChild(btn0);
-         }
-         t0.defaultTextFormat = new TextFormat("_sans",13,16777215,true,null,null,null,null,"center");
+         var f0:DropShadowFilter = new DropShadowFilter(0,45,0,0.9,3,3,1);
+         t0.defaultTextFormat = new TextFormat("_sans",14,16777215,true,null,null,null,null,"center");
          t0.text = label0;
-         t0.width = this.W0_cached * sc + 6;
-         t0.height = btn0.height + 8;
-         t0.x = -3;
-         t0.y = (btn0.height - t0.textHeight) / 2;
+         t0.width = 114;
+         t0.height = 36;
+         t0.x = 0;
+         t0.y = (36 - t0.textHeight) / 2;
          t0.mouseEnabled = false;
          t0.filters = [f0];
          wrap0.addChild(t0);
          wrap0.x = px;
          wrap0.y = py;
          this.smallBtnWrap.addChild(wrap0);
-         return btn0;
+         return wrap0;
       }
 
-      private var W0_cached:Number = 120;
-
-      public function stripBtnText(btn0:SimpleButton) : *
+      public function drawUi3Frame(style0:String, hoverB:Boolean) : Sprite
       {
-         var n:* = undefined;
-         var c:DisplayObjectContainer = null;
-         var m:int = 0;
-         var states:Array = [btn0.upState,btn0.overState,btn0.downState];
-         for(n in states)
+         var edge0:uint = 0;
+         var bright0:uint = 0;
+         var fill0:uint = 0;
+         if(style0 == "b")
          {
-            c = states[n] as DisplayObjectContainer;
-            if(c != null)
-            {
-               m = c.numChildren - 1;
-               while(m > 0)
-               {
-                  c.getChildAt(m).visible = false;
-                  m = m - 1;
-               }
-            }
+            edge0 = hoverB?56319:27828;
+            bright0 = hoverB?56319:55805;
+            fill0 = 396568;
          }
-      }
-
-      public function makeCodeBtn() : SimpleButton
-      {
-         var btn0:SimpleButton = new SimpleButton();
-         btn0.upState = this.drawTrap(16773854,13394944);
-         btn0.overState = this.drawTrap(16776932,14672839);
-         btn0.downState = this.drawTrap(13394944,11175913);
-         btn0.hitTestState = btn0.upState;
-         return btn0;
-      }
-
-      public function drawTrap(color0:uint, color1:uint) : Sprite
-      {
+         else
+         {
+            edge0 = hoverB?16572931:9325825;
+            bright0 = hoverB?16572931:16631552;
+            fill0 = 1638403;
+         }
          var sp0:Sprite = new Sprite();
-         var w0:Number = W0_cached > 0?W0_cached:120;
-         var h0:Number = 30;
-         var m0:Number = w0 * 0.08;
-         sp0.graphics.beginFill(color0);
-         sp0.graphics.lineStyle(1,11175913,1);
-         sp0.graphics.moveTo(m0,0);
-         sp0.graphics.lineTo(w0 - m0,0);
-         sp0.graphics.lineTo(w0,h0);
-         sp0.graphics.lineTo(0,h0);
-         sp0.graphics.lineTo(m0,0);
-         sp0.graphics.endFill();
+         var g0:* = sp0.graphics;
+         g0.lineStyle(2,edge0,1);
+         g0.drawRoundRect(1,1,112,34,10,10);
+         g0.lineStyle(2,bright0,1);
+         g0.drawRoundRect(4,4,106,28,7,7);
+         g0.beginFill(fill0,1);
+         g0.drawRoundRect(6,6,102,24,5,5);
+         g0.endFill();
+         g0.lineStyle(1,bright0,0.75);
+         g0.moveTo(18,7.5);
+         g0.lineTo(96,7.5);
+         var f0:GlowFilter = new GlowFilter(bright0,0.55,8,8,1);
+         sp0.filters = [f0];
          return sp0;
       }
 
