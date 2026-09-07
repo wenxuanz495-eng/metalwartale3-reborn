@@ -56,19 +56,13 @@ package UI.honor
 
       public var useSmallBtn:SimpleButton;
 
-      public var giveupBtn:SimpleButton;
-
       public var hideBtn:SimpleButton;
 
-      public var showBtn:SimpleButton;
+      public var toggle_txt:TextField;
 
       public var useWrap:Sprite;
 
-      public var giveupWrap:Sprite;
-
       public var hideWrap:Sprite;
-
-      public var showWrap:Sprite;
 
       public function HonorUI()
       {
@@ -96,26 +90,15 @@ package UI.honor
 
       public function makeSmallButtons() : *
       {
-         var yBottom:Number = this.use_btn.y + this.use_btn.height;
          var cx0:Number = this.use_btn.x + this.use_btn.width / 2;
-         var sw0:Number = 114;
-         var sh0:Number = 36;
-         var gap0:Number = 10;
-         var yTop:Number = yBottom - sh0 * 2 - gap0;
-         var xLeft:Number = cx0 - (sw0 * 2 + gap0) / 2;
-         var xRight:Number = xLeft + sw0 + gap0;
-         this.useWrap = this.makeSmallBtn("y","使用称号",xLeft,yTop);
-         this.giveupWrap = this.makeSmallBtn("y","放弃称号",xRight,yTop);
-         this.hideWrap = this.makeSmallBtn("b","隐藏称号",xLeft,yBottom);
-         this.showWrap = this.makeSmallBtn("b","显示称号",xRight,yBottom);
+         var cy0:Number = this.use_btn.y + this.use_btn.height / 2;
+         this.useWrap = this.makeSmallBtn("y","使用称号",cx0 - 57,cy0 - 18);
+         this.hideWrap = this.makeSmallBtn("b","隐藏称号",cx0 - 181,cy0 - 18);
          this.useSmallBtn = this.useWrap.getChildAt(0) as SimpleButton;
-         this.giveupBtn = this.giveupWrap.getChildAt(0) as SimpleButton;
          this.hideBtn = this.hideWrap.getChildAt(0) as SimpleButton;
-         this.showBtn = this.showWrap.getChildAt(0) as SimpleButton;
+         this.toggle_txt = this.hideWrap.getChildAt(1) as TextField;
          this.useSmallBtn.addEventListener(MouseEvent.CLICK,this.useSmallClick);
-         this.giveupBtn.addEventListener(MouseEvent.CLICK,this.giveupClick);
-         this.hideBtn.addEventListener(MouseEvent.CLICK,this.hideClick);
-         this.showBtn.addEventListener(MouseEvent.CLICK,this.showClick);
+         this.hideBtn.addEventListener(MouseEvent.CLICK,this.toggleClick);
          this.use_btn.visible = false;
          this.honor_mc.addChild(this.smallBtnWrap);
       }
@@ -292,9 +275,11 @@ package UI.honor
             }
          }
          this.setSmallBtnState(this.useWrap,this.useSmallBtn,useEnableB);
-         this.setSmallBtnState(this.giveupWrap,this.giveupBtn,this.honorData.nowHonor != "no");
-         this.setSmallBtnState(this.hideWrap,this.hideBtn,this.honorData.hideHonor != true);
-         this.setSmallBtnState(this.showWrap,this.showBtn,this.honorData.hideHonor == true);
+         this.setSmallBtnState(this.hideWrap,this.hideBtn,true);
+         if(this.toggle_txt != null)
+         {
+            this.toggle_txt.text = this.honorData.hideHonor == true?"显示称号":"隐藏称号";
+         }
       }
 
       public function setSmallBtnState(wrap0:Sprite, btn0:SimpleButton, enableB:Boolean) : *
@@ -384,41 +369,16 @@ package UI.honor
          this.useClick(e);
       }
 
-      public function giveupClick(e:*) : *
+      public function toggleClick(e:*) : *
       {
-         if(this.honorData.nowHonor != "no")
+         this.honorData.hideHonor = this.honorData.hideHonor != true;
+         if(this.toggle_txt != null)
          {
-            this.honorData.nowHonor = "no";
-            this.fleshData();
-            Game.SG.playSound("buyItems");
-            Game.uiGroup.checkTip.showTip("已放弃称号！",1);
-            Game.gameData.fleshAdd_byItems();
-            Game.uiGroup.infoUI.fleshData();
-            Game.eventGroup.fleshHonor();
-            Game.uiGroup.carShow.copyAll();
+            this.toggle_txt.text = this.honorData.hideHonor == true?"显示称号":"隐藏称号";
          }
-      }
-
-      public function hideClick(e:*) : *
-      {
-         if(this.honorData.hideHonor != true)
-         {
-            this.honorData.hideHonor = true;
-            this.fleshData();
-            Game.uiGroup.checkTip.showTip("称号已隐藏（属性仍生效）",1);
-            Game.eventGroup.fleshHonor();
-         }
-      }
-
-      public function showClick(e:*) : *
-      {
-         if(this.honorData.hideHonor == true)
-         {
-            this.honorData.hideHonor = false;
-            this.fleshData();
-            Game.uiGroup.checkTip.showTip("称号已显示",1);
-            Game.eventGroup.fleshHonor();
-         }
+         this.fleshData();
+         Game.uiGroup.checkTip.showTip(this.honorData.hideHonor == true?"称号已隐藏（属性仍生效）":"称号已显示",1);
+         Game.eventGroup.fleshHonor();
       }
 
       public function hide(e:* = null) : *
