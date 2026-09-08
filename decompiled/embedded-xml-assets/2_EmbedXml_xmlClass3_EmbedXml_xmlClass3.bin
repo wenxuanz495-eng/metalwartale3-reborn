@@ -5106,7 +5106,7 @@
 			<priceLevel>20</priceLevel>    <!-- 销售等级 -->
 
 			<!-- 攻击时的属性-->
-			<recoilValue>0</recoilValue>    <!-- 后坐力(默认为0)-->
+			<recoilValue>1</recoilValue>    <!-- 后坐力(默认为0)-->
 			<attackGap>0.05</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
