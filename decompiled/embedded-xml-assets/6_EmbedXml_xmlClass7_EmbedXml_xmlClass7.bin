@@ -793,7 +793,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -833,7 +833,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -873,7 +873,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -913,7 +913,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -953,7 +953,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -993,7 +993,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_lv6</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_lv6_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="7" id="jiguangjishupao">
@@ -3528,7 +3528,7 @@
 			<!-- 图像动画-->
 			<imgLabel>cutter_gold</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/cutter_gold_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="101" id="protonImpact_boom">
