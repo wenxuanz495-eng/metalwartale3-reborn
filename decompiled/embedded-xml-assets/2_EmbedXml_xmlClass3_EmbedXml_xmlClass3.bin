@@ -5296,7 +5296,7 @@
 			<specialType>Level_Growth_15</specialType>
 			<!-- 图像动画-->
 			<imgLabel>snow_lv2</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
-			<bulletImgLabel>arms/snow_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>bullet/orange_motion</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 
 		</armsLevel>
