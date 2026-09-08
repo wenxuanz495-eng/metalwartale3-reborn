@@ -409,6 +409,10 @@ package body.attack
             }
             else if(this.state == "shoot")
             {
+               if(this.baba is HeroCarBody && !this.baba.consumeFairyShotEnergy())
+               {
+                  return;
+               }
                this.shootFireFairy(d);
                this.fireFairyFrameAccumulator = 0;
                if(this.loopB)
@@ -432,6 +436,11 @@ package body.attack
                   while(this.fireFairyFrameAccumulator >= 1)
                   {
                      this.fireFairyFrameAccumulator -= 1;
+                     if(this.baba is HeroCarBody && !this.baba.consumeFairyShotEnergy())
+                     {
+                        this.fireFairyFrameAccumulator = 0;
+                        return;
+                     }
                      this.AAHD.imgAttackOnce();
                      this.shootFireFairy(d);
                   }

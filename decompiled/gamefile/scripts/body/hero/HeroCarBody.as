@@ -482,7 +482,7 @@ import body.skill.SpeedUpSkill;
       public function energyUse() : *
       {
          var aid:ArmsItemsData = null;
-         var arr0:Array = null;
+         var arr:Array = null;
          var aid0:ArmsItemsData = null;
          if(this.attack.state == "start")
          {
@@ -499,8 +499,8 @@ import body.skill.SpeedUpSkill;
                }
                else
                {
-                  arr0 = Game.gameData.armsItems.equArr;
-                  aid0 = arr0[int(arr0.length * Math.random())];
+                  arr = Game.gameData.armsItems.equArr;
+                  aid0 = arr[int(arr.length * Math.random())];
                   if(Boolean(aid0))
                   {
                      Game.eventGroup.changArms(aid0.site);
@@ -520,6 +520,37 @@ import body.skill.SpeedUpSkill;
                Game.gameData.bulletNum += this.armsDefine.bulletNum * this.armsDefine.shootNum;
             }
          }
+      }
+
+      // 火神炮专用状态机（fireFairyLooping）长按期间不再回到 state=="start"，
+      // 通用扣能点 energyUse() 被整体绕过；每发实弹必须经此入口扣 1 点能量。
+      // 返回 false 表示能量不足并已尝试自动换枪（状态机可能已被 resetForArmsChange 重置），调用方必须立即返回。
+      public function consumeFairyShotEnergy() : Boolean
+      {
+         var aid:ArmsItemsData = null;
+         var arr:Array = null;
+         var aid0:ArmsItemsData = null;
+         if(Game.gameData.nowArmsIndex < 0)
+         {
+            return true;
+         }
+         aid = Game.gameData.nowArmsData;
+         if(aid == null)
+         {
+            return true;
+         }
+         if(aid.nowEnergy >= 1)
+         {
+            aid.setEnergy(-1);
+            return true;
+         }
+         arr = Game.gameData.armsItems.equArr;
+         aid0 = arr[int(arr.length * Math.random())];
+         if(Boolean(aid0))
+         {
+            Game.eventGroup.changArms(aid0.site);
+         }
+         return false;
       }
       
       public function setNoAttack(tt0:Number) : *

@@ -2517,7 +2517,7 @@
 
 			<!-- 图像动画-->
 			<imgLabel>phaseTransfer_lv2</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
-			<bulletImgLabel>arms/phaseTransfer_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>arms/phaseTransfer_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 			<smokeImgLabel>arms/phaseTransfer_lv1_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
 		</armsLevel>
@@ -2557,7 +2557,7 @@
 
 			<!-- 图像动画-->
 			<imgLabel>phaseTransfer_lv3</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
-			<bulletImgLabel>arms/phaseTransfer_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>arms/etcg_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 			<smokeImgLabel>arms/phaseTransfer_lv1_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
 		</armsLevel>
@@ -2599,13 +2599,13 @@
 
 			<!-- 图像动画-->
 			<imgLabel>phaseTransfer_lv4</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
-			<bulletImgLabel>arms/phaseTransfer_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>arms/jifengzhiyi_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 			<smokeImgLabel>arms/phaseTransfer_lv2_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
-			<name>位面</name>    <!-- 武器名称【必备】-->
+			<name>永寂</name>    <!-- 武器名称【必备】-->
 			<type>相转移炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>转移</specialProperty>
@@ -2641,13 +2641,13 @@
 
 			<!-- 图像动画-->
 			<imgLabel>phaseTransfer_lv5</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
-			<bulletImgLabel>arms/phaseTransfer_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>arms/jifengzhiyi_lv5</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 			<smokeImgLabel>arms/phaseTransfer_lv2_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
-			<name>位面MK2</name>    <!-- 武器名称【必备】-->
+			<name>彻寰</name>    <!-- 武器名称【必备】-->
 			<type>相转移炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>转移</specialProperty>
@@ -2683,7 +2683,7 @@
 
 			<!-- 图像动画-->
 			<imgLabel>phaseTransfer_lv6</imgLabel>    <!-- 武器图像【必备】，和子弹图像不同，前面不加 arms/，默认为arms/-->
-			<bulletImgLabel>arms/phaseTransfer_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>arms/jifengzhiyi_lv5</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>bullet/blue_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 			<smokeImgLabel>arms/phaseTransfer_lv2_smoke</smokeImgLabel>    <!-- 子弹尾烟效果 -->
 		</armsLevel>
