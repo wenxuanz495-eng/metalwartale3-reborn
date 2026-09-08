@@ -2605,7 +2605,7 @@
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
-			<name>永寂</name>    <!-- 武器名称【必备】-->
+			<name>九霄</name>    <!-- 武器名称【必备】-->
 			<type>相转移炮</type>    <!-- 武器类型【必备】-->
 			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>转移</specialProperty>
