@@ -331,7 +331,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>0.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<angleRange>0</angleRange>
@@ -350,7 +350,7 @@
 			<!-- 图像动画-->
 			<imgLabel>elastic_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/elastic_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/purple_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/positron_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -370,7 +370,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>0.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<angleRange>10</angleRange>
@@ -389,7 +389,7 @@
 			<!-- 图像动画-->
 			<imgLabel>elastic_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/elastic_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/purple_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/positron_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -409,7 +409,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>0.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>3</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<angleRange>10</angleRange>
@@ -428,7 +428,7 @@
 			<!-- 图像动画-->
 			<imgLabel>elastic_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/elastic_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/purple_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/positron_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -448,7 +448,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>0.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>4</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<angleRange>30</angleRange>
@@ -467,7 +467,7 @@
 			<!-- 图像动画-->
 			<imgLabel>elastic_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/elastic_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/purple_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/positron_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="3" id="qidonglipao">
