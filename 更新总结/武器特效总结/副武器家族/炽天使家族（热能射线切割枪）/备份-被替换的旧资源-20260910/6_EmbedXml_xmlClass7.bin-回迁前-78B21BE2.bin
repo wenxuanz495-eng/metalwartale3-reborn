@@ -1394,10 +1394,10 @@
 			<shootNum>1</shootNum>    <!-- 1个攻击间隔内的射击次数（默认值为1）-->
 			<shootGap>0</shootGap>    <!-- 射击间隔（单位秒），射击次数大于1才有这个值-->
 			<penetrationB>1</penetrationB>
-			<attackGap>1.5</attackGap>    <!-- 攻击间隔（单位秒）-->
+			<attackGap>2.4</attackGap>    <!-- 攻击间隔（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<imgLabel>hotline_lv1</imgLabel>
-			<hitImgLabel>sub/jiguangjishupao_bullet_lv0</hitImgLabel>
+			<hitImgLabel>sub/hot_hit_effect</hitImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!-- 标准不穿透型激光-->
@@ -1424,10 +1424,10 @@
 			<shootNum>1</shootNum>    <!-- 1个攻击间隔内的射击次数（默认值为1）-->
 			<shootGap>0</shootGap>    <!-- 射击间隔（单位秒），射击次数大于1才有这个值-->
 			<penetrationB>1</penetrationB>
-			<attackGap>1.5</attackGap>    <!-- 攻击间隔（单位秒）-->
+			<attackGap>2.4</attackGap>    <!-- 攻击间隔（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<imgLabel>hotline_lv2</imgLabel>
-			<hitImgLabel>sub/jiguangjishupao_bullet_lv0</hitImgLabel>
+			<hitImgLabel>sub/hot_hit_effect</hitImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!-- 标准不穿透型激光-->
@@ -1454,10 +1454,10 @@
 			<shootNum>1</shootNum>    <!-- 1个攻击间隔内的射击次数（默认值为1）-->
 			<shootGap>0</shootGap>    <!-- 射击间隔（单位秒），射击次数大于1才有这个值-->
 			<penetrationB>1</penetrationB>
-			<attackGap>1.5</attackGap>    <!-- 攻击间隔（单位秒）-->
+			<attackGap>2.4</attackGap>    <!-- 攻击间隔（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<imgLabel>hotline_lv3</imgLabel>
-			<hitImgLabel>sub/jiguangjishupao_bullet_lv0</hitImgLabel>
+			<hitImgLabel>sub/hot_hit_effect</hitImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!-- 标准不穿透型激光-->
@@ -1485,10 +1485,10 @@
 			<shootNum>1</shootNum>    <!-- 1个攻击间隔内的射击次数（默认值为1）-->
 			<shootGap>0</shootGap>    <!-- 射击间隔（单位秒），射击次数大于1才有这个值-->
 			<penetrationB>1</penetrationB>
-			<attackGap>1.5</attackGap>    <!-- 攻击间隔（单位秒）-->
+			<attackGap>2.4</attackGap>    <!-- 攻击间隔（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<imgLabel>hotline_lv4</imgLabel>
-			<hitImgLabel>sub/jiguangjishupao_bullet_lv0</hitImgLabel>
+			<hitImgLabel>sub/hot_hit_effect</hitImgLabel>
 		</armsLevel>
 		<armsLevel>
 			<!-- 标准不穿透型激光-->
@@ -1515,10 +1515,10 @@
 			<shootNum>1</shootNum>    <!-- 1个攻击间隔内的射击次数（默认值为1）-->
 			<shootGap>0</shootGap>    <!-- 射击间隔（单位秒），射击次数大于1才有这个值-->
 			<penetrationB>1</penetrationB>
-			<attackGap>1.5</attackGap>    <!-- 攻击间隔（单位秒）-->
+			<attackGap>2.4</attackGap>    <!-- 攻击间隔（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<imgLabel>hotline_lv5</imgLabel>
-			<hitImgLabel>sub/jiguangjishupao_bullet_lv0</hitImgLabel>
+			<hitImgLabel>sub/hot_hit_effect</hitImgLabel>
 		</armsLevel>
 	</arms>
 	<arms index="7" id="chipped">
