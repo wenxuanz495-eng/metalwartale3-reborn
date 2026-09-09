@@ -1542,7 +1542,7 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -1558,7 +1558,7 @@
 			<!-- 图像动画-->
 			<imgLabel>chipped_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/chipped_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blueness_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -1579,7 +1579,7 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -1595,7 +1595,7 @@
 			<!-- 图像动画-->
 			<imgLabel>chipped_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/chipped_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blueness_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -1616,7 +1616,7 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -1632,7 +1632,7 @@
 			<!-- 图像动画-->
 			<imgLabel>chipped_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/chipped_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blueness_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -1653,7 +1653,7 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -1669,7 +1669,7 @@
 			<!-- 图像动画-->
 			<imgLabel>chipped_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/chipped_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blueness_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -1690,7 +1690,7 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
@@ -1706,7 +1706,7 @@
 			<!-- 图像动画-->
 			<imgLabel>chipped_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/chipped_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/blueness_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="8" id="protonImpact">
