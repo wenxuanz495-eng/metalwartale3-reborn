@@ -15,7 +15,7 @@ import xml.etree.ElementTree as ET
 import copy, os, sys
 
 WORK = r"D:\superalloy\tmp-soya-family-test\snake-3ver-audit\work"
-BASE_SWF = r"D:\superalloy\metalwartale3-reborn.git\swf\sub1130.swf"
+BASE_SWF = r"D:\superalloy	mp-soya-family-test\snake-3ver-audit\work\sub1130-snake.swf"  # 744837DA 中间态（本体回迁前）
 BASE   = os.path.join(WORK, "sub1130-base.xml")     # 由当前仓库 sub1130 现导出
 SRC25  = os.path.join(WORK, "sub37-25.xml")
 SRC34  = os.path.join(WORK, "sub52-34.xml")
@@ -63,10 +63,13 @@ def closure(defs, root_id):
     return seen
 
 def max_char_id(root):
+    """最大已占用 ID。⚠ 必须把 soundId 一并计入：SWF 字典为单一命名空间，
+    角色 ID 与音效 ID 不得撞号——第一版漏算 soundId，导致焰形填充位图 2421/2442
+    与上轮克隆的开火音 2421/2422 撞号，Flash 渲染红方块（红块=缺位图填充）。"""
     m = 0
     for it in root.iter('item'):
         if not (tag_type(it)).startswith('Define'): continue
-        for attr in ('characterID', 'shapeId', 'spriteId'):
+        for attr in ('characterID', 'shapeId', 'spriteId', 'soundId'):
             v = it.get(attr)
             if v is not None: m = max(m, int(v)); break
     return m
