@@ -2759,7 +2759,7 @@
 			<!-- 图像动画-->
 			<imgLabel>snake_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/snake_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 
 		</armsLevel>
 		<armsLevel>
@@ -2804,7 +2804,7 @@
 			<!-- 图像动画-->
 			<imgLabel>snake_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/snake_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 
 		</armsLevel>
 	</arms>
