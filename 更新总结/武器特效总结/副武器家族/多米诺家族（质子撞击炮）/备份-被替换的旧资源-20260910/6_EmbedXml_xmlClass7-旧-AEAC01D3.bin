@@ -1714,7 +1714,7 @@
 			<!--武器属性 -->
 			<name>多米诺</name>    <!-- 武器名称【必备】-->
 			<type>质子撞击炮</type>    <!-- 武器类型【必备】-->
-			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>范围伤害</specialProperty>
 			<description>用接近光速的质子撞击原子，放出多余的质子和巨大的能量，使被击中的区域产生分子溶解连锁反应。</description>
 			<!-- 能量需求 -->
@@ -1756,7 +1756,7 @@
 			<!--武器属性 -->
 			<name>连锁闪电</name>    <!-- 武器名称【必备】-->
 			<type>质子撞击炮</type>    <!-- 武器类型【必备】-->
-			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>范围伤害</specialProperty>
 			<description>用接近光速的质子撞击原子，放出多余的质子和巨大的能量，使被击中的区域产生分子溶解连锁反应。</description>
 			<!-- 能量需求 -->
@@ -1797,7 +1797,7 @@
 			<!--武器属性 -->
 			<name>能量反冲</name>    <!-- 武器名称【必备】-->
 			<type>质子撞击炮</type>    <!-- 武器类型【必备】-->
-			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>范围伤害</specialProperty>
 			<description>用接近光速的质子撞击原子，放出多余的质子和巨大的能量，使被击中的区域产生分子溶解连锁反应。</description>
 			<!-- 能量需求 -->
@@ -1830,7 +1830,7 @@
 			<specialType>Proton_Impact</specialType>
 			<!-- 图像动画-->
 			<imgLabel>protonImpact_lv3</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/protonImpact_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>sub/protonImpact_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<smokeImgLabel>sub/protonImpact_lv2_smoke</smokeImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/noBullet</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
@@ -1838,7 +1838,7 @@
 			<!--武器属性 -->
 			<name>闪电风暴</name>    <!-- 武器名称【必备】-->
 			<type>质子撞击炮</type>    <!-- 武器类型【必备】-->
-			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>范围伤害</specialProperty>
 			<description>用接近光速的质子撞击原子，放出多余的质子和巨大的能量，使被击中的区域产生分子溶解连锁反应。</description>
 			<!-- 能量需求 -->
@@ -1873,7 +1873,7 @@
 			<specialType>Proton_Impact</specialType>
 			<!-- 图像动画-->
 			<imgLabel>protonImpact_lv4</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/protonImpact_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<bulletImgLabel>sub/protonImpact_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<smokeImgLabel>sub/protonImpact_lv2_smoke</smokeImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/noBullet</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
@@ -3536,7 +3536,7 @@
 			<!--武器属性 -->
 			<name>多米诺爆炸</name>    <!-- 武器名称【必备】-->
 			<type>质子撞击炮</type>    <!-- 武器类型【必备】-->
-			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
+			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<description>用接近光速的质子撞击原子，放出多余的质子和巨大的能量，使被击中的区域产生分子溶解连锁反应。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
