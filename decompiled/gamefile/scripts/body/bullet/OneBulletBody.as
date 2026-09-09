@@ -230,7 +230,11 @@ package body.bullet
                ++penetrationNum;
                Game.eventGroup.hurt(b0,hurt,attackType,itemsData,attackBody,b0.MX,b0.MY,hurt_0_B,false,"bullet",this);
                Game.EG.lightning.Show(new Point(this.mot.x0,this.mot.y0),new Point(b0.MX,b0.MY),Math.random() * 10);
-               Game.SG.playSound("lightningBall_lightning");
+               var zapSnd0:* = Game.SG.getSound("lightningBall_lightning");
+               if(zapSnd0 != null)
+               {
+                  zapSnd0.play(1,4);
+               }
             }
          }
          else

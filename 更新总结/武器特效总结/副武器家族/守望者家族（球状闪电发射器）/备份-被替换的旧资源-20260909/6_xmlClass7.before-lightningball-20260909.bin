@@ -1188,8 +1188,8 @@
 			<!--武器属性 -->
 			<name>守望者</name>    <!-- 武器名称【必备】-->
 			<type>球形闪电发生器</type>    <!-- 武器类型【必备】-->
-			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>锁敌</specialProperty>
+			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
+			<specialProperty>跟踪</specialProperty>
 			<description>利用高能球形闪电发生器制造球形闪电，通过发射电弧来破坏敌人。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
@@ -1203,7 +1203,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>1.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>2.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
@@ -1219,14 +1219,14 @@
 			<!-- 图像动画-->
 			<imgLabel>lightningBall_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/lightningBall_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/energy_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/purple_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>捍卫者</name>    <!-- 武器名称【必备】-->
 			<type>球形闪电发生器</type>    <!-- 武器类型【必备】-->
-			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>锁敌</specialProperty>
+			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
+			<specialProperty>跟踪</specialProperty>
 			<description>利用高能球形闪电发生器制造球形闪电，通过发射电弧来破坏敌人。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
@@ -1239,7 +1239,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>1.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>2.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
@@ -1255,14 +1255,14 @@
 			<!-- 图像动画-->
 			<imgLabel>lightningBall_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/lightningBall_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/energy_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/purple_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>驱逐者</name>    <!-- 武器名称【必备】-->
 			<type>球形闪电发生器</type>    <!-- 武器类型【必备】-->
-			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>锁敌</specialProperty>
+			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
+			<specialProperty>跟踪</specialProperty>
 			<description>利用高能球形闪电发生器制造球形闪电，通过发射电弧来破坏敌人。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
@@ -1275,7 +1275,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>1.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>2.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
@@ -1291,14 +1291,14 @@
 			<!-- 图像动画-->
 			<imgLabel>lightningBall_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/lightningBall_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/energy_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/purple_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>审判者</name>    <!-- 武器名称【必备】-->
 			<type>球形闪电发生器</type>    <!-- 武器类型【必备】-->
-			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>锁敌</specialProperty>
+			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
+			<specialProperty>跟踪</specialProperty>
 			<description>利用高能球形闪电发生器制造球形闪电，通过发射电弧来破坏敌人。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
@@ -1312,7 +1312,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>1.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>2.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
@@ -1328,14 +1328,14 @@
 			<!-- 图像动画-->
 			<imgLabel>lightningBall_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/lightningBall_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/energy_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/purple_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
 			<name>制裁者</name>    <!-- 武器名称【必备】-->
 			<type>球形闪电发生器</type>    <!-- 武器类型【必备】-->
-			<attackType>energy</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>锁敌</specialProperty>
+			<attackType>boom</attackType>    <!-- 攻击属性【必备】-->
+			<specialProperty>跟踪</specialProperty>
 			<description>利用高能球形闪电发生器制造球形闪电，通过发射电弧来破坏敌人。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
@@ -1348,7 +1348,7 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>1.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackGap>2.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
 			<attackDelay>0.15</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>10</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
@@ -1364,7 +1364,7 @@
 			<!-- 图像动画-->
 			<imgLabel>lightningBall_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/lightningBall_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/energy_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/purple_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="5" id="hotline">
