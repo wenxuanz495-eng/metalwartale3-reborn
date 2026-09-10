@@ -2179,7 +2179,7 @@
 			<!-- 图像动画-->
 			<imgLabel>positron_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/positron_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/red_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/orange_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 
 		</armsLevel>
 		<armsLevel>
@@ -2223,7 +2223,7 @@
 			<!-- 图像动画-->
 			<imgLabel>positron_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/positron_bullet2</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/red_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/orange_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2266,7 +2266,7 @@
 			<!-- 图像动画-->
 			<imgLabel>positron_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/positron_bullet3</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/red_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/orange_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2309,7 +2309,7 @@
 			<!-- 图像动画-->
 			<imgLabel>positron_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/positron_bullet4</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/red_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/orange_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2352,7 +2352,7 @@
 			<!-- 图像动画-->
 			<imgLabel>positron_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/positron_bullet5</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/red_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/orange_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2397,7 +2397,7 @@
 			<!-- 图像动画-->
 			<imgLabel>positron_lv6</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/positron_bullet6</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/red_energy</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/orange_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="11" id="highEnergy">
