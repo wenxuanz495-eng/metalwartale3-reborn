@@ -4884,7 +4884,7 @@
 			<!-- 图像动画-->
 			<imgLabel>Goldbanger_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/banger_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/green_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -4923,7 +4923,7 @@
 			<!-- 图像动画-->
 			<imgLabel>Goldbanger_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/banger_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cutter_hit_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/green_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="2" id="zhongzifeidan">
