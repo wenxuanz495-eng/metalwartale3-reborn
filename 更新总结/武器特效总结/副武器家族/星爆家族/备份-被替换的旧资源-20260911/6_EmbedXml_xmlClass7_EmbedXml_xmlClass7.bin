@@ -2443,7 +2443,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv1</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2487,7 +2487,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv2</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2531,7 +2531,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2575,7 +2575,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2619,7 +2619,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2665,7 +2665,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv6</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv6_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 		<armsLevel>
 			<!--武器属性 -->
@@ -2711,7 +2711,7 @@
 			<!-- 图像动画-->
 			<imgLabel>highEnergy_lv7</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/highEnergy_lv7_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>bullet/pink_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
+			<hitImgLabel>bullet/blue_boom</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
 	<arms index="12" id="snake">
