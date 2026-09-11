@@ -1902,8 +1902,8 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackDelay>0.1</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>1</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
@@ -1944,8 +1944,8 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackDelay>0.1</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<bulletTranslation>6</bulletTranslation>
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
@@ -1986,8 +1986,8 @@
 			<bulletAngle>0</bulletAngle>
 			<!-- 攻击时的属性-->
 			<recoilValue>6</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
+			<attackGap>1.4</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackDelay>0.1</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<bulletTranslation>6</bulletTranslation>
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
