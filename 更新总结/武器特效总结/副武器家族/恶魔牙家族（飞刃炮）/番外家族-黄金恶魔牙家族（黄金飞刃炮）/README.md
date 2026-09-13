@@ -14,7 +14,7 @@
 - **资源包**：`sub1130.swf`
 - **子弹**：`bulletImgLabel=sub/goldflyBlade_bullet`（两级共用；SWF 内另有 `goldflyBlade_bullet2` 导出（审计副本 char 396），配置未引用，用途待查）
 - **受击**：`hitImgLabel=bullet/blue_motion`（两级统一，与本体家族当前版一致）
-- **关键数值（两级统一）**：`attackGap=1.4`、`bulletSpeed=50`、`recoilValue=6`
+- **关键数值（两级统一）**：`attackGap=0.9`、`attackDelay=0.2`（20260914 对齐恶魔牙本系，原 1.4/0.1）、`bulletSpeed=50`、`recoilValue=6`
 
 ## 符号 ID 速查（2026-09-12 FFDec 导出目录名复核，证据等级 A）
 
@@ -51,7 +51,8 @@
 
 | 文件/目录 | 内容 |
 |---|---|
-| 黄金恶魔牙红弹移除与圈链枪轴线校正-20260914.md | **最新**：删 2711 红弹＋13 处链矩阵 ty−79 校正（部署版 354DCBA6） |
+| 黄金两级射速对齐恶魔牙本系-20260914.md | **最新**：attackGap 1.4→0.9、attackDelay 0.1→0.2（等长替换 4 处，config=8B6C5E51、game.swf=C07CAC3E） |
+| 黄金恶魔牙红弹移除与圈链枪轴线校正-20260914.md | 删 2711 红弹＋13 处链矩阵 ty−79 校正（部署版 354DCBA6） |
 | 黄金恶魔牙红弹移除与圈链校正对比图-20260914.png | 修正前后 11 帧对比证据 |
 | （本 README） | 家族档案：基本信息、符号速查、前期实验教训 |
 | `..\..\..\..\tmp-soya-family-test\黄金恶魔牙特效问题总结.md` | **先读**：前期实验全过程与未确认清单 |
