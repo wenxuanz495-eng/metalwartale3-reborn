@@ -136,5 +136,5 @@
 ## 相关位置
 
 - **未完成/进行中的武器任务**：`更新总结\未完成重点任务\`（感应炮探伤撕裂平衡方案、感应炮追踪/锁敌优化、浮游战机三喷口）
-- **标准导入流程与各家族隔离工作区**：`D:\superalloy\tmp-soya-family-test\`（`武器特效导入标准流程.md` 及 90+ 个 `<family>-restore` 目录）
+- **标准导入流程与各家族隔离工作区**：标准流程文档已收录本目录 `通用\武器特效导入标准流程.md`（唯一活跃副本）；90+ 个 `<family>-restore` 隔离工作区随 `tmp-soya-family-test` 于 2026-09-15 移入冷备 `F:\超合金冷数据备份\文件备份\工作区归档-tmp-soya-family-test\`（半废弃存档，仅作历史证据查阅）
 - **版本参考资料**：`原版\2.5（原版参考）`（`raw\xml\arms_35.xml`、`raw\xml\subArms37.xml`）、`原版\3.4（原版参考）`（`reference-binary-data\12_arms61_xml`）、GitHub 版武器配置在 `decompiled\embedded-xml-assets\`
