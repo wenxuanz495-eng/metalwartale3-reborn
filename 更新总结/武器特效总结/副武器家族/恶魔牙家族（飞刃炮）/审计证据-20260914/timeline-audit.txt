@@ -1,0 +1,210 @@
+== 2.5 lv1 (#523): 11 frames
+  f01: 500@d1 | basePoint(110@d19) | shootPoint(110@d21)
+  f02: 502@d1[move] | 460@d2 | 520@d3[blend8] | 520@d6[blend8] | 520@d9[blend8] | 520@d12[blend8] | 522@d15 | StartSound455
+  f03: 465@d2[move] | 458@d17[blend5]
+  f04: 470@d2[move] | 463@d17[blend5] | remove1
+  f05: 475@d2[move] | 468@d17[blend5] | remove1
+  f06: 480@d2[move] | 473@d17[blend5] | remove1
+  f07: 485@d2[move] | 478@d17[blend5] | remove1
+  f08: 483@d17[blend5] | remove2
+  f09: 488@d17[blend5] | remove1
+  f10: 491@d17[blend5] | remove1
+  f11: remove1
+== 2.5 lv2 (#498): 11 frames
+  f01: 497@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 454@d4 | StartSound455
+  f03: 458@d4[blend5] | 460@d6 | remove1
+  f04: 463@d4[blend5] | 465@d6[move] | remove1
+  f05: 468@d4[blend5] | 470@d6[move] | remove1
+  f06: 473@d4[blend5] | 475@d6[move] | remove1
+  f07: 478@d4[blend5] | 480@d6[move] | remove1
+  f08: 483@d4[blend5] | 485@d6[move] | remove1
+  f09: 488@d4[blend5] | remove2
+  f10: 491@d4[blend5] | remove1
+  f11: remove1
+== 2.5 lv3 (#495): 11 frames
+  f01: 494@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 454@d4 | StartSound455
+  f03: 458@d4[blend5] | 460@d6 | remove1
+  f04: 463@d4[blend5] | 465@d6[move] | remove1
+  f05: 468@d4[blend5] | 470@d6[move] | remove1
+  f06: 473@d4[blend5] | 475@d6[move] | remove1
+  f07: 478@d4[blend5] | 480@d6[move] | remove1
+  f08: 483@d4[blend5] | 485@d6[move] | remove1
+  f09: 488@d4[blend5] | remove2
+  f10: 491@d4[blend5] | remove1
+  f11: remove1
+== 2.5 lv4 (#492): 11 frames
+  f01: 452@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 454@d4 | StartSound455
+  f03: 458@d4[blend5] | 460@d6 | remove1
+  f04: 463@d4[blend5] | 465@d6[move] | remove1
+  f05: 468@d4[blend5] | 470@d6[move] | remove1
+  f06: 473@d4[blend5] | 475@d6[move] | remove1
+  f07: 478@d4[blend5] | 480@d6[move] | remove1
+  f08: 483@d4[blend5] | 485@d6[move] | remove1
+  f09: 488@d4[blend5] | remove2
+  f10: 491@d4[blend5] | remove1
+  f11: remove1
+== 2.5 bullet (#449): 1 frames
+  f01: 448@d1
+== 3.4 lv1 (#788): 11 frames
+  f01: 765@d1 | basePoint(110@d19) | shootPoint(110@d21)
+  f02: 767@d1[move] | 722@d2 | 785@d3[blend8] | 785@d6[blend8] | 785@d9[blend8] | 785@d12[blend8] | 787@d15 | StartSound717
+  f03: 727@d2[move] | 720@d17[blend5]
+  f04: 732@d2[move] | 725@d17[blend5] | remove1
+  f05: 737@d2[move] | 730@d17[blend5] | remove1
+  f06: 742@d2[move] | 735@d17[blend5] | remove1
+  f07: 747@d2[move] | 740@d17[blend5] | remove1
+  f08: 745@d17[blend5] | remove2
+  f09: 750@d17[blend5] | remove1
+  f10: 753@d17[blend5] | remove1
+  f11: remove1
+== 3.4 lv2 (#763): 11 frames
+  f01: 762@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 716@d4 | StartSound717
+  f03: 720@d4[blend5] | 722@d6 | remove1
+  f04: 725@d4[blend5] | 727@d6[move] | remove1
+  f05: 730@d4[blend5] | 732@d6[move] | remove1
+  f06: 735@d4[blend5] | 737@d6[move] | remove1
+  f07: 740@d4[blend5] | 742@d6[move] | remove1
+  f08: 745@d4[blend5] | 747@d6[move] | remove1
+  f09: 750@d4[blend5] | remove2
+  f10: 753@d4[blend5] | remove1
+  f11: remove1
+== 3.4 lv3 (#760): 11 frames
+  f01: 759@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 716@d4 | StartSound717
+  f03: 720@d4[blend5] | 722@d6 | remove1
+  f04: 725@d4[blend5] | 727@d6[move] | remove1
+  f05: 730@d4[blend5] | 732@d6[move] | remove1
+  f06: 735@d4[blend5] | 737@d6[move] | remove1
+  f07: 740@d4[blend5] | 742@d6[move] | remove1
+  f08: 745@d4[blend5] | 747@d6[move] | remove1
+  f09: 750@d4[blend5] | remove2
+  f10: 753@d4[blend5] | remove1
+  f11: remove1
+== 3.4 lv4 (#757): 11 frames
+  f01: 756@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 716@d4 | StartSound717
+  f03: 720@d4[blend5] | 722@d6 | remove1
+  f04: 725@d4[blend5] | 727@d6[move] | remove1
+  f05: 730@d4[blend5] | 732@d6[move] | remove1
+  f06: 735@d4[blend5] | 737@d6[move] | remove1
+  f07: 740@d4[blend5] | 742@d6[move] | remove1
+  f08: 745@d4[blend5] | 747@d6[move] | remove1
+  f09: 750@d4[blend5] | remove2
+  f10: 753@d4[blend5] | remove1
+  f11: remove1
+== 3.4 lv5 (#754): 11 frames
+  f01: 714@d3 | basePoint(110@d7) | shootPoint(110@d9)
+  f02: 716@d4 | StartSound717
+  f03: 720@d4[blend5] | 722@d6 | remove1
+  f04: 725@d4[blend5] | 727@d6[move] | remove1
+  f05: 730@d4[blend5] | 732@d6[move] | remove1
+  f06: 735@d4[blend5] | 737@d6[move] | remove1
+  f07: 740@d4[blend5] | 742@d6[move] | remove1
+  f08: 745@d4[blend5] | 747@d6[move] | remove1
+  f09: 750@d4[blend5] | remove2
+  f10: 753@d4[blend5] | remove1
+  f11: remove1
+== 3.4 bullet (#711): 1 frames
+  f01: 710@d1
+== GH lv1 (#897): 11 frames
+  f01: 896@d1 | basePoint(104@d4) | shootPoint(104@d6)
+  f02: StartSound366
+  f03: 369@d2[blend5]
+  f04: 372@d2[blend5] | remove1
+  f05: 375@d2[blend5] | remove1
+  f06: 378@d2[blend5] | remove1
+  f07: 381@d2[blend5] | remove1
+  f08: 384@d2[blend5] | remove1
+  f09: 387@d2[blend5] | remove1
+  f10: 390@d2[blend5] | remove1
+  f11: remove1
+== GH lv2 (#894): 11 frames
+  f01: 893@d3 | basePoint(104@d6) | shootPoint(104@d8)
+  f02: StartSound366
+  f03: 369@d4[blend5]
+  f04: 372@d4[blend5] | remove1
+  f05: 375@d4[blend5] | remove1
+  f06: 378@d4[blend5] | remove1
+  f07: 381@d4[blend5] | remove1
+  f08: 384@d4[blend5] | remove1
+  f09: 387@d4[blend5] | remove1
+  f10: 390@d4[blend5] | remove1
+  f11: remove1
+== GH lv3 (#891): 11 frames
+  f01: 890@d3 | basePoint(104@d6) | shootPoint(104@d8)
+  f02: StartSound366
+  f03: 369@d4[blend5]
+  f04: 372@d4[blend5] | remove1
+  f05: 375@d4[blend5] | remove1
+  f06: 378@d4[blend5] | remove1
+  f07: 381@d4[blend5] | remove1
+  f08: 384@d4[blend5] | remove1
+  f09: 387@d4[blend5] | remove1
+  f10: 390@d4[blend5] | remove1
+  f11: remove1
+== GH lv4 (#888): 11 frames
+  f01: 887@d3 | basePoint(104@d6) | shootPoint(104@d8)
+  f02: StartSound366
+  f03: 369@d4[blend5]
+  f04: 372@d4[blend5] | remove1
+  f05: 375@d4[blend5] | remove1
+  f06: 378@d4[blend5] | remove1
+  f07: 381@d4[blend5] | remove1
+  f08: 384@d4[blend5] | remove1
+  f09: 387@d4[blend5] | remove1
+  f10: 390@d4[blend5] | remove1
+  f11: remove1
+== GH lv5 (#885): 11 frames
+  f01: 884@d3 | basePoint(104@d6) | shootPoint(104@d8)
+  f02: StartSound366
+  f03: 369@d4[blend5]
+  f04: 372@d4[blend5] | remove1
+  f05: 375@d4[blend5] | remove1
+  f06: 378@d4[blend5] | remove1
+  f07: 381@d4[blend5] | remove1
+  f08: 384@d4[blend5] | remove1
+  f09: 387@d4[blend5] | remove1
+  f10: 390@d4[blend5] | remove1
+  f11: remove1
+== GH lv6 (#882): 11 frames
+  f01: 881@d3 | basePoint(104@d6) | shootPoint(104@d8)
+  f02: StartSound366
+  f03: 369@d4[blend5]
+  f04: 372@d4[blend5] | remove1
+  f05: 375@d4[blend5] | remove1
+  f06: 378@d4[blend5] | remove1
+  f07: 381@d4[blend5] | remove1
+  f08: 384@d4[blend5] | remove1
+  f09: 387@d4[blend5] | remove1
+  f10: 390@d4[blend5] | remove1
+  f11: remove1
+== GH bullet (#878): 1 frames
+  f01: 877@d1
+== GH gold lv1 (#391): 11 frames
+  f01: 365@d2 | basePoint(104@d5) | shootPoint(104@d7)
+  f02: StartSound366
+  f03: 369@d3[blend5]
+  f04: 372@d3[blend5] | remove1
+  f05: 375@d3[blend5] | remove1
+  f06: 378@d3[blend5] | remove1
+  f07: 381@d3[blend5] | remove1
+  f08: 384@d3[blend5] | remove1
+  f09: 387@d3[blend5] | remove1
+  f10: 390@d3[blend5] | remove1
+  f11: remove1
+== GH gold lv2 (#399): 11 frames
+  f01: 398@d2 | basePoint(104@d5) | shootPoint(104@d7)
+  f02: StartSound366
+  f03: 369@d3[blend5]
+  f04: 372@d3[blend5] | remove1
+  f05: 375@d3[blend5] | remove1
+  f06: 378@d3[blend5] | remove1
+  f07: 381@d3[blend5] | remove1
+  f08: 384@d3[blend5] | remove1
+  f09: 387@d3[blend5] | remove1
+  f10: 390@d3[blend5] | remove1
+  f11: remove1
