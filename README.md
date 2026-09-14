@@ -44,6 +44,22 @@ Flash Player SA 34（仓库自带，SHA-256 校验）
 | 存档 | `build\saves\` | 权威存档区（本地生成），五件套：`game_save.bin` 权威档、`game_save.last-good.bin` 最后良好档（新档解析失败自动回滚到它）、`yagao.json` 可读 JSON 镜像、`saves.db` SQLite 历史版本库、`backups\` 修改器/兼容迁移前自动快照；首跑无档时从 `build\swf\empty-save-template.bin` 播种空白档。根目录 `saves\` 为 1.x 时代旧存档位（已停用仅留存）：现存 7 月历史快照与 2026-09-15 验证会话的 `build\saves\` 完整副本 |
 | 历史与杂项 | `archive/`（含 `root-legacy-20260915\`：根目录历史重复/废弃脚本与校验残留归档）、`assets/`（装包 UI 素材）、`AGENTS.md`（AI 协作规则，自身已标注过时） | 历史产物归档 |
 
+## 音乐系统（BGM 歌单引擎）
+
+游戏音乐不是 Flash 内置音轨一条路，而是一套**三模式互斥的歌单引擎**：
+
+- **原版默认 BGM**：Flash 内置音乐；
+- **开发者推荐 BGM**：按「主界面 / 战斗」场景分别绑定歌单（默认 `developer_main` / `developer_battle`，可重新分配）；
+- **玩家自定义 BGM**：与开发者歌单同套场景机制，玩家自行勾选曲目。
+
+组成与位置：
+
+- 客户端状态机：`decompiled\gamefile\scripts\sound\`（`SoundGroup.as` / `OneMusic.as`）——模式互斥、场景上下文（gaming/gaming2 归入 battle）、单曲循环、无效曲目清理与旧 ID 迁移；
+- 服务端 BGM 模块（`server/`）：驱动**外置 native 播放器**播放曲库文件（因此支持 FLAC 无损），提供歌单与播放状态 API；空歌单 = 暂停（不回退猜歌）；Flash 退出后经 `/api/shutdown` 走 `bgm.close() → native.shutdown()` 优雅退出；
+- 曲库源（不入库）：工作区 `相关素材\歌单\曲库\`（`developer-playlists.json` 统一定义 + 分类曲目文件夹；仓库根 BAT 按 `.playlist-root` 标记自动定位）。
+
+机制细节与修复史详见 [`docs/BGM功能与修复总结.md`](docs/BGM功能与修复总结.md)。
+
 ## 文档导航
 
 1. [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) —— 已实现能力与现状
