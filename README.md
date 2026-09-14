@@ -37,12 +37,12 @@ Flash Player SA 34（仓库自带，SHA-256 校验）
 | 服务端 | [`server/`](server/) | Go 本地服务：静态资源、API 桩、权威存档 |
 | 启动器 | [`launcher/`](launcher/) | Go 编写的 GUI 启动器（amd64 / x86 双构建） |
 | 资源 | [`swf/`](swf/)、`runtime/` | 分包 SWF 源资源与运行时；`build\` 为本地生成的运行副本（不入库） |
-| 配置与清单 | [`config/`](config/)、`sp_check.xml` | 构建基线、脚本/二进制补丁清单、资源哈希清单 |
+| 配置与清单 | [`config/`](config/) | 构建基线（`swf\baselines\`）、脚本/二进制补丁清单、资源哈希清单 |
 | 构建与装包 | [`构建.bat`](构建.bat)（全量构建：服务端+启动器+game.swf+运行时）、[`scripts/`](scripts/)（含 `build_player_packages.bat` 发布装包、`check_release.bat` 发布校验） | 构建自检一条龙 |
 | 工程文档 | [`docs/`](docs/) | 架构、规则、路线图、构建规范（建议阅读顺序见 [`docs/README.md`](docs/README.md)） |
 | 更新与 bug 记录 | [`更新总结/`](更新总结/) | 按版本/家族归档的更新总结、武器特效回迁专项、bug 维护（建议先读 [`更新总结/README.md`](更新总结/README.md)） |
-| 存档 | `build\saves\` | 权威存档 `game_save.bin`（本地生成；根目录 `saves\` 为 2026-09-15 验证会话的存档副本备份） |
-| 历史与杂项 | `archive/`（含 `root-legacy-20260915\`：根目录历史重复/废弃脚本归档）、`assets/`（装包 UI 素材） | 历史产物归档 |
+| 存档 | `build\saves\` | 权威存档区（本地生成），五件套：`game_save.bin` 权威档、`game_save.last-good.bin` 最后良好档（新档解析失败自动回滚到它）、`yagao.json` 可读 JSON 镜像、`saves.db` SQLite 历史版本库、`backups\` 修改器/兼容迁移前自动快照；首跑无档时从 `build\swf\empty-save-template.bin` 播种空白档。根目录 `saves\` 为 1.x 时代旧存档位（已停用仅留存）：现存 7 月历史快照与 2026-09-15 验证会话的 `build\saves\` 完整副本 |
+| 历史与杂项 | `archive/`（含 `root-legacy-20260915\`：根目录历史重复/废弃脚本与校验残留归档）、`assets/`（装包 UI 素材）、`AGENTS.md`（AI 协作规则，自身已标注过时） | 历史产物归档 |
 
 ## 文档导航
 
