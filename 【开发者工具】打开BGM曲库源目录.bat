@@ -3,6 +3,7 @@ setlocal EnableExtensions
 
 set "DEV_BGM_DIR="
 for /d %%D in ("%~dp0..\*") do if exist "%%~fD\.playlist-root" if not defined DEV_BGM_DIR set "DEV_BGM_DIR=%%~fD"
+for /d %%D in ("%~dp0..\*") do for /d %%E in ("%%~fD\*") do if exist "%%~fE\.playlist-root" if not defined DEV_BGM_DIR set "DEV_BGM_DIR=%%~fE"
 
 if not defined DEV_BGM_DIR goto missing_source
 set "DEV_LIBRARY_DIR="
