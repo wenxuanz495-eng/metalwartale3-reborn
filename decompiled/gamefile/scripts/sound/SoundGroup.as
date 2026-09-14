@@ -974,12 +974,13 @@ package sound
             this.externalBGMSendVolume();
             return;
          }
+         var forceSwitch:Boolean = context != this.activeRecommendedPlaylistContext;
           this.activeRecommendedPlaylistID = playlistID;
           this.activeRecommendedPlaylistContext = context;
-         // Scene changes must not restart a player track that is still present
-         // in the destination playlist. Explicit playlist edits use
-         // syncCurrentRecommendedPlaylist(), which keeps force=1 semantics.
-         this.externalBGMRequest("/api/bgm/playlist/start?context=" + context + "&mode=" + mode + "&tracks=" + ids.join(","));
+         // A context switch (main menu <-> battle) must start the destination
+         // playlist immediately even when the playing track exists there too,
+         // otherwise the old scene's song keeps playing after the switch.
+         this.externalBGMRequest("/api/bgm/playlist/start?context=" + context + "&mode=" + mode + "&tracks=" + ids.join(",") + (forceSwitch?"&force=1":""));
          this.externalBGMSendVolume();
       }
 
