@@ -136,13 +136,21 @@ package UI.research
          }
          level0 = allLevel0 / this.chipItemsData.arr.length;
          mustCoin = this.getMustCoin();
-         mustCoinB = Game.gameData.GCoin >= mustCoin;
-         notEnough_str = "";
-         if(!mustCoinB)
+         if(Game.gameData.modCraftFree)
          {
-            notEnough_str = StringToDefine.getFontColor("（不足）","#FF0000");
+            mustCoinB = true;
+            this.coinTxt.htmlText = StringToDefine.getFontColor("免费制造：本次合成不消耗G币","#00FF00");
          }
-         this.coinTxt.htmlText = StringToDefine.getFontColor("所需G币：" + mustCoin,"#FFFF00") + "\n" + StringToDefine.getFontColor("当前G币：" + Game.gameData.GCoin,"#CCCCCC") + notEnough_str;
+         else
+         {
+            mustCoinB = Game.gameData.GCoin >= mustCoin;
+            notEnough_str = "";
+            if(!mustCoinB)
+            {
+               notEnough_str = StringToDefine.getFontColor("（不足）","#FF0000");
+            }
+            this.coinTxt.htmlText = StringToDefine.getFontColor("所需G币：" + mustCoin,"#FFFF00") + "\n" + StringToDefine.getFontColor("当前G币：" + Game.gameData.GCoin,"#CCCCCC") + notEnough_str;
+         }
          if(chipNumB && nameSameB && mustCoinB)
          {
             this.pointer.visible = true;
@@ -218,6 +226,8 @@ package UI.research
          var iai_copy_d:GoodsItemsData = null;
          var drag_d:GoodsItemsData = null;
          var copy_d:GoodsItemsData = null;
+         var swapBack:GoodsItemsData = null;
+         var okB:Boolean = false;
          if(dragTarget is ItemsIcon)
          {
             iconOverB = true;
@@ -229,27 +239,66 @@ package UI.research
             {
                if(father0 == this.chipItemsBox)
                {
-                  this.materialsItems.useItemsData(drag_d);
-                  this.chipItemsData.addItemsData(copy_d,1,false);
-                  copy_d.site = iai.site;
+                  okB = true;
                   if(iai.state == "fill")
                   {
                      iai_d = iai.itemsData;
-                     this.chipItemsData.useItemsData(iai_d);
-                     this.materialsItems.addItemsData(iai_d.copy(1));
+                     swapBack = this.materialsItems.addItemsData(iai_d.copy(1));
+                     if(swapBack == null)
+                     {
+                        okB = false;
+                        Game.uiGroup.checkTip.showTip("背包已满，无法交换。",2);
+                        Game.SG.playSound("failureItems");
+                     }
+                     else
+                     {
+                        this.chipItemsData.useItemsData(iai_d);
+                     }
+                  }
+                  if(okB)
+                  {
+                     if(this.materialsItems.useItemsDataReal(drag_d))
+                     {
+                        this.chipItemsData.addItemsData(copy_d,1,false);
+                        copy_d.site = iai.site;
+                     }
+                     else if(swapBack != null)
+                     {
+                        this.materialsItems.delItemsData(swapBack);
+                        this.chipItemsData.addItemsData(iai_d,1,false);
+                     }
                   }
                }
                else
                {
-                  this.chipItemsData.useItemsData(drag_d);
-                  this.materialsItems.addItemsData(copy_d,1,false);
-                  if(iai.state == "fill")
+                  swapBack = this.materialsItems.addItemsData(copy_d,1,false);
+                  if(swapBack == null)
                   {
-                     iai_d = iai.itemsData;
-                     iai_copy_d = iai_d.copy(1);
-                     this.materialsItems.useItemsData(iai_d);
-                     this.chipItemsData.addItemsData(iai_copy_d,1,false);
-                     iai_copy_d.site = drag_d.site;
+                     Game.uiGroup.checkTip.showTip("背包已满，无法取回芯片。",2);
+                     Game.SG.playSound("failureItems");
+                  }
+                  else
+                  {
+                     okB = true;
+                     if(iai.state == "fill")
+                     {
+                        iai_d = iai.itemsData;
+                        iai_copy_d = iai_d.copy(1);
+                        if(this.materialsItems.useItemsDataReal(iai_d))
+                        {
+                           this.chipItemsData.addItemsData(iai_copy_d,1,false);
+                           iai_copy_d.site = drag_d.site;
+                        }
+                        else
+                        {
+                           okB = false;
+                           this.materialsItems.delItemsData(swapBack);
+                        }
+                     }
+                     if(okB)
+                     {
+                        this.chipItemsData.useItemsData(drag_d);
+                     }
                   }
                }
             }
@@ -267,8 +316,15 @@ package UI.research
          {
             drag_d = dragTarget.itemsData;
             copy_d = drag_d.copy(1);
-            this.chipItemsData.useItemsData(drag_d);
-            this.materialsItems.addItemsData(copy_d,1,false);
+            if(this.materialsItems.addItemsData(copy_d,1,false) != null)
+            {
+               this.chipItemsData.useItemsData(drag_d);
+            }
+            else
+            {
+               Game.uiGroup.checkTip.showTip("背包已满，无法取回芯片。",2);
+               Game.SG.playSound("failureItems");
+            }
             this.fleshAll();
             Game.SG.playSound("dragDown");
             stopDraging();
@@ -286,14 +342,26 @@ package UI.research
       
       public function chipReturn() : *
       {
-         var n:* = undefined;
+         var n:int = 0;
          var chip0:GoodsItemsData = null;
-         for(n in this.chipItemsData.arr)
+         var failB:Boolean = false;
+         for(n = this.chipItemsData.arr.length - 1; n >= 0; n = n - 1)
          {
             chip0 = this.chipItemsData.arr[n];
-            this.materialsItems.addItemsData(chip0,1,false);
+            if(this.materialsItems.addItemsData(chip0,1,false) != null)
+            {
+               this.chipItemsData.delItemsData(chip0);
+            }
+            else
+            {
+               failB = true;
+            }
          }
-         this.chipItemsData.arr.length = 0;
+         if(failB)
+         {
+            Game.uiGroup.checkTip.showTip("背包已满，剩余芯片保留在合成槽。",2);
+            Game.SG.playSound("failureItems");
+         }
          this.fleshAll();
       }
       
@@ -310,11 +378,22 @@ package UI.research
       
       public function btnClick(e:*) : *
       {
+         var nextName:String = null;
          if(!this.cube_btn.mouseEnabled)
          {
             return;
          }
-         Game.gameData.addCoin(-this.getMustCoin());
+         nextName = this.cubeItems.itemsData.name;
+         if(!Game.gameData.shouldAutoSellChip(nextName) && this.materialsItems.arr.length >= this.materialsItems.bagMaxNum)
+         {
+            Game.uiGroup.checkTip.showTip("背包已满，无法合成。",2);
+            Game.SG.playSound("failureItems");
+            return;
+         }
+         if(!Game.gameData.modCraftFree)
+         {
+            Game.gameData.addCoin(-this.getMustCoin());
+         }
          this.chipItemsData.arr.length = 0;
          this.materialsItems.addItemsDefine(this.cubeItems.itemsData);
          Game.gameData.livenessData.addTaskNum("chip_cube");

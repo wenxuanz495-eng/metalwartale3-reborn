@@ -69,6 +69,7 @@ UI\research\ChipBaptizeUI.as
 UI\research\ChipAffixGroup.as
 UI\research\ChipBaptizeUI.as
 UI\research\ArmsResearchUI.as
+UI\research\ChipCubeUI.as
 body\key\KeysGroup.as
 body\hero\HeroCarKey.as
 body\hero\Hero_AI.as
