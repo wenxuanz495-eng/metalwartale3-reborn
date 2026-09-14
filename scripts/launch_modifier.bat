@@ -123,7 +123,7 @@ ping 127.0.0.1 -n 2 -w 200 >nul
 exit /b 0
 
 :missing_build
-echo [ERROR] Missing build\server.exe. Run build.bat first.
+echo [ERROR] Missing build\server.exe. Run 构建.bat first.
 exit /b 1
 
 :missing_modifier

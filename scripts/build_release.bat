@@ -53,7 +53,7 @@ copy /y "%REPO_ROOT%\tools\debug\flashplayer_sa_debug.exe" "%RELEASE%\tools\debu
 copy /y "%REPO_ROOT%\scripts\launch_game.bat" "%RELEASE%\scripts\launch_game.bat" >nul
 copy /y "%REPO_ROOT%\scripts\launch_modifier.bat" "%RELEASE%\scripts\launch_modifier.bat" >nul
 
-for %%F in ("启动游戏-flashplayer_sa.bat" "启动游戏-flashplayer_sa_debug.bat" "启动修改器.bat" "修改器.bat" "一键备份存档.bat" "清除存档.bat" "打开存档目录.bat" "打开存档备份文件夹.bat" "清理后台残留.bat" "战车属性为零修复.bat") do copy /y "%REPO_ROOT%\%%~F" "%RELEASE%\%%~F" >nul
+for %%F in ("启动游戏-flashplayer_sa.bat" "启动游戏-flashplayer_sa_debug.bat" "启动修改器.bat" "一键备份存档.bat" "清除存档.bat" "打开存档目录.bat" "打开存档备份文件夹.bat" "清理后台残留.bat") do copy /y "%REPO_ROOT%\%%~F" "%RELEASE%\%%~F" >nul
 
 call "%~dp0check_release.bat" "%RELEASE%"
 if errorlevel 1 exit /b %ERRORLEVEL%

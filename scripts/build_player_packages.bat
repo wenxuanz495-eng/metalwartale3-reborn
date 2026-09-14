@@ -79,7 +79,7 @@ type nul > "%DEST%\build\.release-ready"
 copy /y "%REPO_ROOT%\scripts\launch_game.bat" "%DEST%\scripts\launch_game.bat" >nul
 copy /y "%REPO_ROOT%\scripts\launch_modifier.bat" "%DEST%\scripts\launch_modifier.bat" >nul
 copy /y "%REPO_ROOT%\scripts\prepare_build_runtime.bat" "%DEST%\scripts\prepare_build_runtime.bat" >nul
-for %%F in ("启动游戏-flashplayer_sa.bat" "启动修改器.bat" "修改器.bat" "一键备份存档.bat" "打开存档目录.bat" "打开存档备份文件夹.bat" "清除存档.bat" "清理后台残留.bat" "战车属性为零修复.bat" "打开公告.bat" "modifier.html" "发布装包规范.txt") do copy /y "%REPO_ROOT%\%%~F" "%DEST%\%%~F" >nul
+for %%F in ("启动游戏-flashplayer_sa.bat" "启动修改器.bat" "一键备份存档.bat" "打开存档目录.bat" "打开存档备份文件夹.bat" "清除存档.bat" "清理后台残留.bat" "打开公告.bat" "modifier.html" "发布装包规范.txt") do copy /y "%REPO_ROOT%\%%~F" "%DEST%\%%~F" >nul
 for %%F in ("%REPO_ROOT%\runtime\*.txt") do if %%~zF EQU 1476 copy /y "%%~fF" "%DEST%\%%~nxF" >nul
 copy /y "%PLAYER_SOURCE%" "%DEST%\tools\runtime\FlashPlayer.exe" >nul
 exit /b 0
