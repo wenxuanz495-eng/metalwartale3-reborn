@@ -2907,7 +2907,7 @@
 			<type>黄金飞刃炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>成长型，穿透</specialProperty>
-			<description>成长型武器,自带0.4的控制训练。</description>
+			<description>成长型武器,自带35%的控制训练。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>60</commonLevel>    <!-- 普遍等级 -->
@@ -2940,8 +2940,8 @@
 			<bulletWidth>10</bulletWidth>    <!-- 子弹宽度-->
 
 			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<specialType>Level_Growth_30</specialType>
-			<addArr>subAdd:0.4</addArr>    <!-- 自带附魔属性-->
+			<specialType>Level_Growth_25</specialType>
+			<addArr>subAdd:0.35</addArr>    <!-- 自带附魔属性-->
 			<!-- 图像动画-->
 			<imgLabel>goldflyBlade_lv3</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/goldflyBlade_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
@@ -2953,7 +2953,7 @@
 			<type>黄金飞刃炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>成长型，穿透</specialProperty>
-			<description>成长型武器,自带0.5的控制训练。</description>
+			<description>成长型武器,自带40%的控制训练。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>60</commonLevel>    <!-- 普遍等级 -->
@@ -2986,8 +2986,8 @@
 			<bulletWidth>10</bulletWidth>    <!-- 子弹宽度-->
 
 			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<specialType>Level_Growth_40</specialType>
-			<addArr>subAdd:0.5</addArr>    <!-- 自带附魔属性-->
+			<specialType>Level_Growth_30</specialType>
+			<addArr>subAdd:0.4</addArr>    <!-- 自带附魔属性-->
 			<!-- 图像动画-->
 			<imgLabel>goldflyBlade_lv4</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/goldflyBlade_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
@@ -2999,7 +2999,7 @@
 			<type>黄金飞刃炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>成长型，穿透</specialProperty>
-			<description>成长型武器,自带0.6的控制训练。</description>
+			<description>成长型武器,自带45%的控制训练。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>60</commonLevel>    <!-- 普遍等级 -->
@@ -3032,8 +3032,8 @@
 			<bulletWidth>10</bulletWidth>    <!-- 子弹宽度-->
 
 			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<specialType>Level_Growth_50</specialType>
-			<addArr>subAdd:0.6</addArr>    <!-- 自带附魔属性-->
+			<specialType>Level_Growth_35</specialType>
+			<addArr>subAdd:0.45</addArr>    <!-- 自带附魔属性-->
 			<!-- 图像动画-->
 			<imgLabel>goldflyBlade_lv5</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/goldflyBlade_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
@@ -3045,7 +3045,7 @@
 			<type>黄金飞刃炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>成长型，穿透</specialProperty>
-			<description>成长型武器,自带0.7的控制训练。</description>
+			<description>成长型武器,自带50%的控制训练。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>60</commonLevel>    <!-- 普遍等级 -->
@@ -3078,8 +3078,8 @@
 			<bulletWidth>10</bulletWidth>    <!-- 子弹宽度-->
 
 			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<specialType>Level_Growth_60</specialType>
-			<addArr>subAdd:0.7</addArr>    <!-- 自带附魔属性-->
+			<specialType>Level_Growth_40</specialType>
+			<addArr>subAdd:0.5</addArr>    <!-- 自带附魔属性-->
 			<!-- 图像动画-->
 			<imgLabel>goldflyBlade_lv6</imgLabel>    <!-- 武器图像【必备】 -->
 			<bulletImgLabel>sub/goldflyBlade_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
