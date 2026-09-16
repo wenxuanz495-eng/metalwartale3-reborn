@@ -263,8 +263,10 @@ for lv in (1, 2, 3, 4, 5):
 print("[8] 本体时间轴:", gold_body_sprite)
 
 # ---------- 9. 五颗子弹精灵（共享形状 1991 + 缩放矩阵；黄金系列一律用黄金弹） ----------
-bullet_scales = {1: (48 / 104, 30 / 59), 2: (68 / 104, 38 / 59), 3: (83 / 104, 47 / 59),
-                 4: (1.0, 1.0), 5: (112 / 104, 64 / 59)}
+# ⚠️ PlaceObject 矩阵 scaleX/scaleY 为原始因子（1.0=1.0，与位图填充矩阵的 20.0=1.0 口径不同！）
+# 倍率＝本家同级子弹可见内容尺寸 / 黄金弹可见内容尺寸（77×50）
+bullet_scales = {1: (38 / 77, 25 / 50), 2: (50 / 77, 32 / 50), 3: (62 / 77, 39 / 50),
+                 4: (1.0, 1.0), 5: (83 / 77, 54 / 50)}
 for lv in (1, 2, 3, 4, 5):
     newsid = alloc()
     gold_bullet_sprite[lv] = newsid
@@ -277,7 +279,7 @@ for lv in (1, 2, 3, 4, 5):
         "placeFlagHasClipDepth": "false", "placeFlagHasColorTransform": "false",
         "placeFlagHasMatrix": "true", "placeFlagHasName": "false", "placeFlagHasRatio": "false",
         "placeFlagMove": "false"})
-    ET.SubElement(po, "matrix", matrix_attrs(0, 0, 20.0 * sx, 20.0 * sy))
+    ET.SubElement(po, "matrix", matrix_attrs(0, 0, sx, sy))
     ET.SubElement(sub, "item", {"type": "ShowFrameTag", "forceWriteAsLong": "false"})
     new_defs.append(sp)
     name_pairs.append((newsid, "cutter_gold_lv%d_bullet" % lv))
