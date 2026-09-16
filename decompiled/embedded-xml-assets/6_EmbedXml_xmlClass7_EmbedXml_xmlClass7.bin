@@ -3679,7 +3679,7 @@
 			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
+			<description>刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>27</commonLevel>    <!-- 普遍等级 -->
@@ -3722,7 +3722,7 @@
 			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
+			<description>刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>31</commonLevel>    <!-- 普遍等级 -->
@@ -3765,7 +3765,7 @@
 			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
+			<description>刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>36</commonLevel>    <!-- 普遍等级 -->
@@ -3808,7 +3808,7 @@
 			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
+			<description>刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>45</commonLevel>    <!-- 普遍等级 -->
@@ -3851,7 +3851,7 @@
 			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
+			<description>刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>70</commonLevel>    <!-- 普遍等级 -->
