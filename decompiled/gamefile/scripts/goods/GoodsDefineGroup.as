@@ -772,7 +772,9 @@ private function getCustomWeaponPrice(label0:String) : int
          {
             return "pay";
          }
-         if(armsName0.indexOf("snake_lv1") >= 0 || armsName0.indexOf("cutter_gold") >= 0 || armsName0.indexOf("Goldbanger_lv1") >= 0)
+         // cutter_gold(黄金深渊五级) 移出活动特判：现已改为战斗核心投放的成长型五级武器，
+         // 升级走普通 mustLevel/mustItems 路径，不再显示"通过活动获得"。
+         if(armsName0.indexOf("snake_lv1") >= 0 || armsName0.indexOf("Goldbanger_lv1") >= 0)
          {
             return "activity";
          }
