@@ -3683,7 +3683,7 @@
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>27</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
 			<mustItems></mustItems>    <!-- 需要的物品标签集合-->
@@ -3726,7 +3726,7 @@
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>31</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
 			<mustItems>superalloy_num500,superalloy_Z_num120,superalloy_X_num60,superalloy_Y_num30</mustItems>    <!-- 需要的物品标签集合-->
@@ -3769,7 +3769,7 @@
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>36</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
 			<mustItems>superalloy_num750,superalloy_Z_num180,superalloy_X_num90,superalloy_Y_num45</mustItems>    <!-- 需要的物品标签集合-->
@@ -3812,7 +3812,7 @@
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>45</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
 			<mustItems>superalloy_num1000,superalloy_Z_num240,superalloy_X_num120,superalloy_Y_num60</mustItems>    <!-- 需要的物品标签集合-->
@@ -3855,7 +3855,7 @@
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>70</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
 			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
 			<mustItems>superalloy_num1250,superalloy_Z_num300,superalloy_X_num150,superalloy_Y_num75</mustItems>    <!-- 需要的物品标签集合-->
