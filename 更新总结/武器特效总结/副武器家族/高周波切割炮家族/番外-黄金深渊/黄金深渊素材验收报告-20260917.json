@@ -1,0 +1,2032 @@
+[
+ {
+  "label": "lv1本体",
+  "artist": "1黑绳/1黄金黑绳.png",
+  "orig": "1835.png",
+  "canvas_artist": [
+   51,
+   29
+  ],
+  "canvas_orig": [
+   43,
+   25
+  ],
+  "contentA_bbox_tl": [
+   4,
+   2
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   43,
+   25
+  ],
+  "contentB_size": [
+   43,
+   25
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 55.5
+ },
+ {
+  "label": "lv2本体",
+  "artist": "2叫唤/2叫唤.png",
+  "orig": "1864.png",
+  "canvas_artist": [
+   51,
+   29
+  ],
+  "canvas_orig": [
+   49,
+   29
+  ],
+  "contentA_bbox_tl": [
+   0,
+   0
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   49,
+   29
+  ],
+  "contentB_size": [
+   49,
+   29
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 59.6
+ },
+ {
+  "label": "lv3本体",
+  "artist": "3焦热/3黄金焦热.png",
+  "orig": "1893.png",
+  "canvas_artist": [
+   57,
+   33
+  ],
+  "canvas_orig": [
+   57,
+   33
+  ],
+  "contentA_bbox_tl": [
+   0,
+   0
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   57,
+   33
+  ],
+  "contentB_size": [
+   57,
+   33
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 43.3
+ },
+ {
+  "label": "lv4本体",
+  "artist": "4无间/4黄金无间.png",
+  "orig": "1922.png",
+  "canvas_artist": [
+   83,
+   39
+  ],
+  "canvas_orig": [
+   83,
+   39
+  ],
+  "contentA_bbox_tl": [
+   0,
+   0
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   83,
+   39
+  ],
+  "contentB_size": [
+   83,
+   39
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 48.3
+ },
+ {
+  "label": "lv4本体可选",
+  "artist": "4无间/4黄金无间可选.png",
+  "orig": "1922.png",
+  "canvas_artist": [
+   83,
+   39
+  ],
+  "canvas_orig": [
+   83,
+   39
+  ],
+  "contentA_bbox_tl": [
+   0,
+   0
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   83,
+   39
+  ],
+  "contentB_size": [
+   83,
+   39
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 48.0
+ },
+ {
+  "label": "lv5本体",
+  "artist": "5深渊/5黄金深渊.png",
+  "orig": "1956.png",
+  "canvas_artist": [
+   88,
+   41
+  ],
+  "canvas_orig": [
+   88,
+   41
+  ],
+  "contentA_bbox_tl": [
+   0,
+   0
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   88,
+   41
+  ],
+  "contentB_size": [
+   88,
+   41
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 51.0
+ },
+ {
+  "label": "lv5本体vs现行金体",
+  "artist": "5深渊/5黄金深渊.png",
+  "orig": "1989.png",
+  "canvas_artist": [
+   88,
+   41
+  ],
+  "canvas_orig": [
+   88,
+   41
+  ],
+  "contentA_bbox_tl": [
+   0,
+   0
+  ],
+  "contentB_bbox_tl": [
+   0,
+   0
+  ],
+  "contentA_size": [
+   88,
+   41
+  ],
+  "contentB_size": [
+   88,
+   41
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 0.0
+ },
+ {
+  "label": "lv1件1",
+  "artist": "1黑绳/黑绳特效1.png",
+  "orig": "1837.png",
+  "canvas_artist": [
+   39,
+   33
+  ],
+  "canvas_orig": [
+   39,
+   33
+  ],
+  "contentA_bbox_tl": [
+   2,
+   3
+  ],
+  "contentB_bbox_tl": [
+   2,
+   3
+  ],
+  "contentA_size": [
+   27,
+   23
+  ],
+  "contentB_size": [
+   27,
+   23
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 19.2
+ },
+ {
+  "label": "lv1件2",
+  "artist": "1黑绳/黑绳特效2.png",
+  "orig": "1839.png",
+  "canvas_artist": [
+   48,
+   34
+  ],
+  "canvas_orig": [
+   48,
+   34
+  ],
+  "contentA_bbox_tl": [
+   1,
+   4
+  ],
+  "contentB_bbox_tl": [
+   1,
+   4
+  ],
+  "contentA_size": [
+   39,
+   22
+  ],
+  "contentB_size": [
+   39,
+   22
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 59.8
+ },
+ {
+  "label": "lv1件3",
+  "artist": "1黑绳/黑绳特效3.png",
+  "orig": "1841.png",
+  "canvas_artist": [
+   44,
+   30
+  ],
+  "canvas_orig": [
+   44,
+   30
+  ],
+  "contentA_bbox_tl": [
+   0,
+   3
+  ],
+  "contentB_bbox_tl": [
+   0,
+   3
+  ],
+  "contentA_size": [
+   39,
+   20
+  ],
+  "contentB_size": [
+   39,
+   20
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 66.8
+ },
+ {
+  "label": "lv1件4",
+  "artist": "1黑绳/黑绳特效4.png",
+  "orig": "1843.png",
+  "canvas_artist": [
+   43,
+   29
+  ],
+  "canvas_orig": [
+   43,
+   29
+  ],
+  "contentA_bbox_tl": [
+   1,
+   1
+  ],
+  "contentB_bbox_tl": [
+   1,
+   1
+  ],
+  "contentA_size": [
+   16,
+   22
+  ],
+  "contentB_size": [
+   16,
+   22
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 72.1
+ },
+ {
+  "label": "lv1件5",
+  "artist": "1黑绳/黑绳特效5.png",
+  "orig": "1845.png",
+  "canvas_artist": [
+   41,
+   30
+  ],
+  "canvas_orig": [
+   41,
+   30
+  ],
+  "contentA_bbox_tl": [
+   2,
+   2
+  ],
+  "contentB_bbox_tl": [
+   2,
+   2
+  ],
+  "contentA_size": [
+   33,
+   23
+  ],
+  "contentB_size": [
+   33,
+   23
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 58.1
+ },
+ {
+  "label": "lv1件6",
+  "artist": "1黑绳/黑绳特效6.png",
+  "orig": "1847.png",
+  "canvas_artist": [
+   69,
+   69
+  ],
+  "canvas_orig": [
+   69,
+   69
+  ],
+  "contentA_bbox_tl": [
+   10,
+   21
+  ],
+  "contentB_bbox_tl": [
+   10,
+   21
+  ],
+  "contentA_size": [
+   29,
+   21
+  ],
+  "contentB_size": [
+   29,
+   21
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 65.7
+ },
+ {
+  "label": "lv1件7",
+  "artist": "1黑绳/黑绳特效7.png",
+  "orig": "1849.png",
+  "canvas_artist": [
+   69,
+   69
+  ],
+  "canvas_orig": [
+   71,
+   69
+  ],
+  "contentA_bbox_tl": [
+   6,
+   19
+  ],
+  "contentB_bbox_tl": [
+   0,
+   19
+  ],
+  "contentA_size": [
+   42,
+   27
+  ],
+  "contentB_size": [
+   50,
+   27
+  ],
+  "bestShift": [
+   -6,
+   0
+  ],
+  "iou": 0.731,
+  "colorDiff": 49.8
+ },
+ {
+  "label": "lv1件8",
+  "artist": "1黑绳/黑绳特效8.png",
+  "orig": "1851.png",
+  "canvas_artist": [
+   69,
+   69
+  ],
+  "canvas_orig": [
+   69,
+   69
+  ],
+  "contentA_bbox_tl": [
+   8,
+   16
+  ],
+  "contentB_bbox_tl": [
+   8,
+   16
+  ],
+  "contentA_size": [
+   45,
+   33
+  ],
+  "contentB_size": [
+   45,
+   33
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 37.6
+ },
+ {
+  "label": "lv1件9",
+  "artist": "1黑绳/黑绳特效9.png",
+  "orig": "1853.png",
+  "canvas_artist": [
+   69,
+   69
+  ],
+  "canvas_orig": [
+   69,
+   69
+  ],
+  "contentA_bbox_tl": [
+   6,
+   14
+  ],
+  "contentB_bbox_tl": [
+   6,
+   14
+  ],
+  "contentA_size": [
+   49,
+   37
+  ],
+  "contentB_size": [
+   49,
+   37
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 38.3
+ },
+ {
+  "label": "lv1件10",
+  "artist": "1黑绳/黑绳特效10.png",
+  "orig": "1855.png",
+  "canvas_artist": [
+   74,
+   75
+  ],
+  "canvas_orig": [
+   74,
+   75
+  ],
+  "contentA_bbox_tl": [
+   5,
+   16
+  ],
+  "contentB_bbox_tl": [
+   5,
+   16
+  ],
+  "contentA_size": [
+   49,
+   39
+  ],
+  "contentB_size": [
+   49,
+   39
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 40.4
+ },
+ {
+  "label": "lv1件11",
+  "artist": "1黑绳/黑绳特效11.png",
+  "orig": "1857.png",
+  "canvas_artist": [
+   74,
+   75
+  ],
+  "canvas_orig": [
+   74,
+   75
+  ],
+  "contentA_bbox_tl": [
+   4,
+   14
+  ],
+  "contentB_bbox_tl": [
+   5,
+   15
+  ],
+  "contentA_size": [
+   51,
+   42
+  ],
+  "contentB_size": [
+   49,
+   40
+  ],
+  "bestShift": [
+   1,
+   1
+  ],
+  "iou": 0.8937,
+  "colorDiff": 30.9
+ },
+ {
+  "label": "lv1件12",
+  "artist": "1黑绳/黑绳特效12.png",
+  "orig": "1859.png",
+  "canvas_artist": [
+   74,
+   75
+  ],
+  "canvas_orig": [
+   74,
+   75
+  ],
+  "contentA_bbox_tl": [
+   11,
+   14
+  ],
+  "contentB_bbox_tl": [
+   11,
+   14
+  ],
+  "contentA_size": [
+   43,
+   43
+  ],
+  "contentB_size": [
+   43,
+   43
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 32.6
+ },
+ {
+  "label": "lv1件13",
+  "artist": "1黑绳/黑绳特效13.png",
+  "orig": "1861.png",
+  "canvas_artist": [
+   79,
+   79
+  ],
+  "canvas_orig": [
+   79,
+   79
+  ],
+  "contentA_bbox_tl": [
+   27,
+   26
+  ],
+  "contentB_bbox_tl": [
+   27,
+   26
+  ],
+  "contentA_size": [
+   17,
+   23
+  ],
+  "contentB_size": [
+   17,
+   23
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 6.3
+ },
+ {
+  "label": "lv2件1",
+  "artist": "2叫唤/叫唤特效1.png",
+  "orig": "1866.png",
+  "canvas_artist": [
+   68,
+   31
+  ],
+  "canvas_orig": [
+   68,
+   31
+  ],
+  "contentA_bbox_tl": [
+   17,
+   3
+  ],
+  "contentB_bbox_tl": [
+   17,
+   3
+  ],
+  "contentA_size": [
+   32,
+   22
+  ],
+  "contentB_size": [
+   32,
+   22
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 33.8
+ },
+ {
+  "label": "lv2件2",
+  "artist": "2叫唤/叫唤特效2.png",
+  "orig": "1868.png",
+  "canvas_artist": [
+   67,
+   41
+  ],
+  "canvas_orig": [
+   67,
+   41
+  ],
+  "contentA_bbox_tl": [
+   1,
+   5
+  ],
+  "contentB_bbox_tl": [
+   1,
+   5
+  ],
+  "contentA_size": [
+   51,
+   27
+  ],
+  "contentB_size": [
+   51,
+   27
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 57.1
+ },
+ {
+  "label": "lv2件3",
+  "artist": "2叫唤/叫唤特效3.png",
+  "orig": "1870.png",
+  "canvas_artist": [
+   70,
+   36
+  ],
+  "canvas_orig": [
+   70,
+   36
+  ],
+  "contentA_bbox_tl": [
+   1,
+   3
+  ],
+  "contentB_bbox_tl": [
+   1,
+   3
+  ],
+  "contentA_size": [
+   49,
+   26
+  ],
+  "contentB_size": [
+   49,
+   26
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 43.9
+ },
+ {
+  "label": "lv2件4",
+  "artist": "2叫唤/叫唤特效4.png",
+  "orig": "1872.png",
+  "canvas_artist": [
+   68,
+   34
+  ],
+  "canvas_orig": [
+   68,
+   34
+  ],
+  "contentA_bbox_tl": [
+   1,
+   2
+  ],
+  "contentB_bbox_tl": [
+   1,
+   2
+  ],
+  "contentA_size": [
+   48,
+   27
+  ],
+  "contentB_size": [
+   48,
+   27
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 52.1
+ },
+ {
+  "label": "lv2件5",
+  "artist": "2叫唤/叫唤特效5.png",
+  "orig": "1874.png",
+  "canvas_artist": [
+   67,
+   36
+  ],
+  "canvas_orig": [
+   67,
+   36
+  ],
+  "contentA_bbox_tl": [
+   5,
+   2
+  ],
+  "contentB_bbox_tl": [
+   5,
+   2
+  ],
+  "contentA_size": [
+   44,
+   28
+  ],
+  "contentB_size": [
+   44,
+   28
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 47.7
+ },
+ {
+  "label": "lv2件6",
+  "artist": "2叫唤/叫唤特效6.png",
+  "orig": "1876.png",
+  "canvas_artist": [
+   79,
+   70
+  ],
+  "canvas_orig": [
+   79,
+   70
+  ],
+  "contentA_bbox_tl": [
+   12,
+   20
+  ],
+  "contentB_bbox_tl": [
+   12,
+   20
+  ],
+  "contentA_size": [
+   38,
+   27
+  ],
+  "contentB_size": [
+   38,
+   27
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 39.1
+ },
+ {
+  "label": "lv2件7",
+  "artist": "2叫唤/叫唤特效7.png",
+  "orig": "1878.png",
+  "canvas_artist": [
+   80,
+   70
+  ],
+  "canvas_orig": [
+   80,
+   70
+  ],
+  "contentA_bbox_tl": [
+   12,
+   18
+  ],
+  "contentB_bbox_tl": [
+   12,
+   18
+  ],
+  "contentA_size": [
+   49,
+   29
+  ],
+  "contentB_size": [
+   49,
+   29
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 20.3
+ },
+ {
+  "label": "lv2件8",
+  "artist": "2叫唤/叫唤特效8.png",
+  "orig": "1880.png",
+  "canvas_artist": [
+   79,
+   70
+  ],
+  "canvas_orig": [
+   79,
+   70
+  ],
+  "contentA_bbox_tl": [
+   10,
+   15
+  ],
+  "contentB_bbox_tl": [
+   10,
+   15
+  ],
+  "contentA_size": [
+   55,
+   36
+  ],
+  "contentB_size": [
+   55,
+   36
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 25.5
+ },
+ {
+  "label": "lv2件9",
+  "artist": "2叫唤/叫唤特效9.png",
+  "orig": "1882.png",
+  "canvas_artist": [
+   78,
+   70
+  ],
+  "canvas_orig": [
+   78,
+   70
+  ],
+  "contentA_bbox_tl": [
+   7,
+   13
+  ],
+  "contentB_bbox_tl": [
+   7,
+   13
+  ],
+  "contentA_size": [
+   60,
+   40
+  ],
+  "contentB_size": [
+   60,
+   40
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 32.6
+ },
+ {
+  "label": "lv2件10",
+  "artist": "2叫唤/叫唤特效10.png",
+  "orig": "1884.png",
+  "canvas_artist": [
+   88,
+   76
+  ],
+  "canvas_orig": [
+   88,
+   76
+  ],
+  "contentA_bbox_tl": [
+   9,
+   16
+  ],
+  "contentB_bbox_tl": [
+   9,
+   16
+  ],
+  "contentA_size": [
+   59,
+   41
+  ],
+  "contentB_size": [
+   59,
+   41
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 30.1
+ },
+ {
+  "label": "lv2件11",
+  "artist": "2叫唤/叫唤特效11.png",
+  "orig": "1886.png",
+  "canvas_artist": [
+   80,
+   76
+  ],
+  "canvas_orig": [
+   80,
+   76
+  ],
+  "contentA_bbox_tl": [
+   1,
+   13
+  ],
+  "contentB_bbox_tl": [
+   1,
+   13
+  ],
+  "contentA_size": [
+   60,
+   46
+  ],
+  "contentB_size": [
+   60,
+   46
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 26.4
+ },
+ {
+  "label": "lv2件12",
+  "artist": "2叫唤/叫唤特效12.png",
+  "orig": "1888.png",
+  "canvas_artist": [
+   80,
+   76
+  ],
+  "canvas_orig": [
+   80,
+   76
+  ],
+  "contentA_bbox_tl": [
+   1,
+   12
+  ],
+  "contentB_bbox_tl": [
+   1,
+   12
+  ],
+  "contentA_size": [
+   61,
+   49
+  ],
+  "contentB_size": [
+   61,
+   49
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 29.3
+ },
+ {
+  "label": "lv2件13",
+  "artist": "2叫唤/叫唤特效13.png",
+  "orig": "1890.png",
+  "canvas_artist": [
+   86,
+   81
+  ],
+  "canvas_orig": [
+   86,
+   81
+  ],
+  "contentA_bbox_tl": [
+   8,
+   28
+  ],
+  "contentB_bbox_tl": [
+   8,
+   28
+  ],
+  "contentA_size": [
+   41,
+   20
+  ],
+  "contentB_size": [
+   41,
+   20
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.7
+ },
+ {
+  "label": "lv3件1",
+  "artist": "3焦热/焦热特效1.png",
+  "orig": "1895.png",
+  "canvas_artist": [
+   96,
+   42
+  ],
+  "canvas_orig": [
+   96,
+   42
+  ],
+  "contentA_bbox_tl": [
+   29,
+   10
+  ],
+  "contentB_bbox_tl": [
+   29,
+   10
+  ],
+  "contentA_size": [
+   39,
+   23
+  ],
+  "contentB_size": [
+   39,
+   23
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 12.3
+ },
+ {
+  "label": "lv3件2",
+  "artist": "3焦热/焦热特效2.png",
+  "orig": "1897.png",
+  "canvas_artist": [
+   88,
+   42
+  ],
+  "canvas_orig": [
+   88,
+   42
+  ],
+  "contentA_bbox_tl": [
+   8,
+   6
+  ],
+  "contentB_bbox_tl": [
+   8,
+   6
+  ],
+  "contentA_size": [
+   57,
+   27
+  ],
+  "contentB_size": [
+   57,
+   27
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 43.2
+ },
+ {
+  "label": "lv3件3",
+  "artist": "3焦热/焦热特效3.png",
+  "orig": "1899.png",
+  "canvas_artist": [
+   99,
+   44
+  ],
+  "canvas_orig": [
+   99,
+   44
+  ],
+  "contentA_bbox_tl": [
+   14,
+   9
+  ],
+  "contentB_bbox_tl": [
+   14,
+   9
+  ],
+  "contentA_size": [
+   56,
+   26
+  ],
+  "contentB_size": [
+   56,
+   26
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.6
+ },
+ {
+  "label": "lv3件4",
+  "artist": "3焦热/焦热特效4.png",
+  "orig": "1901.png",
+  "canvas_artist": [
+   96,
+   42
+  ],
+  "canvas_orig": [
+   96,
+   42
+  ],
+  "contentA_bbox_tl": [
+   13,
+   7
+  ],
+  "contentB_bbox_tl": [
+   13,
+   7
+  ],
+  "contentA_size": [
+   54,
+   28
+  ],
+  "contentB_size": [
+   54,
+   28
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 41.1
+ },
+ {
+  "label": "lv3件5",
+  "artist": "3焦热/焦热特效5.png",
+  "orig": "1903.png",
+  "canvas_artist": [
+   95,
+   42
+  ],
+  "canvas_orig": [
+   95,
+   42
+  ],
+  "contentA_bbox_tl": [
+   17,
+   7
+  ],
+  "contentB_bbox_tl": [
+   17,
+   7
+  ],
+  "contentA_size": [
+   51,
+   29
+  ],
+  "contentB_size": [
+   51,
+   29
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 34.1
+ },
+ {
+  "label": "lv3件6",
+  "artist": "3焦热/焦热特效6.png",
+  "orig": "1905.png",
+  "canvas_artist": [
+   103,
+   71
+  ],
+  "canvas_orig": [
+   103,
+   71
+  ],
+  "contentA_bbox_tl": [
+   25,
+   19
+  ],
+  "contentB_bbox_tl": [
+   25,
+   19
+  ],
+  "contentA_size": [
+   45,
+   27
+  ],
+  "contentB_size": [
+   45,
+   27
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 21.3
+ },
+ {
+  "label": "lv3件7",
+  "artist": "3焦热/焦热特效7.png",
+  "orig": "1907.png",
+  "canvas_artist": [
+   104,
+   71
+  ],
+  "canvas_orig": [
+   104,
+   71
+  ],
+  "contentA_bbox_tl": [
+   25,
+   17
+  ],
+  "contentB_bbox_tl": [
+   25,
+   17
+  ],
+  "contentA_size": [
+   61,
+   32
+  ],
+  "contentB_size": [
+   61,
+   32
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 25.2
+ },
+ {
+  "label": "lv3件8",
+  "artist": "3焦热/焦热特效8.png",
+  "orig": "1909.png",
+  "canvas_artist": [
+   104,
+   71
+  ],
+  "canvas_orig": [
+   104,
+   71
+  ],
+  "contentA_bbox_tl": [
+   23,
+   13
+  ],
+  "contentB_bbox_tl": [
+   23,
+   13
+  ],
+  "contentA_size": [
+   69,
+   40
+  ],
+  "contentB_size": [
+   69,
+   40
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.6
+ },
+ {
+  "label": "lv3件9",
+  "artist": "3焦热/焦热特效9.png",
+  "orig": "1911.png",
+  "canvas_artist": [
+   102,
+   71
+  ],
+  "canvas_orig": [
+   102,
+   71
+  ],
+  "contentA_bbox_tl": [
+   20,
+   11
+  ],
+  "contentB_bbox_tl": [
+   20,
+   11
+  ],
+  "contentA_size": [
+   73,
+   44
+  ],
+  "contentB_size": [
+   73,
+   44
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.0
+ },
+ {
+  "label": "lv3件10",
+  "artist": "3焦热/焦热特效10.png",
+  "orig": "1913.png",
+  "canvas_artist": [
+   114,
+   77
+  ],
+  "canvas_orig": [
+   114,
+   77
+  ],
+  "contentA_bbox_tl": [
+   22,
+   14
+  ],
+  "contentB_bbox_tl": [
+   22,
+   14
+  ],
+  "contentA_size": [
+   74,
+   46
+  ],
+  "contentB_size": [
+   74,
+   46
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 25.4
+ },
+ {
+  "label": "lv3件11",
+  "artist": "3焦热/焦热特效11.png",
+  "orig": "1915.png",
+  "canvas_artist": [
+   93,
+   77
+  ],
+  "canvas_orig": [
+   93,
+   77
+  ],
+  "contentA_bbox_tl": [
+   0,
+   11
+  ],
+  "contentB_bbox_tl": [
+   0,
+   11
+  ],
+  "contentA_size": [
+   75,
+   51
+  ],
+  "contentB_size": [
+   75,
+   51
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.9
+ },
+ {
+  "label": "lv3件12",
+  "artist": "3焦热/焦热特效12.png",
+  "orig": "1917.png",
+  "canvas_artist": [
+   93,
+   77
+  ],
+  "canvas_orig": [
+   93,
+   77
+  ],
+  "contentA_bbox_tl": [
+   0,
+   9
+  ],
+  "contentB_bbox_tl": [
+   0,
+   9
+  ],
+  "contentA_size": [
+   76,
+   56
+  ],
+  "contentB_size": [
+   76,
+   56
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.2
+ },
+ {
+  "label": "lv3件13",
+  "artist": "3焦热/焦热特效13.png",
+  "orig": "1919.png",
+  "canvas_artist": [
+   109,
+   83
+  ],
+  "canvas_orig": [
+   109,
+   83
+  ],
+  "contentA_bbox_tl": [
+   21,
+   28
+  ],
+  "contentB_bbox_tl": [
+   21,
+   28
+  ],
+  "contentA_size": [
+   47,
+   23
+  ],
+  "contentB_size": [
+   47,
+   23
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 13.4
+ },
+ {
+  "label": "V4V5件1",
+  "artist": "4无间/V4V5公用特效1.png",
+  "orig": "1924.png",
+  "canvas_artist": [
+   154,
+   69
+  ],
+  "canvas_orig": [
+   154,
+   69
+  ],
+  "contentA_bbox_tl": [
+   49,
+   18
+  ],
+  "contentB_bbox_tl": [
+   49,
+   18
+  ],
+  "contentA_size": [
+   57,
+   34
+  ],
+  "contentB_size": [
+   57,
+   34
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 36.5
+ },
+ {
+  "label": "V4V5件2",
+  "artist": "4无间/V4V5公用特效2.png",
+  "orig": "1926.png",
+  "canvas_artist": [
+   159,
+   71
+  ],
+  "canvas_orig": [
+   159,
+   71
+  ],
+  "contentA_bbox_tl": [
+   49,
+   21
+  ],
+  "contentB_bbox_tl": [
+   49,
+   21
+  ],
+  "contentA_size": [
+   64,
+   30
+  ],
+  "contentB_size": [
+   64,
+   30
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 32.8
+ },
+ {
+  "label": "V4V5件3",
+  "artist": "4无间/V4V5公用特效3.png",
+  "orig": "1928.png",
+  "canvas_artist": [
+   152,
+   67
+  ],
+  "canvas_orig": [
+   152,
+   67
+  ],
+  "contentA_bbox_tl": [
+   32,
+   18
+  ],
+  "contentB_bbox_tl": [
+   32,
+   18
+  ],
+  "contentA_size": [
+   75,
+   33
+  ],
+  "contentB_size": [
+   75,
+   33
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 30.8
+ },
+ {
+  "label": "V4V5件4",
+  "artist": "4无间/V4V5公用特效4.png",
+  "orig": "1930.png",
+  "canvas_artist": [
+   160,
+   69
+  ],
+  "canvas_orig": [
+   160,
+   69
+  ],
+  "contentA_bbox_tl": [
+   36,
+   18
+  ],
+  "contentB_bbox_tl": [
+   36,
+   18
+  ],
+  "contentA_size": [
+   74,
+   35
+  ],
+  "contentB_size": [
+   74,
+   35
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.3
+ },
+ {
+  "label": "V4V5件5",
+  "artist": "4无间/V4V5公用特效5.png",
+  "orig": "1932.png",
+  "canvas_artist": [
+   152,
+   66
+  ],
+  "canvas_orig": [
+   152,
+   66
+  ],
+  "contentA_bbox_tl": [
+   34,
+   18
+  ],
+  "contentB_bbox_tl": [
+   34,
+   18
+  ],
+  "contentA_size": [
+   74,
+   32
+  ],
+  "contentB_size": [
+   74,
+   32
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 32.2
+ },
+ {
+  "label": "V4V5件6",
+  "artist": "4无间/V4V5公用特效6.png",
+  "orig": "1935.png",
+  "canvas_artist": [
+   106,
+   71
+  ],
+  "canvas_orig": [
+   106,
+   71
+  ],
+  "contentA_bbox_tl": [
+   3,
+   17
+  ],
+  "contentB_bbox_tl": [
+   3,
+   17
+  ],
+  "contentA_size": [
+   66,
+   33
+  ],
+  "contentB_size": [
+   66,
+   33
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 33.8
+ },
+ {
+  "label": "V4V5件7",
+  "artist": "4无间/V4V5公用特效7.png",
+  "orig": "1938.png",
+  "canvas_artist": [
+   154,
+   73
+  ],
+  "canvas_orig": [
+   154,
+   73
+  ],
+  "contentA_bbox_tl": [
+   45,
+   17
+  ],
+  "contentB_bbox_tl": [
+   45,
+   17
+  ],
+  "contentA_size": [
+   80,
+   35
+  ],
+  "contentB_size": [
+   80,
+   35
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 31.9
+ },
+ {
+  "label": "V4V5件8",
+  "artist": "4无间/V4V5公用特效8.png",
+  "orig": "1941.png",
+  "canvas_artist": [
+   159,
+   74
+  ],
+  "canvas_orig": [
+   159,
+   74
+  ],
+  "contentA_bbox_tl": [
+   46,
+   13
+  ],
+  "contentB_bbox_tl": [
+   46,
+   13
+  ],
+  "contentA_size": [
+   87,
+   44
+  ],
+  "contentB_size": [
+   87,
+   44
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 34.3
+ },
+ {
+  "label": "V4V5件9",
+  "artist": "4无间/V4V5公用特效9.png",
+  "orig": "1944.png",
+  "canvas_artist": [
+   152,
+   72
+  ],
+  "canvas_orig": [
+   152,
+   72
+  ],
+  "contentA_bbox_tl": [
+   42,
+   9
+  ],
+  "contentB_bbox_tl": [
+   42,
+   9
+  ],
+  "contentA_size": [
+   92,
+   49
+  ],
+  "contentB_size": [
+   92,
+   49
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 32.5
+ },
+ {
+  "label": "V4V5件10",
+  "artist": "4无间/V4V5公用特效10.png",
+  "orig": "1947.png",
+  "canvas_artist": [
+   160,
+   79
+  ],
+  "canvas_orig": [
+   160,
+   79
+  ],
+  "contentA_bbox_tl": [
+   44,
+   12
+  ],
+  "contentB_bbox_tl": [
+   44,
+   12
+  ],
+  "contentA_size": [
+   96,
+   51
+  ],
+  "contentB_size": [
+   96,
+   51
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 25.2
+ },
+ {
+  "label": "V4V5件11",
+  "artist": "4无间/V4V5公用特效11.png",
+  "orig": "1950.png",
+  "canvas_artist": [
+   153,
+   79
+  ],
+  "canvas_orig": [
+   153,
+   79
+  ],
+  "contentA_bbox_tl": [
+   41,
+   9
+  ],
+  "contentB_bbox_tl": [
+   41,
+   9
+  ],
+  "contentA_size": [
+   96,
+   57
+  ],
+  "contentB_size": [
+   96,
+   57
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 28.0
+ },
+ {
+  "label": "V4V5件12",
+  "artist": "4无间/V4V5公用特效12.png",
+  "orig": "1953.png",
+  "canvas_artist": [
+   112,
+   79
+  ],
+  "canvas_orig": [
+   112,
+   79
+  ],
+  "contentA_bbox_tl": [
+   0,
+   7
+  ],
+  "contentB_bbox_tl": [
+   0,
+   7
+  ],
+  "contentA_size": [
+   97,
+   62
+  ],
+  "contentB_size": [
+   97,
+   62
+  ],
+  "bestShift": [
+   0,
+   0
+  ],
+  "iou": 1.0,
+  "colorDiff": 27.3
+ }
+]

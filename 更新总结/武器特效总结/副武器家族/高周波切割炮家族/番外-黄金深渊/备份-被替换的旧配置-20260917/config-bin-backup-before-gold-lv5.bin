@@ -3675,178 +3675,6 @@
 	<arms index="14" id="cutter_gold">
 		<armsLevel>
 			<!--武器属性 -->
-			<name>黄金黑绳</name>    <!-- 武器名称【必备】-->
-			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
-			<!-- 能量需求 -->
-			<energyUse>10</energyUse>
-			<commonLevel>27</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
-			<!-- 合成条件-->
-			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
-			<mustItems></mustItems>    <!-- 需要的物品标签集合-->
-			<price>20000</price>    <!-- 价格 -->
-			<priceLevel>20</priceLevel>    <!-- 销售等级 -->
-
-			<Jprice>48</Jprice>
-
-			<!-- 攻击时的属性-->
-			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
-			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<bulletAngle>0</bulletAngle>
-			<!-- 子弹固有属性-->
-			<hurt>118</hurt>    <!-- 武器伤害【必备】-->
-			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
-			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>10</bulletWidth>    <!-- 子弹宽度-->
-			<!-- 特有属性-->
-			<!-- 子弹特殊属性-->
-			<followB>2</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<backTime>0</backTime>    <!-- 回旋归来时间（默认值为0，0不回旋）-->
-			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<beatBack>5</beatBack>    <!-- 击退值（默认值为0，0不击退）-->
-			<specialType>Level_Growth_10</specialType>
-			<!-- 图像动画-->
-			<imgLabel>cutter_gold_lv1</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/cutter_gold_lv1_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
-		</armsLevel>
-		<armsLevel>
-			<!--武器属性 -->
-			<name>黄金叫唤</name>    <!-- 武器名称【必备】-->
-			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
-			<!-- 能量需求 -->
-			<energyUse>10</energyUse>
-			<commonLevel>31</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
-			<!-- 合成条件-->
-			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
-			<mustItems>superalloy_Y_num50</mustItems>    <!-- 需要的物品标签集合-->
-			<price>50000</price>    <!-- 价格 -->
-			<priceLevel>20</priceLevel>    <!-- 销售等级 -->
-
-			<Jprice>48</Jprice>
-
-			<!-- 攻击时的属性-->
-			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
-			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<bulletAngle>0</bulletAngle>
-			<!-- 子弹固有属性-->
-			<hurt>148</hurt>    <!-- 武器伤害【必备】-->
-			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
-			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>15</bulletWidth>    <!-- 子弹宽度-->
-			<!-- 特有属性-->
-			<!-- 子弹特殊属性-->
-			<followB>2</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<backTime>0</backTime>    <!-- 回旋归来时间（默认值为0，0不回旋）-->
-			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<beatBack>5</beatBack>    <!-- 击退值（默认值为0，0不击退）-->
-			<specialType>Level_Growth_20</specialType>
-			<!-- 图像动画-->
-			<imgLabel>cutter_gold_lv2</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/cutter_gold_lv2_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
-		</armsLevel>
-		<armsLevel>
-			<!--武器属性 -->
-			<name>黄金焦热</name>    <!-- 武器名称【必备】-->
-			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
-			<!-- 能量需求 -->
-			<energyUse>10</energyUse>
-			<commonLevel>36</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
-			<!-- 合成条件-->
-			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
-			<mustItems>superalloy_Y_num100</mustItems>    <!-- 需要的物品标签集合-->
-			<price>100000</price>    <!-- 价格 -->
-			<priceLevel>20</priceLevel>    <!-- 销售等级 -->
-
-			<Jprice>48</Jprice>
-
-			<!-- 攻击时的属性-->
-			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
-			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<bulletAngle>0</bulletAngle>
-			<!-- 子弹固有属性-->
-			<hurt>190</hurt>    <!-- 武器伤害【必备】-->
-			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
-			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>20</bulletWidth>    <!-- 子弹宽度-->
-			<!-- 特有属性-->
-			<!-- 子弹特殊属性-->
-			<followB>2</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<backTime>0</backTime>    <!-- 回旋归来时间（默认值为0，0不回旋）-->
-			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<beatBack>5</beatBack>    <!-- 击退值（默认值为0，0不击退）-->
-			<specialType>Level_Growth_30</specialType>
-			<!-- 图像动画-->
-			<imgLabel>cutter_gold_lv3</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/cutter_gold_lv3_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
-		</armsLevel>
-		<armsLevel>
-			<!--武器属性 -->
-			<name>黄金无间</name>    <!-- 武器名称【必备】-->
-			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
-			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
-			<specialProperty>跟踪，穿透，成长型</specialProperty>
-			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
-			<!-- 能量需求 -->
-			<energyUse>10</energyUse>
-			<commonLevel>45</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
-			<!-- 合成条件-->
-			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
-			<mustItems>superalloy_Y_num150</mustItems>    <!-- 需要的物品标签集合-->
-			<price>150000</price>    <!-- 价格 -->
-			<priceLevel>20</priceLevel>    <!-- 销售等级 -->
-
-			<Jprice>48</Jprice>
-
-			<!-- 攻击时的属性-->
-			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>0.9</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.2</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
-			<!-- 发出子弹时的位置和角度、速度等属性	-->
-			<bulletSpeed>30</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
-			<bulletAngle>0</bulletAngle>
-			<!-- 子弹固有属性-->
-			<hurt>272</hurt>    <!-- 武器伤害【必备】-->
-			<bulletType>bullet</bulletType>    <!-- 子弹类型【必备】-->
-			<bulletLife>2</bulletLife>    <!-- 子弹寿命（默认值为2）-->
-			<bulletWidth>25</bulletWidth>    <!-- 子弹宽度-->
-			<!-- 特有属性-->
-			<!-- 子弹特殊属性-->
-			<followB>2</followB>    <!-- 跟踪敏捷度（默认为0，就是不跟踪，标准值为1）-->
-			<backTime>0</backTime>    <!-- 回旋归来时间（默认值为0，0不回旋）-->
-			<penetrationB>1</penetrationB>    <!-- 是否能穿透敌人（默认值为0，0不穿透，1穿透）-->
-			<beatBack>5</beatBack>    <!-- 击退值（默认值为0，0不击退）-->
-			<specialType>Level_Growth_40</specialType>
-			<!-- 图像动画-->
-			<imgLabel>cutter_gold_lv4</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/cutter_gold_lv4_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
-			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
-		</armsLevel>
-		<armsLevel>
-			<!--武器属性 -->
 			<name>黄金深渊</name>    <!-- 武器名称【必备】-->
 			<type>高周波切割炮</type>    <!-- 武器类型【必备】-->
 			<attackType>motion</attackType>    <!-- 攻击属性【必备】-->
@@ -3854,12 +3682,12 @@
 			<description>成长型武器。刀刃的极高频振动令被切割物自分子层面剥离，无坚不摧；武器等级会随人物等级提升，满级时达到200级。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
-			<commonLevel>70</commonLevel>    <!-- 普遍等级 -->
-			<reduceRa>0.5</reduceRa>
+			<commonLevel>75</commonLevel>    <!-- 普遍等级 -->
+			<reduceRa>0.7</reduceRa>
 			<!-- 合成条件-->
-			<mustLevel>1</mustLevel>    <!-- 需要的人物等级-->
-			<mustItems>superalloy_Y_num200</mustItems>    <!-- 需要的物品标签集合-->
-			<price>500000</price>    <!-- 价格 -->
+			<mustLevel>60</mustLevel>    <!-- 需要的人物等级-->
+			<mustItems>2,240,100</mustItems>    <!-- 需要的物品标签集合-->
+			<price>1000000</price>    <!-- 价格 -->
 			<priceLevel>20</priceLevel>    <!-- 销售等级 -->
 
 			<Jprice>48</Jprice>
@@ -3884,8 +3712,8 @@
 			<beatBack>5</beatBack>    <!-- 击退值（默认值为0，0不击退）-->
 			<specialType>Level_Growth_50</specialType>
 			<!-- 图像动画-->
-			<imgLabel>cutter_gold_lv5</imgLabel>    <!-- 武器图像【必备】 -->
-			<bulletImgLabel>sub/cutter_gold_lv5_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
+			<imgLabel>cutter_gold</imgLabel>    <!-- 武器图像【必备】 -->
+			<bulletImgLabel>sub/cutter_gold_bullet</bulletImgLabel>    <!-- 子弹图像（默认加后缀_bullet） -->
 			<hitImgLabel>sub/cut_effect</hitImgLabel>    <!-- 子弹图像【必备】 -->
 		</armsLevel>
 	</arms>
