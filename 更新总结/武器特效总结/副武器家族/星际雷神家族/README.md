@@ -12,7 +12,7 @@
 - **配置位置**：`decompiled\embedded-xml-assets\6_EmbedXml_xmlClass7_EmbedXml_xmlClass7.bin`（zhongzifeidan 块）
 - **子弹**：`bulletImgLabel=sub/zhongzifeidan_lv1_bullet`（**两级共用 lv1 弹**）
 - **受击（当前版）**：`hitImgLabel=bullet/purple_boom`（两级统一）
-- **数值现状（当前版，两级统一）**：`attackGap=7.6`、`attackDelay=0.43`（V31 重型节奏）、`bulletNum=2`（双发）、`bulletSpeed=12`、`bulletMaxV=30`、`bulletLife=2.5`、`bulletWidth=7`、`hurt=80`、`energyUse=10`、`recoilValue=2`；`bulletTranslation` lv1=12.5 / lv2=12.05（V32 散开±1px）
+- **数值现状（当前版，两级统一）**：`attackGap=5.8`、`attackDelay=0.85`（V34：3 秒空膛＋蓄力 0.8s）、`bulletNum=2`（双发）、`bulletSpeed=12`、`bulletMaxV=30`、`bulletLife=2.5`、`bulletWidth=7`、`hurt=80`、`energyUse=10`、`recoilValue=2`；`bulletTranslation` lv1=12.5 / lv2=12.05（V32 散开±1px）
 - **经济现状**：`price=80000000`、`mustLevel=150`、`mustItems=boom_7_num8000,superalloy_num8000,superalloy_Z_num4000,superalloy_X_num2000,superalloy_Y_num500`、`Mprice=100`（两级相同；经济字段按用户禁令不动）
 - **符号速查（当前 `swf\sub1130.swf` SymbolClass 实测，全库 253 符号）**：`zhongzifeidan_lv1`=121、`zhongzifeidan_lv2`=115、`zhongzifeidan_lv1_bullet`=100
 - **弹速清单状态**：`docs\baselines\玩家武器弹道速度分类与进度.md` "其余武器"段——星际雷神 / 星际雷神MK2 基准弹速=当前弹速=12，状态"已完成-降速2.5倍"；立项核查当前配置 `bulletSpeed=12` 与清单一致
