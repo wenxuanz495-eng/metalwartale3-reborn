@@ -477,8 +477,9 @@ func sanitizeLogField(v string) string {
 	v = strings.ReplaceAll(v, "\r", "\\r")
 	v = strings.ReplaceAll(v, "\n", "\\n")
 	v = strings.ReplaceAll(v, "\t", " ")
-	if len(v) > 4000 {
-		v = v[:4000]
+	// 64KB：常规报错远小于此；诊断类上报（如渲染快照 base64）需要完整落盘
+	if len(v) > 65536 {
+		v = v[:65536]
 	}
 	return v
 }
