@@ -15,7 +15,7 @@
   - 有效武器等级 = max(140, 玩家等级+40)：玩家 ≥100 级起超过保底；玩家 150 满级时 **武器等级 190 级**（同口径 2014=165）；
 - **贴图**：`相关素材\雪花\` 两帧——常态帧=雪花再见2026.png、开火帧=雪花再见2026(射击发光）.png（120×43 同画布仅提亮）；
 - **与 2014 相同项（原样沿用）**：弹药 `bullet/orange_motion`、开火特效（868/871）、受击 `bullet/blue_boom`、枪口火焰、挂点（basePoint(450,530)/shootPoint(2457,480)）、attackGap 0.02、attackDelay 0、hurt 2210、bulletSpeed 30、energy、price 0、mustLevel 1；
-- **升级消耗**：`mustItems=xuehua_num450`（沿用上一级数量，可随时单点调整）；
+- **升级消耗**：`mustItems=xuehua_num900`（**雪花×900**，2026-09-19 用户拍板；上一级 2014 为 450）；
 - **description**：导入时先占位，文案最后定稿。
 
 ## 导入前待拍板
