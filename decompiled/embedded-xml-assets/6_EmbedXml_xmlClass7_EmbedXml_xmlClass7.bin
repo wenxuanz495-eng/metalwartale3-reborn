@@ -5345,11 +5345,11 @@
 
 			<!-- 攻击时的属性-->
 			<recoilValue>2</recoilValue>    <!-- 后坐力(默认为0)-->
-			<attackGap>5.8</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
-			<attackDelay>0.85</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
+			<attackGap>3.81</attackGap>    <!-- 攻击间隔【必备】（单位秒）-->
+			<attackDelay>0.81</attackDelay>    <!-- 攻击前延迟（单位秒，默认值为0），这个值一定要小于攻击间隔，如果大于则攻击延迟直接等于攻击间隔-->
 			<bulletNum>2</bulletNum>    <!-- 射击一次的子弹数量（默认值为1），一般用于散射-->
 			<angleRange>0</angleRange>
-			<bulletTranslation>12.05</bulletTranslation>    <!-- 子弹偏移（默认为0）-->
+			<bulletTranslation>11.55</bulletTranslation>    <!-- 子弹偏移（默认为0）-->
 			<!-- 发出子弹时的位置和角度、速度等属性	-->
 			<bulletSpeed>12</bulletSpeed>    <!-- 子弹速度，子弹类型为“bullet”才有这个值-->
 			<bulletMaxV>30</bulletMaxV>
