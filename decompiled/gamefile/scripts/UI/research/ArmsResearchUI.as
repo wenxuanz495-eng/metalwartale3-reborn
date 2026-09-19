@@ -107,7 +107,9 @@ package UI.research
       public var upgradeMaterialsB:Boolean = true;
 
       public var upgradeCoinB:Boolean = true;
-      
+
+      public var coreOnlyB:Boolean = false;
+
       private var useResearchUpgradeCardB:Boolean = false;
       
       public var nowArms:ItemsArmsIcon = null;
@@ -731,6 +733,7 @@ package UI.research
          this.maxLevelShow.visible = false;
          this.upgradeBox.need_mc.visible = true;
          this.upgradePointer.visible = true;
+         this.coreOnlyB = false;
          var upgradeB:String = this.getUpgradeB();
          if(upgradeB == "only")
          {
@@ -872,6 +875,7 @@ package UI.research
          this.upgradeNonMaterialB = true;
          this.upgradeMaterialsB = true;
          this.upgradeCoinB = true;
+         this.coreOnlyB = false;
          this.no_arr[0].visible = false;
          this.no_arr[1].visible = false;
          this.no_arr[2].visible = false;
@@ -928,6 +932,14 @@ package UI.research
             this.shop_mc.exchange_btn.visible = false;
             this.shop_mc.txt.visible = true;
             this.shop_mc.txt.text = "通过成长计划获得";
+         }
+         else if(findStr0 == "core")
+         {
+            this.shop_mc.shop_btn.visible = false;
+            this.shop_mc.exchange_btn.visible = false;
+            this.shop_mc.txt.visible = true;
+            this.shop_mc.txt.text = "通过开启核心获得";
+            this.coreOnlyB = true;
          }
          else
          {
@@ -1094,7 +1106,7 @@ package UI.research
             this.condition_icon3.gotoAndStop(1);
             this.condition_icon4.gotoAndStop(1);
          }
-         if(this.upgrade_conditionB || (this.upgradeNonMaterialB || d0.id == "zhonglichongjipao") && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0)
+         if((this.upgrade_conditionB || (this.upgradeNonMaterialB || d0.id == "zhonglichongjipao") && Game.gameData.propsItems.getNumByBase("research_upgrade_card") > 0) && (!this.coreOnlyB || Game.gameData.modCraftFree))
          {
             this.upgrade_btn.alpha = 1;
             this.upgrade_btn.enabled = true;
@@ -1512,6 +1524,10 @@ package UI.research
          var bocc:Boolean = false;
          var blackHoleCardB:Boolean = false;
          if(this.upgrade_btn.alpha < 1)
+         {
+            return;
+         }
+         if(this.coreOnlyB && !Game.gameData.modCraftFree)
          {
             return;
          }
