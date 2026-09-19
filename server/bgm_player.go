@@ -359,6 +359,22 @@ func (p *bgmPlayer) scanRecommendedCatalog() {
 				selected = candidate
 				break
 			}
+			// 工作区分类整理后，标记可能下移一级（如 相关素材\歌单\.playlist-root）。
+			if subEntries, subErr := os.ReadDir(candidate); subErr == nil {
+				for _, subEntry := range subEntries {
+					if !subEntry.IsDir() {
+						continue
+					}
+					subCandidate := filepath.Join(candidate, subEntry.Name())
+					if info, markerErr := os.Stat(filepath.Join(subCandidate, ".playlist-root")); markerErr == nil && !info.IsDir() {
+						selected = subCandidate
+						break
+					}
+				}
+			}
+			if selected != "" {
+				break
+			}
 		}
 	}
 	if selected == "" {

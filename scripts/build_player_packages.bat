@@ -96,6 +96,9 @@ echo [ERROR] Flash Player 29 and Debug Player are forbidden in packages.
 exit /b 5
 :missing_silent
 echo [ERROR] Missing silent replacement manifest: %SILENT_SOURCE%
+echo [ERROR] Silent template now lives in cold storage. Restore before packaging:
+echo   F:\超合金冷数据备份\2.0版本归档\静音版本归档\静音版
+echo   Copy that folder to %SILENT_SOURCE% , package, then delete it again.
 exit /b 4
 :missing_silent_docs
 echo [ERROR] Missing 静音版说明.txt or 死亡音效替换文件清单.txt: %SILENT_SOURCE%

@@ -12,7 +12,11 @@ set "RESOURCE_COUNT=0"
 set "RESOURCE_PROGRESS=0"
 set "COPY_FAILED="
 set "RECOMMENDED_BGM_SOURCE="
-for /d %%D in ("%REPO_ROOT%\..\*") do if exist "%%~fD\.playlist-root" set "RECOMMENDED_BGM_SOURCE=%%~fD"
+rem 二级扫描：标记可能在一级目录（如 相关素材\歌单\.playlist-root）
+for /d %%D in ("%REPO_ROOT%\..\*") do (
+  if not defined RECOMMENDED_BGM_SOURCE if exist "%%~fD\.playlist-root" set "RECOMMENDED_BGM_SOURCE=%%~fD"
+  for /d %%E in ("%%~fD\*") do if not defined RECOMMENDED_BGM_SOURCE if exist "%%~fE\.playlist-root" set "RECOMMENDED_BGM_SOURCE=%%~fE"
+)
 
 if not exist "%MANIFEST%" goto missing_input
 if not exist "%CURRENT_MANIFEST%" goto missing_input
