@@ -1,26 +1,18 @@
 @echo off
-setlocal EnableExtensions EnableDelayedExpansion
+chcp 65001 >nul
+setlocal EnableExtensions
 
-set "BEST_FILE="
-set "BEST_SIZE=-1"
+rem 打开游戏更新公告（打包后位于 build\，仓库开发态回退 runtime\）
+set "TARGET="
+if exist "%~dp0build\游戏更新公告.txt" set "TARGET=%~dp0build\游戏更新公告.txt"
+if not defined TARGET if exist "%~dp0runtime\游戏更新公告.txt" set "TARGET=%~dp0runtime\游戏更新公告.txt"
 
-for %%D in ("%~dp0build" "%~dp0runtime") do (
-  if exist "%%~fD\" (
-    for %%F in ("%%~fD\*.txt") do (
-      if %%~zF GTR !BEST_SIZE! (
-        set "BEST_FILE=%%~fF"
-        set "BEST_SIZE=%%~zF"
-      )
-    )
-  )
-)
-
-if not defined BEST_FILE (
-  echo [ERROR] Update notice TXT was not found.
-  echo Checked: "%~dp0build" and "%~dp0runtime"
+if not defined TARGET (
+  echo [ERROR] Update notice TXT not found.
+  echo Checked: "%~dp0build\游戏更新公告.txt" and "%~dp0runtime\游戏更新公告.txt"
   pause
   exit /b 1
 )
 
-start "" notepad.exe "%BEST_FILE%"
+start "" notepad.exe "%TARGET%"
 exit /b 0

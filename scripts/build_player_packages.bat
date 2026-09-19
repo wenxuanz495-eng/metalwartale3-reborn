@@ -29,7 +29,7 @@ if /i not "%PLAYER_ACTUAL_SHA256%"=="%PLAYER_SHA256%" goto invalid_player
 
 call "%REPO_ROOT%\scripts\build_all.bat"
 if errorlevel 1 exit /b %ERRORLEVEL%
-copy /y "%REPO_ROOT%\runtime\公告.txt" "%REPO_ROOT%\build\公告.txt" >nul
+copy /y "%REPO_ROOT%\runtime\游戏更新公告.txt" "%REPO_ROOT%\build\游戏更新公告.txt" >nul
 
 call :make_package "%NORMAL%"
 if errorlevel 1 exit /b %ERRORLEVEL%
@@ -42,9 +42,9 @@ if exist "%MINI%\build\bgm\recommended" rmdir /s /q "%MINI%\build\bgm\recommende
 if errorlevel 1 exit /b %ERRORLEVEL%
 "%ProgramFiles%\7-Zip\7z.exe" a -t7z "%MINI%.7z" "%MINI%" -mx=9
 if errorlevel 1 exit /b %ERRORLEVEL%
-rem 生成 SHA-256 校验文件，与 .7z 同目录，供下载方核对
-certutil -hashfile "%NORMAL%.7z" SHA256 > "%NORMAL%.7z.sha256.txt"
-certutil -hashfile "%MINI%.7z" SHA256 > "%MINI%.7z.sha256.txt"
+rem 生成 SHA-256 校验文件（findstr 只保留纯 ASCII 哈希行，避免控制台中文编码问题），与 .7z 同目录
+certutil -hashfile "%NORMAL%.7z" SHA256 | findstr /r "^[0-9a-fA-F]*$" > "%NORMAL%.7z.sha256.txt"
+certutil -hashfile "%MINI%.7z" SHA256 | findstr /r "^[0-9a-fA-F]*$" > "%MINI%.7z.sha256.txt"
 :package_done
 echo [OK] Player packages created.
 echo   %NORMAL%

@@ -46,7 +46,7 @@ xcopy "%REPO_ROOT%\build\ui" "%RELEASE%\build\ui\" /e /i /q /y >nul
 copy /y "%REPO_ROOT%\build\game.swf" "%RELEASE%\build\game.swf" >nul
 copy /y "%REPO_ROOT%\build\server.exe" "%RELEASE%\build\server.exe" >nul
 copy /y "%REPO_ROOT%\build\modifier.html" "%RELEASE%\build\modifier.html" >nul
-if exist "%REPO_ROOT%\build\公告.txt" copy /y "%REPO_ROOT%\build\公告.txt" "%RELEASE%\build\公告.txt" >nul
+if exist "%REPO_ROOT%\build\游戏更新公告.txt" copy /y "%REPO_ROOT%\build\游戏更新公告.txt" "%RELEASE%\build\游戏更新公告.txt" >nul
 copy /y nul "%RELEASE%\build\.release-ready" >nul
 copy /y "%PLAYER%" "%RELEASE%\tools\runtime\FlashPlayer.exe" >nul
 copy /y "%REPO_ROOT%\tools\debug\flashplayer_sa_debug.exe" "%RELEASE%\tools\debug\flashplayer_sa_debug.exe" >nul

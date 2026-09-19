@@ -175,7 +175,7 @@ package UI.server
          this.notice_txt.wordWrap = true;
          this.notice_txt.selectable = false;
          this.notice_txt.defaultTextFormat = new TextFormat("_sans",13,65331,null,null,null,null,null,null,0,0,3,2);
-         this.notice_txt.text = "【超合金离线优化海豹版 1.2.4 内测更新】\n详细更新内容请查看游戏根目录的公告.txt。";
+         this.notice_txt.text = "【超合金离线优化海豹版 1.2.4 内测更新】\n详细更新内容请查看游戏根目录的游戏更新公告.txt。";
          box.addChild(this.notice_txt);
          return box;
       }
@@ -186,7 +186,7 @@ package UI.server
          this.noticeLoader.dataFormat = URLLoaderDataFormat.TEXT;
          this.noticeLoader.addEventListener(Event.COMPLETE,this.offlineNoticeLoaded);
          this.noticeLoader.addEventListener(IOErrorEvent.IO_ERROR,this.offlineNoticeLoadFailed);
-         this.noticeLoader.load(new URLRequest("公告.txt?time=" + new Date().time));
+         this.noticeLoader.load(new URLRequest("游戏更新公告.txt?time=" + new Date().time));
       }
 
       private function loadGameNotice() : void
@@ -195,7 +195,7 @@ package UI.server
          this.gameNoticeLoader.dataFormat = URLLoaderDataFormat.TEXT;
          this.gameNoticeLoader.addEventListener(Event.COMPLETE,this.gameNoticeLoaded);
          this.gameNoticeLoader.addEventListener(IOErrorEvent.IO_ERROR,this.gameNoticeLoadFailed);
-         this.gameNoticeLoader.load(new URLRequest("游戏公告.txt?time=" + new Date().time));
+         this.gameNoticeLoader.load(new URLRequest("感谢公告.txt?time=" + new Date().time));
       }
 
       private function gameNoticeLoaded(event:Event) : void
