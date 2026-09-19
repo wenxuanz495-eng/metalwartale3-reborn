@@ -233,13 +233,13 @@ package UI.vip
             if(this.vipData.getMapCooldownRemaining() > 0)
             {
                bar0.setUseBtn(false);
-               txt0 = "退出后冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
+               txt0 = "冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
             }
             else if(this.vipData.mapTime > 0)
             {
                bar0.setUseBtn(true);
                txt0 = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00");
-               txt0 += "\n退出后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
+               txt0 += "\n时间耗尽后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
             }
             else
             {
@@ -316,12 +316,12 @@ package UI.vip
                if(this.vipData.getMapCooldownRemaining() > 0)
                {
                   bar0.setUseBtn(false);
-                  bar0.content_txt.htmlText = "退出后冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
+                  bar0.content_txt.htmlText = "冷却中：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.getMapCooldownRemaining()),"#FFFF00");
                }
                 else if(this.vipData.mapTime > 0)
                 {
                    bar0.setUseBtn(true);
-                   bar0.content_txt.htmlText = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00") + "\n退出后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
+                   bar0.content_txt.htmlText = "剩余时间：\n" + StringToDefine.getFontColor(StringToDefine.getTimeStr(this.vipData.mapTime),"#FFFF00") + "\n时间耗尽后冷却：" + int(this.vipData.getMapCooldown() / 60) + "分钟";
                 }
                 else
                 {

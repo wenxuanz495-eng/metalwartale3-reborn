@@ -357,7 +357,9 @@ package gameAll.vip
       public function startMapCooldown() : *
       {
          var seconds:Number = this.getMapCooldown();
-         if(seconds > 0 && this.mapCooldownReadyAt <= new Date().time)
+         // Cooldown is the penalty for exhausting the map time. Exiting early
+         // with time remaining must keep the remainder and must not start it.
+         if(seconds > 0 && this.mapCooldownReadyAt <= new Date().time && this.mapTime <= 0)
          {
             this.mapTime = 0;
             this.mapCooldownReadyAt = new Date().time + seconds * 1000;

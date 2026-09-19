@@ -123,3 +123,5 @@ UI\explore\ExploreIcon.as
 UI\honor\HonorUI.as
 gameAll\honor\HonorData.as
 body\bullet\OneBulletBody.as
+gameAll\vip\VipData.as
+UI\vip\VipUI.as
