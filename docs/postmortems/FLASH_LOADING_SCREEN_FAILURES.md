@@ -35,6 +35,14 @@
 - `getPurpleChipGrowthLevel()` 先确认确实装有 `GoodsItemsData` 芯片，再查询依赖全局定义库的安装规则。
 - `getArmsDefineArr()` 遍历时跳过空数组和 `null` 定义，允许定义库处于构建中状态。
 
+### 资源符号克隆未继承 SymbolClass 类绑定（手游端，2026-09-20）
+
+手游端 F-8 gpu 着色烘焙在 `swf/ui1120.swf` 中克隆 LifeBar 符号（2110/2116）时未为新 id 追加 SymbolClass 绑定。克隆体实例化为纯 `MovieClip`，赋给 `GamingUI.life_bar:LifeBar` 强类型字段抛 `Error #1034`，被 `uiLoader_complete` 的 boot-fail 分支吞掉：fase 屏照常显示但按钮监听未挂载，外观即"卡在加载画面"。
+
+- 修复：克隆带类绑定的 symbol 必须同步 SymbolClass 条目（同一类可绑多个符号）。
+- 诊断路径沉淀：真机无 flashlog 时，同一构建在 PC Debug Player 必现；boot-fail 报告写入内嵌服务器，`GET /api/client-logs`（即 `build/saves/client_errors.log`）可取完整 AS 栈。
+- 全周期记录见 [更新总结/bug 维护/3.0前瞻版本bug维护/手游ui1120克隆符号丢SymbolClass类绑定致boot-fail卡fase屏-20260920.md](../../更新总结/bug%20维护/3.0前瞻版本bug维护/手游ui1120克隆符号丢SymbolClass类绑定致boot-fail卡fase屏-20260920.md)。
+
 ## 后续修改的规避规则
 
 - 不要在构造函数、`inData_byXML()` 或早期 `init()` 中访问稍后才创建的 UI、单例或数组元素。
