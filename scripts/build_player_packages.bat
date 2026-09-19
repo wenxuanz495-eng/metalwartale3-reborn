@@ -10,8 +10,9 @@ rem   对应 .7z 压缩包
 rem 静音版流程自 2026-09-19 起停用（历史版本见 git 历史与 F 盘冷备）。
 
 set "REPO_ROOT=%~dp0.."
-rem 输出根 = 工作区根（仓库上一级），不写死盘符
+rem 输出根默认 = 工作区根（仓库上一级），不写死盘符；可用环境变量 PKG_OUT_DIR 重定向（如工作区的 临时封装目录\）
 for %%I in ("%~dp0..\..") do set "OUT_ROOT=%%~fI"
+if defined PKG_OUT_DIR for %%I in ("%PKG_OUT_DIR%") do set "OUT_ROOT=%%~fI"
 set "VERSION=2.061"
 if not "%~1"=="" set "VERSION=%~1"
 set "NORMAL=%OUT_ROOT%\%VERSION%"
