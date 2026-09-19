@@ -42,6 +42,9 @@ if exist "%MINI%\build\bgm\recommended" rmdir /s /q "%MINI%\build\bgm\recommende
 if errorlevel 1 exit /b %ERRORLEVEL%
 "%ProgramFiles%\7-Zip\7z.exe" a -t7z "%MINI%.7z" "%MINI%" -mx=9
 if errorlevel 1 exit /b %ERRORLEVEL%
+rem 生成 SHA-256 校验文件，与 .7z 同目录，供下载方核对
+certutil -hashfile "%NORMAL%.7z" SHA256 > "%NORMAL%.7z.sha256.txt"
+certutil -hashfile "%MINI%.7z" SHA256 > "%MINI%.7z.sha256.txt"
 :package_done
 echo [OK] Player packages created.
 echo   %NORMAL%
