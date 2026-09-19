@@ -1,10 +1,11 @@
-﻿# Go environment for this repo: keep module/build caches on D:
+﻿# Go environment for this repo: keep module/build caches beside the repository (workspace .gopath).
 $RepoRoot = if ($PSScriptRoot) { (Resolve-Path (Join-Path $PSScriptRoot "..")).Path } else { (Get-Location).Path }
-if (-not (Test-Path "C:\Program Files\Go\bin\go.exe")) {
-  throw "Go not found at C:\Program Files\Go\bin\go.exe"
+if (Test-Path "C:\Program Files\Go\bin\go.exe") {
+  $env:Path = "C:\Program Files\Go\bin;" + $env:Path
+} elseif (-not (Get-Command go.exe -ErrorAction SilentlyContinue)) {
+  throw "Go not found at C:\Program Files\Go\bin\go.exe or on PATH"
 }
-$env:Path = "C:\Program Files\Go\bin;" + $env:Path
-$GoWorkspace = "D:\superalloy\.gopath"
+$GoWorkspace = Join-Path (Split-Path $RepoRoot -Parent) ".gopath"
 $env:GOPATH = Join-Path $GoWorkspace "gopath"
 $env:GOMODCACHE = Join-Path $GoWorkspace "pkg\mod"
 $env:GOCACHE = Join-Path $GoWorkspace "cache"

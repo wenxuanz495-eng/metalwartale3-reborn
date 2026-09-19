@@ -14,7 +14,8 @@ if not defined GO_EXE goto missing_go
 if not exist "%SERVER_DIR%\go.mod" goto missing_source
 if not exist "%BUILD_DIR%" mkdir "%BUILD_DIR%"
 
-set "GOPATH=D:\superalloy\.gopath"
+rem Go 缓存目录跟随工作区布局（仓库上一级的 .gopath），不写死盘符
+for %%I in ("%REPO_ROOT%\..") do set "GOPATH=%%~fI\.gopath"
 set "GOMODCACHE=%GOPATH%\pkg\mod"
 set "GOCACHE=%GOPATH%\cache"
 if not exist "%GOMODCACHE%" mkdir "%GOMODCACHE%"

@@ -3,7 +3,8 @@ chcp 65001 >nul
 setlocal EnableExtensions
 
 set "REPO_ROOT=%~dp0.."
-set "OUT_ROOT=D:\superalloy"
+rem 输出根 = 工作区根（仓库上一级），不写死盘符
+for %%I in ("%~dp0..\..") do set "OUT_ROOT=%%~fI"
 set "VERSION=2.061"
 if not "%~1"=="" set "VERSION=%~1"
 set "PACKAGE_MODE=%~2"

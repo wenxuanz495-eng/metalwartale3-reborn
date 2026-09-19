@@ -5,7 +5,7 @@ setlocal EnableExtensions EnableDelayedExpansion
 set "GOLDEN_ROOT=%~1"
 set "OUTPUT_FILE=%~2"
 
-if not defined GOLDEN_ROOT set "GOLDEN_ROOT=D:\superalloy\1.26.2.1-BAT\1.26.2.1"
+if not defined GOLDEN_ROOT goto missing_golden_arg
 if not defined OUTPUT_FILE set "OUTPUT_FILE=%~dp0..\docs\baselines\1.26.2.1-BAT.sha256"
 
 for %%I in ("%GOLDEN_ROOT%") do set "GOLDEN_ROOT=%%~fI"
@@ -64,6 +64,12 @@ if not defined HASH (
 set "HASH=!HASH: =!"
 >>"%TEMP_LIST%" echo !HASH! *%~2
 exit /b 0
+
+:missing_golden_arg
+echo [ERROR] GOLDEN_ROOT (arg 1) is required. The machine-local golden baseline is cold-stored at:
+echo   F:\超合金冷数据备份\1.0版本归档\1.26.2.1-BAT
+echo Restore or copy it locally, then pass its 1.26.2.1 subfolder path as the first argument.
+exit /b 4
 
 :missing_golden
 echo [ERROR] Golden release is missing or incomplete:

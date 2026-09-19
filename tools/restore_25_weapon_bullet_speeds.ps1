@@ -1,6 +1,7 @@
 param(
     [string]$RepoRoot = (Split-Path -Parent $PSScriptRoot),
-    [string]$ReferenceRoot = 'D:\superalloy\原版\2.5（原版参考）\2.5版本素材库\raw\xml'
+    # 原版参考跟随工作区布局（工作区根\原版\...），不写死盘符
+    [string]$ReferenceRoot = (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) '原版\2.5（原版参考）\2.5版本素材库\raw\xml')
 )
 
 $ErrorActionPreference = 'Stop'

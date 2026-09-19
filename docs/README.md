@@ -16,6 +16,7 @@
 | [baselines/](baselines/) | Human+AI | 校验数据：sha256 清单、弹速名单 CSV 与核对说明（原位保留） |
 | [COLLAB_WORKSPACE.md](COLLAB_WORKSPACE.md) | Human | （遗留）原作者机器本地工作区角色划分，路径仅原作者电脑有效 |
 | [CURRENT_RESOURCE_MANIFEST.md](CURRENT_RESOURCE_MANIFEST.md) | Human+AI | 当前批准资源清单说明（配套 `config\build\current-resource-manifest.sha256` 的双清单校验机制） |
+| [4399平台残留地图.md](4399平台残留地图.md) | Human+AI | 客户端 4399 平台残留集中地图（URL/ID/密钥常量、平台模块、仍会真实外发的请求、默认玩家名三处联动）；清理或排查平台代码前先读 |
 | [BGM功能与修复总结.md](BGM功能与修复总结.md) | Human | BGM 功能与修复记录（2026-08-30 新增，暂置 docs 根） |
 | 根目录[发布装包规范.txt](../发布装包规范.txt) | Human | 装包规范（玩家包内也随包附带；由装包脚本从根目录复制，故留在根目录） |
 | 根目录[【重要必读】修改UI后卡在旧加载界面.md](../【重要必读】修改UI后卡在旧加载界面.md) | Human+AI | UI 改动后卡旧加载界面的快速排查卡（红线 §4 入口，完整手册在 postmortems/） |

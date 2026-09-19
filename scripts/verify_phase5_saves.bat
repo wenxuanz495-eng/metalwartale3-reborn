@@ -8,15 +8,17 @@ set "TEST_ROOT=%REPO_ROOT%\build\phase5-tests"
 set "SERVER=%REPO_ROOT%\build\server.exe"
 set "GAME=%REPO_ROOT%\build\game.swf"
 set "FRESH=%REPO_ROOT%\swf\empty-save-template.bin"
-set "PROGRESS=D:\superalloy\归档\旧版本与压缩包\1.26\saves\game_save.bin"
-set "LEGACY=D:\superalloy\归档\存档备份\1.1老存档兼容迁移样本-20260722\saves\game_save.bin"
+rem 兼容迁移样本默认取工作区存档备份；1.26 进度档样本已随冷备迁走，需要时用环境变量 PROGRESS_SAVE 指定
+for %%I in ("%REPO_ROOT%\..\存档备份\1.1老存档兼容迁移样本-20260722\saves\game_save.bin") do set "LEGACY=%%~fI"
+set "PROGRESS="
+if defined PROGRESS_SAVE set "PROGRESS=%PROGRESS_SAVE%"
 
 if /i not "%TEST_ROOT%"=="%REPO_ROOT%\build\phase5-tests" goto unsafe_path
 if not exist "%SERVER%" goto missing_input
 if not exist "%GAME%" goto missing_input
 if not exist "%FRESH%" goto missing_input
-if not exist "%PROGRESS%" goto missing_input
-if not exist "%LEGACY%" goto missing_input
+if not exist "%PROGRESS%" goto missing_progress
+if not exist "%LEGACY%" goto missing_legacy
 where curl.exe >nul 2>nul
 if errorlevel 1 goto missing_tool
 where node.exe >nul 2>nul
@@ -28,8 +30,12 @@ mkdir "%TEST_ROOT%"
 
 call :test_fixture fresh "%FRESH%" 8891
 if errorlevel 1 exit /b %ERRORLEVEL%
-call :test_fixture progress "%PROGRESS%" 8892
-if errorlevel 1 exit /b %ERRORLEVEL%
+if defined PROGRESS (
+  call :test_fixture progress "%PROGRESS%" 8892
+  if errorlevel 1 exit /b %ERRORLEVEL%
+) else (
+  echo [WARN] PROGRESS_SAVE not set; skipping the 1.26 progress-save fixture.
+)
 call :test_fixture legacy-1.1 "%LEGACY%" 8893
 if errorlevel 1 exit /b %ERRORLEVEL%
 
@@ -110,7 +116,16 @@ echo [ERROR] Unsafe phase 5 test directory.
 exit /b 1
 
 :missing_input
-echo [ERROR] A phase 5 save fixture or build input is missing.
+echo [ERROR] A phase 5 build input is missing (server.exe / game.swf / empty-save-template.bin under build).
+exit /b 2
+
+:missing_progress
+echo [ERROR] 1.26 progress save sample not found; it was cold-stored with the 1.0 archive.
+echo   Set PROGRESS_SAVE to a game_save.bin path (e.g. from F:\超合金冷数据备份\1.0版本归档\1.26\saves) and retry.
+exit /b 2
+
+:missing_legacy
+echo [ERROR] Legacy 1.1 sample not found: %LEGACY%
 exit /b 2
 
 :missing_tool
