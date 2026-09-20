@@ -32,7 +32,7 @@
 | 部件2 微调 | V35~V44 | `v35_part2_right`、`v36_part2_shift`、`v37_part2_left3`、`v38_part2_up1`、`v39_part2_down02`、`v41_part2_left1`、`v42_part2_down02`、`v43_part2_right01`、`v44_part2_two_fix` | 筒口环归位系列（V40 撤回无脚本、V44 撤回恢复 V43） |
 | 重塑与对齐 | V45~V52 | `v45_mk2_part2`、`v46_mk2_charge_fx`、`v47_lower_bullet_line`、`v48_bullet_ref_align`、`v49_load_track`、`v51_reload_3s`、`v52_mk1_bullet_ref_align` | 参考对位、蓄力五帧、弹道联动、装填收口、独立 3 秒（V50 纯配置无脚本） |
 
-> 脚本为**归档副本**：当年均在 `tmp-zzzd-skin-20260917\` 工作区执行（内含 `work\` 底稿与 `..\swf\` 相对路径），复现须按对应版本总结在工作区重建环境后运行。
+> 脚本为**归档副本**：当年均在 `D:\superalloy\TMP\端游目录整理\tmp-zzzd-skin-20260917\` 工作区执行（内含 `work\` 底稿与 `..\swf\` 相对路径），复现须按对应版本总结在工作区重建环境后运行。
 
 ## 预览与证据（`预览与证据/`）
 
