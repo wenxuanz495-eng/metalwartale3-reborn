@@ -14,7 +14,8 @@ bug 维护/
     ├── 守望者两项已入库改动被炽天使导入静默回退-20260915.md   炽天使导入用陈旧底稿静默回退shootPoint+30px与开火音f5两项已入库改动；已重放恢复（底稿哈希铁律沉淀），待实机确认
     ├── 黄金黑绳可被直接研发绕过核心获取-20260920.md   黄金深渊活动特判移除后getBuySite返回空+lv1价格20000残留，20000G币直接研发绕过战斗核心投放；已实施修复（getBuySite新增core渠道+研发界面core分支封禁按钮与硬拦截，modCraftFree保留豁免），待实机确认
     ├── VIP副本剩余时间退出仍触发冷却-20260920.md   closeLevel对VIP副本无条件startMapCooldown，提前退出剩余时间被清零且进入冷却；已实施修复（startMapCooldown增加mapTime<=0前置=冷却只属于耗尽，VipUI四处文案同步，补丁清单新登VipData/VipUI），待实机确认
-    └── 手游ui1120克隆符号丢SymbolClass类绑定致boot-fail卡fase屏-20260920.md   F-8第二刀烘焙克隆LifeBar(2110/2116)未继承类绑定，GamingUI强类型赋值抛#1034被boot-fail吞掉=卡fase无按钮；已实施修复（SymbolClass补绑2110/2116→UI.gaming.LifeBar），沉淀真机boot诊断路径（logcat末条业务trace→PC复现→GET /api/client-logs取栈），待真机确认
+    ├── 手游ui1120克隆符号丢SymbolClass类绑定致boot-fail卡fase屏-20260920.md   F-8第二刀烘焙克隆LifeBar(2110/2116)未继承类绑定，GamingUI强类型赋值抛#1034被boot-fail吞掉=卡fase无按钮；已实施修复（SymbolClass补绑2110/2116→UI.gaming.LifeBar），沉淀真机boot诊断路径（logcat末条业务trace→PC复现→GET /api/client-logs取栈），待真机确认
+    └── 手游HeroCarKey重写丢skillEnabled声明致教程技能教学卡死-20260920.md   54ccbe6采端游版重写HeroCarKey只回植门控读取丢声明，密封类写/读未声明属性抛#1056/#1069，教程skillShow写skillEnabled裸抛→FunGroup队头每帧异常→allTimer中断全场冻结（端游无此属性故PC不复现）；已实施修复（补回public var skillEnabled:Boolean=true一行，HeroCarKey已在补丁清单），回读FOUND双自检0，待真机确认
 ```
 
 ## 归档规则
