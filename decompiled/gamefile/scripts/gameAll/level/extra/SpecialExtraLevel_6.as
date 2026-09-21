@@ -69,6 +69,7 @@ package gameAll.level.extra
                   money0 = 1000;
                }
                items0 = Game.itemsGroup.addAddBall("money",money0,p0.x,p0.y - 500,Math.PI / 2,true,false);
+               items0.magnetForbidB = true;
                items0.mot.vymax = 100 / 30;
                items0.mot.vxmax = 200 / 30;
                ++this.coinNum0;
@@ -98,7 +99,6 @@ package gameAll.level.extra
       
       override public function timeTimer() : *
       {
-         var oneSence:OneSence = null;
          if(enabled && !failB)
          {
             if(now_t < 0)
@@ -108,11 +108,7 @@ package gameAll.level.extra
             }
             else
             {
-               oneSence = Game.oneScene;
-               if(oneSence.lockB)
-               {
-                  now_t -= 1 / 6;
-               }
+               now_t -= 1 / 6;
             }
             Game.uiGroup.gamingUI.timeLimit_txt.visible = true;
             Game.uiGroup.gamingUI.timeLimit_txt.text = this.getTimeLimitText();

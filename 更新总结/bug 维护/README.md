@@ -16,7 +16,8 @@ bug 维护/
     ├── VIP副本剩余时间退出仍触发冷却-20260920.md   closeLevel对VIP副本无条件startMapCooldown，提前退出剩余时间被清零且进入冷却；已实施修复（startMapCooldown增加mapTime<=0前置=冷却只属于耗尽，VipUI四处文案同步，补丁清单新登VipData/VipUI），待实机确认
     ├── 手游ui1120克隆符号丢SymbolClass类绑定致boot-fail卡fase屏-20260920.md   F-8第二刀烘焙克隆LifeBar(2110/2116)未继承类绑定，GamingUI强类型赋值抛#1034被boot-fail吞掉=卡fase无按钮；已实施修复（SymbolClass补绑2110/2116→UI.gaming.LifeBar），沉淀真机boot诊断路径（logcat末条业务trace→PC复现→GET /api/client-logs取栈），待真机确认
     ├── 手游HeroCarKey重写丢skillEnabled声明致教程技能教学卡死-20260920.md   54ccbe6采端游版重写HeroCarKey只回植门控读取丢声明，密封类写/读未声明属性抛#1056/#1069，教程skillShow写skillEnabled裸抛→FunGroup队头每帧异常→allTimer中断全场冻结（端游无此属性故PC不复现）；已实施修复（补回public var skillEnabled:Boolean=true一行，HeroCarKey已在补丁清单），回读FOUND双自检0，已关闭（用户实机验证通过：新手教程完整跑通）
-    └── 帝皇战车兑换扣款未获得-退款静默失效-端游同步-20260921.md   先扣款后校验前置 + 退款在"余额恰好等于价格"时静默失效（扣款把物品记录整条删除→getItemsByBase返回null→useItemsNum直接return false）致丢150荣誉勋章且无车；**手游侧同日修复后端游同步**（前置校验前移+单次抽奖+按支付类型对称退款与记录补建，补丁清单新登OneExchangeUI），待验证
+    ├── 帝皇战车兑换扣款未获得-退款静默失效-端游同步-20260921.md   先扣款后校验前置 + 退款在"余额恰好等于价格"时静默失效（扣款把物品记录整条删除→getItemsByBase返回null→useItemsNum直接return false）致丢150荣誉勋章且无车；**手游侧同日修复后端游同步**（前置校验前移+单次抽奖+按支付类型对称退款与记录补建，补丁清单新登OneExchangeUI），待验证
+    └── 金币空间清完怪无法结算-倒计时锁屏门控-端游同步-20260921.md   金币空间(4-1-5)倒计时被"场景锁oneSence.lockB"门控，清光敌人+发兵耗尽恰好解锁场景→倒计时永久停摆→never结算；**与手游同日修复**（去掉门控恢复无条件倒计时 + 新增 ItemsBody.magnetForbidB 自动收取黑名单使本关"非敌人掉落金币"不再被磁吸；补丁清单新登 SpecialExtraLevel_6/ItemsBody），待验证
 ```
 
 ## 归档规则

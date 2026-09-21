@@ -26,6 +26,7 @@ package items
       public var hitFloorDisappearB:Boolean = false;
       
       public var magnetB:Boolean = false;
+      public var magnetForbidB:Boolean = false;
       
       public function ItemsBody()
       {

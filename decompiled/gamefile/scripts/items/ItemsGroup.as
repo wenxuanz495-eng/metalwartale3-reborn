@@ -659,6 +659,10 @@ package items
       {
          var d0:ItemsDefine = null;
          var bag0:* = null;
+         if(items0.magnetForbidB)
+         {
+            return false;
+         }
          if(items0.label == "add")
          {
             if(items0.addType == "lifePer")
