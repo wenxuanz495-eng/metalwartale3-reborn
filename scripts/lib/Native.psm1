@@ -16,13 +16,15 @@ function Get-NativeTools {
   $jdk = Join-Path (Join-Path $workspaceRoot "air-mobile-tools") "jdk8\jdk8u502-b07"
   $compc = Join-Path (Join-Path $airSdk "bin") "compc.bat"
   $mxmlc = Join-Path (Join-Path $airSdk "bin") "mxmlc.bat"
-  foreach ($required in @($compc, $mxmlc, $jdk)) {
+  $amxmlc = Join-Path (Join-Path $airSdk "bin") "amxmlc.bat"
+  foreach ($required in @($compc, $mxmlc, $amxmlc, $jdk)) {
     if (-not (Test-Path -LiteralPath $required)) { throw "Native tool missing: $required (set AIR_SDK to override SDK path)" }
   }
   return @{
     AirSdk = $airSdk
     Compc = $compc
     Mxmlc = $mxmlc
+    Amxmlc = $amxmlc
     JavaHome = $jdk
   }
 }
@@ -87,6 +89,7 @@ function Build-NativePatch {
   try {
     $swcPath = Join-Path $temporaryDir $swcName
     $logPath = Join-Path $temporaryDir "compc.log"
+    $errorLog = Join-Path $buildDir "native-compile-error.log"
     $previousJava = $env:JAVA_HOME
     $env:JAVA_HOME = $tools.JavaHome
     # PS5.1 会把 native 命令的 stderr(编译警告)包装成终止错误,编译处局部降级,以退出码为准
@@ -105,7 +108,8 @@ function Build-NativePatch {
     }
     if ($LASTEXITCODE -ne 0) {
       Get-Content -LiteralPath $logPath | Select-Object -Last 40 | Write-Host
-      throw "Native patch compile failed (exit $LASTEXITCODE); full log: $logPath"
+      Copy-Item -LiteralPath $logPath -Destination (Join-Path $buildDir "native-compile-error.log") -Force
+      throw "Native patch compile failed (exit $LASTEXITCODE); full log: $errorLog"
     }
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $zip = [IO.Compression.ZipFile]::OpenRead($swcPath)
@@ -132,24 +136,34 @@ function Build-NativeLoader {
   )
   $RepoRoot = Initialize-ProjectEnvironment $RepoRoot
   $tools = Get-NativeTools $RepoRoot
-  $loaderSource = Join-Path (Join-Path $RepoRoot "native") "loader\DesktopLoader.as"
   $buildDir = Join-Path $RepoRoot "build"
   $nativeDir = $buildDir
   $cacheRoot = Join-Path (Join-Path $buildDir "cache") "native"
-  $output = Join-Path $nativeDir "loader.swf"
+  if ($Mobile) {
+    $loaderSource = Join-Path (Join-Path (Join-Path $RepoRoot "native") "loader") "air\AirLoader.as"
+    $compiler = $tools.Amxmlc
+    $compilerName = "amxmlc"
+    $artifact = "air-loader.swf"
+  } else {
+    $loaderSource = Join-Path (Join-Path (Join-Path $RepoRoot "native") "loader") "DesktopLoader.as"
+    $compiler = $tools.Mxmlc
+    $compilerName = "mxmlc"
+    $artifact = "loader.swf"
+  }
+  $output = Join-Path $nativeDir $artifact
   $define = Get-NativeDefineValue -Mobile:$Mobile
-  $cacheVersion = "native-loader-v1"
+  $cacheVersion = "native-loader-v2"
 
   New-Item -ItemType Directory -Force -Path $nativeDir | Out-Null
   $key = Get-SwfCacheKey @(
     $cacheVersion
     "define|CONFIG::MOBILE=$define"
     "source|$(Get-Sha256 $loaderSource)"
-    "mxmlc|$(Get-Sha256 $tools.Mxmlc)"
+    "compiler|$(Get-Sha256 $compiler)"
   )
   $cacheDir = Join-Path $cacheRoot "loader\$key"
-  if (-not $NoCache -and (Test-SwfCacheEntry $cacheDir $key "loader.swf")) {
-    Install-SwfArtifact (Join-Path $cacheDir "loader.swf") $output
+  if (-not $NoCache -and (Test-SwfCacheEntry $cacheDir $key $artifact)) {
+    Install-SwfArtifact (Join-Path $cacheDir $artifact) $output
     Write-Host "[CACHE] Native loader hit: $key"
     return
   }
@@ -157,14 +171,15 @@ function Build-NativeLoader {
   $temporaryDir = Join-Path $buildDir (".native-loader-" + [Guid]::NewGuid().ToString("N"))
   New-Item -ItemType Directory -Force -Path $temporaryDir | Out-Null
   try {
-    $loaderPath = Join-Path $temporaryDir "loader.swf"
-    $logPath = Join-Path $temporaryDir "mxmlc.log"
+    $loaderPath = Join-Path $temporaryDir $artifact
+    $logPath = Join-Path $temporaryDir "$compilerName.log"
+    $errorLog = Join-Path $buildDir "native-compile-error.log"
     $previousJava = $env:JAVA_HOME
     $env:JAVA_HOME = $tools.JavaHome
     $previousEap = $ErrorActionPreference
     $ErrorActionPreference = "Continue"
     try {
-      & $tools.Mxmlc `
+      & $compiler `
         -debug=true `
         -actionscript-file-encoding=UTF-8 `
         "-define+=CONFIG::MOBILE,$define" `
@@ -176,10 +191,11 @@ function Build-NativeLoader {
       $env:JAVA_HOME = $previousJava
     }
     if ($LASTEXITCODE -ne 0) {
+      Copy-Item -LiteralPath $logPath -Destination $errorLog -Force
       Get-Content -LiteralPath $logPath | Select-Object -Last 40 | Write-Host
-      throw "Native loader compile failed (exit $LASTEXITCODE); full log: $logPath"
+      throw "Native loader compile failed (exit $LASTEXITCODE); full log: $errorLog"
     }
-    Publish-SwfCacheEntry $cacheDir $key $loaderPath "loader.swf"
+    Publish-SwfCacheEntry $cacheDir $key $loaderPath $artifact
     Install-SwfArtifact $loaderPath $output
     Write-Host "[OK] Native loader: $(Get-Sha256 $output)"
   } finally {
@@ -238,8 +254,8 @@ function Build-Native {
     mobile = [bool]$Mobile
     define = "CONFIG::MOBILE=$define"
     baseline = $expected
-    patch = Get-Sha256 (Join-Path (Join-Path $buildDir "native") "patch.swf")
-    loader = Get-Sha256 (Join-Path (Join-Path $buildDir "native") "loader.swf")
+    patch = Get-Sha256 (Join-Path $buildDir "patch.swf")
+    loader = Get-Sha256 (Join-Path $buildDir $(if ($Mobile) { "air-loader.swf" } else { "loader.swf" }))
     builtAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
   }
   $info | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $buildDir "native-build-info.json") -Encoding utf8
