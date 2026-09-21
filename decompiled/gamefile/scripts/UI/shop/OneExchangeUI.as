@@ -17,6 +17,7 @@ package UI.shop
    import gameAll.data.ArmsItemsData;
    import gameAll.data.CarItemsData;
    import gameAll.data.GameData;
+   import gameAll.data.GoodsItemsDataGroup;
    import gameAll.data.car.CarDataCreator;
    import goods.ExchangeData;
    import goods.GoodsDefine;
@@ -84,6 +85,7 @@ package UI.shop
       private var _clockTick:int = 0;
       
       private var _tempDT:DataTag = null;
+      private var _tempMaxI:int = -1;
       
       public function OneExchangeUI()
       {
@@ -367,6 +369,14 @@ package UI.shop
                return;
             }
          }
+         if(gd.name == "帝皇战车" && !this.CheckCarHas("dihuang"))
+         {
+            if(!(this.CheckCarHas("dihu") && this.CheckCarHas("fengying") && this.CheckCarHas("heixi") && this.CheckCarHas("xueao") && this.CheckCarHas("yanlong")))
+            {
+               Game.uiGroup.checkTip.showCheck2("该物品需要集齐地虎,风鹰,黑犀,雪獒,炎龙5辆战车才能兑换!",1);
+               return;
+            }
+         }
          var surplusNum:int = 0;
          if(gd.type == "material" || gd.type == "crystal" || gd.type == "chip")
          {
@@ -382,6 +392,7 @@ package UI.shop
          d0[gtype] = dt.ed.EPayCount;
          d0.name = dt.ed.Name;
          this._tempDT = dt;
+         this._tempMaxI = maxI;
          Game.uiGroup.checkTip.showShopCheck(d0,this.onBuyClick,false,surplusNum);
       }
       
@@ -396,18 +407,23 @@ package UI.shop
          {
             return;
          }
-         var maxI:int = ed.DropProba.length - 1;
-         for(var i:int = ed.DropProba.length - 1; i >= 0; i--)
+         var maxI:int = this._tempMaxI;
+         this._tempMaxI = -1;
+         if(maxI < 0 || maxI >= ed.DropProba.length)
          {
-            if(ed.DropProba[i] > ed.DropProba[maxI])
+            maxI = ed.DropProba.length - 1;
+            for(var i:int = ed.DropProba.length - 1; i >= 0; i--)
             {
-               maxI = i;
-            }
-            ran = Math.random();
-            if(ran <= ed.DropProba[i])
-            {
-               maxI = i;
-               break;
+               if(ed.DropProba[i] > ed.DropProba[maxI])
+               {
+                  maxI = i;
+               }
+               ran = Math.random();
+               if(ran <= ed.DropProba[i])
+               {
+                  maxI = i;
+                  break;
+               }
             }
          }
          switch(ed.EPayType)
@@ -448,7 +464,7 @@ package UI.shop
                   {
                      Game.uiGroup.checkTip.showCheck2("该物品需要集齐地虎,风鹰,黑犀,雪獒,炎龙5辆战车才能兑换!",1);
                      this._tempDT.flag = 0;
-                     this.GD.propsItems.useItemsNum("justice_badge",-ed.EPayCount);
+                     this.refundPay(ed);
                      return;
                   }
                }
@@ -472,6 +488,55 @@ package UI.shop
          Game.SG.playSound("buyItems");
          Game.uiGroup.shopUI.fleshPrice();
          Game.uiGroup.infoUI.fleshData();
+      }
+      
+      private function refundPay(ed:ExchangeData) : Boolean
+      {
+         if(ed == null)
+         {
+            return false;
+         }
+         if(ed.EPayType == "金币")
+         {
+            Game.gameData.addCoin(Math.ceil(Game.gameData.vipData.discount * ed.EPayCount));
+            return true;
+         }
+         if(ed.EPayType == "超合金X")
+         {
+            return this.refundItems(this.GD.materialsItems,"superalloy_X",ed.EPayCount);
+         }
+         if(ed.EPayType == "超合金Y")
+         {
+            return this.refundItems(this.GD.materialsItems,"superalloy_Y",ed.EPayCount);
+         }
+         if(ed.EPayType == "荣誉勋章")
+         {
+            return this.refundItems(this.GD.propsItems,"justice_badge",ed.EPayCount);
+         }
+         trace("兑换退款失败：未知支付类型 " + ed.EPayType);
+         return false;
+      }
+      
+      private function refundItems(group:GoodsItemsDataGroup, baseName:String, num0:int) : Boolean
+      {
+         if(num0 <= 0)
+         {
+            return false;
+         }
+         if(group == this.GD.materialsItems && Game.gameData.modCraftFree)
+         {
+            return true;
+         }
+         if(group.getItemsByBase(baseName,0) == null)
+         {
+            trace("兑换退款补建：" + baseName + " x" + num0 + "（原记录已被扣空删除）");
+         }
+         if(group.addItems(baseName,num0,0,false) == null)
+         {
+            trace("兑换退款失败：背包无空位 " + baseName + " x" + num0);
+            return false;
+         }
+         return true;
       }
       
       private function CheckCarHas(id:String) : Boolean

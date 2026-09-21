@@ -125,3 +125,4 @@ gameAll\honor\HonorData.as
 body\bullet\OneBulletBody.as
 gameAll\vip\VipData.as
 UI\vip\VipUI.as
+UI\shop\OneExchangeUI.as
