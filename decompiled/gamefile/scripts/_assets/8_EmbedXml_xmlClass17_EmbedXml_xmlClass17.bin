@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data>
+	<EItem Id="1" Name="1级等级礼包" Condition="1" NeedBag="5" Group="GCoin_card_3,黑色Smart,superalloy_Z,superalloy,boom_1,thorn_1,buncher_1" Num="5,1,20,50,50,50,50"/>
+	<EItem Id="2" Name="10级等级礼包" Condition="10" NeedBag="3" Group="GCoin_card_3,黑色迷你酷派,orange_chip,disassemble,superalloy_X" Num="5,1,2,2,10"/>
+	<EItem Id="3" Name="20级等级礼包" Condition="20" NeedBag="6" Group="GCoin_card_3,大黄蜂,purple_crystal_4,green_crystal_4,red_crystal_4,yellow_crystal_4,disassemble,superalloy_X" Num="5,1,2,2,2,2,2,20"/>
+	<EItem Id="4" Name="30级等级礼包" Condition="30" NeedBag="3" Group="GCoin_card_3,保时捷,orange_chip,disassemble,superalloy_X" Num="5,1,2,2,40"/>
+	<EItem Id="5" Name="40级等级礼包" Condition="40" NeedBag="6" Group="GCoin_card_3,法拉利,purple_crystal_4,green_crystal_4,red_crystal_4,yellow_crystal_4,disassemble,superalloy_X" Num="5,1,2,2,2,2,2,80"/>
+	<EItem Id="6" Name="50级等级礼包" Condition="50" NeedBag="3" Group="GCoin_card_4,布加迪威龙,green_chip,disassemble,superalloy_X" Num="5,1,2,2,120"/>
+	<EItem Id="7" Name="60级等级礼包" Condition="60" NeedBag="6" Group="GCoin_card_4,红龙,purple_crystal_5,green_crystal_5,red_crystal_5,yellow_crystal_5,disassemble,superalloy_X" Num="5,1,2,2,2,2,2,160"/>
+	<EItem Id="8" Name="70级等级礼包" Condition="70" NeedBag="3" Group="GCoin_card_4,穿梭者,green_chip,disassemble,superalloy_X" Num="5,1,2,2,200"/>
+	<EItem Id="9" Name="80级等级礼包" Condition="80" NeedBag="6" Group="GCoin_card_4,幻想,purple_crystal_5,green_crystal_5,red_crystal_5,yellow_crystal_5,disassemble,superalloy_X" Num="5,1,2,2,2,2,2,240"/>
+	<EItem Id="10" Name="90级等级礼包" Condition="90" NeedBag="3" Group="GCoin_card_4,深空战士,green_chip,disassemble,superalloy_X" Num="5,1,2,10,500"/>
+	<EItem Id="11" Name="95级等级礼包" Condition="95" NeedBag="6" Group="GCoin_card_4,仿制帝皇战车,purple_crystal_5,green_crystal_5,red_crystal_5,yellow_crystal_5,disassemble,superalloy_X" Num="10,1,2,2,2,2,10,500"/>
+	<EItem Id="12" Name="100级等级礼包" Condition="100" NeedBag="6" Group="GCoin_card_4,green_crystal_6,red_crystal_6,yellow_crystal_6,disassemble_2,superalloy_X" Num="10,3,3,3,10,500"/>
+</data>

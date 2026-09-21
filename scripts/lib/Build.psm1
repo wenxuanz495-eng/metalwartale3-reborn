@@ -453,4 +453,4 @@ function Invoke-SourceBaselineAudit {
   if ($failed) { throw "Source baseline audit had $failed compile failures" }
 }
 
-Export-ModuleMember -Function Initialize-ProjectEnvironment, Get-Sha256, Invoke-External, Build-Server, Build-Swf, Invoke-BatStep, Build-All, Invoke-SourceBaselineAudit
+Export-ModuleMember -Function Initialize-ProjectEnvironment, Get-Sha256, Get-StringSha256, Get-SwfCacheKey, Test-SwfCacheEntry, Publish-SwfCacheEntry, Install-SwfArtifact, Invoke-External, Build-Server, Build-Swf, Invoke-BatStep, Build-All, Invoke-SourceBaselineAudit

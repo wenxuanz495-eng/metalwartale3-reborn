@@ -1,0 +1,1434 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<scene index="0" id="mothership">
+		<sceneName>航母</sceneName>
+		<sceneImgLable>scene_mothership/scene</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_evening">
+		<sceneName>航母-傍晚</sceneName>
+		<sceneImgLable>scene_mothership/evening</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_morning">
+		<sceneName>航母-清晨</sceneName>
+		<sceneImgLable>scene_mothership/morning</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_long">
+		<sceneName>航母-长</sceneName>
+		<sceneImgLable>scene_mothership/morning_long</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>8158,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>8400</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,8600,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>8400</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership2">
+		<sceneName>航母-破旧</sceneName>
+		<sceneImgLable>scene_mothership/scene2</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_evening2">
+		<sceneName>航母-傍晚-破旧</sceneName>
+		<sceneImgLable>scene_mothership/evening2</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_morning2">
+		<sceneName>航母-清晨-破旧</sceneName>
+		<sceneImgLable>scene_mothership/morning2</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_know">
+		<sceneName>航母-清晨-破旧</sceneName>
+		<sceneImgLable>scene_mothership/scene_know</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="0" id="mothership_ghost">
+		<sceneName>航母-幽灵</sceneName>
+		<sceneImgLable>scene_mothership/ghost</sceneImgLable>
+		<moveRectArr>300,-1890,100,2340</moveRectArr>
+		<moveRectArr>5321,-1890,100,2340</moveRectArr>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>5700</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>-400,-400,6100,940</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>5700</width>					<!-- 层本身的高宽-->
+			<height>560</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	
+	
+	
+	<scene index="1" id="ruins">
+		<sceneName>废墟</sceneName>
+		<sceneImgLable>scene_ruins/scene</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>14300</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,14300,1100</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>car1,car2,car3,car4,car5,oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>14300</width>					<!-- 层本身的高宽-->
+			<height>312</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>218</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1200</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="1" id="ruins_morning">
+		<sceneName>废墟-清晨</sceneName>
+		<sceneImgLable>scene_ruins/morning</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>14300</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,14300,1100</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>car1,car2,car3,car4,car5,oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>14300</width>					<!-- 层本身的高宽-->
+			<height>312</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>218</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1200</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="1" id="ruins_morning2">
+		<sceneName>废墟-清晨</sceneName>
+		<sceneImgLable>scene_ruins/morning2</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>14300</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,14300,1100</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>car1,car2,car3,car4,car5,oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>14300</width>					<!-- 层本身的高宽-->
+			<height>312</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>218</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1200</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="1" id="ruins_know">
+		<sceneName>废墟-清晨</sceneName>
+		<sceneImgLable>scene_ruins/scene_know</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>14300</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,14300,1100</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>car1,car2,car3,car4,car5,oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>14300</width>					<!-- 层本身的高宽-->
+			<height>312</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>218</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="1" id="ruins_space">
+		<sceneName>废墟-宇宙</sceneName>
+		<sceneImgLable>scene_ruins/space</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>14300</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,14300,1100</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>car1,car2,car3,car4,car5,oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>14300</width>					<!-- 层本身的高宽-->
+			<height>312</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>218</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="1" id="ruins_ghost">
+		<sceneName>废墟-幽灵行动</sceneName>
+		<sceneImgLable>scene_ruins/ghost</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>14300</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,14300,1100</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>car1,car2,car3,car4,car5,oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>14300</width>					<!-- 层本身的高宽-->
+			<height>312</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>218</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	
+	
+	
+	<scene index="2" id="city">
+		<sceneName>大都会</sceneName>
+		<sceneImgLable>scene_city/scene</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>13460</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,13460,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>13460</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>296</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="city2">
+		<sceneName>大都会2</sceneName>
+		<sceneImgLable>scene_city/scene2</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>13460</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,13460,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>13460</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>296</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="city3">
+		<sceneName>大都会3</sceneName>
+		<sceneImgLable>scene_city/scene3</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>13460</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,13460,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>13460</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>296</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="city_know">
+		<sceneName>大都会3</sceneName>
+		<sceneImgLable>scene_city/scene_know</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>13460</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,13460,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>13460</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>296</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<!-- 裂缝关卡-->
+	<scene index="2" id="city_crack">
+		<sceneName>大都会-裂缝</sceneName>
+		<sceneImgLable>scene_city/scene_crack</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>13460</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,13460,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>13460</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>296</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.05</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="city_ghost">
+		<sceneName>大都会3</sceneName>
+		<sceneImgLable>scene_city/ghost</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>13460</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,13460,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->
+			<width>13460</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>296</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	
+	
+	
+	<scene index="2" id="base">
+		<sceneName>基地</sceneName>
+		<sceneImgLable>scene_base/scene</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11970</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11970,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11970</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="base2">
+		<sceneName>基地2</sceneName>
+		<sceneImgLable>scene_base/scene2</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11970</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11970,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+			
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11970</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="base3">
+		<sceneName>基地3</sceneName>
+		<sceneImgLable>scene_base/scene3</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11970</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11970,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11970</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="base4">
+		<sceneName>基地4</sceneName>
+		<sceneImgLable>scene_base/scene4</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11970</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11970,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11970</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="base_know">
+		<sceneName>基地3</sceneName>
+		<sceneImgLable>scene_base/scene_know</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11970</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11970,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11970</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="base_ghost">
+		<sceneName>幽灵</sceneName>
+		<sceneImgLable>scene_base/ghost</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11970</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11970,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11970</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.8</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	
+	
+	
+	<scene index="2" id="moon">
+		<sceneName>月面</sceneName>
+		<sceneImgLable>scene_moon/scene</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>15790</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,15790,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>15790</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="moon2">
+		<sceneName>月面</sceneName>
+		<sceneImgLable>scene_moon/scene2</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>15790</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,15790,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>15790</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="moon3">
+		<sceneName>月面</sceneName>
+		<sceneImgLable>scene_moon/scene3</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>15790</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,15790,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>15790</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1000</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="moon_know">
+		<sceneName>月面</sceneName>
+		<sceneImgLable>scene_moon/scene_know</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>15790</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,15790,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>15790</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1600</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>640</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="moon_ghost">
+		<sceneName>月面</sceneName>
+		<sceneImgLable>scene_moon/ghost</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>10588</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-930,10588,1900</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr>oil_box1,oil_box2,oil_box3,oil_box4,oil_box5</thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>15790</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>325</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>576</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	
+	
+
+	<!-- 外星-->
+	<scene index="2" id="alien">
+		<sceneName>外星</sceneName>
+		<sceneImgLable>scene_alien/scene</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11280</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11280,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11280</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		
+		<level>
+			<mcName>back2</mcName>
+			<width>1920</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>960</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="alien2">
+		<sceneName>外星</sceneName>
+		<sceneImgLable>scene_alien/scene2</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11280</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11280,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11280</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		
+		<level>
+			<mcName>back2</mcName>
+			<width>1920</width>					<!-- 层本身的高宽-->
+			<height>410</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>960</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="alien3">
+		<sceneName>外星3</sceneName>
+		<sceneImgLable>scene_alien3/scene3</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11286</sceneWidth>
+		<sceneHeight>1110</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11280,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11286</width>					<!-- 层本身的高宽-->
+			<height>1110</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1920</width>					<!-- 层本身的高宽-->
+			<height>367</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1344</width>					<!-- 层本身的高宽-->
+			<height>653</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="alien4">
+		<sceneName>外星</sceneName>
+		<sceneImgLable>scene_alien2/scene</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11280</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11280,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11280</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+
+		<level>
+			<mcName>back</mcName>
+			<width>960</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+	<scene index="2" id="alien5">
+		<sceneName>外星</sceneName>
+		<sceneImgLable>scene_alien2/scene2</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>11280</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,11280,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>11280</width>					<!-- 层本身的高宽-->
+			<height>441</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+
+		<level>
+			<mcName>back</mcName>
+			<width>960</width>					<!-- 层本身的高宽-->
+			<height>600</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>	
+
+	<scene index="2" id="moon3_1">
+		<sceneName>月面3-1</sceneName>
+		<sceneImgLable>scene_moon3/scene_1</sceneImgLable>
+		<hitLevelName>hitRect</hitLevelName><!-- 碰撞层mc名称， 碰撞层在sceneImgLable内-->
+		<sceneWidth>15796</sceneWidth>
+		<sceneHeight>1000</sceneHeight>
+		<viewWidth>960</viewWidth>				<!-- 视野高宽-->
+		<viewHeight>560</viewHeight>				
+		<viewRangeRect>0,-530,15790,1500</viewRangeRect>	<!-- 视野范围，单位怎么移动都不会超过这个范围-->
+		
+		<thingsArr></thingsArr>	
+		<level>
+			<mcName>floor</mcName>				<!-- 层实例名称【必备】-->  
+			<width>15796</width>					<!-- 层本身的高宽-->
+			<height>842</height>
+			<gameLevel>back</gameLevel>			<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>1</moveRateX>			<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>1</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕--> 
+		</level>
+		<level>
+			<mcName>back3</mcName>
+			<width>2400</width>					<!-- 层本身的高宽-->
+			<height>331</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.5</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back2</mcName>
+			<width>1598</width>					<!-- 层本身的高宽-->
+			<height>253</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>0.3</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+		<level>
+			<mcName>back</mcName>
+			<width>1024</width>					<!-- 层本身的高宽-->
+			<height>602</height>
+			<gameLevel>back</gameLevel>		<!-- 加载在游戏中哪一层【必备】-->
+			<moveRateX>full</moveRateX>		<!-- X轴移动倍率，如果是 full 则是铺满屏幕-->
+			<moveRateY>full</moveRateY>			<!-- Y轴移动倍率，如果是 full 则是铺满屏幕-->
+		</level>
+	</scene>
+</data>

@@ -66,3 +66,51 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts\dev.ps1 audit       
    `.gitattributes` 归一化在此一次性切换。
 3. **收尾期**：移植 `Release.psm1` 发布链并替换 `build_release.bat` 一族，
    归档旧的 verify_phase*.bat 中被 v2 覆盖的部分。
+
+## 原生链（2b/2c，2026-09-22 起本分支新增）
+
+架构决策（FFDec 构建链退役）由 2026-09-21 可行性研究裁定：源码树经 AIR SDK 编译器
+（Harman AIRSDK 50.2.4.1 内置 mxmlc/compc，Apache Flex 编译器）全量编译实测 0 错误
+（3 处反编译缺陷修复 + 21 个 [Embed] 资产摆位后），spike 记录见 `TMP\air-compile-spike-20260921`。
+
+### 架构
+
+```text
+DesktopLoader.swf（mxmlc，入口）
+  1. Loader.load patch.swf      → ApplicationDomain.currentDomain（mxmlc 全量编译 668 类，先到先得）
+  2. Loader.load game-baseline.swf → 同域；基线的重复类定义被运行时静默丢弃，只出资产与符号绑定
+```
+
+机制依据：同 ApplicationDomain 内同名定义先加载者胜、后到者静默丢弃
+（2026-09-22 adl 微测试双证据：域内 getDefinition 与后载 SWF 文档类实例化均取先载版本）。
+基线从此只承担资产/符号/时间轴，其 SHA256 门禁（swf-baseline.sha256）直接约束运行时分发物。
+
+### 命令与产物
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\dev.ps1 native            # 桌面目标 CONFIG::MOBILE=false
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\dev.ps1 native -Mobile    # 手游目标 CONFIG::MOBILE=true
+scripts\launch_native.bat          # 复用 launch_game.bat 机制，ENTRY_PATH=loader.swf
+```
+
+产物：`build\patch.swf`、`build\loader.swf`、`build\game-baseline.swf`、`build\native-build-info.json`；
+缓存 `build\cache\native\`（键=全树每文件 SHA256+编译器+define，任何输入变动即失效）。
+
+### 新链验证体系（替代旧字节比对）
+
+| 验证 | 证明内容 | 状态 |
+|---|---|---|
+| compc 全量编译 0 错误 | 668 类在真编译器下类型/语法完备 | 已实现（构建门禁） |
+| BinaryData 回读 21/21 字节一致 | EmbedXml 21 类嵌入数据与源 .bin 等价（按内容哈希集合比对） | 已实现（构建门禁） |
+| FP/真机冒烟（资源加载序列 + client-errors） | 引导与运行行为 | 已通过（2026-09-22 debug player，全资源加载零错误） |
+| 黄金存档/版本回归 | 行为级等价 | 沿用现有流程 |
+
+### 新链相对旧链的语义变化（有意为之）
+
+- `swf-script-patches.txt` 等 5 份 FFDec 补丁清单退役为审计历史；patch.swf 编译全树，
+  **decompiled 树内所有文件都是活的**（旧链"漏登记不生效"的保护由 git 纪律 + 构建门禁替代）。
+- 21 个 EmbedXml 类改走真 [Embed]（源码 `_assets\` 摆位）；`swf-binary-patches.txt` 的
+  7 项替换随之失效（数据从 patch.swf 提供）。EmbedXml + AllBack/SoundGroup 的反编译缺陷
+  已在源码层修复入库（2026-09-22 提交）。
+- Game.as（原 risky 类）在 mxmlc 下按源码编译，其与原 ABC 的行为等价由冒烟/回归承担；
+  原 P-code 审批机制（swf-risk-approvals.txt）不再适用于新链产物。

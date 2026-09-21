@@ -29,6 +29,8 @@ set "PORT="
 set /a PORT_START=52000 + !RANDOM! %% 12000
 set /a PORT_END=PORT_START + 40
 set "INSTANCE_TOKEN=%RANDOM%%RANDOM%%RANDOM%"
+rem Native-chain entry override (launch_native.bat sets ENTRY_PATH=loader.swf); default keeps BAT-chain behavior
+if not defined ENTRY_PATH set "ENTRY_PATH=game.swf"
 
 if /i "%PLAYER_TYPE%"=="sa" (
   if exist "%REPO_ROOT%\tools\runtime\FlashPlayer.exe" set "PLAYER=%REPO_ROOT%\tools\runtime\FlashPlayer.exe"
@@ -38,7 +40,7 @@ if /i "%PLAYER_TYPE%"=="sa_debug" (
 )
 
 if not exist "%SERVER%" goto missing_build
-if not exist "%GAME%" goto missing_build
+if not exist "%GAME%" if not exist "%BUILD_DIR%\game-baseline.swf" goto missing_build
 if not defined PLAYER goto missing_player
 if /i "%PLAYER_TYPE%"=="sa" call :verify_cleanflash
 if errorlevel 1 exit /b %ERRORLEVEL%
@@ -92,7 +94,7 @@ if defined SMOKE_ONLY (
   echo [OK] Pure BAT game server smoke test passed.
   exit /b 0
 )
-"%PLAYER%" "http://127.0.0.1:!PORT!/game.swf?localrun=!RANDOM!!RANDOM!"
+"%PLAYER%" "http://127.0.0.1:!PORT!/!ENTRY_PATH!?localrun=!RANDOM!!RANDOM!"
 set "GAME_ERROR=!ERRORLEVEL!"
 curl.exe --silent --fail --max-time 2 -X POST "http://127.0.0.1:!PORT!/api/shutdown" >nul 2>nul
 for /l %%W in (1,1,20) do (

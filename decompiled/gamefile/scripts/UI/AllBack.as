@@ -1138,7 +1138,7 @@ package UI
          var old:Shape = row.getChildByName("playlistSelection") as Shape;
          if(old != null) row.removeChild(old);
          if(!selected) return;
-         var border:Shape = new Shape();
+         var border:Sprite = new Sprite();
          border.name = "playlistSelection";
          border.graphics.lineStyle(2,16776960,1);
          border.graphics.drawRect(1,1,758,30);

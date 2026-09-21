@@ -381,16 +381,16 @@ package sound
          this.playDeathSound(this.environmentBreakSound);
       }
 
-      private function playDeathSound(sound:Sound) : *
+      private function playDeathSound(snd:Sound) : *
       {
-         if(sound == null)
+         if(snd == null)
          {
             this.loadBattleSounds();
             return;
          }
          try
          {
-            sound.play(0,1,new SoundTransform(this.effectsVolume * this.deathExplosionVolume));
+            snd.play(0,1,new SoundTransform(this.effectsVolume * this.deathExplosionVolume));
          }
          catch(error:Error)
          {

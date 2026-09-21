@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<father>sub</father>
+	<car index="0" id="sub">
+						<name>浮游战机</name>
+						<type>无</type>
+						<description>无。</description>
+						<imgLabel>sub</imgLabel>
+	</car>
+</data>
