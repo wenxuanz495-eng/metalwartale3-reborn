@@ -1,0 +1,24 @@
+[alloc] 当前文件全局最大 ID 2935，新 ID 从 2936 起
+[closure] 2.5 闭包 45 项；3.4 闭包 75 项
+[alloc] 25 音 #361 -> 2965
+[dedupe] 34 音 #359 与已分配音同内容 -> 复用新 ID 2965（不重复导入）
+[alloc] 新 ID 区间 2936..3054
+[alloc] 开火音(2.5#361=3.4#359 同内容) -> 2965
+[imports] 2.5 45 项 + 3.4 74 项（去重后）
+[body] 785 <- 34 #618 (fc=30)
+[body] 782 <- 34 #585 (fc=30)
+[body] 776 <- 25 #376 (fc=30)
+[body] 773 <- 25 #373 (fc=30)
+[body] 770 <- 25 #370 (fc=30)
+[bullet] 750 <- 25 #349 (fc=7, scale=0.8)
+[bullet] 748 <- 25 #349 (fc=7, scale=0.8)
+[bullet] 746 <- 25 #349 (fc=7, scale=1.0)
+[bullet] 744 <- 25 #349 (fc=7, scale=1.0)
+[bullet] 742 <- 25 #341 (fc=7, scale=1.0)
+[bullet-scaled] 740 <- 2.5 #341 x1.30 (fc=7)
+[bullet-scaled] 739 <- 2.5 #341 x1.30 (fc=7)
+[surgery] 767: 保留本体 766+锚点，插入 2.5 lv3 特效层(depth 2/6/8)
+[surgery] 764: 保留本体 752+锚点，插入 2.5 lv3 特效层(depth 2/6/8)
+[apply] 14 处替换完成
+[imports] 插入 119 项闭包
+[done] sub1130-merged.xml written
