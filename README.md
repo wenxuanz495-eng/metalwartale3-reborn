@@ -4,7 +4,7 @@
 本地 Go 服务承载静态资源与权威存档，Flash Player 34 本地运行，登录/支付/远程存档全部离线化，
 并持续从原版 2.5 / 3.4 回迁老武器特效。
 
-> 当前处于 **3.0"抢劫版"开发期**；最新发行：**3.0"抢劫版"Alpha**（tag `v3.0.0-alpha`，GitHub Releases 完整/迷你双包 + `.sha256.txt` 校验件；玩家可见变更见发行包 `游戏更新公告.txt`）。
+> 当前处于 **3.0"抢劫版"开发期**；最新发行：**3.0.4**（2026-09-21，tag `v3.0.4`，GitHub Releases 完整/迷你双包 + 各 `.sha256.txt` 校验件；此前为 3.0"抢劫版"Alpha / `v3.0.0-alpha`；玩家可见变更见发行包 `游戏更新公告.txt`，版本对照见 `更新总结\版本索引.md`）。
 > 开发前沿 = 本仓库 main 分支。
 
 ## 运行架构
@@ -40,9 +40,9 @@ Flash Player SA 34（仓库自带，SHA-256 校验）
 | 配置与清单 | [`config/`](config/) | 构建基线（`swf\baselines\`）、脚本/二进制补丁清单、资源哈希清单 |
 | 构建与装包 | [`构建.bat`](构建.bat)（全量构建：服务端+启动器+game.swf+运行时）、[`scripts/`](scripts/)（含 `build_player_packages.bat` 发布装包、`check_release.bat` 发布校验） | 构建自检一条龙 |
 | 工程文档 | [`docs/`](docs/) | 架构、规则、路线图、构建规范（建议阅读顺序见 [`docs/README.md`](docs/README.md)） |
-| 更新与 bug 记录 | [`更新总结/`](更新总结/) | 按版本/家族归档的更新总结、武器特效回迁专项、bug 维护（建议先读 [`更新总结/README.md`](更新总结/README.md)） |
+| 更新与 bug 记录 | [`更新总结/`](更新总结/) | 按版本/家族归档的更新总结（`版本更新总结/`＋`版本索引.md`）、武器家族 2.5/3.4 特效回迁专项（`武器家族内容/`）、功能性更新、bug 维护、未完成重点任务（建议先读 [`更新总结/README.md`](更新总结/README.md)） |
 | 存档 | `build\saves\` | 权威存档区（本地生成），五件套：`game_save.bin` 权威档、`game_save.last-good.bin` 最后良好档（新档解析失败自动回滚到它）、`yagao.json` 可读 JSON 镜像、`saves.db` SQLite 历史版本库、`backups\` 修改器/兼容迁移前自动快照；首跑无档时从 `build\swf\empty-save-template.bin` 播种空白档。根目录 `saves\` 为 1.x 时代旧存档位（已停用仅留存）：现存 7 月历史快照与 2026-09-15 验证会话的 `build\saves\` 完整副本 |
-| 历史与杂项 | `archive/`（含 `root-legacy-20260915\`：根目录历史重复/废弃脚本与校验残留归档）、`assets/`（装包 UI 素材）、`AGENTS.md`（AI 协作规则，自身已标注过时） | 历史产物归档 |
+| 协作与红线 | `AGENTS.md`（AI 与协作者的项目宪法/红线，动手前必读；文档全量索引见 `docs\README.md`）；`archive/`（含 `root-legacy-20260915\`：根目录历史重复/废弃脚本与校验残留归档）、`assets/`（装包 UI 素材） | 规则与历史产物 |
 
 ## 音乐系统（BGM 歌单引擎）
 
@@ -62,10 +62,12 @@ Flash Player SA 34（仓库自带，SHA-256 校验）
 
 ## 文档导航
 
-1. [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md) —— 已实现能力与现状
-2. [`docs/OFFLINE_ARCHITECTURE.md`](docs/OFFLINE_ARCHITECTURE.md) —— Flash + Go 服务 + 存档如何配合
-3. [`docs/SEAL_RULES.md`](docs/SEAL_RULES.md) —— 海豹版最终玩法规则（SSOT）
-4. [`docs/GAMEPLAY_RULES.md`](docs/GAMEPLAY_RULES.md) / [`docs/ROADMAP.md`](docs/ROADMAP.md) / [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md)
+> docs 已按分区重组（build / runtime / gameplay / status / postmortems / guides / baselines），全量索引见 [`docs/README.md`](docs/README.md)。
+
+1. [`docs/status/PROJECT_STATUS.md`](docs/status/PROJECT_STATUS.md) —— 已实现能力与现状
+2. [`docs/runtime/OFFLINE_ARCHITECTURE.md`](docs/runtime/OFFLINE_ARCHITECTURE.md) —— Flash + Go 服务 + 存档如何配合
+3. [`docs/gameplay/SEAL_RULES.md`](docs/gameplay/SEAL_RULES.md) —— 海豹版最终玩法规则（SSOT）
+4. [`docs/gameplay/GAMEPLAY_RULES.md`](docs/gameplay/GAMEPLAY_RULES.md) / [`docs/gameplay/ROADMAP.md`](docs/gameplay/ROADMAP.md) / [`docs/build/DEVELOPMENT.md`](docs/build/DEVELOPMENT.md)
 5. [`更新总结/README.md`](更新总结/README.md) —— 所有更新的任务总结索引（版本 / 武器家族 / bug 维护）
 
 ## 维护约定（摘要）

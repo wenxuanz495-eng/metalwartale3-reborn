@@ -27,7 +27,7 @@ tools/             本地工具链（Flash Player SA、Debug Player、FFDec CLI 
 build/             构建产物输出目录（git 忽略，本地重建）
 runtime/           已弃用为主运行路径；保留玩家说明文档与旧入口
 archive/           旧构建脚本归档（只读）
-功能总结/           功能开发记录（已完成/未完成事项）
+更新总结/           所有更新的任务总结（版本 / 武器家族 / bug 维护 / 未完成重点任务）
 *.bat / *.exe      玩家入口，见红线第 2 条
 ```
 
@@ -36,7 +36,7 @@ archive/           旧构建脚本归档（只读）
 1. **构建唯一入口**：`构建.bat`（`build.bat` 为内容相同的孪生副本；内部为 `scripts\build_all.bat`）。禁止运行旧 `scripts\build_swf.ps1`，禁止从任何发行目录复制 `game.swf`。见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)。
 2. **根目录 .bat 与 exe 是玩家入口**：不移动、不重命名、不合并、不「整理」。`.bat` 文件保持 CRLF 行尾与 ASCII 内容（`.gitattributes` 强制 `*.bat text eol=crlf`）。
 3. **修改武器弹速字段前必读** [docs/guides/AI武器弹速维护提示.md](docs/guides/AI武器弹速维护提示.md)：不能只改 `bulletSpeed`，改后必须同步 [docs/baselines/](docs/baselines/) 名单，并从最终 `build\game.swf` 导出 BinaryData 核对。
-4. **改 UI / 构造函数 / 启动期初始化后卡在旧加载界面 = AS 运行时异常**：按根目录[【重要必读】修改UI后卡在旧加载界面.md](【重要必读】修改UI后卡在旧加载界面.md) 排查（flashlog.txt 与 `build\saves\client_errors.log`，搜 `boot-fail`、`Error #2008`），完整手册见 docs/postmortems/。
+4. **改 UI / 构造函数 / 启动期初始化后卡在旧加载界面 = AS 运行时异常**：按 [docs/【重要必读】修改UI后卡在旧加载界面.md](docs/【重要必读】修改UI后卡在旧加载界面.md) 排查（flashlog.txt 与 `build\saves\client_errors.log`，搜 `boot-fail`、`Error #2008`），完整手册见 docs/postmortems/。
 5. **FFDec 重编译存在已知控制流回归**（ch1-5 卡死）：复杂控制流先读 [docs/postmortems/FFDEC_CONTROL_FLOW_REGRESSION.md](docs/postmortems/FFDEC_CONTROL_FLOW_REGRESSION.md)，高风险类完成 P-code 审批。
 6. **改动与文档同步**：修改行为必须同步更新对应 docs 文档；只改代码不更文档视为未完成。
 7. **只读与谨慎区**：`archive/` 只读（旧构建遗留）；`decompiled/` 谨慎修改，必须走 FFDec 重编译流程并验证；`swf/` 是资源 SSOT，禁止不可追踪的二进制修改。
