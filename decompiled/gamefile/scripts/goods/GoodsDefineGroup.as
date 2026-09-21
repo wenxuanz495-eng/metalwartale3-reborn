@@ -557,12 +557,14 @@ private function getCustomWeaponPrice(label0:String) : int
                      {
                         goods0 = this.switchArms([d0],"arms","Mprice")[0];
                         goods0.Mprice = this.getCustomWeaponPrice(d0.getLabel());
+                        goods0.priceLevel = goods0.Mprice;
                         this.arms.push(goods0);
                      }
                      else if(d0.father == "sub" && this.findGoods_inArr(this.sub,d0.getLabel()) == null)
                      {
                         goods0 = this.switchArms([d0],"sub","Mprice")[0];
                         goods0.Mprice = this.getCustomWeaponPrice(d0.getLabel());
+                        goods0.priceLevel = goods0.Mprice;
                         this.sub.push(goods0);
                      }
                      break;
@@ -580,6 +582,7 @@ private function getCustomWeaponPrice(label0:String) : int
                if(this.getCarDisplayLevel(car0) > 7)
                {
                   goods0.Mprice = this.getCustomCarPrice(car0.id);
+                  goods0.priceLevel = goods0.Mprice;
                }
                this.car.push(goods0);
             }
@@ -611,6 +614,7 @@ private function getCustomWeaponPrice(label0:String) : int
                {
                   goods0 = this.switchArms([d0],type0,"Mprice")[0];
                   goods0.Mprice = defaultMPrice;
+                  goods0.priceLevel = goods0.Mprice;
                   target.push(goods0);
                }
             }
@@ -631,6 +635,7 @@ private function getCustomWeaponPrice(label0:String) : int
                {
                   goods0 = this.switchCar([d0],"car","Mprice")[0];
                   goods0.Mprice = defaultMPrice;
+                  goods0.priceLevel = goods0.Mprice;
                   this.car.push(goods0);
                }
             }
@@ -729,6 +734,7 @@ private function getCustomWeaponPrice(label0:String) : int
                {
                   goods0 = this.switchCar([car0],"car","Mprice")[0];
                   goods0.Mprice = prices[n];
+                  goods0.priceLevel = goods0.Mprice;
                   goods0.discount = 0;
                   this.car.push(goods0);
                }
