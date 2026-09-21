@@ -1929,7 +1929,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：白金战车。“巅峰”战队队长，巅峰之上，一览纵山小。 </description>
+							<description>“巅峰”战队队长，巅峰之上，一览纵山小。 </description>
 							<imgLabel>platinumChariots</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -1953,7 +1953,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：Vincent。汽车人的首领，卓越的领导才能和善良的心，为自由而战！</description>
+							<description>汽车人的首领，卓越的领导才能和善良的心，为自由而战！</description>
 							<imgLabel>optimusPrime</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -1977,7 +1977,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：炮王。霸天虎的首领，拥有钢铁般的意志，作为擎天柱的死对头，强悍无需多言。</description>
+							<description>霸天虎的首领，拥有钢铁般的意志，作为擎天柱的死对头，强悍无需多言。</description>
 							<imgLabel>megatron</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2003,7 +2003,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：叫兽。它在沉默中前行，黑色的车壳低声述说着死亡。</description>
+							<description>它在沉默中前行，黑色的车壳低声述说着死亡。</description>
 							<imgLabel>avanty</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2030,7 +2030,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：愤怒大机。汽车人的首领，正义的领袖，人类信任的伟大战士。</description>
+							<description>汽车人的首领，正义的领袖，人类信任的伟大战士。</description>
 							<imgLabel>optimusPrime2</imgLabel>			
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2055,7 +2055,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：Snow 幽明。</description>
+							<description></description>
 							<imgLabel>mcQueen</imgLabel>			
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2079,7 +2079,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 								
-							<description>车主：AV、男纸。源自科幻、源自梦里。</description>
+							<description>源自科幻、源自梦里。</description>
 							<imgLabel>moumou</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2102,7 +2102,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 								
-							<description>车主：斌斌。战斗不止。</description>
+							<description>战斗不止。</description>
 							<imgLabel>bentley</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2125,7 +2125,7 @@
 							<Mprice>5000</Mprice>
 							<level>1</level>
 								
-							<description>车主：焰の菲。汽车人的英雄，继承了擎天柱的意志成为新一代的汽车人领袖。他是宇宙和平新的希望，面对邪恶他无所畏惧。</description>
+							<description>汽车人的英雄，继承了擎天柱的意志成为新一代的汽车人领袖。他是宇宙和平新的希望，面对邪恶他无所畏惧。</description>
 							<imgLabel>prime</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2148,7 +2148,7 @@
 							<Mprice>5000</Mprice>
 							<level>1</level>
 								
-							<description>车主：小博士。这款搭载最新6升V型13缸双涡轮TDI柴油直喷发动机的顶级赛车，将成为超合金战队打败机器人的决胜利器。</description>
+							<description>这款搭载最新6升V型13缸双涡轮TDI柴油直喷发动机的顶级赛车，将成为超合金战队打败机器人的决胜利器。</description>
 							<imgLabel>adui_z</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>4</maxUpgradeLevel>
@@ -2173,7 +2173,7 @@
 							<level>1</level>
 							
 							
-							<description>车主：S神风追击。在烈火与急电的交点，诞生了这辆车。他拥有电的速度，火的无畏。当它出现在战场上时，那就意味着一场杀戮……</description>
+							<description>在烈火与急电的交点，诞生了这辆车。他拥有电的速度，火的无畏。当它出现在战场上时，那就意味着一场杀戮……</description>
 							<imgLabel>kamikaze</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>9</maxUpgradeLevel>
@@ -2197,7 +2197,7 @@
 							<level>1</level>
 							
 							
-							<description>车主：死灵骑士。当人类陷入绝境之时，将会有位英雄冲破黑暗，它带来死的绝望，又给予生的希望。</description>
+							<description>当人类陷入绝境之时，将会有位英雄冲破黑暗，它带来死的绝望，又给予生的希望。</description>
 							<imgLabel>deathgod</imgLabel>
 							<!-- 升级次数 -->
 							<maxUpgradeLevel>9</maxUpgradeLevel>
@@ -2239,7 +2239,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：爱の：-D甜心。这辆车是天庭之神用飓风的锤炼，黑火的淬炼，以及使用昊天锤的武魂呕心沥血打造九九八十一天制成，如同枪林弹雨般，给予敌人严重的伤害。</description>
+							<description>这辆车是天庭之神用飓风的锤炼，黑火的淬炼，以及使用昊天锤的武魂呕心沥血打造九九八十一天制成，如同枪林弹雨般，给予敌人严重的伤害。</description>
 							<imgLabel>jufengzhichui</imgLabel>
 							<!-- 展示-->
 							<discount>-1000</discount>
@@ -2260,7 +2260,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：暗尘绝杀。月光之下，无所遁形！</description>
+							<description>月光之下，无所遁形！</description>
 							<imgLabel>yueguang</imgLabel>
 							<!-- 展示-->
 							<discount>-1000</discount>
@@ -2281,7 +2281,7 @@
 							<Mprice>5</Mprice>
 							<level>1</level>
 							
-							<description>车主：混沌荔枝。破碎维度，混沌空间，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
+							<description>破碎维度，混沌空间，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
 							<imgLabel>hundunlizhi</imgLabel>
 							<!-- 展示-->
 							<discount>-1000</discount>

@@ -6083,7 +6083,7 @@
 			<type>伽马射线炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，破盾</specialProperty>
-			<description>武器主人：炮王。将核爆后的射线进行两次反射后集束射出，其中包含高热辐射一级致命的伽马射线。</description>
+			<description>将核爆后的射线进行两次反射后集束射出，其中包含高热辐射一级致命的伽马射线。</description>
 			<!-- 能量需求 -->
 			<reduceRa>0.4</reduceRa>
 			<energyUse>24</energyUse>
@@ -6133,7 +6133,7 @@
 			<type>高能分子切割器</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>破盾，穿透</specialProperty>
-			<description>武器主人：叫兽。将能量进行压缩成能量刃，并将数千赫兹的高频振动递加在能量刃上，能够瞬间切开任何物体。</description>
+			<description>将能量进行压缩成能量刃，并将数千赫兹的高频振动递加在能量刃上，能够瞬间切开任何物体。</description>
 			<!-- 能量需求 -->
 			<reduceRa>0.4</reduceRa>
 			<energyUse>24</energyUse>
@@ -6180,7 +6180,7 @@
 								<type>核爆轰击炮</type>					<!-- 武器类型【必备】-->
 								<attackType>mixed</attackType>		<!-- 攻击属性【必备】-->	
 								<specialProperty>跟踪，穿透，破盾，范围伤害</specialProperty>	
-								<description>武器主人：AV、男纸。用危害强大的核武器产生的爆炸攻击区域目标，所受到攻击的区域产生爆炸辐射伤害，威力巨大。</description>	
+								<description>用危害强大的核武器产生的爆炸攻击区域目标，所受到攻击的区域产生爆炸辐射伤害，威力巨大。</description>	
 								<!-- 能量需求 -->
 								<reduceRa>0.4</reduceRa>
 								<energyUse>24</energyUse>			
@@ -6227,7 +6227,7 @@
 								<type>核能驱动炮</type>					<!-- 武器类型【必备】-->
 								<attackType>mixed</attackType>		<!-- 攻击属性【必备】-->	
 								<specialProperty>跟踪，穿透，破盾，范围伤害</specialProperty>	
-								<description>武器主人：S神风追击。利用爆炸性核反应释放出的巨大能量对目标造成杀伤破坏作用的武器，在内部添加了中子反应炉，对所有障碍都能在一瞬间击溃。</description>	
+								<description>利用爆炸性核反应释放出的巨大能量对目标造成杀伤破坏作用的武器，在内部添加了中子反应炉，对所有障碍都能在一瞬间击溃。</description>	
 								<!-- 能量需求 -->
 								<reduceRa>0.4</reduceRa>
 								<energyUse>24</energyUse>			
@@ -6270,7 +6270,7 @@
 			<type>微波离子炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，破盾，范围伤害</specialProperty>
-			<description>武器主人：爱の：-D甜心。用修罗之血，凯撒之泪以及两人的灵魂在冥界和天堂的交接点用外道魔像十尾用轮回之眼淬炼制成，它有光明与黑暗，有和平有战争，有理想有腐败。有着极大的杀伤力和穿透力，只要它出现在战场上，世界末日也已经不远。</description>
+			<description>用修罗之血，凯撒之泪以及两人的灵魂在冥界和天堂的交接点用外道魔像十尾用轮回之眼淬炼制成，它有光明与黑暗，有和平有战争，有理想有腐败。有着极大的杀伤力和穿透力，只要它出现在战场上，世界末日也已经不远。</description>
 			<!-- 能量需求 -->
 			<reduceRa>1</reduceRa>
 			<energyUse>24</energyUse>
@@ -6315,7 +6315,7 @@
 			<type>液氮发射器</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，破盾，连续攻击</specialProperty>
-			<description>主人：暗尘绝杀。极度的寒冷中弥漫着死亡的气息，当它出现在战场上，大地都将被冰封。</description>
+			<description>极度的寒冷中弥漫着死亡的气息，当它出现在战场上，大地都将被冰封。</description>
 			<!-- 能量需求 -->
 			<reduceRa>1</reduceRa>
 			<energyUse>24</energyUse>
@@ -6362,7 +6362,7 @@
 			<type>曙光粒子炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>穿透，破盾，连续攻击，范围攻击</specialProperty>
-			<description>武器主人：荔枝。破碎维度，曙光降临，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
+			<description>破碎维度，曙光降临，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
 			<!-- 能量需求 -->
 			<reduceRa>1</reduceRa>
 			<energyUse>24</energyUse>
@@ -7160,7 +7160,7 @@
 			<type>核融合炮</type>					<!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>		<!-- 攻击属性【必备】-->	
 			<specialProperty>跟踪，穿透，破盾，范围伤害</specialProperty>	
-			<description>武器主人：S神风追击。利用原子对撞放出巨大能量，对目标区域产生大量伤害，威力巨大。</description>	
+			<description>利用原子对撞放出巨大能量，对目标区域产生大量伤害，威力巨大。</description>	
 			<!-- 能量需求 -->
 			<reduceRa>0.4</reduceRa>	
 			<energyUse>24</energyUse>			

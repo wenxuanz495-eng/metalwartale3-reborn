@@ -3093,7 +3093,7 @@
 			<type>风之刃</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透</specialProperty>
-			<description>武器主人：Vincent。将空气压缩成风刃，并且使其振动频率超过高周波切割器，接触到的物体瞬间被分离成分子态。</description>
+			<description>将空气压缩成风刃，并且使其振动频率超过高周波切割器，接触到的物体瞬间被分离成分子态。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>180</commonLevel>    <!-- 普遍等级 -->
@@ -3140,7 +3140,7 @@
 			<type>粒子刃炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，破盾</specialProperty>
-			<description>武器主人：炮王。利用能量冷凝器从核融合炉里聚集米洛夫斯基粒子，并压缩成高能粒子刃发射出去。</description>
+			<description>利用能量冷凝器从核融合炉里聚集米洛夫斯基粒子，并压缩成高能粒子刃发射出去。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>180</commonLevel>    <!-- 普遍等级 -->
@@ -3188,7 +3188,7 @@
 			<type>闪电碰撞炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，破盾</specialProperty>
-			<description>武器主人：AV、男纸。每秒发出2条带着千万伏高压电的巨龙从敌人心脏地带穿透而过，给敌人造成致命打击。</description>
+			<description>每秒发出2条带着千万伏高压电的巨龙从敌人心脏地带穿透而过，给敌人造成致命打击。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>180</commonLevel>    <!-- 普遍等级 -->
@@ -3234,7 +3234,7 @@
 			<type>导弹发射器</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，破盾，范围伤害</specialProperty>
-			<description>主人：叫兽。在导弹上采用了能够识别敌方机器人的先进装备。</description>
+			<description>在导弹上采用了能够识别敌方机器人的先进装备。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>180</commonLevel>    <!-- 普遍等级 -->
@@ -3281,7 +3281,7 @@
 			<type>裂空炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，范围伤害，连续攻击</specialProperty>
-			<description>主人：暗尘绝杀。吞噬巨龙的利刃，横扫天下的传说。</description>
+			<description>吞噬巨龙的利刃，横扫天下的传说。</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>180</commonLevel>    <!-- 普遍等级 -->
@@ -3328,7 +3328,7 @@
 			<type>暗黑能量炮</type>    <!-- 武器类型【必备】-->
 			<attackType>mixed</attackType>    <!-- 攻击属性【必备】-->
 			<specialProperty>跟踪，穿透，连续攻击，范围攻击</specialProperty>
-			<description>武器主人：荔枝。破碎维度，暗黑大帝，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
+			<description>破碎维度，暗黑大帝，荔枝一出，谁与争锋！荔枝蕴藏有神秘的力量，只有凑齐荔枝装备才能释放出这股力量！</description>
 			<!-- 能量需求 -->
 			<energyUse>10</energyUse>
 			<commonLevel>180</commonLevel>    <!-- 普遍等级 -->
