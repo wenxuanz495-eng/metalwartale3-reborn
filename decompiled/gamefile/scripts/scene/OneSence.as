@@ -296,6 +296,9 @@ package scene
          {
             l0 = this.levels[len0 - n - 1];
             l0.loadMC(mc0.getChildByName(l0.mcName));
+            // 性能修复(20260922): 视差层各自缓存为位图——层内静态,自身仅随镜头平移
+            // (缓存粒度必须是子项: 若缓存 backMapL 容器,子项每帧 inPositoin 位移会触发整层重栅格化)
+            l0.cacheAsBitmap = true;
             if(l0.gameLevel == "back")
             {
                this.GS.backMapL.addChild(l0);
