@@ -296,9 +296,10 @@ package scene
          {
             l0 = this.levels[len0 - n - 1];
             l0.loadMC(mc0.getChildByName(l0.mcName));
-            // 性能修复(20260922): 视差层各自缓存为位图——层内静态,自身仅随镜头平移
-            // (缓存粒度必须是子项: 若缓存 backMapL 容器,子项每帧 inPositoin 位移会触发整层重栅格化)
-            l0.cacheAsBitmap = true;
+            // 注意(20260923): 此处不可对 SceneLevel 打 cacheAsBitmap——实测真机 24→14fps:
+            // 视差层缓存位图为关卡全宽巨图,每帧 inPositoin 平移巨型纹理的 GPU 带宽成本
+            // 远超省下的显示列表遍历(帧间隔主桶 50ms→86ms)。正确路径是预烘焙合并
+            // 位图或视口裁剪,见移植台账 N 系列。
             if(l0.gameLevel == "back")
             {
                this.GS.backMapL.addChild(l0);
