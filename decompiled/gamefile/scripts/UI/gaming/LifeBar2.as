@@ -16,18 +16,20 @@ package UI.gaming
       public var cover:Sprite;
       
       private var _unitName:String = "";
-      
+
+      private var _txtCache:String = "";
+
       public var colorType:int = -1;
-      
+
       public var direction:int = 0;
-      
+
       public function LifeBar2()
       {
          super();
          this.mouseChildren = false;
          this.mouseEnabled = false;
       }
-      
+
       public function inData(now:Number, max:Number) : *
       {
          var now0:Number = now;
@@ -39,7 +41,13 @@ package UI.gaming
          {
             now0 = max;
          }
-         this.txt.text = String(Math.floor(now0) + "/" + Math.floor(max));
+         // 性能修复(20260923): 血量整数不变时跳过 setText,避免每帧文本布局重排
+         var s0:String = String(Math.floor(now0) + "/" + Math.floor(max));
+         if(s0 != this._txtCache)
+         {
+            this._txtCache = s0;
+            this.txt.text = s0;
+         }
          this.cover.scaleX = now0 / max;
          if(this.direction == 1)
          {

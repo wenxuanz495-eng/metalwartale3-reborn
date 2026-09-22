@@ -2,36 +2,39 @@ package effect
 {
    import data.Bezier;
    import flash.display.Shape;
-   import flash.filters.GlowFilter;
    import flash.geom.Point;
-   
+
    public class BezierLightning extends Shape
    {
-      
+
       public var p0:Point = new Point();
-      
+
       public var p2:Point = new Point();
-      
+
       public var ra:Number = 0;
-      
+
       public var range:int = 15;
-      
+
       public var enabled:Boolean = false;
-      
+
       public var lineColor:uint = 10152703;
-      
+
+      public var glowColor:uint = 35564;
+
       public var time:int = 0;
-      
+
       public var _t:int = 0;
-      
+
+      private var _pts:Vector.<Number> = new Vector.<Number>();
+
       public function BezierLightning(_lineColor:uint = 16777215, filterColor:uint = 35564)
       {
          super();
          this.lineColor = _lineColor;
-         var glowing:GlowFilter = new GlowFilter(filterColor,1,10,10);
-         this.filters = [glowing];
+         this.glowColor = filterColor;
+         // 性能修复(20260923): 去掉每帧重算的 GlowFilter(10,10),改三线描边模拟光晕
       }
-      
+
       public function init() : *
       {
          if(this.enabled)
@@ -47,7 +50,7 @@ package effect
             }
          }
       }
-      
+
       private function Draw() : void
       {
          var arr0:Array = null;
@@ -58,8 +61,8 @@ package effect
          var rx:* = undefined;
          var ry:* = undefined;
          graphics.clear();
-         graphics.lineStyle(1,this.lineColor);
-         graphics.moveTo(this.p0.x,this.p0.y);
+         this._pts.length = 0;
+         this._pts.push(this.p0.x,this.p0.y);
          var len0:Number = 100 + 100 * Math.random();
          var p1:Point = new Point();
          p1.x = this.p0.x + Math.cos(this.ra) * len0;
@@ -74,7 +77,28 @@ package effect
             ppxy = Math.random() * this.range;
             rx = x0 + ppxy * Math.cos(ra0);
             ry = y0 + ppxy * Math.sin(ra0);
-            graphics.lineTo(rx,ry);
+            this._pts.push(rx,ry);
+         }
+         // 三线描边: 宽淡光晕 → 中层 → 亮芯,近似原 GlowFilter(1,10,10) 视觉
+         graphics.lineStyle(9,this.glowColor,0.22);
+         this.strokePath();
+         graphics.lineStyle(4,this.glowColor,0.5);
+         this.strokePath();
+         graphics.lineStyle(1,this.lineColor,1);
+         this.strokePath();
+      }
+
+      private function strokePath() : void
+      {
+         var l0:int = int(this._pts.length);
+         if(l0 < 2)
+         {
+            return;
+         }
+         graphics.moveTo(this._pts[0],this._pts[1]);
+         for(var i:int = 2; i < l0; i = i + 2)
+         {
+            graphics.lineTo(this._pts[i],this._pts[i + 1]);
          }
       }
       

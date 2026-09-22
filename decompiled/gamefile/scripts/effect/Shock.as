@@ -29,10 +29,12 @@ package effect
       private var _seed:Number;
       
       private var _bd:BitmapData;
-      
+
       private var _show_bd:BitmapData;
-      
+
       private var _spark_bd:BitmapData;
+
+      private var _bd_glow:BitmapData;
       
       private var _timer:Timer;
       
@@ -57,7 +59,8 @@ package effect
          }
          this._show_bd.perlinNoise(10,20,2,this._seed,true,true,1,true,this._offsets);
          filter = new DisplacementMapFilter(this._show_bd,new Point(),1,1,16,16,"color");
-         this._spark_bd.applyFilter(this._bd,this._bd.rect,new Point(),this._glow);
+         // 性能修复(20260923): glow 参数恒定,预烘焙到 _bd_glow 一次,每帧仅 copyPixels+动态位移
+         this._spark_bd.copyPixels(this._bd_glow,this._bd.rect,new Point());
          this._spark_bd.applyFilter(this._spark_bd,this._bd.rect,new Point(),filter);
       }
       
@@ -88,6 +91,9 @@ package effect
          this._bd = new BitmapData(w,h,true,0);
          this._spark_bd = new BitmapData(w,h,true,0);
          this._bd.draw(this._target,new Matrix(1,0,0,1,-bounds.x,-bounds.y));
+         // 预烘焙恒定 glow(20260923): 与每 50ms 重算结果逐像素一致
+         this._bd_glow = new BitmapData(w,h,true,0);
+         this._bd_glow.applyFilter(this._bd,this._bd.rect,new Point(),this._glow);
          var spark_bp:Bitmap = new Bitmap();
          spark_bp.bitmapData = this._spark_bd;
          holder.addChild(spark_bp);
