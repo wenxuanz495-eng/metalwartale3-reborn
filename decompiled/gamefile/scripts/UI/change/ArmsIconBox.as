@@ -63,6 +63,22 @@
          var lb0:ItemsArmsIcon = null;
          this.totalNum = _totaNum;
          this.totalPage = int((this.totalNum - 1) / (this.xNum * this.yNum)) + 1;
+         // 性能修复(20260923): 格子数量不变时复用已创建的图标对象,避免每次打开面板
+         // 全量销毁重建上百个显示对象(中端机上阻塞主线程 1~2 秒)
+         if(this.arr.length == this.totalNum)
+         {
+            for(var r:int = 0; r < this.totalNum; r++)
+            {
+               lb0 = this.arr[r];
+               lb0.setNum(String(r + 1));
+               lb0.site = r;
+               lb0.index = r;
+            }
+            this.countGap();
+            this.nowPage = -1;
+            this.showPage(_nowPage,_breakB,_tweenB);
+            return;
+         }
          for(var n:int = 0; n < this.totalNum; n++)
          {
             lb0 = new ItemsArmsIcon();
@@ -181,7 +197,12 @@
          var d0:OneArmsDefine = null;
          var haveB:Boolean = false;
          var id0:ArmsItemsData = null;
-         this.clear();
+         // 性能修复(20260923): 格子数量不变时复用图标对象(不清空不重建),只逐格重写数据
+         var reuseB:Boolean = arr0.length > 0 && this.arr.length == arr0.length;
+         if(!reuseB)
+         {
+            this.clear();
+         }
          this.setTotalNum(arr0.length);
          for(n in arr0)
          {
@@ -208,6 +229,12 @@
                d0 = arr0[n];
             }
             this.arr[n].inData_byDefine(d0);
+            if(reuseB)
+            {
+               // 复用路径需重置上次可能残留的可见状态(inData_byDefine 不覆盖这两项)
+               this.arr[n].nameTxt.visible = true;
+               this.arr[n].noHave_mc.visible = false;
+            }
             if(!haveB)
             {
                this.arr[n].nameTxt.visible = false;
