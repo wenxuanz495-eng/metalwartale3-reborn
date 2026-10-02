@@ -18,7 +18,7 @@
 - 当前仓：`swf\Tank.swf`（SHA-256 前8 `5E8427F0`，三方全同）。
 - 原版 2.5：`D:\superalloy\原版\2.5（原版参考）\2.5版本素材库\raw\swf\enemy\Tank.swf`。
 - 原版 3.4：`D:\superalloy\原版\3.4（原版参考）\3.4素材库\raw\swf\enemy\Tank.swf`。
-- 11.3 素材汇总：`攻击坦克2\` 夹疑相关（归属待考）。
+- 11.3 素材汇总：`D:\superalloy\原版\11.3超合金素材汇总\攻城坦克\`（夹名一致；12.png=待机红条纹、56.png=发射蓝条纹——双态涂装）。
 - 图鉴图标：`swf\BookUI760.swf` 内嵌 JPG。
 
 ## 文档与数据
