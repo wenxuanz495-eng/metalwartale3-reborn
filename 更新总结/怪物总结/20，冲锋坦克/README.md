@@ -9,7 +9,7 @@
 - `gamefile\scripts\enemy\tank\Tank_AI2.as`（36 行）——本怪 AI（疑，同上）。
 - `gamefile\scripts\enemy\tank\TankAnimation.as`（88 行）——坦克家族共用动画控制。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 33, id=Tank2**（表内 name=冲锋坦克）。
-- 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 100036, id=Tank2**（`坦克-火神炮`，2 级：boom/bullet/angle 0/hurt 0.2/gap 1.2→0.6）。
+- 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 100036, id=Tank2**（主 id 自带 2 级＝两种攻击，AI 二分支 Tank_AI2.as:19/23 切换）：LV1 `坦克-火神炮`（机枪：boom/hurt 0.2/gap 1.2）＋ LV2 `坦克-弧光弹`（主炮：boom/hurt 1/gap 0.6——攻城坦克同名牌弱化版 hurt 4→1）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"冲锋坦克"，顺序数组第 20 位）。
 
 ## 资源文件

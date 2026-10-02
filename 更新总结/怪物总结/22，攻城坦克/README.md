@@ -9,7 +9,7 @@
 - `gamefile\scripts\enemy\tank\Tank_AI.as`（75 行）——本怪 AI（疑，同上）。
 - `gamefile\scripts\enemy\tank\TankAnimation.as`（88 行）——坦克家族共用动画控制。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 32, id=Tank**（表内 name=攻城坦克）。
-- 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 100033 id=Tank_1**（`坦克-火神炮` energy/hurt 0.5/gap 1.2）＋ **index 100034 id=Tank_2**（`坦克-弧光弹` energy/hurt 4——docx"灭杀激光炮"实锤；⚠️ 后缀 id 模式，主 id 无定义）。
+- 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → 三武器（⚠️ 后缀 id 模式，主 id 无定义；AI 三分支 Tank_AI.as:19/23/27 切换）：**index 100033 id=Tank_1**（`坦克-火神炮`＝机枪：energy/hurt 0.5/gap 1.2）＋ **index 100034 id=Tank_2**（`坦克-弧光弹`＝主炮：energy/hurt 4/gap 0.6）＋ **index 100035 id=Tank_3**（`坦克-玛格兰炮`＝主炮激光/docx"灭杀激光炮"：energy/**laser 贯穿**/hurt 0.2/gap 2）。
 - Boss 标记：关卡表 `17_EmbedXml_xmlClass11_….bin` → 1-1-18 `boss="攻城坦克"` ＋ unit `type="boss"`。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"攻城坦克"，顺序数组第 22 位）。
 
