@@ -5,9 +5,9 @@
 
 ## 代码（仓库 `decompiled\`）
 
-- AI：`gamefile\scripts\enemy\drilling\`（与 15 超级自动钻机共用目录）
+- AI 五文件：`gamefile\scripts\enemy\drilling\`——DrillingBody.as（148 行，标准版身体）、Drilling_AI.as（33 行）、DrillingAAHD.as（18 行，碰撞头）、**DrillingBody2.as（140 行，超级版伸缩机构专属身体类）**、Drilling2_AI.as（46 行）
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 14, id=Drilling**（表内 name=自动钻机）
-- 敌方武器表：**无定义**（接触钻击）
+- 敌方武器表：**无定义**（短行程伸缩钻头，动画判定层）
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"悬浮自动钻头"，顺序数组第 14 位）
 
 ## 资源

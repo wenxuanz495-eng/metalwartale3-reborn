@@ -5,7 +5,7 @@
 
 ## 代码（仓库 `decompiled\`）
 
-- AI：`gamefile\scripts\enemy\landFort\\`
+- AI 四文件：`gamefile\scripts\enemy\landFort\`——LandFortBody.as（152 行，身体/受击/死亡）、LandFort_AI.as（57 行，定点防守主 AI）、LandFort_AI2.as（66 行）、LandFort_AI3.as（66 行）——**三个 AI 变体共存**（AI2/AI3 分工待查）
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 26, id=LandFort**（表内 name=地面自动炮台）
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 10007**（地面自动炮台-火神炮，boom/bullet/angle 0/hurt 0.2/gap 0.4）
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"地面自动防御炮台"，顺序数组第 7 位）

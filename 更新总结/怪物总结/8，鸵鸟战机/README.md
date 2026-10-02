@@ -5,7 +5,7 @@
 
 ## 代码（仓库 `decompiled\`）
 
-- AI：`gamefile\scripts\enemy\ostrich\`
+- AI 两文件：`gamefile\scripts\enemy\ostrich\`——OstrichBody.as（155 行，身体/受击/死亡）、Ostrich_AI.as（26 行，hoverAndAttack 节奏）
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 24, id=Ostrich**（表内 name=鸵鸟机器人）
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 100029**（鸵鸟机器人-火神炮，boom/bullet/angle 5/hurt 0.3/shootNum 4；双 armsLevel 数值相同＝冗余）
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"鸵鸟战机"，顺序数组第 8 位）
