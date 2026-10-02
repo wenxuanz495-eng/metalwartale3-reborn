@@ -27,5 +27,5 @@
 ## 家族关联
 
 - `..\2，悬浮自动激光炮台B型\`（兄弟机型 AirLaserFort_2）
-- 蓝光飞碟 UFO＝同函数换皮（`BodyGroup.addAirLaserFort("ufo")`，到其图鉴号时互链）
+- **蓝光飞碟 UFO**（图鉴 16）：⚠️ 仅**代码层**共用 `BodyGroup.addAirLaserFort("ufo")` 生成函数与 AirLaserFortBody 类（数据全独立：自有敌人行 index 3／武器 idx 10005"飞碟的火炮"energy/hurt 0.2/bulletSpeed 25 无追踪）；**美术血统属追踪者/追猎者家族**（穹顶同款脑壳设计，蓝=追踪者系/粉=追猎者系，用户裁定＋帧图证据）——非悬浮炮台换皮，到其图鉴号时按此口径立档互链
 - 设施复用：金币空间(4-1-5) 隐形发球塔＝本怪（`SpecialExtraLevel_6`）；`Level_2_12` 代码拉怪
