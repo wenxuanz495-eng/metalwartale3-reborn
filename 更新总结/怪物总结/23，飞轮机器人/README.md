@@ -7,7 +7,7 @@
 - `gamefile\scripts\enemy\tires\TiresBody.as`（189 行）——身体类（前段最厚的一份身体类）。
 - `gamefile\scripts\enemy\tires\Tires_AI.as`（61 行）——AI（hoverAndAttack＋先锋警戒）。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 34, id=Tires**（表内 name=飞轮机器人）。
-- 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 100037, id=Tires_1**（⚠️ 后缀 id 模式；`轮胎怪-炮弹`，2 级：energy/bullet/angle 12/hurt 0.2/gap 0.2 与 1.3 双段）。
+- 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **index 100037 id=Tires_1**（⚠️ 后缀 id 模式；LV1 `轮胎怪-炮弹`：energy/20° 扇形 5 连/hurt 0.2/gap 0.2；LV2 `轮胎怪-散射炮弹`：energy/270° 朝天 230° 扇形 18 连/hurt 0.2/gap 1.3）＋ **index 100038 id=Tires_2**（`轮胎怪-玛格兰炮`：energy/**laser 贯穿**/hurt 0.5/gap 1.9）——三种攻击方式＝霰弹弧形散射＋霰弹全向散射＋激光炮（AI 三分支切换，Tires_AI.as:19/23/27）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"飞轮机器人"，顺序数组第 23 位）。
 
 ## 资源文件
