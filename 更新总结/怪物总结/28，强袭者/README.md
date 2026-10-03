@@ -8,7 +8,8 @@
 - `gamefile\scripts\enemy\striker\StrikerBody.as`（152 行）——身体类；**碰撞头复用电锯的 `ElectricSawAAHD`**（:24）；技能槽挂 `Normal_ExtraSkill`。
 - `gamefile\scripts\enemy\striker\Striker_AI.as`（71 行）——AI：**30%/30%/40% 三分支**切三套斩击（:29）；**攻击后 50% 概率 vx+200 突进**（:52，带 extraSkill 门控）。
 - `gamefile\scripts\enemy\striker\StrikerAnimation.as`（105 行）——动画控制：**move2 高速档阈值 |vx|＞210px/s**（:45）；跳跃双组态框架与 27 突击者同款。
-- `gamefile\scripts\enemy\_normal\Normal_ExtraSkill.as`（26 行）——**空壳技能类**（init/FTimer/clear 全空）＝强袭者的技能槽占位；对照 27 突击者的三槽专属类 `Charger_ExtraSkill`。
+- `gamefile\scripts\enemy\_normal\Normal_ExtraSkill.as`（26 行）——**空壳技能类**（init/FTimer/clear 全空）＝11.3 现状占位；⚠️ **历代原装是 `Striker_ExtraSkill`（双形态机制类），11.3 被整删**，考古详见档案"隐藏机制考古"节。
+- **历代被删机制类（回植源）**：`D:\superalloy\原版\2.5（原版参考）\2.5版本代码库\game\scripts\enemy\striker\Striker_ExtraSkill.as`（INIT.FPS 版）；`D:\superalloy\原版\3.4（原版参考）\3.4代码库\game\scripts\enemy\striker\Striker_ExtraSkill.as` 与 `D:\superalloy\原版\4.0（原版参考）\4.0代码库\game\scripts\enemy\striker\Striker_ExtraSkill.as`（硬编码 30 版，与 2.5 逻辑逐字等价）；历代 StrikerBody.as:43 均挂载 `new Striker_ExtraSkill(this)`。
 - 身体类映射：`gamefile\scripts\bodyGroup\BodyGroup.as:1126`（`addStriker()`）；:367（"强袭者"→addStriker）。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 39, id=Striker**（表内 name=强袭者；含 6 段 attackHitData 判定明细）。
 - 武器表现状：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **`Striker` 字符串 0 处**——本怪无武器定义，伤害全在敌人表 attackHitData 判定层（motion 型）。
@@ -17,6 +18,7 @@
 - 精英副本类：`gamefile\scripts\gameAll\level\extra\SpecialExtraLevel_11.as`（**空壳**，2-1-1 挂名无专属配置）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（顺序数组第 28 位"强袭者"）。
 - 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → 8 处（1-1-9 boss／1-1-20·1-2-8 champion superNum=1／1-1-24·1-1-26·1-2-4×5·1-2-7 普通／2-1-1 精英副本 boss）。
+- **历代关卡数据（实装史证据）**：3.4＝`D:\superalloy\原版\3.4参照修改版\game.baseline.swf`（解压后敌人表 index 13＋1-1-9 boss＋**2-1-2"强袭者"精英单挑关** mothership_evening2 场景＋arms 表 151 条零 Striker）；2.5＝`D:\superalloy\原版\2.5（原版参考）\2.5版本游戏\assets\game.original-before-modifier.swf`＋`assets\swf\dataMust39.original.swf`（各仅 1 处"强袭者"＝名单常量，**怪不存在**）；4.0＝`D:\superalloy\原版\4.0（原版参考）\4.0游戏\embedded-xml\17_level280_xml$….bin`（2-1-2 强袭者 unit type=boss）＋`5_enemy25_xml$….bin`（id="Striker"）。swf 检索法：CWS 头 8 字节后接 zlib 流，解压后 utf-8 搜。
 
 ## 资源文件
 
