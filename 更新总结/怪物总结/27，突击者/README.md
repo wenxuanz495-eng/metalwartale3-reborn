@@ -12,6 +12,7 @@
 - `gamefile\scripts\enemy\charger\Charger_ExtraSkill.as`（37 行）——**敌方技能系统脚手架**：技能槽 [EMP_5, Slow_Missile(禁用), Plasma(禁用)]，phase_1/2/3 空置——TACTICAL_MODE 技能设计的前身证据。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 8, id=Charger**（表内 name=突击者）。
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → 三武器（后缀 id 模式，AI 三分支切换）：**index 100010 id=Charger_1**（火神炮：boom/angle 5/hurt 0.5/gap 0.9）＋ **index 100011 id=Charger_2**（迫击炮 LV1：boom/hurt 2/gap 0.7；**LV2=杀戮者的武器2-迫击炮** energy/hurt 1——跨怪共用）＋ **index 100012 id=Charger_3**（导弹：boom/angle 280 朝天/hurt 0.4/speed 10/bulletLife 4）。
+- **历代敌方武器表（Slow_Missile/EMP 弹定义，2026-10-03 晚补）**：2.5＝`D:\superalloy\原版\2.5（原版参考）\2.5版本游戏\assets\xml\enemyArms25.xml`（⚠️ **2.5 数据架构=外部 xml，不在 swf 内**；究极慢速导弹 index 27 含 followB/selfBoom、EMP 炸弹 index 25/26）；**弹体美术** `sub/slow_missile_bullet`＝当前仓 `swf\sub1130.swf` characterId 26995（白圆柱＋橙头＋黄焰 125×29，ffdec 按 SymbolClass 名查 ID、`-selectid` 导出）。
 - Boss 标记：关卡表 → 1-1-0 `boss="突击者"`＋unit `type="boss"`；1-1-3 队长关再战。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as`（帧标签"突击者"，顺序数组第 27 位）。
 

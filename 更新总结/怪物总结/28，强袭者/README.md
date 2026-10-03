@@ -18,7 +18,7 @@
 - 精英副本类：`gamefile\scripts\gameAll\level\extra\SpecialExtraLevel_11.as`（**空壳**，2-1-1 挂名无专属配置）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（顺序数组第 28 位"强袭者"）。
 - 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → 8 处（1-1-9 boss／1-1-20·1-2-8 champion superNum=1／1-1-24·1-1-26·1-2-4×5·1-2-7 普通／2-1-1 精英副本 boss）。
-- **历代关卡数据（实装史证据）**：3.4＝`D:\superalloy\原版\3.4参照修改版\game.baseline.swf`（解压后敌人表 index 13＋1-1-9 boss＋**2-1-2"强袭者"精英单挑关** mothership_evening2 场景＋arms 表 151 条零 Striker）；2.5＝`D:\superalloy\原版\2.5（原版参考）\2.5版本游戏\assets\game.original-before-modifier.swf`＋`assets\swf\dataMust39.original.swf`（各仅 1 处"强袭者"＝名单常量，**怪不存在**）；4.0＝`D:\superalloy\原版\4.0（原版参考）\4.0游戏\embedded-xml\17_level280_xml$….bin`（2-1-2 强袭者 unit type=boss）＋`5_enemy25_xml$….bin`（id="Striker"）。swf 检索法：CWS 头 8 字节后接 zlib 流，解压后 utf-8 搜。
+- **历代关卡数据（实装史证据，⚠️ 2.5 修正：游戏数据在 `assets\xml\*.xml` 外部文件，非 swf 内嵌——早前"2.5 怪不存在"系只搜 swf 的误判）**：2.5＝`D:\superalloy\原版\2.5（原版参考）\2.5版本游戏\assets\xml\enemy25.xml`（**index 13 id=Striker 全条目**，baseLife 4）＋`level16.xml`（**2-1-2"强袭者"单挑关** unit type=boss＋2-1-1"突击队长"＝精英副本系列，场景 mothership_evening2）＋`enemyArms25.xml`（敌方武器表，Slow_Missile/EMP 弹定义在此——27 号遗留关闭处）；3.4＝`D:\superalloy\原版\3.4参照修改版\game.baseline.swf`（解压后敌人表 index 13＋1-1-9 boss＋2-1-2＋arms 表 151 条零 Striker）；4.0＝`D:\superalloy\原版\4.0（原版参考）\4.0游戏\embedded-xml\17_level280_xml$….bin`（2-1-2 强袭者 unit type=boss）＋`5_enemy25_xml$….bin`（id="Striker"）。swf 检索法：CWS 头 8 字节后接 zlib 流，解压后 utf-8 搜。
 
 ## 资源文件
 
