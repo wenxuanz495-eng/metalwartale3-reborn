@@ -1,6 +1,6 @@
 # 32 炮装审判者 · 文件索引与介绍
 
-> 本夹档案：`炮装审判者-档案-20261003.md`（设计 Boss：1-1-28 终结审判者＋历代 2-1-7 精英副本；三形态变形高达）。本 README＝该怪全部相关文件的索引字典。
+> 本夹档案：`炮装审判者-档案-20261003.md`（设计 Boss：1-1-28 终结审判者＋历代 2-1-10 精英副本（11.3 重编号为 2-1-7）；三形态变形高达）。本 README＝该怪全部相关文件的索引字典。
 > 表名＝图鉴名"炮装审判者"；代码 id `Gundam`（index 10）。⚠️ 与 31 剑装审判者为兄弟机（本怪独占战机形态）；31.1 黑暗剑装与本怪无血缘。
 
 ## 代码文件（仓库 `decompiled\`）
@@ -14,7 +14,7 @@
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → Gundam 系六条：**Gundam_land"高达的武器-玛格兰炮"**（energy/0.8）＋Gundam_fly_1/fly_2（"玛格兰炮-空中1/2"，angle 0/30）＋**Gundam_plane"高达的跟踪弹"**（energy/1/speed25/3 连/弹体 `Gundam/plane_bullet`）＋Gundam_funnel（空炮触发器）。
 - **历代被删机制类（回植源，EMP 式删减第五例）**：`D:\superalloy\原版\2.5（原版参考）\2.5版本代码库\game\scripts\enemy\gundam\Gundam_ExtraSkill.as`（290 行；3.4/4.0 同路径在）——init=firstToPlane 直入战机+无敌+锁形态+三槽 [Plasma,Skill_Curve,Skill_Drop2]；圣堂战机×3 护盾机（600 万血+Skill_Laser，全灭才落地）；钻机强化；强袭者火箭（800 万血，×3 速冲撞**撞中定身 2 秒**）；**警报塔×3 充能演出**（lightning3 连接 30 次）；bodyAdd 覆写（圣堂/天隼 setToBomb/强袭者）。
 - Boss 台词：`decompiled\dataMust\scripts\gameAll\define\DialogueDefine.as:29-32`（d2_6 四段，缺 _2）。
-- 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → 1-1-28 终结审判者（boss＋firstDialogue）/1-1-29 四月行动（champion）/2-1-7 精英炮装审判者/1-1-999 Vip（boss）；⚠️ 1-1-0/1-1-3/1-1-6 的 `<extraEnemyName>炮装审判者</extraEnemyName>`＝死数据字段（全仓零代码引用，非真实出场）。
+- 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → 1-1-28 终结审判者（boss＋firstDialogue）/1-1-29 四月行动（champion）/2-1-7 精英炮装审判者（11.3 重编号；历代＝2-1-10，召援波圣堂×3/天隼×5/强袭者×2 随脚本删除，11.3 关内仅剩 boss 本体）/1-1-999 Vip（boss）；⚠️ 1-1-0/1-1-3/1-1-6 的 `<extraEnemyName>炮装审判者</extraEnemyName>`＝死数据字段（全仓零代码引用，非真实出场）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（顺序数组第 32 位"炮装审判者"）。
 
 ## 资源文件
