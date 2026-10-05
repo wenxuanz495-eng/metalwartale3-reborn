@@ -13,6 +13,8 @@
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **arms index 100086 id=Interceptors_1，两个 armsLevel＝双武器**：①"45对地炮"（energy/hurt 0.2/45° 上抛/shootNum 2+shootGap 0.2 两连发/弹体 `Interceptors_1/bullet1`/grapRectIndex 0 朝天窗）；②"自动浮游激光炮的武器"（借名/laser/水平/penetrationB=1 贯穿/hurt 0.1/grapRectIndex 1 前向 365 宽窗）。
 - 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → **24 关全在 1-4（第十章~第十四章），个体总数 218 只**；champion＝1-4-0（3 线 4 只）/1-4-1（×2）/1-4-12（×1）；单关最多 1-4-2 声东击西 32 只；number=16 同屏峰值＝1-4-8/1-4-53/1-4-69；**8 关 specialClass=`gameAll.level.Level_2_5`＝12 分钟限时闯关剧本**（禁复活水晶）＝1-4-24/38/50/53/69/75/77/98。
 - 掷骰名单：`gamefile\scripts\gameAll\GameDefine.as:212/214`——noSuperList/nolyChampionList 均不含本怪（量产怪掷骰全开放）。
+- **无专属音效来源**：音效全在本体 swf（3 段 MP3：die/shoot1 对地炮/shoot2 激光）；**登场"巨大噪声"＝全局公共音效对**，音源＝`swf\sound.swf`（23 标签公共音效库）：`enemy_coming_larm`（锁屏报警 0.39s，触发＝`gameAll\level\Levels.as:228`）＋`enemy_coming_first`（解锁大音 2.87s，触发＝`scene\OneSence.as:502` unLockView）——全怪共用，2 号同款。SoundGroup 按标签取音（`sound\SoundGroup.as` playSound→`Game.swfLoaderManager.getResource("sound",label)`）。
+- 音频样本导出：`D:\superalloy\TMP\拦截机音效对比\`（两机全部 MP3＋两段公共登场音，待用户试听指认）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（顺序数组第 34 位"拦截机1号"）；面板内容＝BookUI760.swf 内 enemyContent（**sprite 775，82 怪×6 帧一节，帧标签即怪名**，本怪标签在第 386 帧）。
 
 ## 资源文件
