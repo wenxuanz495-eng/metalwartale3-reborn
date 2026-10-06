@@ -19,7 +19,8 @@ bug 维护/
     ├── 手游HeroCarKey重写丢skillEnabled声明致教程技能教学卡死-20260920.md   54ccbe6采端游版重写HeroCarKey只回植门控读取丢声明，密封类写/读未声明属性抛#1056/#1069，教程skillShow写skillEnabled裸抛→FunGroup队头每帧异常→allTimer中断全场冻结（端游无此属性故PC不复现）；已实施修复（补回public var skillEnabled:Boolean=true一行，HeroCarKey已在补丁清单），回读FOUND双自检0，已关闭（用户实机验证通过：新手教程完整跑通）
     ├── 帝皇战车兑换扣款未获得-退款静默失效-端游同步-20260921.md   先扣款后校验前置 + 退款在"余额恰好等于价格"时静默失效（扣款把物品记录整条删除→getItemsByBase返回null→useItemsNum直接return false）致丢150荣誉勋章且无车；**手游侧同日修复后端游同步**（前置校验前移+单次抽奖+按支付类型对称退款与记录补建，补丁清单新登OneExchangeUI），待验证
     ├── 金币空间清完怪无法结算-倒计时锁屏门控-端游同步-20260921.md   金币空间(4-1-5)倒计时被"场景锁oneSence.lockB"门控，清光敌人+发兵耗尽恰好解锁场景→倒计时永久停摆→never结算；**与手游同日修复**（去掉门控恢复无条件倒计时 + 新增 ItemsBody.magnetForbidB 自动收取黑名单使本关"非敌人掉落金币"不再被磁吸；补丁清单新登 SpecialExtraLevel_6/ItemsBody），待验证
-    └── VIP折扣价格显示-武器原价显示0-端游同步-20260921.md   GoodsDefineGroup 6处"定制价/补漏价"覆盖Mprice未同步priceLevel（星座等补漏武器配置无Mprice/priceLevel/discount→discount=0使折扣分支生效），ShopIcon把priceLevel当"原价"显示→"原价0/折后540"看似打折抬价；**与手游同日修复**（6处各补priceLevel同步，补丁清单原已含该文件），待验证
+    ├── VIP折扣价格显示-武器原价显示0-端游同步-20260921.md   GoodsDefineGroup 6处"定制价/补漏价"覆盖Mprice未同步priceLevel（星座等补漏武器配置无Mprice/priceLevel/discount→discount=0使折扣分支生效），ShopIcon把priceLevel当"原价"显示→"原价0/折后540"看似打折抬价；**与手游同日修复**（6处各补priceLevel同步，补丁清单原已含该文件），待验证
+    └── 调试插桩读HeroCarDefine未声明name致主武器命中1069穿模无伤害-20261007.md   ★同型事故二连（前案＝感应炮laserPoint）：10-06凌晨排查插桩的[hurt]日志读b1.define.name，主武器/罗杰中尉的HeroCarDefine是无父类sealed类无name→每炮#1069炸断结算链＝特效在抛错点之前已生成（看得到）+伤害与toDie走不到（穿模无伤害+子弹永生）+刷新循环无try/catch（卡顿）；副武器SubBody的EnemyDefine有name故幸免——主副不对称的机理闭合；罗杰中尉教程前兆、猛犸/苏拉测试均为时间巧合；已删除4行插桩恢复HEAD并重建（game.swf SHA-256前缀1ABDEEB5）；**待实机确认**（20261007）
 ```
 
 ## 归档规则
