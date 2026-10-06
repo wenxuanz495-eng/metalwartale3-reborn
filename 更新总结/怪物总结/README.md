@@ -11,6 +11,7 @@
 `id / 游戏内名称 / 分类（设计Boss|亮相boss|精英|普通）· 出场关卡清单 / AI 类（enemy\<目录>）· 资源（swf\<id>.swf + 素材库三方状态）· 攻击方式（xmlClass9 敌方武器 id + attackType/bulletType）· 数值（baseLife/baseAttack/levelGrow）· 特殊机制（extraSkill/召唤物/对话事件）· 抗性与防御（defenceType 现状）· 掉落 · 已知问题`
 
 ## 已确立口径（引用，勿重复考证）
+- **⚠️ levelGrow 死数据修正（2026-10-05 全仓检索实锤，覆盖此前各档的相关解读）**：xmlClass8 敌人表的三值 `<levelGrow>`（如 1000,50,600）与攻击判定段内的单值 `<levelGrow>` **全仓 AS 代码零引用＝从未参与任何计算**（EnemyDefine/AttackHitData 的 XML 解析均不读取此字段）——各档案中"levelGrow X,Y,Z＝生命/经验/金币成长""天量成长＝精英血条来源"等解读**一律作废**。真实数值系统（LifeBodyDefine.fleshAll_byLevel 实锤）：**怪物最终数值＝官方等级曲线（GameDefine.test_getEnemyLife/Exp/Coin_byLevel(敌人等级,难度)，等级来自关卡 enemyLv）× 关卡四系数（enemyLife_ra/enemyHurt_ra/enemyExp_ra/enemyCoin_ra，关卡表 per-level）× 难度系数 d_ra × 怪物自身 baseLife/baseExp/baseCoin（＝各档"奖赏倍率"栏，仍有效）**；精英副本另叠 extra.getLife/getHurt 数值表＋ExtraSkill 脚本直设 maxLife＋mulLife。各档 levelGrow 原始字段值保留作数据留存，不再按"成长"解读。
 
 - 敌人表 130 条＝xmlClass8；敌方武器表＝xmlClass9；敌人 AI 代码＝`decompiled\gamefile\scripts\enemy\`（38 目录）；敌人 SWF＝仓根 `swf\`（184 平铺中筛敌）。
 - **Boss 双通道**：`level@boss` 属性（16 关，全在 p1）与 unit `type="boss"`（月球危机唯一手法）混装"设计 Boss"与"亮相型关卡 boss"两口径——统计与建档必须分栏。
