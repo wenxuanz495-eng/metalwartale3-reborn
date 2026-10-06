@@ -1,0 +1,59 @@
+<level  index="10" id="1-4-0"  name="敌军来袭" scene="alien">
+						<enemyLv>71</enemyLv>
+						<name>第十章  1.敌军来袭</name>
+						<father>scene_alien</father>
+						<scene>alien</scene>					<!-- 场景id名称，存在scene.xml里-->
+						<loopMusic>Smash_Sketch</loopMusic>
+						
+						<bornPoint>1000,450</bornPoint>				<!-- 出生点-->
+						<exitPoint>11000,450</exitPoint>					<!-- 终点-->
+						
+						<area id="enemy1">1600,390</area> 
+						<area id="enemy2">2800,390</area> 
+						<area id="enemy1">4000,390</area>
+						<area id="enemy2">5200,390</area> 
+						<area id="enemy1">6400,390</area> 
+						<area id="enemy2">7600,390</area>
+						<area id="enemy1">8800,390</area> 
+						<area id="enemy3">10000,390</area> 
+						
+
+					
+						<area id="tip1">1500,390</area>
+						<oneEvent index="1" id="tip1">	
+							<order>
+								<unit number="1">文字：敌方机群出现在代达罗斯号的左舷附近，准备迎战！</unit>
+								<position>450,0</position>
+								<timeRange>1,5</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+						</oneEvent>
+						<oneEvent index="1" id="enemy1">
+							<order>
+								<unit number="6">风暴战士</unit>	<!-- 发兵名称和数量，可多条-->
+								<unit number="10">旋风战机</unit>
+								<unit number="1" type="champion">拦截机1号</unit>
+								<position>450,0</position>
+								<position>-450,0</position>
+								<timeRange>0,1.7</timeRange>	
+							</order>
+						</oneEvent>
+						<oneEvent index="1" id="enemy2">
+							<order>
+								<unit number="12">旋风战机</unit>
+								<unit number="4">防卫卫星</unit>
+								<unit number="1" type="champion">拦截机1号</unit>
+								<position>450,0</position>
+								<position>-450,0</position>
+								<timeRange>0,1.7</timeRange>	
+							</order>
+						</oneEvent>
+						<oneEvent index="1" id="enemy3">
+							<order>
+								<unit number="1">旋风战机</unit>
+								<unit number="2" type="champion">拦截机1号</unit>
+								<position>450,0</position>
+								<position>-450,0</position>
+								<timeRange>0,0.5</timeRange>	
+							</order>
+						</oneEvent>
+	</level>

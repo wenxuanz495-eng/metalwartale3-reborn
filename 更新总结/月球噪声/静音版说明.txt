@@ -1,0 +1,35 @@
+静音版（死亡音效诊断试玩版）
+版本日期：2026-07-24
+
+一、用途
+本版本用于确认敌人死亡时的刺耳爆炸声是否来自敌人 SWF 内嵌的 DIE 音频。
+它不是正式发行版，也不应覆盖合作原版或正式存档。
+
+二、已修改内容
+1. 共修改 96 个敌人 SWF。
+2. 共将 119 个死亡时间线音频替换为数字静音。
+3. 119/119 个替换文件已重新导出并验证为 Peak level dB = -inf。
+4. 其余 425 个敌人音频文件保持原样。
+
+三、文件位置
+- game.swf：本试玩版主 SWF。
+- swf\：本版本使用的资源和隔离存档模板。
+- saves\：本版本独立存档，不读取仓库 build\saves\。
+- _diagnostics\silenced-sounds.csv：完整的 SWF、音频 ID 和替换记录。
+- _diagnostics\patch-inputs\：每个替换目标的原始音频备份。
+- _diagnostics\exported-after-patch\：替换后的导出和解码验证结果。
+- README.txt / TEST_BUILD.txt：英文构建和测试摘要。
+
+四、启动方式
+双击 START_NO_DIE_PREVIEW.bat。启动器只使用 BAT，不依赖 PowerShell。
+本目录应放在 D:\superalloy\静音版；它通过相邻的
+D:\superalloy\metalwartale3-reborn.git\tools\debug\flashplayer_sa_debug.exe
+调用 Flash Player。
+
+五、测试记录方式
+如仍听到死亡爆炸声，请记录关卡、敌人名称、武器、死亡数量，以及声音是否同时出现。
+不要把本版本的 game.swf 或 saves\ 复制回合作原版。
+
+六、维护原则
+本版本是一次性诊断副本。后续开发不得直接在此目录继续改动；如需重新生成，
+应从仓库的原始资源和 build/audio-monitor/die-audit-all/ 审计结果重新制作。

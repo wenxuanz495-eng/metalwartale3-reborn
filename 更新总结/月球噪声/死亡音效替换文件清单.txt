@@ -1,0 +1,129 @@
+静音版死亡音效替换文件清单
+版本日期：2026-07-24
+
+一、路径说明
+
+实际被修改的游戏资源位于：
+  D:\superalloy\静音版\swf\enemy\
+
+每一项外层都是敌人 SWF 文件；声音不是独立放在游戏目录中的 MP3，
+而是嵌入对应 SWF 的死亡动画时间轴中。下方的“声音 ID”是该 SWF
+内部被替换成数字静音的声音标签编号。
+
+原始音频导出备份：
+  D:\superalloy\静音版\_diagnostics\patch-inputs\
+
+替换后的静音导出与验证结果：
+  D:\superalloy\静音版\_diagnostics\exported-after-patch\
+
+逐条机器可读记录：
+  D:\superalloy\静音版\_diagnostics\silenced-sounds.csv
+
+二、替换文件及内部声音 ID
+
+swf\enemy\AirLaserFort.swf：22
+swf\enemy\AirLaserFort_2.swf：7
+swf\enemy\Airstrike.swf：17
+swf\enemy\Arcee.swf：39
+swf\enemy\Archangel.swf：30
+swf\enemy\AtomicTower.swf：17
+swf\enemy\AtomicTower2.swf：33
+swf\enemy\BansheeFighter.swf：14
+swf\enemy\BansheeFighter2.swf：32
+swf\enemy\Bluespid.swf：28
+swf\enemy\Bulldozer.swf：32、41、48
+swf\enemy\Charger.swf：40、47
+swf\enemy\chigang.swf：212
+swf\enemy\chuansuogongjiji.swf：30
+swf\enemy\Cutter.swf：18
+swf\enemy\Cutter_S.swf：18
+swf\enemy\Cutter2.swf：12
+swf\enemy\Cutter3.swf：15
+swf\enemy\DarkTemplar.swf：90、91
+swf\enemy\deathbringer.swf：67
+swf\enemy\Drilling.swf：28
+swf\enemy\Drilling2.swf：28
+swf\enemy\ElectricSaw.swf：5
+swf\enemy\ElectricSaw2.swf：51
+swf\enemy\expflyer.swf：14
+swf\enemy\FalconFighter.swf：19
+swf\enemy\fenghuang.swf：68
+swf\enemy\fengsunzhanji.swf：20
+swf\enemy\gangtieshaobing.swf：44
+swf\enemy\Gear.swf：14
+swf\enemy\Gear2.swf：22
+swf\enemy\Gundam.swf：59、79、92
+swf\enemy\Gundam2.swf：89、128、145
+swf\enemy\Gundam3.swf：95、143、237
+swf\enemy\HavenFighter.swf：39
+swf\enemy\heianxianzhi.swf：352、387
+swf\enemy\huangpo.swf：238
+swf\enemy\Infiltrator.swf：53
+swf\enemy\Infiltrator2.swf：94
+swf\enemy\Interceptors_1.swf：9
+swf\enemy\Interceptors_2.swf：9
+swf\enemy\Intercessor.swf：43、141
+swf\enemy\Intruder.swf：65
+swf\enemy\jianfeng.swf：23
+swf\enemy\Knowing.swf：352、387
+swf\enemy\LandFort.swf：9
+swf\enemy\LandLaser.swf：9
+swf\enemy\LightningTank.swf：26
+swf\enemy\LoadKing.swf：33
+swf\enemy\LoadKing2.swf：65、77、86
+swf\enemy\lvying.swf：198
+swf\enemy\Mammoth.swf：32
+swf\enemy\Moonpatrol.swf：28
+swf\enemy\nianshou.swf：32
+swf\enemy\Ostrich.swf：8
+swf\enemy\Ostrich_S.swf：27
+swf\enemy\PinkTemplar.swf：51
+swf\enemy\Predator.swf：42
+swf\enemy\Redsabotager.swf：24
+swf\enemy\Rolling.swf：11
+swf\enemy\Rotorcraft.swf：12
+swf\enemy\SakerFighter.swf：11
+swf\enemy\Satellite.swf：19
+swf\enemy\Satellite_small.swf：5
+swf\enemy\Saxrobot.swf：51
+swf\enemy\SharkTank.swf：14
+swf\enemy\Slayer.swf：37、44
+swf\enemy\SmallWarden.swf：15
+swf\enemy\Spider.swf：6
+swf\enemy\SpiderFort.swf：31
+swf\enemy\Spidkiller.swf：28
+swf\enemy\StormTroopers.swf：35
+swf\enemy\StormWarriors.swf：117
+swf\enemy\Striker.swf：34、45
+swf\enemy\Sula.swf：32、39
+swf\enemy\SuspendedChaser.swf：29（时间轴触发两次）
+swf\enemy\SuspendedChaser_S.swf：29（时间轴触发两次）
+swf\enemy\Tank.swf：15
+swf\enemy\Tank2.swf：13
+swf\enemy\TercelFighter.swf：20
+swf\enemy\Tiger.swf：58、73、84
+swf\enemy\TigerKiller.swf：45
+swf\enemy\TigerMarauder.swf：45
+swf\enemy\Tires.swf：22
+swf\enemy\TornadoFighter.swf：20
+swf\enemy\Tracker.swf：5
+swf\enemy\Tracker2.swf：8
+swf\enemy\Twogun.swf：47、60
+swf\enemy\Tyrant.swf：27、37、42
+swf\enemy\ufo.swf：31
+swf\enemy\Warden.swf：30
+swf\enemy\WinterSpoilers.swf：71
+swf\enemy\X7.swf：8
+swf\enemy\xiniu.swf：27
+swf\enemy\yuandanpohuaizhe.swf：34
+swf\enemy\Zealot.swf：25
+
+三、统计与限制
+
+共修改 96 个敌人 SWF，替换 119 个不同的“SWF + 声音 ID”组合。
+119 个引用经 SHA-256 去重后只有 33 种实际音频内容，说明许多敌人
+各自保存了内容相同的死亡音频副本。
+
+本清单只覆盖在名称含 die 的动画符号中直接执行 StartSound 的声音。
+攻击、弹丸、通用 boom、受击效果、代码调用 Sound.play()，以及没有
+die 名称的嵌套动画声音不在本次替换范围内。

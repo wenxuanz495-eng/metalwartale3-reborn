@@ -1,0 +1,82 @@
+<level  index="1"  id="1-1-1"  name="追寻审判者">
+						<!-- 参数-->
+						<!--怪物等级-->
+						<enemyLv>2</enemyLv>
+						<!-- 基本-->
+						<name>第一章  1.追寻审判者</name>
+						<father>scene_mothership</father>
+						<scene>mothership_morning</scene>					<!-- 场景id名称，存在scene.xml里-->
+						<loopMusic>Cut_and_Run</loopMusic>
+						<bornPoint>656,400</bornPoint>				<!-- 出生点-->
+						<exitPoint>5300,400</exitPoint>				<!-- 终点-->
+						
+						<area id="enemy1">1250,390</area>  <!--  事件区域点，如果只有2个值就是点，4个代表矩形；--> 
+						<area id="enemy2">2150,390</area> 
+						<area id="enemy3">3550,390</area> 
+						<area id="enemy4">4500,390</area> 
+						
+						<enemyLife_ra>1</enemyLife_ra>
+						<enemyHurt_ra>1</enemyHurt_ra>
+						
+						
+						<!-- 1个发兵命令集，包含多条命令，整个命令集由条件触发-->
+						<oneEvent index="1" id="enemy1">
+							<order>
+								<unit number="1">提示：1-2-1</unit>
+								<position>450,0</position>
+								<timeRange>1,5</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+							<order>
+								<!-- <unit number="20">自爆蜘蛛机</unit>-->
+								<unit number="1" type="super">蜘蛛炮台</unit>
+								<!-- <unit number="4">游隼战机</unit>	发兵名称和数量，可多条-->
+								<!--<position>-450,0</position>					 发兵位置，可多条-->
+								<position>750,0</position>
+								<timeRange>5,5</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+							<order>
+								<unit number="1">指针：1-2-2,455,63,6</unit>
+								<position>450,0</position>
+								<timeRange>1,5</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+							<order>
+								<unit number="15">蜘蛛炮台</unit>
+								<position>-450,0</position>					<!-- 发兵位置，可多条-->
+								<position>450,0</position>
+								<timeRange>0,1.5</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+							
+						</oneEvent>
+						<oneEvent index="1" id="enemy2">	
+							<order>
+								<unit number="20">蜘蛛炮台</unit>	<!-- 发兵名称和数量，可多条-->
+								<unit number="20">蜘蛛炮台</unit>
+								<unit number="10">自爆蜘蛛机</unit>
+								<position>-450,0</position>					<!-- 发兵位置，可多条-->
+								<position>450,0</position>
+								<timeRange>0,7</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+						</oneEvent>
+						
+						<oneEvent index="1" id="enemy3">	
+							<order>
+								
+								<unit number="20">蜘蛛炮台</unit>
+								<unit number="20">蜘蛛炮台</unit>	<!-- 发兵名称和数量，可多条-->
+								<unit number="10">自爆蜘蛛机</unit>
+								<position>-450,0</position>					<!-- 发兵位置，可多条-->
+								<position>450,0</position>
+								<timeRange>0,7</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+						</oneEvent>		
+						<oneEvent index="1" id="enemy4">	
+							<!-- 单个命令，一条执行完毕后执行下一条，执行完毕后解锁屏幕-->
+							<order>
+								<unit number="1" type="champion">蜘蛛炮台</unit>
+								<position>-450,0</position>					<!-- 发兵位置，可多条-->
+								<position>450,0</position>
+								<timeRange>1,1</timeRange>				<!-- 发兵时间区间（秒），从命令开始时计时，是个相对时间-->
+							</order>
+						</oneEvent>
+						
+			</level>
