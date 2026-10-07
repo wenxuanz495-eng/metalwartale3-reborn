@@ -10,19 +10,20 @@
 - 生成路径：`gamefile\scripts\bodyGroup\BodyGroup.as:494` **硬编码分支** `if(str=="Ground_laser") return this.addNormal_Land("Ground_laser",1,false,this.LandFort_arr,LandFort_AI3);`（入 LandFort_arr 编队）；`:490` LandLaser→LandFort_AI2（家族兄弟）。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 76 id=Ground_laser**（imgList stand,move,shoot1,die/hitRect=hurtRect 同值 -35,-46,70,46/baseLife 2 单倍奖赏/**energy 复合装甲防**/**vx 0 零移动**/grapRect -441,-60,441,60 超长前向侦测窗/affterAttack=waitAndAttack 定点防御/**无 attackHitData（伤害全在激光武器）**/**无 description 字段**（38 那种加特林错挂文案不在它身上）；三代逐字同）。
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **arms index 100090 id=Ground_laser 单把"激光横扫"**（laser 类型＋**penetrationB=1 贯穿**/hurt 0.2/bulletLife 0.3 短命光束/水平 0°/attackGap 0.6 高频/energy_hit_effect/不带太阳炮标签）；三代逐字同。
-- 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → **11.3 零引用**；**3.4 曾排场 3 关 20 只**（1-4-5 天降神兵 2+2／1-4-6 突入基地 3+3／1-4-7 钢铁之墓 4+4——均因 swf 缺失加载失败）；**4.0 已摘除**。
+- 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → **11.3 已由 da985e2 恢复 6 行 20 只**（1-4-5/6/7 按 3.4 原始安排）；3.4 曾排场 3 关 20 只（1-4-5 天降神兵 2+2／1-4-6 突入基地 3+3／1-4-7 钢铁之墓 4+4——均因 swf 缺失加载失败）；**4.0 已摘除**。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（nameArr 第 41 位**仍在**）；**BookUI760 时间轴帧已删**（怪名仅 UTF-8 ×2、缺 FrameLabel＝半删，四.12 定案）；面板文本字段已无；**3.4 的 BookUI340 文本在册**（bookui340_text 697.txt，用户截图双源）。
 - 掷骰名单：GameDefine.as:212/214 不含（理论项——从未出场）。
 
 ## 资源文件
 
-- **当前仓：无 swf**（全仓 find 零命中）。
-- **4.0 库（唯一实物）**：`原版\4.0（原版参考）\4.0游戏\swf\enemy\Ground_laser.swf`（**84,824 字节** md5 `eeb5e506`）＝取消出场后补做的孤儿素材；SymbolClass 4（move/die/stand/shoot1）＋DefineSound 0（无声）。
+- **当前仓【实装后已入仓】**：`swf\enemy\Ground_laser.swf`（84,824 字节 md5 `eeb5e506`＝与 4.0 版逐字节相同，da985e2 补齐）。
+- **4.0 库**：`原版\4.0（原版参考）\4.0游戏\swf\enemy\Ground_laser.swf`（**84,824 字节** md5 `eeb5e506`）＝当年取消后补做的孤儿素材；SymbolClass 4（move/die/stand/shoot1）＋DefineSound 0（无声）。**da985e2 实装＝此 swf 拷回当前仓**（逐字节同）。
 - 3.4 库：`3.4游戏\swf\enemy\` 与 `3.4素材库\raw\swf\enemy\` 均**无**（素材未做过——用户"没准备好图片"推测的数据支撑）。
 - 2.5 库：无。
 - 11.3 素材汇总：**无直配夹**（从未进素材汇总）。
-- **面板图标**：仅存于用户 3.4 截图（红色激光炮塔）；本仓无任何图标文件。
-- 档案无动图（无可用素材；4.0 swf 的四符号如需可后续 ffdec 导出）。
+- **面板图标**：用户 3.4 截图（红色激光炮塔）；**实装后图鉴页面文案已恢复**（BookUI760 帧 448 四段改回 3.4 原文，BookUI760 已迁移至 `swf\ui\`）。
+- 档案无动图（实装后可实机录屏补；4.0 swf 的四符号如需可 ffdec 导出）。
+- 实装文档：`..\..\..\功能性更新总结\月面陆基激光炮实装-含图鉴文案恢复-20261007.md`（修改清单/构建验证/待实机项/ffdec 踩坑全录）。
 
 ## 文档与数据
 
