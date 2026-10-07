@@ -8,3 +8,4 @@
 19|decompiled\embedded-xml-assets\19_EmbedXml_xmlClass12_EmbedXml_xmlClass12.bin
 20|decompiled\embedded-xml-assets\20_EmbedXml_xmlClass4.bin
 21|decompiled\embedded-xml-assets\21_EmbedXml_xmlClass13.bin
+17|decompiled\embedded-xml-assets\17_EmbedXml_xmlClass11_EmbedXml_xmlClass11.bin

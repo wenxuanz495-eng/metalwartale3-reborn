@@ -1674,7 +1674,7 @@
 								<unit number="2">悬浮自动激光炮台</unit>
 								<unit number="8">电锯机器人</unit>
 								<unit number="1">经验飞机</unit>
-								<!--<unit number="1">警报塔</unit>-->
+								<unit number="1">警报塔</unit>
 								<position>450,0</position>
 								<position>-450,0</position>
 								<timeRange>0,2.1</timeRange>	
@@ -1687,7 +1687,7 @@
 								<unit number="6">冲刺者</unit>
 								<unit number="6">追踪者</unit>
 								<unit number="2">悬浮自动激光炮台</unit>
-								<!--<unit number="1">警报塔</unit>-->
+								<unit number="1">警报塔</unit>
 								<unit number="8">电锯机器人</unit>
 								<unit number="1">经验飞机</unit>
 								<position>450,0</position>
