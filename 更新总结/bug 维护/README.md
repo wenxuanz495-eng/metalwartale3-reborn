@@ -20,7 +20,8 @@ bug 维护/
     ├── 帝皇战车兑换扣款未获得-退款静默失效-端游同步-20260921.md   先扣款后校验前置 + 退款在"余额恰好等于价格"时静默失效（扣款把物品记录整条删除→getItemsByBase返回null→useItemsNum直接return false）致丢150荣誉勋章且无车；**手游侧同日修复后端游同步**（前置校验前移+单次抽奖+按支付类型对称退款与记录补建，补丁清单新登OneExchangeUI），待验证
     ├── 金币空间清完怪无法结算-倒计时锁屏门控-端游同步-20260921.md   金币空间(4-1-5)倒计时被"场景锁oneSence.lockB"门控，清光敌人+发兵耗尽恰好解锁场景→倒计时永久停摆→never结算；**与手游同日修复**（去掉门控恢复无条件倒计时 + 新增 ItemsBody.magnetForbidB 自动收取黑名单使本关"非敌人掉落金币"不再被磁吸；补丁清单新登 SpecialExtraLevel_6/ItemsBody），待验证
     ├── VIP折扣价格显示-武器原价显示0-端游同步-20260921.md   GoodsDefineGroup 6处"定制价/补漏价"覆盖Mprice未同步priceLevel（星座等补漏武器配置无Mprice/priceLevel/discount→discount=0使折扣分支生效），ShopIcon把priceLevel当"原价"显示→"原价0/折后540"看似打折抬价；**与手游同日修复**（6处各补priceLevel同步，补丁清单原已含该文件），待验证
-    └── 调试插桩读HeroCarDefine未声明name致主武器命中1069穿模无伤害-20261007.md   ★同型事故二连（前案＝感应炮laserPoint）：10-06凌晨排查插桩的[hurt]日志读b1.define.name，主武器/罗杰中尉的HeroCarDefine是无父类sealed类无name→每炮#1069炸断结算链＝特效在抛错点之前已生成（看得到）+伤害与toDie走不到（穿模无伤害+子弹永生）+刷新循环无try/catch（卡顿）；副武器SubBody的EnemyDefine有name故幸免——主副不对称的机理闭合；罗杰中尉教程前兆、猛犸/苏拉测试均为时间巧合；已删除4行插桩恢复HEAD并重建（game.swf SHA-256前缀1ABDEEB5）；**待实机确认**（20261007）
+    ├── 调试插桩读HeroCarDefine未声明name致主武器命中1069穿模无伤害-20261007.md   ★同型事故二连（前案＝感应炮laserPoint）：10-06凌晨排查插桩的[hurt]日志读b1.define.name，主武器/罗杰中尉的HeroCarDefine是无父类sealed类无name→每炮#1069炸断结算链＝特效在抛错点之前已生成（看得到）+伤害与toDie走不到（穿模无伤害+子弹永生）+刷新循环无try/catch（卡顿）；副武器SubBody的EnemyDefine有name故幸免——主副不对称的机理闭合；罗杰中尉教程前兆、猛犸/苏拉测试均为时间巧合；已删除4行插桩恢复HEAD并重建（game.swf SHA-256前缀1ABDEEB5）；**待实机确认（20261007）**
+    └── 3.4参照修改版月球关与1-1-21缺敌swf加载失败-回填三只4.0补装素材-20261007.md   原版参照系修复：月球1-4-0~7缺Interceptors_1/Ground_laser（41号档案"3.4从未制作"定案）+1-1-21缺AlarmTower（缺SWF六件之一），进关报"加载swf错误[IOErrorEvent]"；从4.0原版参考字节级回填三只swf（71→74，符号覆盖逐一验证），280关全量审计缺失归零；端游仓1.x时代同症修复档案在F盘冷备1.2.5公告；**待实机确认（20261007）**
 ```
 
 ## 归档规则
