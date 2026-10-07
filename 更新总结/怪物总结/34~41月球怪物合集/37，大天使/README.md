@@ -10,7 +10,7 @@
 - 生成路径：`gamefile\scripts\bodyGroup\BodyGroup.as` getUnit **默认分支**（`addNormal_Land("Archangel",4,haveAttackRectB())`）；掷骰双名单（GameDefine.as:212/214）不含（理论项——全游戏唯一出场为 boss 行不走掷骰）。
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 73 id=Archangel**（imgList 7 态 4 攻击标签/baseLife 10·奖赏 2/2 倒挂/energy 复合装甲防/hitRect 290×300 巨型/vx 200~400/双 grapRect 近远窗/**attackHitData 17 段**：shoot1 踩地板 4 段矩形 0.8＋shoot3 连射 4 段 680px 线 hurt10＋shoot4 转圈 **9 段 735px 线 hurt100＝判定层全表最高表值伤害**；**3.4→11.3 四处改动**：vy 150→600+新增 jumpHeight/jumpNum+shoot1 判定帧后移+shoot3 hurt 1→10）；三代块序 73 不变。
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **arms index 100089 id=Archangel 四把全带 type=太阳炮死标签**：LV0 踩地板（空炮→shoot1）/LV1 跟踪导弹（**唯一实弹** mixed hurt1 followB=1 自有弹体 Archangel/bullet2/带 description"利用能源转换器将太阳能转换成能量球发射出去。"）/LV2 连射（空炮→shoot3）/LV3 转圈（空炮→shoot4）；三代逐字同。
-- 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → **全游戏仅 1-4-3 天使陨落（第十章 4）×1 type=boss**（enemyLv 74/scene ruins_morning/loopMusic Smash_Sketch/**四系数全缺=×1**/开场提示"前方发现不明巨型机器人，我想一定是他们所谓的'大天使'了。"/护卫群=红蛛杀手 14+拦截机2号 9+拦截机1号）；三代恒定 1 关 1 只。
+- 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → **全游戏仅 1-4-3 天使陨落（第十章 4）×1 type=boss**（enemyLv 74/scene ruins_morning/loopMusic Smash_Sketch/**四系数全缺=×1**/开场提示"前方发现不明巨型机器人，我想一定是他们所谓的'大天使'了。"/同关混编红蛛杀手 14+拦截机2号 9+拦截机1号＝月球关常规量产填料，与大天使无叙事编组——剧情与关卡内容非一一对应（2026-10-07 用户裁定））；三代恒定 1 关 1 只。
 - 血量实算：曲线 Lv74 基数 371,925（`GameDefine.test_getEnemyLife_byLevel`，公式锚点 Lv78=407,920 复算吻合）×10×bossAllRa 10＝**≈3,719 万**（难度 1）。
 - 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（数组第 37 位）；**游戏内图鉴面板文本＝BookUI760.swf 导出 text 691~695**（691 名字/693 设定原文/694 束能布攻远战/695 复合装甲布防月球陆军）——docx 未转录，面板=一手文案源。
 
@@ -35,7 +35,7 @@
 
 ## 家族关联
 
-- `..\34，拦截机1号\`／`..\35，红蛛杀手\`／`..\36，拦截机2号\`——1-4-3 天使陨落的护卫群三怪（空军开路、指挥官压阵＝图鉴叙事的关卡层互文）。
+- `..\34，拦截机1号\`／`..\35，红蛛杀手\`／`..\36，拦截机2号\`——1-4-3 同关出现的量产怪（仅常规填料；中后期剧情与关卡内容非一一对应，勿作叙事编组解读——2026-10-07 用户裁定）。
 - `..\38，钢铁暴牛兽\`（同卷待建）——下一场设计 Boss（1-4-7 钢铁之墓，baseLife 12 超越大天使）。
 - 空军组合语境参照 34 档；月球 Boss 位交接链：大天使（1-4-3）→钢铁暴牛兽（1-4-7）→战虎系/机器上校等（四.13 的 Boss 战血量表）。
 - type=太阳炮死标签结论见 36 号档案（编辑器分类非功能钩子）。
