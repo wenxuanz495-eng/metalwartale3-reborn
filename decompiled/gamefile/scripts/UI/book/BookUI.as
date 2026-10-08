@@ -108,6 +108,7 @@ package UI.book
          nameArr = nameArr.concat(["SAX-DJ机器人","投掷者","巡天者","雷霆","旋风战机","闪电坦克","黑暗剑装审判者","猛犸战神"]);
          nameArr = nameArr.concat(["风暴战神","领域守卫官","机械剑齿虎","凯斯特推土机","风暴战士","风暴勇士","激光战神苏拉"]);
          nameArr = nameArr.concat(["拦截机1号","红蛛杀手","拦截机2号","大天使","钢铁暴牛兽","红色破袭者","月面观察者","月面陆基激光炮","战虎掠夺者","悬浮A1机器人","战虎杀戮者","绿魔","赤钢","热破","阿尔西","闪电","镇压者"]);
+         nameArr = nameArr.concat(["空袭战机"]);
          nameArr.reverse();
          var num0:int = int(nameArr.length);
          for(var n:int = 0; n < num0; n++)
