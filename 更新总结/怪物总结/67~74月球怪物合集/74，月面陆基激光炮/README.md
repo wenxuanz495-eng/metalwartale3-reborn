@@ -11,7 +11,7 @@
 - 敌人表：`embedded-xml-assets\5_EmbedXml_xmlClass8_….bin` → **index 76 id=Ground_laser**（imgList stand,move,shoot1,die/hitRect=hurtRect 同值 -35,-46,70,46/baseLife 2 单倍奖赏/**energy 复合装甲防**/**vx 0 零移动**/grapRect -441,-60,441,60 超长前向侦测窗/affterAttack=waitAndAttack 定点防御/**无 attackHitData（伤害全在激光武器）**/**无 description 字段**（38 那种加特林错挂文案不在它身上）；三代逐字同）。
 - 敌方武器表：`embedded-xml-assets\4_EmbedXml_xmlClass9_….bin` → **arms index 100090 id=Ground_laser 单把"激光横扫"**（laser 类型＋**penetrationB=1 贯穿**/hurt 0.2/bulletLife 0.3 短命光束/水平 0°/attackGap 0.6 高频/energy_hit_effect/不带太阳炮标签）；三代逐字同。
 - 关卡表：`embedded-xml-assets\17_EmbedXml_xmlClass11_….bin` → **11.3 已由 da985e2 恢复 6 行 20 只**（1-4-5/6/7 按 3.4 原始安排）；3.4 曾排场 3 关 20 只（1-4-5 天降神兵 2+2／1-4-6 突入基地 3+3／1-4-7 钢铁之墓 4+4——均因 swf 缺失加载失败）；**4.0 已摘除**。
-- 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（nameArr 第 41 位**仍在**）；**BookUI760 时间轴帧已删**（怪名仅 UTF-8 ×2、缺 FrameLabel＝半删，四.12 定案）；面板文本字段已无；**3.4 的 BookUI340 文本在册**（bookui340_text 697.txt，用户截图双源）。
+- 图鉴：`gamefile\scripts\UI\book\BookUI.as:105`（nameArr 第 41 位**仍在**）；**BookUI760 页面被"空袭战机"顶替**（怪名仅 UTF-8 ×2＝页面上名字被改写所致；~~时间轴帧已删/缺 FrameLabel＝半删~~ 旧判 2026-10-08 推翻——帧与标签俱在，da985e2 实装直查，四.12 已回改）；面板文本字段当时已是空袭战机文案；**3.4 的 BookUI340 文本在册**（bookui340_text 697.txt，用户截图双源）。
 - 掷骰名单：GameDefine.as:212/214 不含（理论项——从未出场）。
 
 ## 资源文件
@@ -31,7 +31,7 @@
 - 图鉴设定原文（用户 3.4 截图）："布置在月球表面的防御机器人，能够防御从地面来的大部分攻击，能够发射较长的激光束攻击敌人。"＋攻中等/血中等/束能（布）/复合装甲（布）/远战/月球陆军。
 - 数值侧总纲：`..\..\怪物分级与数值体系-20261005.md`（单倍奖赏量产档/energy 防）；总账 README"缺 SWF 六件现状"行——本怪已查证完毕（4.0 有 swf/11.3 缺/关卡 11.3 零引用），待总账行同步。
 - 三方比对数据：`D:\superalloy\TMP\敌人美术对比-20260928\敌人清单与三方硬比对.csv` 行 76（verdict"当前缺 SWF"；三代 size 全空——⚠️ 该结论系素材库文件层口径，**4.0 游戏库实有 swf**，引用时注意）。
-- 图鉴序考据：`..\..\怪物总结\README.md` 四.12（BookUI760 半删字节扫描定案）。
+- 图鉴序考据：`..\..\怪物总结\README.md` 四.12（BookUI760 字节扫描；"半删"旧判已改判为"页面被空袭战机顶替"）。
 - 权威图鉴顺序：`..\..\图鉴顺序-BookUI.json`（第 41 位）。
 
 ## 家族关联
