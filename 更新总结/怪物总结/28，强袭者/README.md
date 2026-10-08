@@ -39,4 +39,4 @@
 
 - `..\27，突击者\`（Charger——同底盘远程型：hitRect/imgList 跳跃框架相同，boom 防型与本章互为镜像教材；1-2-4 同框护卫先知）。
 - `..\29，杀戮者\`（Slayer——三兄弟老三，addSlayer 直接借 `Charger_1` 火神炮定义；建档时互链）。
-- 组件借用溯源：ElectricSawAAHD→`..\3，电锯机器人\`；cutter_hit_effect→`..\18，切割者\`（motion 攻击端首例 19 冲刺者亦用同款判定层）。
+- 组件借用溯源：ElectricSawAAHD→`..\3，电锯机器人\`；cutter_hit_effect＝**全游戏通用判定线命中特效**（敌表 415 处引用——2026-10-09 用户纠正：**非 18 号切割者专属物**，标签名仅含"cutter"；motion 攻击端首例 19 冲刺者亦用同款判定层）。
