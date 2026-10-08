@@ -128,6 +128,3 @@ UI\vip\VipUI.as
 UI\shop\OneExchangeUI.as
 gameAll\level\extra\SpecialExtraLevel_6.as
 items\ItemsBody.as
-body\image\MultipleImage.as
-gameAll\order\EventOrderDefine.as
-UI\book\BookUI.as
