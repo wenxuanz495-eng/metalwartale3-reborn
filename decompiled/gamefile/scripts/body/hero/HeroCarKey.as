@@ -179,7 +179,14 @@ package body.hero
             key0 = KG.arr[code0];
             openB0 = false;
             closeB0 = false;
-            if(d0.keyEvent == "clickOpen")
+            if(d0.name == "jump")
+            {
+               if(key0.s == "down")
+               {
+                  openB0 = true;
+               }
+            }
+            else if(d0.keyEvent == "clickOpen")
             {
                if(key0.s == "down")
                {
