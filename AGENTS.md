@@ -33,7 +33,7 @@ archive/           旧构建脚本归档（只读）
 
 ## 3. 红线（按优先级）
 
-1. **构建唯一入口**：`构建.bat`（`build.bat` 为内容相同的孪生副本；内部为 `scripts\build_all.bat`）。禁止运行旧 `scripts\build_swf.ps1`，禁止从任何发行目录复制 `game.swf`。见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)。
+1. **构建唯一入口**：`构建.bat`（内部为 `scripts\build_all.bat`）。禁止运行旧 `scripts\build_swf.ps1`，禁止从任何发行目录复制 `game.swf`。见 [docs/build/BUILD_SOURCE_OF_TRUTH.md](docs/build/BUILD_SOURCE_OF_TRUTH.md)。（2026-11-15 勘误：原注"build.bat 为内容相同的孪生副本"所指文件经四树核实均已不存在，句删。）
 2. **根目录 .bat 与 exe 是玩家入口**：不移动、不重命名、不合并、不「整理」。`.bat` 文件保持 CRLF 行尾与 ASCII 内容（`.gitattributes` 强制 `*.bat text eol=crlf`）。
 3. **修改武器弹速字段前必读** [docs/guides/AI武器弹速维护提示.md](docs/guides/AI武器弹速维护提示.md)：不能只改 `bulletSpeed`，改后必须同步 [docs/baselines/](docs/baselines/) 名单，并从最终 `build\game.swf` 导出 BinaryData 核对。
 4. **改 UI / 构造函数 / 启动期初始化后卡在旧加载界面 = AS 运行时异常**：按 [docs/【重要必读】修改UI后卡在旧加载界面.md](docs/【重要必读】修改UI后卡在旧加载界面.md) 排查（flashlog.txt 与 `build\saves\client_errors.log`，搜 `boot-fail`、`Error #2008`），完整手册见 docs/postmortems/。
